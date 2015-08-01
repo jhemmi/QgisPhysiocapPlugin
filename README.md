@@ -9,6 +9,7 @@ Trois métriques moyens sont calculés à partir des données brutes :
 	l'indice de biomasse (kg de bois par m2)
 
 Phyciocap est déposé par le CIVC
-Le plugin 
+L'extension QgisPysiocapPlugin intègre le code de calcul du CIVC (physiocap_V8). QgisPysiocapPlugin est sous licence Common Creative.
+
 **Ce dépot est en construction - Aout 2015**
 **This repo is under construction - August 2015**
