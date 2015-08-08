@@ -23,6 +23,17 @@ var/
 .installed.cfg
 *.egg
 
+# temporairement JH
+data/
+test/
+scripts/
+i18n/
+pylintrc
+.gitignore~
+resources.qrc
+.noseids
+
+Physiocap_dialog_base-save.ui
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
