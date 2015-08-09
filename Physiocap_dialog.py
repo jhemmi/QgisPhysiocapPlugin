@@ -3,26 +3,43 @@
 /***************************************************************************
  PhysiocapAnalyseurDialog
                                  A QGIS plugin
- Physiocap plugin helps analysing raw data from Physiocap in Qgis
+ Physiocap plugin helps analysing raw data from Physiocap in Qgis & create
+ synthesis of Physiocap measures
+ Physiocap plugin analyse les données brutes de Physiocap dans Qgis & crée
+ une synthese des mesures de Physiocap
+ 
+ Le module Dialogue gere la dynamique des dialogues, initialisation 
+ et recupération des variables, sauvegarde des parametres
+ nommage et création des fichiers
                              -------------------
         begin                : 2015-07-31
         git sha              : $Format:%H$
-        copyright            : (C) 2015 by jhemmi.eu
         email                : jean@jhemmi.eu
  ***************************************************************************/
 
 /***************************************************************************
  *                                                                         *
+ * Physiocap plugin créé par jhemmi.eu et CIVC est issu de :               *
+ *- PSPY : PHYSIOCAP SCRIPT PYTHON VERSION 8.0 10/11/2014                  *
+ *   CREE PAR LE POLE TECHNIQUE ET ENVIRONNEMENT DU CIVC                   *
+ *   MODIFIE PAR LE CIVC ET L'EQUIPE VIGNOBLE DE MOËT & CHANDON            *
+ *   AUTEUR : SEBASTIEN DEBUISSON, MODIFIE PAR ANNE BELOT ET MANON MORLET  *
+ *   Physiocap plugin comme PSPY sont mis à disposition selon les termes   *
+ *   de la licence Creative Commons                                        *
+ *   CC-BY-NC-SA http://creativecommons.org/licenses/by-nc-sa/4.0/         *
+ *- Plugin builder et Qgis API et à ce titre porte aussi la licence GNU    *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
+ *   http://www.gnu.org/licenses/gpl-2.0.html                              *
  *                                                                         *
- ***************************************************************************/
+***************************************************************************/
 """
-from Physiocap_tools import \
-physiocap_log, physiocap_error, physiocap_message_box, physiocap_open_file, \
-physiocap_fichierhisto, physiocap_filtrer
+from Physiocap_tools import physiocap_log,physiocap_error,physiocap_message_box, \
+        physiocap_open_file, physiocap_shapefile, physiocap_fichier_histo, \
+        physiocap_filtrer       
+
 from PyQt4 import QtGui, uic
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -42,7 +59,7 @@ try :
     import shutil
     import time
 except :
-    # Todo: test si bien dan la log
+    # Todo: ASAP test si bien dans la log
     physiocap_log(u"Modules glob | shutil ne sont pas installees ! ")    
     physiocap_log(u"vous pouvez télécharger la suite winpython 3.3 qui contient ces bibliotheques http://winpython.sourceforge.net/")
     physiocap_log(u"sinon vous pouvez installer ces bibliothèques independamment")
@@ -52,18 +69,9 @@ try :
 except :
     physiocap_log(u"GDAL n'est pas installé ! ")    
     physiocap_log(u"Installer GDAL/osgeo via http://www.lfd.uci.edu/~gohlke/pythonlibs/#gdal ")
-try :
-    import numpy as np
-    #import matplotlib.pyplot as plt
-except :
-    physiocap_log(u"Numpy n'est pas installees ! ")    
-    physiocap_log(u"vous pouvez télécharger la suite winpython 3.3 qui contient ces bibliotheques http://winpython.sourceforge.net/")
-    physiocap_log(u"sinon vous pouvez installer ces bibliothèques independamment")
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'Physiocap_dialog_base.ui'))
-
-
 
 # PARAMETRAGE PHYSIOCAP
 # Ces variables sont nommées en Francais par compatibilité avec la version physiocap_V8
@@ -81,6 +89,10 @@ EXTENSION_MID = "*.MID"
 REPERTOIRE_TEXTES = "fichiers_texte"
 REPERTOIRE_HISTO = "histogrammes"
 REPERTOIRE_SHAPEFILE = "shapefile"
+EXTENSION_SHP = "_L93.shp"
+EXTENSION_POUR_ZERO = "_0"
+EXTENSION_PRJ = "_L93.prj"
+
 # Nom du fichier de synthèse
 FICHIER_RESULTAT = NOM_PROJET +"_resultat.txt"
 
@@ -111,7 +123,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         
         physiocap_log( u"Votre machine tourne sous " + platform.system())
         # Initialisation des parametres
-        # TODO: Reprendre toutes les infos dans le fichier sauvegardé "~plugin/.physiocap"
+        # TODO: V0.2 Reprendre toutes les infos dans le fichier sauvegardé "~plugin/.physiocap"
         self.lineEditProjet.setText( NOM_PROJET)
         self.lineEditDirectoryPhysiocap.setText( REPERTOIRE_DONNEES_BRUTES)
         # Remplissage de la liste de cépage
@@ -130,7 +142,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             self.fieldComboTaille.clear( )
             self.fieldComboTaille.addItems( TAILLES )
         self.fieldComboTaille.setCurrentIndex( 0)                        
-        # TODO: Recherche du projet courant ?
+        # TODO: V0.2 Recherche du projet courant ?
         
     # Slots
     def helpRequested(self):
@@ -154,13 +166,15 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             physiocap_error( u"Pas de nom de projet spécifié")
             return QMessageBox.information( self, "Physiocap",
                                    self.tr( u"Pas de nom de projet spécifié" ) )
+                                
+        # Todo: Assert sur les variables saisies et sur le cas detail ou non                        
         # Création des repertoires et des resultats de synthese
         retour = self.creer_donnees_resultats()
                     
     # Repertoire données brutes :
     def lecture_repertoire_donnees_brutes( self):
         """Catch directory for raw data"""
-        # TODO: Faire traduction du titre self.?iface.tr("Répertoire des données brutes")
+        # TODO: V0.2 Faire traduction du titre self.?iface.tr("Répertoire des données brutes")
         dirName = QFileDialog.getExistingDirectory( self, u"Répertoire des données brutes",
                                                  REPERTOIRE_DONNEES_BRUTES,
                                                  QFileDialog.ShowDirsOnly
@@ -182,7 +196,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
     # Creation des repertoires source puis resultats
     def creer_donnees_resultats( self):
         """ Récupération des paramètres saisies et 
-        creation de l'arbre "soure" "texte" et du fichier resultats"
+        creation de l'arbre "soure" "texte" et du fichier "resultats"
         Ce sont les résultats de l'analyse filtration des données brutes"""
         
         # Récupérer les paramètres saisies
@@ -201,8 +215,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         laTaille = self.fieldComboTaille.currentText()
                 
 ##        physiocap_log(u"Récup params cepage : " + leCepage + " mindiam : " + mindiam )
-
-        physiocap_log(u"Récup params taille : " + laTaille + " maxdiam : " + maxdiam + " ==" + max_sarments_metre)
+##        physiocap_log(u"Récup params taille : " + laTaille + " maxdiam : " + maxdiam + " ==" + max_sarments_metre)
         # Vérification de l'existance ou création du répertoire projet
         chemin_projet = os.path.join(REPERTOIRE_DONNEES_BRUTES, NOM_PROJET)
         if not (os.path.exists( chemin_projet)):
@@ -234,7 +247,8 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             
         # Création du fichier concaténé
         nom_fichiers_recherches = os.path.join(REPERTOIRE_DONNEES_BRUTES, EXTENSION_MID)
-        physiocap_log(u"Chemin MID: " + nom_fichiers_recherches)
+        #physiocap_log(u"Chemin MID: " + nom_fichiers_recherches)
+        
         # Todo: Assert à vérifier le nombre de MID > 0
         # le Tri pour retombé dans l'ordre de Physiocap_V8
         listeTriee = sorted(glob.glob( nom_fichiers_recherches))
@@ -303,7 +317,8 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
  
         # Appeler la fonction de traitement
         #################
-        physiocap_fichierhisto( fichier_concat, destination,destination5,erreur)
+        physiocap_fichier_histo( fichier_concat, destination, \
+                                destination5, erreur)
         #################
         # Fermerture des fichiers
         fichier_concat.close()
@@ -314,13 +329,13 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         physiocap_log ( u"Fin de la création fichier pour histogramme")
 
         # Todo: Appel fonction de creation de fichier
-        nom_court_fichier_out = NOM_PROJET + "_OUT.csv"
-        nom_fichier_out = os.path.join(chemin_textes, nom_court_fichier_out)
-        destination1 = open(nom_fichier_out, "w")
+        nom_court_csv_sans_0 = NOM_PROJET + "_OUT.csv"
+        nom_csv_sans_0 = os.path.join(chemin_textes, nom_court_csv_sans_0)
+        destination1 = open(nom_csv_sans_0, "w")
 
-        nom_court_fichier_out0 = NOM_PROJET + "_OUT0.csv"
-        nom_fichier_out0 = os.path.join(chemin_textes, nom_court_fichier_out0)
-        destination0 = open(nom_fichier_out0, "w")
+        nom_court_csv_avec_0 = NOM_PROJET + "_OUT0.csv"
+        nom_csv_avec_0 = os.path.join(chemin_textes, nom_court_csv_avec_0)
+        destination0 = open(nom_csv_avec_0, "w")
         
         nom_court_fichier_diametre_filtre = "diam_FILTERED.csv"
         nom_fichier_diametre_filtre = os.path.join(chemin_textes, nom_court_fichier_diametre_filtre)
@@ -330,7 +345,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         fichier_concat = open(nom_fichier_concat, "r")       
         erreur = open(nom_fichier_error,"a")
 
-        # Appeler la fonction de traitement
+        # Appeler la fonction de filtraeg des données
         #################
         physiocap_filtrer( fichier_concat, destination1, erreur, destination0, \
         diamet2, nom_fichier_synthese, \
@@ -362,97 +377,31 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
                 return physiocap_error(u"Problème lors de la création du répertoire des shapes: " + 
                 chemin_shapes)
                 
-        # Création des shapes
-        nom_court_fichier_shape_sans_0 = NOM_PROJET + "_L93.shp"
-        nom_fichier_out0 = os.path.join(chemin_shapes, nom_court_fichier_shape_sans_0)
-        shape_sans_0 = open(nom_fichier_out0, "w")
-        
-        # Ecriture du fichier shp sans les 0    
-        physiocap_log ("Creation du shapefile sans 0 en L93" + nom_court_fichier_shape_sans_0)
-        #out_file = ("%s/shapefile/%s_L93.shp" %(nom,nom)) 
-        
-        #Préparation de la liste d'arguments
-        x,y,nbsarmshp,diamshp,biomshp,dateshp,vitesseshp,nbsarmm2,nbsarcep,biommm2,biomgm2,biomgcep=[],[],[],[],[],[],[],[],[],[],[],[]
-        diam, nbsarm, vitesse = [], [], []
-        #Lecture des data dans le csv et stockage dans une liste
-        with open(nom_fichier_out, "rt") as csvfile:
-            r = csv.reader(csvfile, delimiter=";")
-            for i,row in enumerate(r):
-                if i > 0: #skip header
-                    x.append(float(row[2]))
-                    y.append(float(row[3]))
-                    nbsarmshp.append(row[4])
-                    diamshp.append(row[5])
-                    biomshp.append(row[6])
-                    dateshp.append(str(row[7]))
-                    vitesseshp.append(float(row[8]))
-                    # Todo: pour calcul de stat à finir
-                    vitesse.append(float(row[8]))
-                    diam.append(float(row[5]))
-                    nbsarm.append(float(row[4]))
-                    if len( row) > 8:
-                        # On est dans le cas avec info parcellaire
-                        pass
-##                        nbsarmm2.append(float(row[9]))
-##                        nbsarcep.append(float(row[10]))
-##                        biommm2.append(float(row[11]))
-##                        biomgm2.append(float(row[12]))
-##                        biomgcep.append(float(row[13]))
-                    
-##        # Création du shap et des champs vides
-##        w = shp.Writer(shp.POINT)
-##        w.autoBalance = 1 #vérifie la geom
-##        w.field('DATE','S',25)
-##        w.field('VITESSE','F',10,2)
-##        w.field('NBSARM','F',10,2)
-##        w.field('DIAM','F',10,2)
-##        w.field('BIOM','F',10,2)
-##        w.field('NBSARMM2','F',10,2)
-##        w.field('NBSARCEP','F',10,2)
-##        w.field('BIOMM2','F',10,2)
-##        w.field('BIOMGM2','F',10,2)
-##        w.field('BIOMGCEP','F',10,2)
-##        
-##        #Ecriture du shp
-##        for j,k in enumerate(x):
-##            w.point(k,y[j]) #écrit la géométrie
-##            w.record(dateshp[j],vitesseshp[j],nbsarmshp[j], diamshp[j], biomshp[j], nbsarmm2[j], nbsarcep[j], biommm2[j], biomgm2[j], biomgcep[j]) #écrit les attributs
-##        
-##        #Save shapefile
-##        w.save(out_file)
-##    
-### create the PRJ file
-##prj = open("%s/shapefile/%s_0_L93.prj" %(nom,nom), "w")
-##epsg = 'PROJCS["RGF93_Lambert_93",GEOGCS["GCS_RGF93",DATUM["D_RGF_1993",SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]],PROJECTION["Lambert_Conformal_Conic"],PARAMETER["standard_parallel_1",49],PARAMETER["standard_parallel_2",44],PARAMETER["latitude_of_origin",46.5],PARAMETER["central_meridian",3],PARAMETER["false_easting",700000],PARAMETER["false_northing",6600000],UNIT["Meter",1]]'
-##prj.write(epsg)
-##prj.close()
-##prj = open("%s/shapefile/%s_L93.prj" %(nom,nom), "w")
-##epsg = 'PROJCS["RGF93_Lambert_93",GEOGCS["GCS_RGF93",DATUM["D_RGF_1993",SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]],PROJECTION["Lambert_Conformal_Conic"],PARAMETER["standard_parallel_1",49],PARAMETER["standard_parallel_2",44],PARAMETER["latitude_of_origin",46.5],PARAMETER["central_meridian",3],PARAMETER["false_easting",700000],PARAMETER["false_northing",6600000],UNIT["Meter",1]]'
-##prj.write(epsg)
-##prj.close()
-        physiocap_log ( u"Fin de la création des shapes")
+        # Création des shapes sans 0
+        nom_court_shape_sans_0 = NOM_PROJET + EXTENSION_SHP
+        nom_shape_sans_0 = os.path.join(chemin_shapes, nom_court_shape_sans_0)
+        nom_court_prj_sans_0 = NOM_PROJET + EXTENSION_PRJ
+        nom_prj_sans_0 = os.path.join(chemin_shapes, nom_court_prj_sans_0)
+        # Todo: traiter le cas detail Y
+        # cas sans 0, on demande la synthese
+        synthese = "YES"
+        physiocap_shapefile( nom_shape_sans_0, nom_prj_sans_0, nom_csv_sans_0, synthese)
+        physiocap_log ("Creation du shapefile sans 0 en L93" + nom_court_shape_sans_0)
 
-
-        # Todo: Calcul de la moyenne
+        # Création des shapes avec 0
+        nom_court_shape_avec_0 = NOM_PROJET + EXTENSION_POUR_ZERO + EXTENSION_SHP
+        nom_shape_avec_0 = os.path.join(chemin_shapes, nom_court_shape_avec_0)
+        nom_court_prj_avec_0 = NOM_PROJET + EXTENSION_POUR_ZERO + EXTENSION_PRJ
+        nom_prj_avec_0 = os.path.join(chemin_shapes, nom_court_prj_avec_0)
+        # Todo: traiter le cas detail Y
+        # cas avec 0, pas de demande de synthese
+        physiocap_shapefile( nom_shape_avec_0, nom_prj_avec_0, nom_csv_avec_0)
+        physiocap_log ("Creation du shapefile avec 0 en L93" + nom_court_shape_avec_0)
         
-        # Ecriture des resulats
-        fichier_synthese = open(nom_fichier_synthese, "a")
-        fichier_synthese.write("\n\nSTATISTIQUES\n")
-        fichier_synthese.write("vitesse moyenne d'avancement  \n	mean : %0.1f km/h\n" %np.mean(vitesse))
-        fichier_synthese.write("Section moyenne \n	mean : %0.2f mm	std : %0.1f\n" %(np.mean(diam), np.std(diam)))
-        fichier_synthese.write("Nombre de sarments au m \n	mean : %0.2f	std : %0.1f\n" %(np.mean(nbsarm), np.std(nbsarm)))
-##        fichier_synthese.write("Biomasse en mm²/m linéaire \n	mean : %0.1f	std : %0.1f\n" %(np.mean(biom), np.std(biom)))
-##        if parcellaire == "y" :
-##            fichier_synthese.write("Nombre de sarments au m² \n	mean : %0.1f	std : %0.1f\n" %(np.mean(NBSARMM2), np.std(NBSARMM2)))
-##            fichier_synthese.write("Nombre de sarments par cep \n	mean : %0.1f	std : %0.1f\n" %(np.mean(NBSARCEP), np.std(NBSARCEP)))
-##            fichier_synthese.write("Biommasse en mm²/m² \n	mean : %0.1f	std : %0.1f\n" %(np.mean(BIOMMM2), np.std(BIOMMM2)))
-##            fichier_synthese.write("Biomasse en gramme/m² \n	mean : %0.1f	std : %0.1f\n" %(np.mean(BIOMGM2), np.std(BIOMGM2)))
-##            fichier_synthese.write("Biomasse en gramme/cep \n	mean : %0.1f	std : %0.1f\n" %(np.mean(BIOMGCEP), np.std(BIOMGCEP))) 
-        fichier_synthese.close()
-
+        physiocap_log ( u"Fin de la création des 2 shapes")
         
         
         # Fin 
-        physiocap_log ( u"Fin des shapes")
+        physiocap_log ( u"Fin de la foire")
         return "OK" 
 

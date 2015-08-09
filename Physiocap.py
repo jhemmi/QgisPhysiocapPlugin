@@ -7,18 +7,27 @@
                               -------------------
         begin                : 2015-07-31
         git sha              : $Format:%H$
-        copyright            : (C) 2015 by jhemmi.eu
         email                : jean@jhemmi.eu
  ***************************************************************************/
 
 /***************************************************************************
  *                                                                         *
+ * Physiocap plugin créé par jhemmi.eu et CIVC est issu de :               *
+ *- PSPY : PHYSIOCAP SCRIPT PYTHON VERSION 8.0 10/11/2014                  *
+ *   CREE PAR LE POLE TECHNIQUE ET ENVIRONNEMENT DU CIVC                   *
+ *   MODIFIE PAR LE CIVC ET L'EQUIPE VIGNOBLE DE MOËT & CHANDON            *
+ *   AUTEUR : SEBASTIEN DEBUISSON, MODIFIE PAR ANNE BELOT ET MANON MORLET  *
+ *   Physiocap plugin comme PSPY sont mis à disposition selon les termes   *
+ *   de la licence Creative Commons                                        *
+ *   CC-BY-NC-SA http://creativecommons.org/licenses/by-nc-sa/4.0/         *
+ *- Plugin builder et Qgis API et à ce titre porte aussi la licence GNU    *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
+ *   http://www.gnu.org/licenses/gpl-2.0.html                              *
  *                                                                         *
- ***************************************************************************/
+***************************************************************************/
 """
 from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
 from PyQt4.QtGui import QAction, QIcon
@@ -190,13 +199,13 @@ class PhysiocapAnalyseur:
 ##        physiocap_message_box( self.dlg, "Dans Physiocap.run apres dial_exec <" +
 ##                               str(result ) + ">",
 ##                               "information" )        
-        # TODO: See wether OK or Save was pressed
+        # TODO: Find whether OK or Save was pressed
         if result:
             # Do something useful here - delete the line containing pass and
             # substitute with your code.
-            physiocap_message_box( self.dlg, "Dans Physiocap OK : result <" +
+            physiocap_message_box( self.dlg, "Fin d'analyse Physiocap : <" +
                                str(result ) + ">",
                                "information" ) 
                             
-            # TODO: integrer physiocap_V8    
+            # TODO: ? integrer physiocap_V8    
             pass

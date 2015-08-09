@@ -558,6 +558,9 @@
        </property>
       </widget>
       <widget class="QSpinBox" name="spinBoxInterrangs_2">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="geometry">
         <rect>
          <x>300</x>
@@ -593,6 +596,9 @@
        </property>
       </widget>
       <widget class="QSpinBox" name="spinBoxInterceps_2">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="geometry">
         <rect>
          <x>300</x>
@@ -628,6 +634,9 @@
        </property>
       </widget>
       <widget class="QSpinBox" name="spinBoxHauteur_2">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="geometry">
         <rect>
          <x>300</x>
@@ -701,6 +710,9 @@
        </property>
       </widget>
       <widget class="QComboBox" name="fieldComboCepage_2">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="geometry">
         <rect>
          <x>70</x>
@@ -734,6 +746,9 @@
        </property>
       </widget>
       <widget class="QComboBox" name="fieldComboTaille_2">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="geometry">
         <rect>
          <x>70</x>

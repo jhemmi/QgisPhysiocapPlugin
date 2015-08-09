@@ -43,8 +43,8 @@ except :
     os.system("pause")
     sys.exit()
 
-#####################################################################################################################
-##Definition des fonctions de traitement
+# ####################################################################################################################
+#Definition des fonctions de traitement
 #Fonction de traitement. Creation des fichiers pour réaliser les histogrammes
 #Lit et traite ligne par ligne le fichier source (src).
 #Le résultat est écrit au fur et à mesure dans le
@@ -233,9 +233,9 @@ for i in interdit :
 print ("\nconcatenation des fichiers => %s_RAW.csv\n" %nom)
 
 
-#############################################
+# ############################################
 # JH Copier dans creer_donnees_resultats 
-#############################################
+# ############################################
 
 try :
     os.mkdir("%s" %nom)
@@ -272,9 +272,9 @@ fichierfinal.write("Fichier généré le : ")
 time = time.strftime("%d/%m/%y %H:%M",time.localtime())
 fichierfinal.write(time)
 fichierfinal.write("\nPARAMETRES SAISIS ")
-#############################################
+# ############################################
 # JH FIN Copier dans creer_donnees_resultats 
-#############################################
+# ############################################
 parcellaire = str()
 while parcellaire !="y" and parcellaire !="n" :
     parcellaire = str(input("Voulez-vous ajouter des informations parcellaires [y/n] : "))
@@ -394,9 +394,9 @@ histo(source)
 source.close()
 # en pause pour éviter qu'il ne se referme (Windows)
 
-#############################################
+# ############################################
 # JH Copier 3 dans creer_donnees_resultats
-############################################## On met le programme 
+# #############################################
 
 # ouverture du fichier source
 source = open("%s/fichiers_sources/%s_RAW.csv" %(nom,nom), "r")
@@ -420,9 +420,9 @@ erreur.close()
 source.close()
 print ("\nCreation des fichiers => %s_OUT.csv, %s_OUT0.csv, diam_FILTERED.csv et erreurs.csv" %(nom,nom))
 print ("\nCreation de l'histogramme APRES filtration")
-#############################################
+# ############################################
 # FIN JH Copier 3 dans creer_donnees_resultats
-############################################## On met le programme 
+# ############################################
 
 
 # Ouverture du fichier source
@@ -597,6 +597,11 @@ if parcellaire == "n" :
     w.save(out_file)
     
 elif parcellaire =="y" :
+    
+# ############################################
+# JH Copier 4 Shape dans creer_donnees_resultats
+# ############################################
+
         #Préparation de la liste d'arguments
     x,y,nbsarmshp,diamshp,biomshp,dateshp,vitesseshp,nbsarmm2,nbsarcep,biommm2,biomgm2,biomgcep=[],[],[],[],[],[],[],[],[],[],[],[]
   
@@ -645,6 +650,9 @@ elif parcellaire =="y" :
     
     #Save shapefile
     w.save(out_file)
+#############################################
+# JH FIN Copier 4 Shape dans creer_donnees_resultats
+#############################################
           
     #ecriture du fichier shp sans les 0    
     
@@ -694,6 +702,9 @@ elif parcellaire =="y" :
     #Save shapefile
     w.save(out_file)
 
+#############################################
+# JH Copier 5 PRJ File 
+#############################################
 # create the PRJ file
 prj = open("%s/shapefile/%s_0_L93.prj" %(nom,nom), "w")
 epsg = 'PROJCS["RGF93_Lambert_93",GEOGCS["GCS_RGF93",DATUM["D_RGF_1993",SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]],PROJECTION["Lambert_Conformal_Conic"],PARAMETER["standard_parallel_1",49],PARAMETER["standard_parallel_2",44],PARAMETER["latitude_of_origin",46.5],PARAMETER["central_meridian",3],PARAMETER["false_easting",700000],PARAMETER["false_northing",6600000],UNIT["Meter",1]]'
@@ -703,6 +714,9 @@ prj = open("%s/shapefile/%s_L93.prj" %(nom,nom), "w")
 epsg = 'PROJCS["RGF93_Lambert_93",GEOGCS["GCS_RGF93",DATUM["D_RGF_1993",SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]],PROJECTION["Lambert_Conformal_Conic"],PARAMETER["standard_parallel_1",49],PARAMETER["standard_parallel_2",44],PARAMETER["latitude_of_origin",46.5],PARAMETER["central_meridian",3],PARAMETER["false_easting",700000],PARAMETER["false_northing",6600000],UNIT["Meter",1]]'
 prj.write(epsg)
 prj.close()
+#############################################
+# JH FIN Copier 5 PRJ File 
+#############################################
 
 from pylab import *
 import shapefile as shp
