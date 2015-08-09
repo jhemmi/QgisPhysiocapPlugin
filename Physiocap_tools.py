@@ -120,18 +120,17 @@ def get_layer_by_name( self, layerName ):
     else:
         return none
     
-def physiocap_open_file( nom_court, chemin, libelle):
+def physiocap_open_file( nom_court, chemin, type_ouverture="w"):
     """ Créer ou detruite et crée un fichier"""
     # Fichier des diamètres     
-    nom_fichier = os.path.join(chemin, nom_courte)
-    if os.path.isfile( nom_fichier_diametre):
-        physiocap_log(u"Destruction du fichier préexistant :" + nom_court) 
+    nom_fichier = os.path.join(chemin, nom_court)
+    if os.path.isfile( nom_fichier):
         os.remove( nom_fichier)
     try :
-        fichier_pret = open(nom_fichier, "w")
+        fichier_pret = open(nom_fichier, type_ouverture)
     except :
-        physiocap_error("Problème lors de la création du fichier " + 
-        libelle + ": " + 
+        physiocap_error(u"Problème lors de la création (mode=" + type_ouverture +
+        ") du fichier : " + 
         nom_court)
     return fichier_pret
 
@@ -139,20 +138,18 @@ def physiocap_open_file( nom_court, chemin, libelle):
 # Definition des fonctions de traitement
 # Ces variables sont nommées en Francais par compatibilité avec la version physiocap_V8
 
-def physiocap_shapefile(shape_name, prj_name, csv_name, \
+def physiocap_cvs_to_shapefile( csv_name, shape_name, prj_name, 
     nom_fichier_synthese = "NO", details="NO"):
     """ Creation de shape file à partir des données des CSV
-    Si synthese n'est pas NO, on produit les moyennes dans le fichier synthese
-    Selon le niveau de détail du csv, on crée les 5 premiers ou tous les attibuts
+    Si nom_fichier_synthese n'est pas "NO", on produit les moyennes dans le fichier 
+    qui se nomme nom_fichier_synthese
+    Selon la valeur de détails , on crée les 5 premiers ("NO") ou tous les attibuts ("YES"
     """    
+    # Todo: V0.2 ? creation du Shp avec API Qgis
 
     #Préparation de la liste d'arguments
     x,y,nbsarmshp,diamshp,biomshp,dateshp,vitesseshp= [],[],[],[],[],[],[]
     nbsarmm2,nbsarcep,biommm2,biomgm2,biomgcep=[],[],[],[],[]
-  
-    #ecriture du fichier shp avec les 0    
-    physiocap_log (u"Création du shapefile :" + shape_name)
-   
     #Lecture des data dans le csv et stockage dans une liste
     with open(csv_name, "rt") as csvfile:
         r = csv.reader(csvfile, delimiter=";")
@@ -167,14 +164,14 @@ def physiocap_shapefile(shape_name, prj_name, csv_name, \
                 vitesseshp.append(float(row[8]))
                 if details == "YES":
                     # Niveau de detail demandé
-                    # Todo assert sur len row
+                    # Todo: assert sur len row
                     nbsarmm2.append(float(row[9]))
                     nbsarcep.append(float(row[10]))
                     biommm2.append(float(row[11]))
                     biomgm2.append(float(row[12]))
                     biomgcep.append(float(row[13]))
                 
-    # Création du shap et des champs vides
+    # Création du shape et des champs vides
     w = shp.Writer(shp.POINT)
     w.autoBalance = 1 #vérifie la geom
     w.field('DATE','S',25)
@@ -196,17 +193,17 @@ def physiocap_shapefile(shape_name, prj_name, csv_name, \
         if details == "YES":
             # Ecrit tous les attributs
             w.record(dateshp[j],vitesseshp[j],nbsarmshp[j], diamshp[j], biomshp[j], \
-            nbsarmm2[j], nbsarcep[j], biommm2[j], biomgm2[j], biomgcep[j]) #écrit les attributs
+                nbsarmm2[j], nbsarcep[j], biommm2[j], biomgm2[j], biomgcep[j]) #écrit les attributs
         else:
             # Ecrit les 5 premiers attributs
             w.record(dateshp[j],vitesseshp[j],nbsarmshp[j], diamshp[j], biomshp[j])
             
     #Save shapefile
     w.save(shape_name)
-    physiocap_log (u"Fin de création du shapefile :" + shape_name)
-
-    #Create the PRJ file
+    
+    # Create the PRJ file
     prj = open(prj_name, "w")
+    # Todo: V0.2 ? mettre prj texte dans dialogue ?
     epsg = 'PROJCS["RGF93_Lambert_93",GEOGCS["GCS_RGF93",DATUM["D_RGF_1993", \
     SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0], \
     UNIT["Degree",0.017453292519943295]],PROJECTION["Lambert_Conformal_Conic"], \
@@ -218,8 +215,13 @@ def physiocap_shapefile(shape_name, prj_name, csv_name, \
     prj.close()    
     
     # Creation de la synthese
-    # Todo: Test des calculs STATISTIQUES
+    # Todo: ASAP Test tous les "return physiocap" et message box
     if nom_fichier_synthese != "NO":
+        # ASSERT Le fichier de synthese existe
+        if not os.path.isfile( nom_fichier_synthese):
+            physiocap_log( "Le fichier de synthese " + nom_fichier_synthese + "n'existe pas")
+            return physiocap_log( "Le fichier de synthese " + nom_fichier_synthese + "n'existe pas")
+            
         # Ecriture des resulats
         fichier_synthese = open(nom_fichier_synthese, "a")
         fichier_synthese.write("\n\nSTATISTIQUES\n")
@@ -236,11 +238,10 @@ def physiocap_shapefile(shape_name, prj_name, csv_name, \
         fichier_synthese.close()
 
 # Fonction pour créer les fichiers histogrammes    
-def physiocap_fichier_histo(src, diamet, nbsarment, err):
+def physiocap_fichier_histo(src, histo_diametre, histo_nbsarment, err):
     """Fonction de traitement. Creation des fichiers pour réaliser les histogrammes
     Lit et traite ligne par ligne le fichier source (src).
-    Le résultat est écrit au fur et à mesure dans le
-    fichier destination (dst)
+    Les résultats est écrit au fur et à mesure dans histo_diametre ou histo_nbsarment
     """
         
     while True :
@@ -254,9 +255,9 @@ def physiocap_fichier_histo(src, diamet, nbsarment, err):
             diamsF = [i for i in diams if i > 2 and i < 28 ] # on filtre les diams > diamsF correspond aux diams filtrés entre 2 et 28       
             if comptage==NB_VIRGULES and len(diamsF)>0 : # si le nombre de diamètre après filtrage != 0 alors mesures
                 nbsarm = len(diamsF)/(XY[7]*1000/3600) #8eme donnée du GPS est la vitesse. Dernier terme : distance entre les sarments
-                nbsarment.write("%f%s" %(nbsarm,";"))                
+                histo_nbsarment.write("%f%s" %(nbsarm,";"))                
                 for n in range(len(diamsF)) :
-                    diamet.write("%f%s" %(diamsF[n],";"))
+                    histo_diametre.write("%f%s" %(diamsF[n],";"))
         except : # accompli cette fonction si erreur
             msg = "%s%s\n" %("erreur histo",ligne)
             physiocap_error( msg )
@@ -264,23 +265,30 @@ def physiocap_fichier_histo(src, diamet, nbsarment, err):
             pass # A DEFINIR
 
 # Fonction de filtrage et traitement des données
-def physiocap_filtrer(src, dst, err, dst0, diamet2, nom_fichier_synthese, mindiam, maxdiam, max_sarments_metre):
+def physiocap_filtrer(src, csv_sans_0, csv_avec_0, diametre_filtre, 
+    nom_fichier_synthese, err, 
+    mindiam, maxdiam, max_sarments_metre, details,
+    eer, eec, d, hv):
     """Fonction de traitement.
-    Lit et traite ligne par ligne le fichier source (src).
-    Le résultat est écrit au fur et à mesure dans le
-    fichier destination (dst). 
+    Filtre ligne par ligne les données de source (src) pour les valeurs 
+    comprises entre mindiam et maxdiam et verifie si on n'a pas atteint le max_sarments_metre.
+    Le résultat est écrit au fur et à mesure dans les fichiers 
+    csv_sans_0 et csv_avec_0 mais aussi diametre_filtre 
+    La synthese est allongé
+    "details" pilote l'ecriture de 5 parametres ou de la totalité des 10 parametres 
     """
-    # Todo: traiter les deux cas
-    parcellaire = "n"
     
     #S'il n'existe pas de données parcellaire, le script travaille avec les données brutes
-    if parcellaire == "n" :
-        dst.write("%s\n" % ("X ; Y ; XL93 ; YL93 ; NBSARM ; DIAM ; BIOM ; Date ; Vitesse")) # ecriture de l'entête
-        dst0.write("%s\n" % ("X ; Y ; XL93 ; YL93 ; NBSARM ; DIAM ; BIOM ; Date ; Vitesse")) # ecriture de l'entête
+    if details == "NO" :
+        csv_sans_0.write("%s\n" % ("X ; Y ; XL93 ; YL93 ; NBSARM ; DIAM ; BIOM ; Date ; Vitesse")) # ecriture de l'entête
+        csv_avec_0.write("%s\n" % ("X ; Y ; XL93 ; YL93 ; NBSARM ; DIAM ; BIOM ; Date ; Vitesse")) # ecriture de l'entête
     #S'il existe des données parcellaire, le script travaille avec les données brutes et les données calculées
-    elif parcellaire == "y" :
-        dst.write("%s\n" % ("X ; Y ; XL93 ; YL93 ; NBSARM ; DIAM ; BIOM ; Date ; Vitesse ; NBSARMM2 ; NBSARCEP ; BIOMMM2 ; BIOMGM2 ; BIOMGCEP ")) # ecriture de l'entête
-        dst0.write("%s\n" % ("X ; Y ; XL93 ; YL93 ; NBSARM ; DIAM ; BIOM ; Date ; Vitesse ; NBSARMM2 ; NBSARCEP ; BIOMMM2 ; BIOMGM2 ; BIOMGCEP ")) # ecriture de l'entête
+    else:
+        # Assert details == "YES"
+        if details != "YES" : 
+            return physiocap_error(u"Physiocap : problème majeur dans le choix du détail du parcellaire")
+        csv_sans_0.write("%s\n" % ("X ; Y ; XL93 ; YL93 ; NBSARM ; DIAM ; BIOM ; Date ; Vitesse ; NBSARMM2 ; NBSARCEP ; BIOMMM2 ; BIOMGM2 ; BIOMGCEP ")) # ecriture de l'entête
+        csv_avec_0.write("%s\n" % ("X ; Y ; XL93 ; YL93 ; NBSARM ; DIAM ; BIOM ; Date ; Vitesse ; NBSARMM2 ; NBSARCEP ; BIOMMM2 ; BIOMGM2 ; BIOMGCEP ")) # ecriture de l'entête
 
     while True :
         ligne = src.readline()
@@ -300,38 +308,22 @@ def physiocap_filtrer(src, dst, err, dst0, diamet2, nom_fichier_synthese, mindia
             L93 = transformation1.TransformPoint(XY[0],XY[1])
             diams = [float(x) for x in result[9:NB_VIRGULES+1]] # on extrait les diams et on les transforme en float 
             diamsF = [i for i in diams if i > mindiam and i < maxdiam ] # on filtre les diams avec les paramètres entrés ci-dessus
-            if parcellaire == "n" :
-                #if comptage==7 : # si le nombre de virgule = 7 alors pas de mesures
-                 #   nbsarm = 0
-                  #  diam =0
-                   # biom = 0
-                   # dst0.write("%.7f%s%.7f%s%.7f%s%.7f%s%i%s%i%s%i%s%s%s%0.2f\n" %(XY[1],";",XY[2],";",L93[0],";",L93[1],";",nbsarm,";",diam ,";",biom,";",result[0],";",XY[0])) # on écrit la ligne dans le fichier OUT0.csv 
+            if details == "NO" :
                 if len(diamsF)==0: # si le nombre de diamètre après filtrage = 0 alors pas de mesures
                     nbsarm = 0
                     diam =0
                     biom = 0
-                    dst0.write("%.7f%s%.7f%s%.7f%s%.7f%s%i%s%i%s%i%s%s%s%0.2f\n" %(XY[0],";",XY[1],";",L93[0],";",L93[1],";",nbsarm,";",diam ,";",biom,";",result[0],";",XY[7]))  # on écrit la ligne dans le fichier OUT0.csv  
+                    csv_avec_0.write("%.7f%s%.7f%s%.7f%s%.7f%s%i%s%i%s%i%s%s%s%0.2f\n" %(XY[0],";",XY[1],";",L93[0],";",L93[1],";",nbsarm,";",diam ,";",biom,";",result[0],";",XY[7]))  # on écrit la ligne dans le fichier OUT0.csv  
                 elif comptage==NB_VIRGULES and len(diamsF)>0 : # si le nombre de diamètre après filtrage != 0 alors mesures
                     nbsarm = len(diamsF)/(XY[7]*1000/3600)
-                    if nbsarm > 1 and nbsarm < max_sarments_metre and parcellaire == "n" :                   
+                    if nbsarm > 1 and nbsarm < max_sarments_metre :                   
                         diam =sum(diamsF)/len(diamsF)
                         biom=3.1416*(diam/2)*(diam/2)*nbsarm
-                        dst0.write("%.7f%s%.7f%s%.7f%s%.7f%s%0.2f%s%.2f%s%.2f%s%s%s%0.2f\n" %(XY[0],";",XY[1],";",L93[0],";",L93[1],";",nbsarm,";",diam,";",biom,";",result[0],";",XY[7])) # on écrit la ligne dans le fichier OUT0.csv 
-                        dst.write("%.7f%s%.7f%s%.7f%s%.7f%s%0.2f%s%.2f%s%.2f%s%s%s%0.2f\n" %(XY[0],";",XY[1],";",L93[0],";",L93[1],";",nbsarm,";",diam,";",biom,";",result[0],";",XY[7])) # on écrit la ligne dans le fichier OUT.csv
+                        csv_avec_0.write("%.7f%s%.7f%s%.7f%s%.7f%s%0.2f%s%.2f%s%.2f%s%s%s%0.2f\n" %(XY[0],";",XY[1],";",L93[0],";",L93[1],";",nbsarm,";",diam,";",biom,";",result[0],";",XY[7])) # on écrit la ligne dans le fichier OUT0.csv 
+                        csv_sans_0.write("%.7f%s%.7f%s%.7f%s%.7f%s%0.2f%s%.2f%s%.2f%s%s%s%0.2f\n" %(XY[0],";",XY[1],";",L93[0],";",L93[1],";",nbsarm,";",diam,";",biom,";",result[0],";",XY[7])) # on écrit la ligne dans le fichier OUT.csv
                         for n in range(len(diamsF)) :
-                            diamet2.write("%f%s" %(diamsF[n],";"))
-            elif parcellaire == "y" :
-                physiocap_log("dans parcelle Y : " )
-                #if comptage==7 : # si le nombre de virgule = 7 alors pas de mesures
-                 #   nbsarm = 0
-                 #   diam =0
-                  #  biom = 0
-                  #  nbsarmm2 = 0
-                 #   nbsarcep = 0
-                 #   biommm2 = 0
-                  #  biomgm2 = 0
-                 #   biomgcep = 0
-                  #  dst0.write("%.7f%s%.7f%s%.7f%s%.7f%s%i%s%i%s%i%s%s%s%0.2f%s%i%s%i%s%i%s%i%s%i\n" %(XY[1],";",XY[2],";",L93[0],";",L93[1],";",nbsarm,";",diam ,";",biom,";",result[0],";",XY[0],";",nbsarmm2,";",nbsarcep,";",biommm2,";",biomgm2,";",biomgcep)) # on écrit la ligne dans le fichier OUT0.csv 
+                            diametre_filtre.write("%f%s" %(diamsF[n],";"))
+            elif details == "YES" :
                 if len(diamsF)==0: # si le nombre de diamètre après filtrage = 0 alors pas de mesures
                     nbsarm = 0
                     diam =0
@@ -341,7 +333,7 @@ def physiocap_filtrer(src, dst, err, dst0, diamet2, nom_fichier_synthese, mindia
                     biommm2 = 0
                     biomgm2 = 0
                     biomgcep = 0
-                    dst0.write("%.7f%s%.7f%s%.7f%s%.7f%s%i%s%i%s%i%s%s%s%0.2f%s%i%s%i%s%i%s%i%s%i\n" %(XY[0],";",XY[1],";",L93[0],";",L93[1],";",nbsarm,";",diam ,";",biom,";",result[0],";",XY[7],";",nbsarmm2,";",nbsarcep,";",biommm2,";",biomgm2,";",biomgcep))  # on écrit la ligne dans le fichier OUT0.csv  
+                    csv_avec_0.write("%.7f%s%.7f%s%.7f%s%.7f%s%i%s%i%s%i%s%s%s%0.2f%s%i%s%i%s%i%s%i%s%i\n" %(XY[0],";",XY[1],";",L93[0],";",L93[1],";",nbsarm,";",diam ,";",biom,";",result[0],";",XY[7],";",nbsarmm2,";",nbsarcep,";",biommm2,";",biomgm2,";",biomgcep))  # on écrit la ligne dans le fichier OUT0.csv  
                 elif comptage==NB_VIRGULES and len(diamsF)>0 : # si le nombre de diamètre après filtrage != 0 alors mesures
                     nbsarm = len(diamsF)/(XY[7]*1000/3600)
                     if nbsarm > 1 and nbsarm < max_sarments_metre :                   
@@ -352,14 +344,15 @@ def physiocap_filtrer(src, dst, err, dst0, diamet2, nom_fichier_synthese, mindia
                         biommm2 = biom/eer*100
                         biomgm2 = biom*d*hv/eer
                         biomgcep = biom*d*hv*eec/100/100
-                        dst0.write("%.7f%s%.7f%s%.7f%s%.7f%s%.2f%s%.2f%s%.2f%s%s%s%.2f%s%.2f%s%.2f%s%.2f%s%.2f%s%.2f\n" %(XY[0],";",XY[1],";",L93[0],";",L93[1],";",nbsarm,";",diam ,";",biom,";",result[0],";",XY[7],";",nbsarmm2,";",nbsarcep,";",biommm2,";",biomgm2,";",biomgcep)) # on écrit la ligne dans le fichier OUT0.csv 
-                        dst.write("%.7f%s%.7f%s%.7f%s%.7f%s%.2f%s%.2f%s%.2f%s%s%s%.2f%s%.2f%s%.2f%s%.2f%s%.2f%s%.2f\n" %(XY[0],";",XY[1],";",L93[0],";",L93[1],";",nbsarm,";",diam ,";",biom,";",result[0],";",XY[7],";",nbsarmm2,";",nbsarcep,";",biommm2,";",biomgm2,";",biomgcep)) # on écrit la ligne dans le fichier OUT.csv
+                        csv_avec_0.write("%.7f%s%.7f%s%.7f%s%.7f%s%.2f%s%.2f%s%.2f%s%s%s%.2f%s%.2f%s%.2f%s%.2f%s%.2f%s%.2f\n" %(XY[0],";",XY[1],";",L93[0],";",L93[1],";",nbsarm,";",diam ,";",biom,";",result[0],";",XY[7],";",nbsarmm2,";",nbsarcep,";",biommm2,";",biomgm2,";",biomgcep)) # on écrit la ligne dans le fichier OUT0.csv 
+                        csv_sans_0.write("%.7f%s%.7f%s%.7f%s%.7f%s%.2f%s%.2f%s%.2f%s%s%s%.2f%s%.2f%s%.2f%s%.2f%s%.2f%s%.2f\n" %(XY[0],";",XY[1],";",L93[0],";",L93[1],";",nbsarm,";",diam ,";",biom,";",result[0],";",XY[7],";",nbsarmm2,";",nbsarcep,";",biommm2,";",biomgm2,";",biomgcep)) # on écrit la ligne dans le fichier OUT.csv
                         for n in range(len(diamsF)) :
-                            diamet2.write("%f%s" %(diamsF[n],";"))
+                            diametre_filtre.write("%f%s" %(diamsF[n],";"))
         except : # accompli cette fonction si erreur
 #            print ("Attention il y a des erreurs dans le fichier !")
 #            print (ligne)
-            err.write("%s%s\n" %("erreur filtrer",ligne)) # on écrit la ligne dans le fichier ERREUR.csv 
+            msg = "%s%s\n" %("erreur filtrer",ligne)
+            physiocap_error( msg )
+            err.write( msg ) # on écrit la ligne dans le fichier ERREUR.csv
             pass # A DEFINIR
-
  

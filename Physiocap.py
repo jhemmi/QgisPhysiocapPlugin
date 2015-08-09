@@ -207,5 +207,4 @@ class PhysiocapAnalyseur:
                                str(result ) + ">",
                                "information" ) 
                             
-            # TODO: ? integrer physiocap_V8    
             pass

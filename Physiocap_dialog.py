@@ -37,7 +37,7 @@
 ***************************************************************************/
 """
 from Physiocap_tools import physiocap_log,physiocap_error,physiocap_message_box, \
-        physiocap_open_file, physiocap_shapefile, physiocap_fichier_histo, \
+        physiocap_open_file, physiocap_cvs_to_shapefile, physiocap_fichier_histo, \
         physiocap_filtrer       
 
 from PyQt4 import QtGui, uic
@@ -59,9 +59,11 @@ try :
     import shutil
     import time
 except :
-    # Todo: ASAP test si bien dans la log
+    # Todo: tester import sous 2.10 sans aucun unstallation python
+    # Todo: ASAP a tester si bien dans la log
     physiocap_log(u"Modules glob | shutil ne sont pas installees ! ")    
-    physiocap_log(u"vous pouvez télécharger la suite winpython 3.3 qui contient ces bibliotheques http://winpython.sourceforge.net/")
+    physiocap_log(u"vous pouvez télécharger la suite winpython 3.3 ")
+    physiocap_log(u"qui contient ces bibliotheques http://winpython.sourceforge.net/")
     physiocap_log(u"sinon vous pouvez installer ces bibliothèques independamment")
     
 try :
@@ -82,6 +84,8 @@ NOM_PROJET = "UnProjetPhysiocap"
 # Listes de valeurs
 CEPAGES = [ "Negrette", "Chardonnay", "Pinot Noir", "Pinot Meunier"]
 TAILLES = [ "Chablis", "Guyot simple", "Guyot double", "Cordon de Royat" ]
+PROJECTION = "L93"
+
 # Répertoires des sources et de concaténation en fichiers texte
 REPERTOIRE_SOURCES = "fichiers_sources"
 SUFFIXE_BRUT_CSV = "_RAW.csv"
@@ -89,9 +93,9 @@ EXTENSION_MID = "*.MID"
 REPERTOIRE_TEXTES = "fichiers_texte"
 REPERTOIRE_HISTO = "histogrammes"
 REPERTOIRE_SHAPEFILE = "shapefile"
-EXTENSION_SHP = "_L93.shp"
+EXTENSION_SHP = "_" + PROJECTION+ ".shp"
 EXTENSION_POUR_ZERO = "_0"
-EXTENSION_PRJ = "_L93.prj"
+EXTENSION_PRJ = "_" + PROJECTION + ".prj"
 
 # Nom du fichier de synthèse
 FICHIER_RESULTAT = NOM_PROJET +"_resultat.txt"
@@ -123,7 +127,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         
         physiocap_log( u"Votre machine tourne sous " + platform.system())
         # Initialisation des parametres
-        # TODO: V0.2 Reprendre toutes les infos dans le fichier sauvegardé "~plugin/.physiocap"
+        # TODO: V0.2 Reprendre ces infos dans la sauvegarde "~plugin/.physiocap"
         self.lineEditProjet.setText( NOM_PROJET)
         self.lineEditDirectoryPhysiocap.setText( REPERTOIRE_DONNEES_BRUTES)
         # Remplissage de la liste de cépage
@@ -141,7 +145,8 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         else:
             self.fieldComboTaille.clear( )
             self.fieldComboTaille.addItems( TAILLES )
-        self.fieldComboTaille.setCurrentIndex( 0)                        
+        self.fieldComboTaille.setCurrentIndex( 0)        
+                        
         # TODO: V0.2 Recherche du projet courant ?
         
     # Slots
@@ -166,10 +171,17 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             physiocap_error( u"Pas de nom de projet spécifié")
             return QMessageBox.information( self, "Physiocap",
                                    self.tr( u"Pas de nom de projet spécifié" ) )
-                                
-        # Todo: Assert sur les variables saisies et sur le cas detail ou non                        
+                                        
+        # Cas détail vignoble
+        details = "NO"
+        if self.checkBoxInfoVignoble.isChecked():
+            details = "YES"
+            physiocap_log(u"Détails du vignoble précisées")
+
+        # Todo: V0.2 Assert sur les variables saisies ou QT confiance
+            
         # Création des repertoires et des resultats de synthese
-        retour = self.creer_donnees_resultats()
+        retour = self.creer_donnees_resultats( details)
                     
     # Repertoire données brutes :
     def lecture_repertoire_donnees_brutes( self):
@@ -194,7 +206,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
 ##    
     
     # Creation des repertoires source puis resultats
-    def creer_donnees_resultats( self):
+    def creer_donnees_resultats( self, details = "NO"):
         """ Récupération des paramètres saisies et 
         creation de l'arbre "soure" "texte" et du fichier "resultats"
         Ce sont les résultats de l'analyse filtration des données brutes"""
@@ -202,20 +214,20 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         # Récupérer les paramètres saisies
         REPERTOIRE_DONNEES_BRUTES = self.lineEditDirectoryPhysiocap.text()
         NOM_PROJET = self.lineEditProjet.text()
-        detailParametresVignoble = "y"
-        minVitesse = self.doubleSpinBoxMinVitesse.text()
-        mindiam = self.spinBoxMinDiametre.text()
-        maxdiam = self.spinBoxMaxDiametre.text()
-        max_sarments_metre = self.spinBoxMaxSarmentsParMetre.text()
-        interrangs = self.spinBoxInterrangs.text()
-        interceps = self.spinBoxInterceps.text()
-        hauteur = self.spinBoxHauteur.text()
-        densite = self.doubleSpinBoxDensite.text()
-        leCepage = self.fieldComboCepage.currentText()
-        laTaille = self.fieldComboTaille.currentText()
-                
-##        physiocap_log(u"Récup params cepage : " + leCepage + " mindiam : " + mindiam )
-##        physiocap_log(u"Récup params taille : " + laTaille + " maxdiam : " + maxdiam + " ==" + max_sarments_metre)
+        minVitesse = float( self.doubleSpinBoxMinVitesse.value())
+        mindiam = float( self.spinBoxMinDiametre.value())
+        maxdiam = float( self.spinBoxMaxDiametre.value())
+        max_sarments_metre = float( self.spinBoxMaxSarmentsParMetre.value())
+        physiocap_log(u"Récup params min diametre : " + str(mindiam) + " max diametre : " + str(maxdiam))
+
+        if details == "YES":
+            interrangs = float( self.spinBoxInterrangs.value())
+            interceps = float( self.spinBoxInterceps.value())
+            hauteur = float( self.spinBoxHauteur.value())
+            densite = float( self.doubleSpinBoxDensite.value())
+            leCepage = self.fieldComboCepage.currentText()
+            laTaille = self.fieldComboTaille.currentText()
+            
         # Vérification de l'existance ou création du répertoire projet
         chemin_projet = os.path.join(REPERTOIRE_DONNEES_BRUTES, NOM_PROJET)
         if not (os.path.exists( chemin_projet)):
@@ -234,40 +246,41 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
                 chemin_sources)
         
         # Fichier de concaténations CSV des résultats bruts        
-        nom_court_fichier_concat = NOM_PROJET + SUFFIXE_BRUT_CSV
-        nom_fichier_concat = os.path.join(chemin_sources, nom_court_fichier_concat)
-        if os.path.isfile( nom_fichier_concat):
-            physiocap_log(u"Destruction du fichier préexistant :" + nom_fichier_concat) 
-            os.remove( nom_fichier_concat)
+        nom_court_csv_concat = NOM_PROJET + SUFFIXE_BRUT_CSV
+        nom_csv_concat = os.path.join(chemin_sources, nom_court_csv_concat)
+        if os.path.isfile( nom_csv_concat):
+            os.remove( nom_csv_concat)
         try :
-            fichier_concat = open(nom_fichier_concat, "w")
+            csv_concat = open(nom_csv_concat, "w")
         except :
             return physiocap_error(u"Problème lors de la création du fichier concaténé .csv: " + 
-            nom_court_fichier_concat)
+            nom_court_csv_concat)
             
         # Création du fichier concaténé
         nom_fichiers_recherches = os.path.join(REPERTOIRE_DONNEES_BRUTES, EXTENSION_MID)
         #physiocap_log(u"Chemin MID: " + nom_fichiers_recherches)
         
-        # Todo: Assert à vérifier le nombre de MID > 0
+        # Todo: Assert à tester le nombre de MID > 0
+        # Todo: V0.2 ? choisir parmi les MID
         # le Tri pour retombé dans l'ordre de Physiocap_V8
         listeTriee = sorted(glob.glob( nom_fichiers_recherches))
         if len( listeTriee) == 0:
             physiocap_log(" Pas de fichier d'entré à traiter...")
             return physiocap_error(" Pas de fichier d'entré à traiter...")
         for mid in listeTriee:
-            shutil.copyfileobj(open(mid, "r"), fichier_concat)
+            shutil.copyfileobj(open(mid, "r"), csv_concat)
             # et copie des MID
             shutil.copy(mid,chemin_sources)
-        fichier_concat.close()
-            
-        # Todo: Assert Trouver les lignes de données invalides (trop longue, sans 58 virgules ... etc...
+        csv_concat.close()
+
+        # Todo: V0.2 ? Remplacer le fichier synthese par un ecran du plugin           
+        # Todo: V0.2 Assert Trouver les lignes de données invalides (trop longue, sans 58 virgules ... etc...
         # Création la première partie du fichier de synthèse
         nom_fichier_synthese = os.path.join(chemin_projet, FICHIER_RESULTAT)
         try :
             fichier_synthese = open(nom_fichier_synthese, "w")
         except :
-            return physiocap_error(u"Problème lors de la création du fichier de synhtese: " + 
+            return physiocap_error(u"Problème lors de la création du fichier de synthese: " + 
             nom_fichier_synthese)
         fichier_synthese.write("SYNTHESE PHYSIOCAP\n\n")
         fichier_synthese.write("Fichier généré le : ")
@@ -275,12 +288,13 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         fichier_synthese.write(a_time)
         fichier_synthese.write("\nPARAMETRES SAISIS ")
         
-        physiocap_log ( u"Fin de la création csv et synthèse")
+        physiocap_log ( u"Fin de la création csv et début de synthèse")
        
         # Assert le fichier de données n'est pas vide
-        if os.path.getsize(nom_fichier_concat ) == 0 :
-            msg =u"Le fichier " + nom_court_fichier_concat + u" a une taille nulle !"
+        if os.path.getsize(nom_csv_concat ) == 0 :
+            msg =u"Le fichier " + nom_court_csv_concat + u" a une taille nulle !"
             physiocap_message_box( self, msg)
+            # Todo: Assert V0.2 Verifier si fichiers fermés
             return physiocap_error( msg)
 
         # Verification de l'existance ou création du répertoire textes
@@ -292,15 +306,13 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
                 return physiocap_error(u"Problème lors de la création du répertoire des fichiers textes: " + 
                 chemin_textes)
                        
-        # Ouverture du fichier destination
-        # Fichier des diamètres     
+        # Ouverture du fichier des diamètres     
         nom_court_fichier_diametre = "diam" + SUFFIXE_BRUT_CSV
         nom_fichier_diametre = os.path.join(chemin_textes, nom_court_fichier_diametre)
         if os.path.isfile( nom_fichier_diametre):
-            physiocap_log(u"Destruction du fichier préexistant :" + nom_fichier_diametre) 
             os.remove( nom_fichier_diametre)
         try :
-            destination = open(nom_fichier_diametre, "w")
+            histo_diametre = open(nom_fichier_diametre, "w")
         except :
             return physiocap_error(u"Problème lors de la création du fichier des diamètres: " + 
             nom_fichier_diametre)
@@ -308,22 +320,23 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         # Todo: Appel fonction de creation de fichier
         nom_court_fichier_sarment = "nbsarm" + SUFFIXE_BRUT_CSV
         nom_fichier_sarment = os.path.join(chemin_textes, nom_court_fichier_sarment)
-        destination5 = open(nom_fichier_sarment, "w")
+        histo_sarment = open(nom_fichier_sarment, "w")
+        # Todo: V0.2 ? Supprimer le fichier erreur
         nom_court_fichier_erreur = "erreurs.csv"
         nom_fichier_error = os.path.join(chemin_textes, nom_court_fichier_erreur)
         erreur = open(nom_fichier_error,"w")
         # ouverture du fichier source
-        fichier_concat = open(nom_fichier_concat, "r")
+        csv_concat = open(nom_csv_concat, "r")
  
         # Appeler la fonction de traitement
         #################
-        physiocap_fichier_histo( fichier_concat, destination, \
-                                destination5, erreur)
+        physiocap_fichier_histo( csv_concat, histo_diametre, \
+                                histo_sarment, erreur)
         #################
         # Fermerture des fichiers
-        fichier_concat.close()
-        destination.close()
-        destination5.close()
+        csv_concat.close()
+        histo_diametre.close()
+        histo_sarment.close()
         erreur.close()
 
         physiocap_log ( u"Fin de la création fichier pour histogramme")
@@ -331,43 +344,63 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         # Todo: Appel fonction de creation de fichier
         nom_court_csv_sans_0 = NOM_PROJET + "_OUT.csv"
         nom_csv_sans_0 = os.path.join(chemin_textes, nom_court_csv_sans_0)
-        destination1 = open(nom_csv_sans_0, "w")
+        csv_sans_0 = open(nom_csv_sans_0, "w")
 
         nom_court_csv_avec_0 = NOM_PROJET + "_OUT0.csv"
         nom_csv_avec_0 = os.path.join(chemin_textes, nom_court_csv_avec_0)
-        destination0 = open(nom_csv_avec_0, "w")
+        csv_avec_0 = open(nom_csv_avec_0, "w")
         
         nom_court_fichier_diametre_filtre = "diam_FILTERED.csv"
         nom_fichier_diametre_filtre = os.path.join(chemin_textes, nom_court_fichier_diametre_filtre)
-        diamet2 = open(nom_fichier_diametre_filtre, "w")
+        diametre_filtre = open(nom_fichier_diametre_filtre, "w")
 
-        # ouverture du fichier source
-        fichier_concat = open(nom_fichier_concat, "r")       
+        # Ouverture du fichier source
+        csv_concat = open(nom_csv_concat, "r")       
         erreur = open(nom_fichier_error,"a")
 
-        # Appeler la fonction de filtraeg des données
+        # Filtrage des données PHysiocap
         #################
-        physiocap_filtrer( fichier_concat, destination1, erreur, destination0, \
-        diamet2, nom_fichier_synthese, \
-        float( mindiam), float( maxdiam), float( max_sarments_metre))
+        if details == "NO":
+            interrangs = 1
+            interceps = 1 
+            densite = 1
+            hauteur = 1        
+        physiocap_filtrer( csv_concat, csv_sans_0, csv_avec_0, \
+                    diametre_filtre, nom_fichier_synthese, erreur, \
+                    mindiam, maxdiam, max_sarments_metre, details,
+                    interrangs, interceps, densite, hauteur)
         #################
-        #On écrit dans le fichiers résultats les paramètres du modéle
-        fichier_synthese = open(nom_fichier_synthese, "a")
-        fichier_synthese.write("\nAucune information parcellaire saisie\n")
-        # Todo: bug %s ou %
-##        fichier_synthese.write("Nombre de sarments max au mètre linéaire: %s \n" %max_sarments_metre)
-##        fichier_synthese.write("Diamètre minimal : %s mm\n" %mindiam)
-##        fichier_synthese.write("Diamètre maximal : %s mm\n" %maxdiam)
-        fichier_synthese.close()
         # Fermeture du fichier destination
-        destination1.close()
-        destination0.close()
-        diamet2.close()
+        csv_sans_0.close()
+        csv_avec_0.close()
+        diametre_filtre.close()
         erreur.close()
         # Fermerture du fichier source
-        fichier_concat.close()      
+        csv_concat.close()  
+                
+        # Todo: V0.2 Assert taille du diametre fitré non nulle
+        # Todo: V0.2 Assert pour fichiers CVS c'est au moins 2 lignes
+        
+        # On écrit dans le fichiers résultats les paramètres du modéle
+        fichier_synthese = open(nom_fichier_synthese, "a")
+        if details == "NO":
+            fichier_synthese.write("\nAucune information parcellaire saisie\n")
+        else:
+            fichier_synthese.write("\n")
+            fichier_synthese.write("Cepage : %s\n" %leCepage)
+            fichier_synthese.write("Type de taille : %s\n" %laTaille)        
+            fichier_synthese.write("Hauteur de végétation : %s cm\n" %hauteur)
+            fichier_synthese.write("Densité des bois de taille : %s \n" %densite)
+            fichier_synthese.write("Ecartement entre rangs : %s cm\n" %interrangs)
+            fichier_synthese.write("Ecartement entre ceps : %s cm\n" %interceps)        
 
-        # Todo: creation du Shp dans Qgis
+        fichier_synthese.write("\n")
+        fichier_synthese.write("Nombre de sarments max au mètre linéaire: %s \n" %max_sarments_metre)
+        fichier_synthese.write("Diamètre minimal : %s mm\n" %mindiam)
+        fichier_synthese.write("Diamètre maximal : %s mm\n" %maxdiam)
+        fichier_synthese.close()
+    
+
         # Verification de l'existance ou création du répertoire des sources MID et fichier csv
         chemin_shapes = os.path.join(chemin_projet, REPERTOIRE_SHAPEFILE)
         if not (os.path.exists( chemin_shapes)):
@@ -382,24 +415,25 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         nom_shape_sans_0 = os.path.join(chemin_shapes, nom_court_shape_sans_0)
         nom_court_prj_sans_0 = NOM_PROJET + EXTENSION_PRJ
         nom_prj_sans_0 = os.path.join(chemin_shapes, nom_court_prj_sans_0)
-        # Todo: traiter le cas detail Y
-        # cas sans 0, on demande la synthese
-        synthese = "YES"
-        physiocap_shapefile( nom_shape_sans_0, nom_prj_sans_0, nom_csv_sans_0, synthese)
-        physiocap_log ("Creation du shapefile sans 0 en L93" + nom_court_shape_sans_0)
+        # cas sans 0, on demande la synthese en passant le nom du fichier
+        physiocap_cvs_to_shapefile( nom_csv_sans_0, nom_shape_sans_0, nom_prj_sans_0, 
+            nom_fichier_synthese, details)
 
         # Création des shapes avec 0
         nom_court_shape_avec_0 = NOM_PROJET + EXTENSION_POUR_ZERO + EXTENSION_SHP
         nom_shape_avec_0 = os.path.join(chemin_shapes, nom_court_shape_avec_0)
         nom_court_prj_avec_0 = NOM_PROJET + EXTENSION_POUR_ZERO + EXTENSION_PRJ
         nom_prj_avec_0 = os.path.join(chemin_shapes, nom_court_prj_avec_0)
-        # Todo: traiter le cas detail Y
         # cas avec 0, pas de demande de synthese
-        physiocap_shapefile( nom_shape_avec_0, nom_prj_avec_0, nom_csv_avec_0)
-        physiocap_log ("Creation du shapefile avec 0 en L93" + nom_court_shape_avec_0)
+        physiocap_cvs_to_shapefile( nom_csv_avec_0, nom_shape_avec_0, nom_prj_avec_0, 
+            "NO", details)
         
-        physiocap_log ( u"Fin de la création des 2 shapes")
-        
+        # Affichage des shapesdans Qgis
+        for s,n in [ (nom_shape_sans_0, nom_court_shape_sans_0) , 
+                     (nom_shape_avec_0, nom_court_shape_avec_0)]:
+            vector = QgsVectorLayer( s, n, 'ogr')
+            QgsMapLayerRegistry.instance().addMapLayer( vector)
+                # Todo ? appel iface
         
         # Fin 
         physiocap_log ( u"Fin de la foire")

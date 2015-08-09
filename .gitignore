@@ -25,7 +25,9 @@ var/
 *.egg
 
 # temporairement JH
-data/
+Physiocap_dialog_base_save*.ui
+Makefile~
+data (esquive)/
 test/
 scripts/
 i18n/
