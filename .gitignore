@@ -28,6 +28,7 @@ var/
 Physiocap_dialog_base_save*.ui
 Makefile~
 data (esquive)/
+data/UnProjetPhysiocap*/*
 test/
 scripts/
 i18n/

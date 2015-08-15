@@ -35,8 +35,6 @@ from PyQt4.QtGui import *
 from qgis.core import *
 from qgis.gui import *
 
-import csv
-
 # Import system & os
 import os.path
 import sys, string
@@ -45,24 +43,34 @@ if platform.system() == 'Windows':
     import win32api
 
 try :
+    import csv
+except ImportError:
+    aText = "Erreur bloquante : module csv n'est pas accessible." 
+    print( aText)
+    QgsMessageLog.logMessage( aText, "Physiocap erreurs", QgsMessageLog.WARNING)
+    
+try :
     from osgeo import osr
-except :
-    physiocap_log(u"GDAL n'est pas accessible ! ")    
-    physiocap_log(u"Installer GDAL/osgeo via http://www.lfd.uci.edu/~gohlke/pythonlibs/#gdal ")
-
+except ImportError:
+    aText = "Erreur bloquante : module GDAL osr n'est pas accessible." 
+    print( aText)
+    QgsMessageLog.logMessage( aText, "Physiocap erreurs", QgsMessageLog.WARNING)
 try :
     import numpy as np
     #import matplotlib.pyplot as plt
-except :
-    physiocap_log(u"Numpy n'est pas installees ! ")    
-    physiocap_log(u"vous pouvez télécharger la suite winpython 3.3 qui contient ces bibliotheques http://winpython.sourceforge.net/")
-    physiocap_log(u"sinon vous pouvez installer ces bibliothèques independamment")
+except ImportError:
+    aText ="Erreur bloquante : module numpy n'est pas accessible" 
+    print( aText)
+    QgsMessageLog.logMessage( aText, "Physiocap erreurs", QgsMessageLog.WARNING)
 
-try :
-    import shapefile as shp
-except :
-    physiocap_log(u"Shapefile n'est pas accessible ! ")    
-    physiocap_log(u"la library shapefile n'est pas installee : http://code.google.com/p/pyshp ")
+##try :
+##    import shapefile as shp
+##except :
+##    print("Module shapefile n'est pas accessible :") 
+##    log.debug("Module shapefile n'est pas accessible", exc_info=True)
+##    sys.exit()
+##    physiocap_log(u"Shapefile n'est pas accessible ! ")    
+##    physiocap_log(u"la library shapefile n'est pas installee : http://code.google.com/p/pyshp ")
 
 # GLOBAL VARIABLES GLOBALE
 PHYSIOCAP_TRACE = "Yes"
@@ -87,7 +95,8 @@ def physiocap_log( aText, level ="WARNING"):
             
 def physiocap_error( aText, level ="WARNING"):
     """Send a text to the Physiocap error"""
-    QgsMessageLog.logMessage( aText, "Physiocap erreurs", QgsMessageLog.WARNING)      
+    QgsMessageLog.logMessage( aText, "Physiocap erreurs", QgsMessageLog.WARNING)
+    return -1      
 
 def physiocap_write_in_list( self, aText):
     """Write a text in the results list"""
@@ -138,21 +147,26 @@ def physiocap_open_file( nom_court, chemin, type_ouverture="w"):
 # Definition des fonctions de traitement
 # Ces variables sont nommées en Francais par compatibilité avec la version physiocap_V8
 
-def physiocap_cvs_to_shapefile( csv_name, shape_name, prj_name, 
+def physiocap_csv_to_shapefile( csv_name, shape_name, prj_name, 
     nom_fichier_synthese = "NO", details="NO"):
     """ Creation de shape file à partir des données des CSV
     Si nom_fichier_synthese n'est pas "NO", on produit les moyennes dans le fichier 
     qui se nomme nom_fichier_synthese
     Selon la valeur de détails , on crée les 5 premiers ("NO") ou tous les attibuts ("YES"
-    """    
-    # Todo: V0.2 ? creation du Shp avec API Qgis
-
+    """
     #Préparation de la liste d'arguments
     x,y,nbsarmshp,diamshp,biomshp,dateshp,vitesseshp= [],[],[],[],[],[],[]
     nbsarmm2,nbsarcep,biommm2,biomgm2,biomgcep=[],[],[],[],[]
     #Lecture des data dans le csv et stockage dans une liste
     with open(csv_name, "rt") as csvfile:
-        r = csv.reader(csvfile, delimiter=";")
+        try:
+            r = csv.reader(csvfile, delimiter=";")
+        except NameError:
+            aText = "Erreur bloquante : module csv n'est pas accessible."
+            print ( aText)
+            physiocap_erreur( aText)
+            QgsMessageLog.logMessage( aText, "Physiocap erreurs", QgsMessageLog.WARNING)
+            return -1
         for i,row in enumerate(r):
             if i > 0: #skip header
                 x.append(float(row[2]))
@@ -164,46 +178,90 @@ def physiocap_cvs_to_shapefile( csv_name, shape_name, prj_name,
                 vitesseshp.append(float(row[8]))
                 if details == "YES":
                     # Niveau de detail demandé
-                    # Todo: assert sur len row
+                    # assert sur len row
+                    if len(row) != 13:
+                        return physiocap_error( u"Le nombre de colonnes (" +
+                                str( len(row)) + 
+                                " du cvs ne permet pas le calcul détaillé")
                     nbsarmm2.append(float(row[9]))
                     nbsarcep.append(float(row[10]))
                     biommm2.append(float(row[11]))
                     biomgm2.append(float(row[12]))
                     biomgcep.append(float(row[13]))
                 
-    # Création du shape et des champs vides
-    w = shp.Writer(shp.POINT)
-    w.autoBalance = 1 #vérifie la geom
-    w.field('DATE','S',25)
-    w.field('VITESSE','F',10,2)
-    w.field('NBSARM','F',10,2)
-    w.field('DIAM','F',10,2)
-    w.field('BIOM','F',10,2)
+    # Todo: V0.2 format pour Crs
+    #un_crs = QgsCoordinateReferenceSystem.createFromUserInput(u"EPSG:2154")
+    # Prepare les attributs
+    les_champs = QgsFields()
+    # Todo: V0.2 ? GID
+    les_champs.append( QgsField("DATE", QVariant.String, "string", 25))
+    les_champs.append( QgsField("VITESSE", QVariant.Double, "double", 10,2))
+    les_champs.append(QgsField("NBSARM",  QVariant.Double, "double", 10,2))
+    les_champs.append(QgsField("DIAM",  QVariant.Double, "double", 10,2))
+    les_champs.append(QgsField("BIOM", QVariant.Double,"double", 10,2)) 
     if details == "YES":
         # Niveau de detail demandé
-        w.field('NBSARMM2','F',10,2)
-        w.field('NBSARCEP','F',10,2)
-        w.field('BIOMM2','F',10,2)
-        w.field('BIOMGM2','F',10,2)
-        w.field('BIOMGCEP','F',10,2)
+        les_champs.append(QgsField("NBSARMM2", QVariant.Double,"double", 10,2))
+        les_champs.append(QgsField("NBSARCEP", QVariant.Double,"double", 10,2))
+        les_champs.append(QgsField("BIOMM2", QVariant.Double,"double", 10,2))
+        les_champs.append(QgsField("BIOMGM2", QVariant.Double,"double", 10,2))
+        les_champs.append(QgsField("BIOMGCEP", QVariant.Double,"double", 10,2))
+    # Creation du Shape
+    writer = QgsVectorFileWriter( shape_name, "UTF-8", les_champs, QGis.WKBPoint, None , "ESRI Shapefile")
+
+##        # Création du shape et des champs vides
+##        w = shp.Writer(shp.POINT)
+##        w.autoBalance = 1 #vérifie la geom
+##        w.field('DATE','S',25)
+##        w.field('VITESSE','F',10,2)
+##        w.field('NBSARM','F',10,2)
+##        w.field('DIAM','F',10,2)
+##        w.field('BIOM','F',10,2)
+##        if details == "YES":
+##            # Niveau de detail demandé
+##            w.field('NBSARMM2','F',10,2)
+##            w.field('NBSARCEP','F',10,2)
+##            w.field('BIOMM2','F',10,2)
+##            w.field('BIOMGM2','F',10,2)
+##            w.field('BIOMGCEP','F',10,2)
     
+ 
     #Ecriture du shp
     for j,k in enumerate(x):
-        w.point(k,y[j]) #écrit la géométrie
+        feat = QgsFeature()
+        feat.setGeometry( QgsGeometry.fromPoint(QgsPoint(k,y[j]))) #écrit la géométrie
         if details == "YES":
             # Ecrit tous les attributs
-            w.record(dateshp[j],vitesseshp[j],nbsarmshp[j], diamshp[j], biomshp[j], \
-                nbsarmm2[j], nbsarcep[j], biommm2[j], biomgm2[j], biomgcep[j]) #écrit les attributs
+           feat.setAttributes( [ dateshp[j], vitesseshp[j], nbsarmshp[j], 
+                                diamshp[j], biomshp[j],
+                                nbsarmm2[j], nbsarcep[j], biommm2[j], 
+                                biomgm2[j], biomgcep[j]]) 
         else:
             # Ecrit les 5 premiers attributs
-            w.record(dateshp[j],vitesseshp[j],nbsarmshp[j], diamshp[j], biomshp[j])
-            
-    #Save shapefile
-    w.save(shape_name)
+            feat.setAttributes( [ dateshp[j], vitesseshp[j], nbsarmshp[j], 
+                                diamshp[j], biomshp[j]])
+        # Ecrit le feature
+        writer.addFeature( feat)
+    # Ecrit le shape
+    #del writer
+
+##        for j,k in enumerate(x):
+##            w.point(k,y[j]) #écrit la géométrie
+##            if details == "YES":
+##                # Ecrit tous les attributs
+##                w.record(dateshp[j],vitesseshp[j],nbsarmshp[j], diamshp[j], biomshp[j], \
+##                    nbsarmm2[j], nbsarcep[j], biommm2[j], biomgm2[j], biomgcep[j]) #écrit les attributs
+##            else:
+##                # Ecrit les 5 premiers attributs
+##                w.record(dateshp[j],vitesseshp[j],nbsarmshp[j], diamshp[j], biomshp[j])
+##            
+##        #Save shapefile
+##        w.save(shape_name)
     
     # Create the PRJ file
     prj = open(prj_name, "w")
-    # Todo: V0.2 ? mettre prj texte dans dialogue ?
+    # Todo: V0.2 ? Faire un fichier de metadata
+    # Todo: V0.4 ? mettre prj texte dans dialogue ?
     epsg = 'PROJCS["RGF93_Lambert_93",GEOGCS["GCS_RGF93",DATUM["D_RGF_1993", \
     SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0], \
     UNIT["Degree",0.017453292519943295]],PROJECTION["Lambert_Conformal_Conic"], \
@@ -214,28 +272,34 @@ def physiocap_cvs_to_shapefile( csv_name, shape_name, prj_name,
     prj.write(epsg)
     prj.close()    
     
-    # Creation de la synthese
-    # Todo: ASAP Test tous les "return physiocap" et message box
+    # Création de la synthese
     if nom_fichier_synthese != "NO":
         # ASSERT Le fichier de synthese existe
         if not os.path.isfile( nom_fichier_synthese):
             physiocap_log( "Le fichier de synthese " + nom_fichier_synthese + "n'existe pas")
-            return physiocap_log( "Le fichier de synthese " + nom_fichier_synthese + "n'existe pas")
-            
+            return physiocap_error( "Le fichier de synthese " + nom_fichier_synthese + "n'existe pas")
+        
         # Ecriture des resulats
         fichier_synthese = open(nom_fichier_synthese, "a")
-        fichier_synthese.write("\n\nSTATISTIQUES\n")
-        fichier_synthese.write("vitesse moyenne d'avancement  \n	mean : %0.1f km/h\n" %np.mean(vitesseshp))
-        fichier_synthese.write("Section moyenne \n	mean : %0.2f mm	std : %0.1f\n" %(np.mean(diamshp), np.std(diamshp)))
-        fichier_synthese.write("Nombre de sarments au m \n	mean : %0.2f	std : %0.1f\n" %(np.mean(nbsarmshp), np.std(nbsarmshp)))
-        fichier_synthese.write("Biomasse en mm²/m linéaire \n	mean : %0.1f	std : %0.1f\n" %(np.mean(biomshp), np.std(biomshp)))
-        if details == "YES":
-            fichier_synthese.write("Nombre de sarments au m² \n	mean : %0.1f	std : %0.1f\n" %(np.mean(nbsarmm2), np.std(nbsarmm2)))
-            fichier_synthese.write("Nombre de sarments par cep \n	mean : %0.1f	std : %0.1f\n" %(np.mean(nbsarcep), np.std(nbsarcep)))
-            fichier_synthese.write("Biommasse en mm²/m² \n	mean : %0.1f	std : %0.1f\n" %(np.mean(biommm2), np.std(biommm2)))
-            fichier_synthese.write("Biomasse en gramme/m² \n	mean : %0.1f	std : %0.1f\n" %(np.mean(biomgm2), np.std(biomgm2)))
-            fichier_synthese.write("Biomasse en gramme/cep \n	mean : %0.1f	std : %0.1f\n" %(np.mean(biomgcep), np.std(biomgcep))) 
+        try:
+            fichier_synthese.write("\n\nSTATISTIQUES\n")
+            fichier_synthese.write("vitesse moyenne d'avancement  \n	mean : %0.1f km/h\n" %np.mean(vitesseshp))
+            fichier_synthese.write("Section moyenne \n	mean : %0.2f mm	std : %0.1f\n" %(np.mean(diamshp), np.std(diamshp)))
+            fichier_synthese.write("Nombre de sarments au m \n	mean : %0.2f	std : %0.1f\n" %(np.mean(nbsarmshp), np.std(nbsarmshp)))
+            fichier_synthese.write("Biomasse en mm²/m linéaire \n	mean : %0.1f	std : %0.1f\n" %(np.mean(biomshp), np.std(biomshp)))
+            if details == "YES":
+                fichier_synthese.write("Nombre de sarments au m² \n	mean : %0.1f	std : %0.1f\n" %(np.mean(nbsarmm2), np.std(nbsarmm2)))
+                fichier_synthese.write("Nombre de sarments par cep \n	mean : %0.1f	std : %0.1f\n" %(np.mean(nbsarcep), np.std(nbsarcep)))
+                fichier_synthese.write("Biommasse en mm²/m² \n	mean : %0.1f	std : %0.1f\n" %(np.mean(biommm2), np.std(biommm2)))
+                fichier_synthese.write("Biomasse en gramme/m² \n	mean : %0.1f	std : %0.1f\n" %(np.mean(biomgm2), np.std(biomgm2)))
+                fichier_synthese.write("Biomasse en gramme/cep \n	mean : %0.1f	std : %0.1f\n" %(np.mean(biomgcep), np.std(biomgcep))) 
+        except:
+            msg = "%s\n" %("Erreur bloquante durant les calculs de moyennes")
+            physiocap_error( msg )
+            return -1
+                    
         fichier_synthese.close()
+    return 0
 
 # Fonction pour créer les fichiers histogrammes    
 def physiocap_fichier_histo(src, histo_diametre, histo_nbsarment, err):
@@ -286,12 +350,14 @@ def physiocap_filtrer(src, csv_sans_0, csv_avec_0, diametre_filtre,
     else:
         # Assert details == "YES"
         if details != "YES" : 
-            return physiocap_error(u"Physiocap : problème majeur dans le choix du détail du parcellaire")
+            return physiocap_error(u"Problème majeur dans le choix du détail du parcellaire")
         csv_sans_0.write("%s\n" % ("X ; Y ; XL93 ; YL93 ; NBSARM ; DIAM ; BIOM ; Date ; Vitesse ; NBSARMM2 ; NBSARCEP ; BIOMMM2 ; BIOMGM2 ; BIOMGCEP ")) # ecriture de l'entête
         csv_avec_0.write("%s\n" % ("X ; Y ; XL93 ; YL93 ; NBSARM ; DIAM ; BIOM ; Date ; Vitesse ; NBSARMM2 ; NBSARCEP ; BIOMMM2 ; BIOMGM2 ; BIOMGCEP ")) # ecriture de l'entête
 
+    nombre_ligne = 0
     while True :
         ligne = src.readline()
+        nombre_ligne = nombre_ligne + 1
         if not ligne: break 
         comptage = ligne.count(",") # compte le nombre de virgules
         result = ligne.split(",") # split en fonction des virgules
@@ -349,10 +415,10 @@ def physiocap_filtrer(src, csv_sans_0, csv_avec_0, diametre_filtre,
                         for n in range(len(diamsF)) :
                             diametre_filtre.write("%f%s" %(diamsF[n],";"))
         except : # accompli cette fonction si erreur
-#            print ("Attention il y a des erreurs dans le fichier !")
-#            print (ligne)
-            msg = "%s%s\n" %("erreur filtrer",ligne)
+            msg = "%s%s\n" %("Erreur bloquante durant filtrage : pour la ligne", str(nombre_ligne))
             physiocap_error( msg )
             err.write( msg ) # on écrit la ligne dans le fichier ERREUR.csv
-            pass # A DEFINIR
+            return -1
+    physiocap_log( u"Fin filtrage OK des "+ str(nombre_ligne) + " lignes.")
+    return 0
  

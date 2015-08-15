@@ -199,7 +199,7 @@ class PhysiocapAnalyseur:
 ##        physiocap_message_box( self.dlg, "Dans Physiocap.run apres dial_exec <" +
 ##                               str(result ) + ">",
 ##                               "information" )        
-        # TODO: Find whether OK or Save was pressed
+        # TODO: Différentier si OK ou Save sont activés 
         if result:
             # Do something useful here - delete the line containing pass and
             # substitute with your code.
