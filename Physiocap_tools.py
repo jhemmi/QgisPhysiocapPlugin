@@ -144,7 +144,6 @@ def physiocap_rename_create_dir( chemin):
     
     # on teste si chemin a déjà une parenthèse dans la 3 derniers caracteres
     longueur = len(chemin)
-    physiocap_log( "longueur ==" + str( longueur))
     if chemin[-1:] == ")":
         # cas du chemin qui a été déjà renomer
         pos = -2
@@ -153,13 +152,10 @@ def physiocap_rename_create_dir( chemin):
             if pos == (-1 * longueur): 
                 pos = -1
                 break
-        physiocap_log( "apres while " + str( pos))
         if pos != (-1):
             # ici la "(" est à pos et la ")" est à -1:
             un_num_parenthese = chemin[ pos+1:]
-            physiocap_log( "trouve num & ) ==" + str( un_num_parenthese))
             un_num = un_num_parenthese[ :-1]
-            physiocap_log( "trouve num ==" + str( un_num))
             nouveau_numero = 1
             if is_int_number( un_num):
                 nouveau_numero = int(un_num) + 1
@@ -173,9 +169,7 @@ def physiocap_rename_create_dir( chemin):
     else:
         # cas du premier fichier renommer
         nouveau_chemin = chemin + "(1)"
-    
-    physiocap_log( "avant creation ==" + nouveau_chemin)
-    
+       
     if os.path.exists( nouveau_chemin):
         # on rapelle la moulinette de rename
         nouveau_chemin = physiocap_rename_create_dir ( nouveau_chemin)
@@ -187,7 +181,7 @@ def physiocap_rename_create_dir( chemin):
                 nouveau_chemin)
             return -1
         
-    physiocap_log( "avant retour  et apres creation ==" + nouveau_chemin)
+    #physiocap_log( "avant retour  et apres creation ==" + nouveau_chemin)
         
     return nouveau_chemin
 
@@ -241,10 +235,10 @@ def physiocap_csv_to_shapefile( csv_name, shape_name, prj_name,
                 if details == "YES":
                     # Niveau de detail demandé
                     # assert sur len row
-                    if len(row) != 13:
-                        return physiocap_error( u"Le nombre de colonnes (" +
+                    if len(row) != 14:
+                        return physiocap_error( u"Le nombre de colonnes :" +
                                 str( len(row)) + 
-                                " du cvs ne permet pas le calcul détaillé")
+                                u" du cvs ne permet pas le calcul détaillé")
                     nbsarmm2.append(float(row[9]))
                     nbsarcep.append(float(row[10]))
                     biommm2.append(float(row[11]))
