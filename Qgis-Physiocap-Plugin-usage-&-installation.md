@@ -1,4 +1,4 @@
-Qgis Physiocap Extension Utilisation & installation (version 0.1)
+Qgis Physiocap Extension Utilisation & installation (version 0.1 pour tests uniquement)
 
 Voici la documentation de l'Extension Physiocap pour Qgis qui permet de traiter les données brutes de Physiocap et de visualiser les résultats filtrés sous Qgis.
 
