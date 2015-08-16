@@ -1,6 +1,8 @@
 Qgis Physiocap Extension Utilisation & installation (version 0.1)
 
-Voici la documentation de l'Extension Physiocap Pour Qgis qui permet de traiter les données brutes de Physiocap et de visualiser les résultats filtrés sous Qgis.
+Voici la documentation de l'Extension Physiocap pour Qgis qui permet de traiter les données brutes de Physiocap et de visualiser les résultats filtrés sous Qgis.
+
+La dernière source document est sous github.com/jhemmi/QgisPhysiocapPlugin
 
 ### Installation de l'extension 
 
@@ -40,6 +42,5 @@ Les deux fichiers shape sont ouvert dans Qgis. Il est conseillé de mettre en fo
 
 Le projet Qgis n'est pas sauvé.
 
-Vous pouvez quitter l'extension par le bouton fermé
-
-_Le répertoire et le calcul des histogrammes n'est pas implémenté dans cette version._
+Vous pouvez quitter l'extension par le bouton "Fermer"
+Le répertoire et le calcul des histogrammes n'est pas implémenté dans cette version.
