@@ -24,7 +24,7 @@ Dans cette fenêtre, d'autres options sont à venir. Dans cette version les cart
 - Répertoire des données brutes
 - Filtres permettant de nettoyer les données brutes
 - Calculs détaillés :  précisez les informations du vignoble (ce choix est optionnel)
-La sauvegarde de ces paramètres n'est pas encore active.
+La sauvegarde de l'ensemble de ces paramètres n'est pas encore active.
 
 Pour activer les calculs, activer le bouton OK
 
@@ -36,11 +36,9 @@ Le fichier de synthèse du traitement : nom-projet-physiocap_resulat.txt
 - shapefile contient les deux fichiers shape résultats du filtrage des données brutes.
 
 Les deux fichiers shape sont ouvert dans Qgis. Il est conseillé de mettre en forme ces shapes avec les styles qui se trouvent dans $HOME/.qgis2/python/plugins/physiocap_analyseur/modeleQgis
-* "Diametre 6 quantilles.qml" pour le shape nom-projet-physiocap_0_*.shp
-* "Vitesse.qml" pour le shape filtré nom-projet-physiocap_*.shp
+* "Diametre 6 quantilles.qml" pour le shape nom-projet-physiocap_*.shp
+* "Vitesse.qml" pour le shape filtré nom-projet-physiocap_0_*.shp
 
-Le projet Qgis n'est pas sauvé.
-
-Vous pouvez quitter l'extension par le bouton "Fermer"
+Le projet Qgis n'est pas sauvé, mais vous pouvez le faire vous même. Vous pouvez quitter l'extension par le bouton "Fermer".
 
 Note : Le répertoire et le calcul des histogrammes n'est pas implémenté dans cette version.
