@@ -37,8 +37,8 @@
 ***************************************************************************/
 """
 from Physiocap_tools import physiocap_log,physiocap_error,physiocap_message_box, \
-        physiocap_open_file, physiocap_csv_to_shapefile, physiocap_fichier_histo, \
-        physiocap_filtrer       
+        physiocap_rename_create_dir, \
+        physiocap_csv_to_shapefile, physiocap_fichier_histo, physiocap_filtrer       
 
 from PyQt4 import QtGui, uic
 from PyQt4.QtCore import *
@@ -237,18 +237,11 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
                 return physiocap_error(u"Problème lors de la création du répertoire projet: " + 
                 chemin_projet)
         else:
-            # le répertoire existant est renommé en ~
-            nouveau_chemin_projet = chemin_projet + "~"
-            try :
-                if os.path.exists( nouveau_chemin_projet):
-                    # on détruit le "projet~" pre-existant 
-                    shutil.rmtree( nouveau_chemin_projet)
-                os.rename( chemin_projet, nouveau_chemin_projet)
-                os.mkdir( chemin_projet)
-            except :
-                return physiocap_error(u"Problème lors du changement de nom du répertoire projet: " + 
-                chemin_projet + " avec le suffixe ~" + nouveau_chemin_projet)           
-                 
+            # le répertoire existant est renommé en (+1)
+            chemin_projet = physiocap_rename_create_dir( chemin_projet)
+            if chemin_projet == (-1):
+                return -1
+                
         # Verification de l'existance ou création du répertoire des sources MID et fichier csv
         chemin_sources = os.path.join(chemin_projet, REPERTOIRE_SOURCES)
         if not (os.path.exists( chemin_sources)):

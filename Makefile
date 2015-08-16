@@ -55,7 +55,7 @@ UI_FILES = Physiocap_dialog_base.ui
 DATA = data
 DATA_FILES = $(DATA)/01021103.MIF $(DATA)/01021103.MID $(DATA)/01021103.ERC
 
-EXTRAS = icon.png metadata.txt
+EXTRAS = icon.png metadata.txt LICENSE README.md
 
 COMPILED_RESOURCE_FILES = resources_rc.py
 
@@ -68,7 +68,6 @@ PEP8EXCLUDE=pydev,resources_rc.py,conf.py,third_party,ui
 
 HELP = help
 HELP_FILES = help/index.html
-
 TEMPLATE = modeleQgis
 
 PLUGIN_UPLOAD = $(c)/plugin_upload.py
@@ -117,6 +116,7 @@ deploy: compile doc transcompile
 	mkdir -p $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
 	mkdir -p $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)/$(DATA)
 	mkdir -p $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)/$(HELP)
+	mkdir -p $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)/$(TEMPLATE)
 	cp -vf $(PY_FILES) $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
 	cp -vf $(UI_FILES) $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
 	cp -vf $(COMPILED_RESOURCE_FILES) $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
@@ -124,7 +124,9 @@ deploy: compile doc transcompile
 	cp -vfr i18n $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
 	cp -vf $(HELP_FILES)  $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)/$(HELP)
 	cp -vf $(DATA_FILES) $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)/$(DATA)
-	cp -vf $(TEMPLATE)/* $(HOME)/$(QGISDIR)/project_templates/$(PLUGINNAME)
+	cp -vf $(TEMPLATE)/* $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)/$(TEMPLATE)
+	cp -vf $(TEMPLATE)/* $(HOME)/$(QGISDIR)/project_templates
+	# Todo copy du processing Physiocap
 
 # The dclean target removes compiled python files from plugin directory
 # also deletes any .git entry

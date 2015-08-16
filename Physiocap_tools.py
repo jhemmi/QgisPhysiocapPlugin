@@ -128,20 +128,82 @@ def get_layer_by_name( self, layerName ):
         return layer
     else:
         return none
+ 
+def is_int_number(s):
+    try:
+        int(s)
+        return True
+    except ValueError:
+        return False
     
-def physiocap_open_file( nom_court, chemin, type_ouverture="w"):
-    """ Créer ou detruite et crée un fichier"""
-    # Fichier des diamètres     
-    nom_fichier = os.path.join(chemin, nom_court)
-    if os.path.isfile( nom_fichier):
-        os.remove( nom_fichier)
-    try :
-        fichier_pret = open(nom_fichier, type_ouverture)
-    except :
-        physiocap_error(u"Problème lors de la création (mode=" + type_ouverture +
-        ") du fichier : " + 
-        nom_court)
-    return fichier_pret
+def physiocap_rename_create_dir( chemin):
+    """ Retourne le repertoire qu'il possible de creer
+    si chemin existe deja, on creer un "chemin + (1)"
+        si "chemin_projet + (1)" existe déjà, on crée un "chemin_projet + (2)" etc         
+    """
+    
+    # on teste si chemin a déjà une parenthèse dans la 3 derniers caracteres
+    longueur = len(chemin)
+    physiocap_log( "longueur ==" + str( longueur))
+    if chemin[-1:] == ")":
+        # cas du chemin qui a été déjà renomer
+        pos = -2
+        while chemin[ pos:][0] != "(":
+            pos = pos - 1
+            if pos == (-1 * longueur): 
+                pos = -1
+                break
+        physiocap_log( "apres while " + str( pos))
+        if pos != (-1):
+            # ici la "(" est à pos et la ")" est à -1:
+            un_num_parenthese = chemin[ pos+1:]
+            physiocap_log( "trouve num & ) ==" + str( un_num_parenthese))
+            un_num = un_num_parenthese[ :-1]
+            physiocap_log( "trouve num ==" + str( un_num))
+            nouveau_numero = 1
+            if is_int_number( un_num):
+                nouveau_numero = int(un_num) + 1
+                nouveau_chemin = chemin[:pos] + "(" +str(nouveau_numero) +")"
+            else:
+                # cas d'un nom etrange
+                nouveau_chemin = chemin + "(1)"        
+        else:
+            # cas d'un nom etrange
+            nouveau_chemin = chemin + "(1)" 
+    else:
+        # cas du premier fichier renommer
+        nouveau_chemin = chemin + "(1)"
+    
+    physiocap_log( "avant creation ==" + nouveau_chemin)
+    
+    if os.path.exists( nouveau_chemin):
+        # on rapelle la moulinette de rename
+        nouveau_chemin = physiocap_rename_create_dir ( nouveau_chemin)
+    else:
+        try:
+            os.mkdir( nouveau_chemin)
+        except :
+            physiocap_error(u"Problème lors de la création du nom du répertoire projet: " + 
+                nouveau_chemin)
+            return -1
+        
+    physiocap_log( "avant retour  et apres creation ==" + nouveau_chemin)
+        
+    return nouveau_chemin
+
+##def physiocap_open_file( nom_court, chemin, type_ouverture="w"):
+##    """ Créer ou detruit et re-crée un fichier"""
+##    # Fichier des diamètres     
+##    nom_fichier = os.path.join(chemin, nom_court)
+##    if os.path.isfile( nom_fichier):
+##        os.remove( nom_fichier)
+##    try :
+##        fichier_pret = open(nom_fichier, type_ouverture)
+##    except :
+##        physiocap_error(u"Problème lors de la création (mode=" + type_ouverture +
+##        ") du fichier : " + 
+##        nom_court)
+##    return fichier_pret
 
 # Partie Calcul non modifié
 # Definition des fonctions de traitement

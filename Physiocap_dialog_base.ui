@@ -51,7 +51,7 @@
     <enum>QTabWidget::North</enum>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <property name="movable">
     <bool>false</bool>
@@ -500,13 +500,13 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>441</width>
+        <width>491</width>
         <height>21</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <pointsize>12</pointsize>
+        <pointsize>11</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -794,13 +794,13 @@
        <rect>
         <x>30</x>
         <y>10</y>
-        <width>371</width>
+        <width>451</width>
         <height>21</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <pointsize>12</pointsize>
+        <pointsize>11</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -964,6 +964,19 @@
     <attribute name="title">
      <string>Histogrammes</string>
     </attribute>
+    <widget class="QLabel" name="lab_38">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>40</y>
+       <width>281</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Non implémenté dans cette version</string>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QLabel" name="label_2">
