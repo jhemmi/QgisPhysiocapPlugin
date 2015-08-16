@@ -1,0 +1,1 @@
+jhemmi.eu - Août 2015 - Voir la [license](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/LICENSE)
