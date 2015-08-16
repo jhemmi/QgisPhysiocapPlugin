@@ -10,10 +10,19 @@ Trois métriques sont calculés à partir des données brutes :
 	
 Chaque métrique peut être utilisé en temps que moyenne par parcelle ou être la base d'une analyse cartographique de chaque parcelle.
 
+L'extension permet de saisir plusieurs paramètres pour filter les données qui ont un interet. Elle réalise une série de calcul aboutissant à :
+	une synthese des métriques moyens des données retenues
+	deux shapefiles qui permet de visualiser les donénes mesurées et les donnes retenus.
+	
 *"Physiocap" est déposé par le CIVC.*
 
 L'extension QgisPysiocapPlugin intègre le code de calcul du CIVC (PHYSIOCAP_V8). QgisPysiocapPlugin est donc sous licence Common Creative CC-BY-NC-SA V4.
 
-**Ce dépot est en construction - Aout 2015**
+Les tests ont été réalisés sous 
+	Qgis 2.6 /Fedora
+	Qgis 2.8 Windows 7 32 bits
+	Qgis 2.10 sous Windoqs 8 64 bits
+	
+**Ce dépot reste en construction - Août 2015**
 
-**This repo is under construction - August 2015**
+**This repo is still under construction - August 2015**
