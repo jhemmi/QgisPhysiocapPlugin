@@ -16,6 +16,8 @@ L'extension tourne sous Qgis 2.*. Aucune librairie Python n'est requise en plus 
 Note : L'extension n'est pas encore déposé sous le dépôt Qgis
 
 ### Utilisation
+![Copie d'écran](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/Ecran%20Physiocap%20Plugin.png)
+[Copie d'écran de fichier de synthèse d'un traitement du plugin Physiocap](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/Ecran%20Physiocap%20Plugin.png)
 
 Ouvrir Qgis & activer Physiocap menu depuis le menu Extension. Dans le dialogue Physiocap plusieurs onglets :
 * Votre projet : permet de donner un nom à votre projet Physiocap qui sert de répertoire de base pour le stockage des résultats et de préfixe pour les fichiers générées
