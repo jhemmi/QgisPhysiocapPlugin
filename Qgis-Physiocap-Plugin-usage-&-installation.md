@@ -7,11 +7,13 @@ La dernière source document est sous github.com/jhemmi/QgisPhysiocapPlugin
 ### Installation de l'extension 
 
 Depuis un zip file envoyé par jhemmi.eu ou depuis le gitHub zip file (*1):
+
 Extraire Qgis Physiocap Plugin zip dans $HOME/.qgis2/python/plugins. 
 (*1) Renommer le nouveau répertoire en PhysiocapAnalyseur.
-Aucune librairie Python n'est requise en plus de celles présentes dans Qgis (ogr, numpy, shutil)
 
-Notes : L'extension n'est pas encore déposé sous le dépôt Qgis
+Aucune librairie Python n'est requise en plus de celles présentes dans Qgis 2.* (ogr, numpy, shutil, qgis et pyQT4). L'extension tourne sous Qgis 2.*
+
+Note : L'extension n'est pas encore déposé sous le dépôt Qgis
 
 ### Utilisation
 
@@ -22,7 +24,7 @@ Dans cette fenêtre, d'autres options sont à venir. Dans cette version les cart
 - Répertoire des données brutes
 - Filtres permettant de nettoyer les données brutes
 - Calculs détaillés :  précisez les informations du vignoble (ce choix est optionnel)
-La sauvegarde de vos paramètres n'est pas encore activée.
+La sauvegarde de ces paramètres n'est pas encore active.
 
 Pour activer les calculs, activer le bouton OK
 
@@ -31,7 +33,7 @@ Durant l'exécution, l'extension crée les répertoires:
 Le fichier de synthèse du traitement : nom-projet-physiocap_resulat.txt
 - fichier_sources contient les données sources brutes et une copie en csv
 - fichier_textes contient les nom-projet-physiocap_OUT*.cvs filtré et les listes "nbsarm*" et "diam*" (respectivement) tous les nombre de sarments et les diametres bruts et filtrés prêts pour créer des histogramme.
-** shapefile contient les deux fichiers shape résultats du filtrage des données brutes.
+- shapefile contient les deux fichiers shape résultats du filtrage des données brutes.
 
 Les deux fichiers shape sont ouvert dans Qgis. Il est conseillé de mettre en forme ces shapes avec les styles qui se trouvent dans $HOME/.qgis2/python/plugins/physiocap_analyseur/modeleQgis
 * "Diametre 6 quantilles.qml" pour le shape nom-projet-physiocap_0_*.shp
@@ -40,4 +42,5 @@ Les deux fichiers shape sont ouvert dans Qgis. Il est conseillé de mettre en fo
 Le projet Qgis n'est pas sauvé.
 
 Vous pouvez quitter l'extension par le bouton "Fermer"
-Le répertoire et le calcul des histogrammes n'est pas implémenté dans cette version.
+
+Note : Le répertoire et le calcul des histogrammes n'est pas implémenté dans cette version.
