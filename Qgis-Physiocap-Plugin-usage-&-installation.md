@@ -7,11 +7,8 @@ La dernière source document est sous github.com/jhemmi/QgisPhysiocapPlugin
 ### Installation de l'extension 
 
 Depuis un zip file envoyé par jhemmi.eu ou depuis le gitHub zip file (*1):
-
 Extraire Qgis Physiocap Plugin zip dans $HOME/.qgis2/python/plugins. 
-
 (*1) Renommer le nouveau répertoire en PhysiocapAnalyseur.
-
 Aucune librairie Python n'est requise en plus de celles présentes dans Qgis (ogr, numpy, shutil)
 
 Notes : L'extension n'est pas encore déposé sous le dépôt Qgis
