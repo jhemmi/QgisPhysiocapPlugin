@@ -11,7 +11,7 @@ Depuis un zip file envoyé par jhemmi.eu ou depuis le gitHub zip file (*1):
 Extraire Qgis Physiocap Plugin zip dans $HOME/.qgis2/python/plugins. 
 (*1) Renommer le nouveau répertoire en PhysiocapAnalyseur.
 
-Aucune librairie Python n'est requise en plus de celles présentes dans Qgis 2.* (ogr, numpy, shutil, qgis et pyQT4). L'extension tourne sous Qgis 2.*
+L'extension tourne sous Qgis 2.*. Aucune librairie Python n'est requise en plus de celles présentes dans Qgis 2.* (ogr, csv, numpy, shutil, qgis et pyQT4). 
 
 Note : L'extension n'est pas encore déposé sous le dépôt Qgis
 
