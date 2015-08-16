@@ -19,13 +19,13 @@ Note : L'extension n'est pas encore déposé sous le dépôt Qgis
 ![Copie d'écran](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/Ecran%20Physiocap%20Plugin.png)
 [Copie d'écran de fichier de synthèse d'un traitement du plugin Physiocap](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/Ecran%20Physiocap%20Plugin.png)
 
-Ouvrir Qgis & activer Physiocap menu depuis le menu Extension. Dans le dialogue Physiocap plusieurs onglets :
+Ouvrir Qgis & activer Physiocap menu depuis le menu Extension ou directement sur l'icone Physiocap (en haut à droite sur la copie d'écran). Dans le dialogue Physiocap plusieurs onglets :
 * Votre projet : permet de donner un nom à votre projet Physiocap qui sert de répertoire de base pour le stockage des résultats et de préfixe pour les fichiers générées
 Dans cette fenêtre, d'autres options sont à venir. Dans cette version les cartes de points sont générés au format shapefile et en L93.
-* Vos paramètres : permet de donner les paramètres d'entrée pour les calculs
+* Vos paramètres (visible à droite dans la copie d'écran) : permet de donner les paramètres d'entrée pour les calculs
 - Répertoire des données brutes
 - Filtres permettant de nettoyer les données brutes
-- Calculs détaillés :  précisez les informations du vignoble (ce choix est optionnel)
+- Calculs détaillés :  précisez si les informations du vignoble doivent être prises en compte pour un calcul détaillé (ce choix est optionnel)
 La sauvegarde de l'ensemble de ces paramètres n'est pas encore active.
 
 Pour activer les calculs, activer le bouton OK
@@ -36,6 +36,8 @@ Le fichier de synthèse du traitement : nom-projet-physiocap_resulat.txt
 - fichier_sources contient les données sources brutes et une copie en csv
 - fichier_textes contient les nom-projet-physiocap_OUT*.cvs filtré et les listes "nbsarm*" et "diam*" (respectivement) tous les nombre de sarments et les diametres bruts et filtrés prêts pour créer des histogramme.
 - shapefile contient les deux fichiers shape résultats du filtrage des données brutes.
+
+Dans la log Qgis, deux onglets (Physiocap Information - visible en bas dans la copie d'écran) et Physiocap Erreurs) permettent de suivre le déroulement du traitement et d'éventuelles erreurs).
 
 Les deux fichiers shape sont ouvert dans Qgis. Il est conseillé de mettre en forme ces shapes avec les styles qui se trouvent dans $HOME/.qgis2/python/plugins/physiocap_analyseur/modeleQgis
 * "Diametre 6 quantilles.qml" pour le shape nom-projet-physiocap_*.shp
