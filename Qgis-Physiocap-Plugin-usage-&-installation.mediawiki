@@ -12,7 +12,7 @@ Extraire Qgis Physiocap Plugin zip dans $HOME/.qgis2/python/plugins.
 
 L'extension n'est pas encore déposé sous le dépôt Qgis
 
-_Aucune librairie Python n'est requise en plus de celles présentes dans Qgis (ogr, numpy, shutil) _
+Aucune librairie Python n'est requise en plus de celles présentes dans Qgis (ogr, numpy, shutil)
 
 ### Utilisation
 
