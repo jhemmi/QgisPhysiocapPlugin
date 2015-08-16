@@ -2,22 +2,23 @@ Qgis Physiocap Extension Utilisation & installation (version 0.1)
 
 Voici la documentation de l'Extension Physiocap Pour Qgis qui permet de traiter les données brutes de Physiocap et de créer un projet Qgis.
 
-### Installation de l'extension depuis
+### Installation de l'extension 
 
-* un zip file envoyé par jhemmi.eu ou depuis le gitHub zip file(1) - extraire Qgis Physiocap Plugin zip dans $HOME/.qgis2/python/plugins. 
+Depuis un zip file envoyé par jhemmi.eu ou depuis le gitHub zip file(1) - extraire Qgis Physiocap Plugin zip dans $HOME/.qgis2/python/plugins. 
 (1) Renommer le nouveau répertoire en PhysiocapAnalyseur.
 L'extension n'est pas encore déposé sous le dépôt Qgis
 
-Aucune librairie Python n'est requise en plus de celles présentes dans Qgis (ogr, numpy, shutil) 
+_Aucune librairie Python n'est requise en plus de celles présentes dans Qgis (ogr, numpy, shutil) _
 
 ### Utilisation
+
 Ouvrir Qgis & activer Physiocap menu depuis le menu Extension. Dans le dialogue Physiocap plusieurs onglets :
 * Votre projet : permet de donner un nom à votre projet Physiocap qui sert de répertoire de base pour le stockage des résultats et de préfixe pour les fichiers générées
 Dans cette fenêtre, d'autres options sont à venir. Dans cette version les cartes de points sont générés au format shapefile et en L93.
 * Vos paramètres : permet de donner les paramètres d'entrée pour les calculs
-* * Répertoire des données brutes
-* * Filtres permettant de nettoyer les données brutes
-* * Calculs détaillés :  précisez les informations du vignoble (ce choix est optionnel)
+- Répertoire des données brutes
+- Filtres permettant de nettoyer les données brutes
+- Calculs détaillés :  précisez les informations du vignoble (ce choix est optionnel)
 La sauvegarde de vos paramètres n'est pas encore activée.
 
 Pour activer les calculs, activer le bouton OK
@@ -25,8 +26,8 @@ Pour activer les calculs, activer le bouton OK
 Durant l'exécution, l'extension crée les répertoires:
 * Nom projet Physiocap (en cas d'existence du répertoire, il est créé un répertoire Nom projet Physiocap(1), le plus haut chiffre est le plus récent.
 Le fichier de synthèse du traitement : nom-projet-physiocap_resulat.txt
-* * fichier_sources contient les données sources brutes et une copie en csv
-* * fichier_textes contient les nom-projet-physiocap_OUT*.cvs filtré et les listes "nbsarm*" et "diam*" (respectivement) tous les nombre de sarments et les diametres bruts et filtrés prêts pour créer des histogramme.
+- fichier_sources contient les données sources brutes et une copie en csv
+- fichier_textes contient les nom-projet-physiocap_OUT*.cvs filtré et les listes "nbsarm*" et "diam*" (respectivement) tous les nombre de sarments et les diametres bruts et filtrés prêts pour créer des histogramme.
 ** shapefile contient les deux fichiers shape résultats du filtrage des données brutes.
 
 Les deux fichiers shape sont ouvert dans Qgis. Il est conseillé de mettre en forme ces shapes avec les styles qui se trouvent dans $HOME/.qgis2/python/plugins/physiocap_analyseur/modeleQgis
