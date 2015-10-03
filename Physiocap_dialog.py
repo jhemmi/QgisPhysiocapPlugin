@@ -37,10 +37,12 @@
 ***************************************************************************/
 """
 from Physiocap_tools import physiocap_log,physiocap_error,physiocap_message_box, \
-        physiocap_rename_create_dir, \
-        physiocap_csv_to_shapefile, physiocap_fichier_histo, physiocap_filtrer       
+        physiocap_rename_create_dir, physiocap_open_file, \
+        physiocap_csv_to_shapefile, physiocap_assert_csv, \
+        physiocap_fichier_histo, physiocap_filtrer       
 
 from PyQt4 import QtGui, uic
+from PyQt4.QtCore import QSettings
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from qgis.core import *
@@ -63,30 +65,64 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
 # dont les fonctions de calcul sont conservé à l'identique
 # Répertoire de base et projet
 REPERTOIRE_DONNEES_BRUTES = "/home/jhemmi/Documents/GIS/SCRIPT/QGIS/PhysiocapAnalyseur/data"
-NOM_PROJET = "UnProjetPhysiocap"
+NOM_PROJET = "MonProjetPhysiocap"
+PHYSIOCAP_NOM = "Physiocap"
+PHYSIOCAP_VERSION = PHYSIOCAP_NOM + "_V1_0"
 # Listes de valeurs
-CEPAGES = [ "Negrette", "Chardonnay", "Pinot Noir", "Pinot Meunier"]
-TAILLES = [ "Chablis", "Guyot simple", "Guyot double", "Cordon de Royat" ]
+CEPAGES = [ u"Négrette", "Chardonnay", "Pinot Noir", "Pinot Meunier"]
+TAILLES = [ "Chablis", "Guyot simple", "Guyot double", "Cordon de Royat", "Cordon libre" ]
 FORMAT_VECTEUR = [ "ESRI Shapefile", "postgres", "memory"]
+
 # Répertoires des sources et de concaténation en fichiers texte
+FICHIER_RESULTAT = NOM_PROJET +"_resultat.txt"
 REPERTOIRE_SOURCES = "fichiers_sources"
 SUFFIXE_BRUT_CSV = "_RAW.csv"
 EXTENSION_MID = "*.MID"
+PROJECTION_MID = "L93"
 REPERTOIRE_TEXTES = "fichiers_texte"
 REPERTOIRE_HISTO = "histogrammes"
+
 REPERTOIRE_SHAPEFILE = "shapefile"
-PROJECTION = "L93"
-EXTENSION_SHP = "_" + PROJECTION + ".shp"
+PROJECTION_SHP = "L93"
+EXTENSION_SHP = "_" + PROJECTION_SHP + ".shp"
 EXTENSION_POUR_ZERO = "_0"
-EXTENSION_PRJ = "_" + PROJECTION + ".prj"
+EXTENSION_PRJ = "_" + PROJECTION_SHP + ".prj"
 
-# Nom du fichier de synthèse
-FICHIER_RESULTAT = NOM_PROJET +"_resultat.txt"
+##FICHIER_SAUVE_PARAMETRES = os.path.join(
+##                    os.path.dirname(__file__), 
+##                    '.physiocap')
+##                    
+# Exceptions Physiocap 
+ERREUR_EXCEPTION = u"Physiocap n'a pas correctement terminé son analyse"
+TAUX_LIGNES_ERREUR= 20
 
-FICHIER_SAUVE_PARAMETRES = os.path.join(
-                    os.path.dirname(__file__), 
-                    '.physiocap')
-                    
+class physiocap_exception( Exception):
+    def __init__(self, value):
+        self.value = value
+    def __str__(self):
+        return repr(self.value)
+    
+class physiocap_exception_rep( physiocap_exception):
+    pass
+    
+class physiocap_exception_fic( physiocap_exception):
+    pass
+
+class physiocap_exception_csv( physiocap_exception):
+    pass
+
+class physiocap_exception_err_csv( physiocap_exception):
+    pass
+    
+class physiocap_exception_mid( physiocap_exception):
+    pass
+    
+class physiocap_exception_no_mid( ):
+    pass
+     
+class physiocap_exception_params( physiocap_exception):
+    pass
+    
 class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
     def __init__(self, parent=None):
         """Constructor."""
@@ -109,37 +145,63 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.toolButtonDirectoryPhysiocap.pressed.connect( self.lecture_repertoire_donnees_brutes )  
         
         physiocap_log( u"Votre machine tourne sous " + platform.system())
-        # Initialisation des parametres
-        # TODO: V0.2 Reprendre ces infos dans la sauvegarde
-        # ou .ini voir configurations ou "~plugin/.physiocap"
-        self.lineEditProjet.setText( NOM_PROJET)
-        self.lineEditDirectoryPhysiocap.setText( REPERTOIRE_DONNEES_BRUTES)
+        # Récuperation des settings
+        self.settings= QSettings(PHYSIOCAP_NOM, PHYSIOCAP_VERSION)
+        # Initialisation des parametres à partir des settings
+        self.lineEditProjet.setText( self.settings.value("Physiocap/projet", 
+            NOM_PROJET ))
+        self.lineEditDirectoryPhysiocap.setText(  self.settings.value("Physiocap/repertoire",
+            REPERTOIRE_DONNEES_BRUTES))
+        
         # Remplissage de la liste de cépage
+        self.fieldComboCepage.setCurrentIndex( 0)
         if len( CEPAGES) == 0:
             self.fieldComboCepage.clear( )
             physiocap_error( u"Pas de liste de cépage pré défini")
         else:
             self.fieldComboCepage.clear( )
             self.fieldComboCepage.addItems( CEPAGES )
-        self.fieldComboCepage.setCurrentIndex( 0)
+            # Retrouver le cépage de  settings
+            i=0
+            leCepage = self.settings.value("Physiocap/leCepage", "xx")
+            for cepage in CEPAGES:
+                if ( cepage == leCepage):
+                    self.fieldComboCepage.setCurrentIndex( i)
+                i=i+1
+                
         # Remplissage de la liste de taille
+        self.fieldComboTaille.setCurrentIndex( 0)        
         if len( TAILLES) == 0:
             self.fieldComboTaille.clear( )
             physiocap_error( u"Pas de liste de mode de taille pré défini")
         else:
             self.fieldComboTaille.clear( )
             self.fieldComboTaille.addItems( TAILLES )
-        self.fieldComboTaille.setCurrentIndex( 0)        
+            # Retrouver la taille de  settings
+            i=0
+            laTaille = self.settings.value("Physiocap/laTaille", "xx") 
+            for taille in TAILLES:
+                if ( taille == laTaille):
+                    self.fieldComboTaille.setCurrentIndex( i)
+                i=i+1
+        
         # Remplissage de la liste de FORMAT_VECTEUR 
+        self.fieldComboFormats.setCurrentIndex( 0)   
         if len( FORMAT_VECTEUR) == 0:
             self.fieldComboFormats.clear( )
             physiocap_error( u"Pas de liste des formats de vecteurs pré défini")
         else:
             self.fieldComboFormats.clear( )
             self.fieldComboFormats.addItems( FORMAT_VECTEUR )
-        self.fieldComboFormats.setCurrentIndex( 0)   
+            # Retrouver le format de  settings
+            i=0
+            leFormat = self.settings.value("Physiocap/leFormat", "xx") 
+            for unFormat in FORMAT_VECTEUR:
+                if ( unFormat == leFormat):
+                    self.fieldComboTaille.setCurrentIndex( i)
+                i=i+1
                               
-        # TODO: V0.2 Recherche du projet courant ?
+        # TODO: V1.5 ? Recherche du projet courant ?
         
     # Slots
     def helpRequested(self):
@@ -154,39 +216,123 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
                 
     def accept( self ):
         """Verify when bouton is OK"""
-        # currentText pour uns liste de valeur
+        # Vérifier les valeurs saisies
+        # QT confiance sert d'assert sur la cohérence des variables saisies
+        # Todo: v0.2 verifier settings et présence de toutes les variables obligatoires et exception param
         if self.lineEditDirectoryPhysiocap.text() == "":
             physiocap_error( u"Pas de répertoire de donnée spécifié")
-            return QMessageBox.information( self, "Physiocap",
-                                   self.tr( u"Pas de répertoire de donnée spécifié" ) )
+            return physiocap_message_box( self, 
+                self.tr( u"Pas de répertoire de données brutes spécifié" ),
+                "information")
         if self.lineEditProjet.text() == "":
             physiocap_error( u"Pas de nom de projet spécifié")
-            return QMessageBox.information( self, "Physiocap",
-                                   self.tr( u"Pas de nom de projet spécifié" ) )
+            return physiocap_message_box( self,
+                self.tr( u"Pas de nom de projet spécifié" ),
+                "information")
                                         
+
+        # Sauvergarde des saisies dans les settings
+        self.settings= QSettings( PHYSIOCAP_NOM, PHYSIOCAP_VERSION)
+        #s = QSettings()
+        self.settings.setValue("Physiocap/projet", self.lineEditProjet.text() )
+        self.settings.setValue("Physiocap/repertoire", self.lineEditDirectoryPhysiocap.text() )
+        self.settings.setValue("Physiocap/minVitesse", float( self.doubleSpinBoxMinVitesse.value()))
+        self.settings.setValue("Physiocap/mindiam", float( self.spinBoxMinDiametre.value()))
+        self.settings.setValue("Physiocap/maxdiam", float( self.spinBoxMaxDiametre.value()))
+        self.settings.setValue("Physiocap/max_sarments_metre", float( self.spinBoxMaxSarmentsParMetre.value()))
+        self.settings.setValue("Physiocap/interrangs", float( self.spinBoxInterrangs.value()))
+        self.settings.setValue("Physiocap/interceps", float( self.spinBoxInterceps.value()))
+        self.settings.setValue("Physiocap/hauteur", float( self.spinBoxHauteur.value()))
+        self.settings.setValue("Physiocap/densite", float( self.doubleSpinBoxDensite.value()))
+        self.settings.setValue("Physiocap/leCepage", self.fieldComboCepage.currentText())
+        self.settings.setValue("Physiocap/laTaille", self.fieldComboTaille.currentText())
+
         # Cas détail vignoble
         details = "NO"
         if self.checkBoxInfoVignoble.isChecked():
             details = "YES"
             physiocap_log(u"Les détails du vignoble sont précisées")
 
-        # Todo: V0.2 Assert sur les variables saisies ou QT confiance
-####    NO !    self.assertEqual( "xxx", "xxx")            
-        # Création des repertoires et des resultats de synthese
-        retour = self.creer_donnees_resultats( details)
-        if retour != 0:
-            physiocap_error(u"Erreur bloquante : Physiocap n'a pas correctement terminé son analyse")
-            QMessageBox.information( self, "Physiocap",
-                                   self.tr( u"Physiocap n'a pas correctement terminé son analyse" ) )
-            self.reject()
-        else:
-            physiocap_log(u"Physiocap a terminé son analyse.")
-        return 0
+        # ########################################
+        # Gestion de capture des erreurs Physiocap
+        # ########################################
+        try:
+            # Création des répertoires et des résultats de synthèse
+            retour = self.creer_donnees_resultats( details)
+        except physiocap_exception_rep as e:
+            physiocap_log( ERREUR_EXCEPTION + ". Consultez le journal Physiocap Erreur",
+                "WARNING")
+            physiocap_error( ERREUR_EXCEPTION)
+            physiocap_error(u"Erreur bloquante lors de la création du répertoire : " + str( e),
+                "CRITICAL")
+            return physiocap_message_box( self, self.tr( ERREUR_EXCEPTION + "\n" + \
+                u"Erreur bloquante lors de la création du répertoire : " + str( e)),
+                "information" )
+        
+        except physiocap_exception_err_csv as e:
+            physiocap_log( ERREUR_EXCEPTION + ". Consultez le journal Physiocap Erreur",
+                "WARNING")
+            physiocap_error( ERREUR_EXCEPTION)
+            physiocap_error(u"Trop d'erreurs " + str( e) + u" dans les données brutes",
+                "CRITICAL")
+            return physiocap_message_box( self, self.tr( ERREUR_EXCEPTION + "\n" + \
+                u"Trop d'erreurs " + str( e) + u" dans les données brutes"),
+                "information" )
+        
+        except physiocap_exception_fic as e:
+            physiocap_log( ERREUR_EXCEPTION + ". Consultez le journal Physiocap Erreur",
+                "WARNING")
+            physiocap_error( ERREUR_EXCEPTION)
+            physiocap_error(u"Erreur bloquante lors de la création du fichier : " + str( e),
+                "CRITICAL")
+            return physiocap_message_box( self, self.tr( ERREUR_EXCEPTION + "\n" + \
+                u"Erreur bloquante lors de la création du fichier : " + str( e)),
+                "information" )
+        except physiocap_exception_csv as e:
+            physiocap_log( ERREUR_EXCEPTION + ". Consultez le journal Physiocap Erreur",
+                "WARNING")
+            physiocap_error( ERREUR_EXCEPTION)
+            physiocap_error(u"Erreur bloquante lors de la création du fichier csv : " + str( e),
+                "CRITICAL")
+            return physiocap_message_box( self, self.tr( ERREUR_EXCEPTION + "\n" + \
+                u"Erreur bloquante lors de la création du fichier cvs : " + str( e)),
+                "information" )
 
+        except physiocap_exception_mid as e:
+            physiocap_log( ERREUR_EXCEPTION + ". Consultez le journal Physiocap Erreur",
+                "WARNING")
+            physiocap_error( ERREUR_EXCEPTION)
+            physiocap_error(u"Erreur bloquante lors de la copie du fichier mid : " + str( e),
+                "CRITICAL")
+            return physiocap_message_box( self, self.tr( ERREUR_EXCEPTION + "\n" + \
+                u"Erreur bloquante lors de la copie du fichier mid : " + str( e)),
+                "information" )
+        except physiocap_exception_no_mid:
+            physiocap_log( ERREUR_EXCEPTION + ". Consultez le journal Physiocap Erreur",
+                "WARNING")
+            physiocap_error( ERREUR_EXCEPTION)
+            physiocap_error(u"Erreur bloquante : aucun fichier mid à traiter",
+                "CRITICAL")
+            return physiocap_message_box( self, self.tr( ERREUR_EXCEPTION + "\n" + \
+                u"Erreur bloquante : aucun fichier mid à traiter"),
+                "information" )
+        # On remonte les autres exceptions
+        except:
+            raise
+        finally:
+            # Todo: V1.5 Assert verifier si fichiers fermés
+            self.reject()
+        # ########################################
+        # Fin de capture des erreurs Physiocap
+        # #########################################
+        
+        physiocap_log(u"Physiocap a terminé son analyse.")
+
+    
     # Repertoire données brutes :
     def lecture_repertoire_donnees_brutes( self):
         """Catch directory for raw data"""
-        # TODO: V0.4 Faire traduction du titre self.?iface.tr("Répertoire des données brutes")
+        # TODO: Vx ? Faire traduction du titre self.?iface.tr("Répertoire des données brutes")
         dirName = QFileDialog.getExistingDirectory( self, u"Répertoire des données brutes",
                                                  REPERTOIRE_DONNEES_BRUTES,
                                                  QFileDialog.ShowDirsOnly
@@ -194,16 +340,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         if len( dirName) == 0:
           return
         self.lineEditDirectoryPhysiocap.setText( dirName )
-    
-##    def input_textfile( self ):
-##        """ Catch name of text file """
-##        fileName = QFileDialog.getOpenFileName(None, 
-##            "Select your Text File:",
-##            "", "*.csv *.txt")
-##        if len( fileName) == 0:
-##          return
-##        self.editOTHERfile.setText( fileName )     
-##    
+        
     
     # Creation des repertoires source puis resultats
     def creer_donnees_resultats( self, details = "NO"):
@@ -231,114 +368,103 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         # Vérification de l'existance ou création du répertoire projet
         chemin_projet = os.path.join(REPERTOIRE_DONNEES_BRUTES, NOM_PROJET)
         if not (os.path.exists( chemin_projet)):
-            try :
+            try:
                 os.mkdir( chemin_projet)
-            except :
-                return physiocap_error(u"Problème lors de la création du répertoire projet: " + 
-                chemin_projet)
+            except:
+                raise physiocap_exception_rep( NOM_PROJET)
         else:
-            # le répertoire existant est renommé en (+1)
-            chemin_projet = physiocap_rename_create_dir( chemin_projet)
-            if chemin_projet == (-1):
-                return -1
-                
+            # Le répertoire existant est renommé en (+1)
+            try: 
+                chemin_projet = physiocap_rename_create_dir( chemin_projet)
+            except:
+                return
+            
         # Verification de l'existance ou création du répertoire des sources MID et fichier csv
         chemin_sources = os.path.join(chemin_projet, REPERTOIRE_SOURCES)
         if not (os.path.exists( chemin_sources)):
-            try :
+            try:
                 os.mkdir( chemin_sources)
-            except :
-                return physiocap_error(u"Problème lors de la création du répertoire des sources: " + 
-                chemin_sources)
-        
+            except:
+                raise physiocap_exception_rep( REPERTOIRE_SOURCES)
+                    
         # Fichier de concaténations CSV des résultats bruts        
         nom_court_csv_concat = NOM_PROJET + SUFFIXE_BRUT_CSV
-        nom_csv_concat = os.path.join(chemin_sources, nom_court_csv_concat)
-        if os.path.isfile( nom_csv_concat):
-            os.remove( nom_csv_concat)
-        try :
-            csv_concat = open(nom_csv_concat, "w")
-        except :
-            return physiocap_error(u"Problème lors de la création du fichier concaténé .csv: " + 
-            nom_court_csv_concat)
+        try:
+            nom_csv_concat, csv_concat = physiocap_open_file( nom_court_csv_concat, chemin_sources, "w")
+        except physiocap_exception_fic as e:
+            raise physiocap_exception_csv( nom_court_csv_concat)
             
         # Création du fichier concaténé
         nom_fichiers_recherches = os.path.join(REPERTOIRE_DONNEES_BRUTES, EXTENSION_MID)
-        #physiocap_log(u"Chemin MID: " + nom_fichiers_recherches)
         
-        # Todo: V0.2 ? choisir parmi les MID
+        # Todo: Vx ? choisir parmi les MID
         # Assert le nombre de MID > 0
-        # le Tri pour retombé dans l'ordre de Physiocap_V8
+        # le Tri pour retomber dans l'ordre de Physiocap_V8
         listeTriee = sorted(glob.glob( nom_fichiers_recherches))
         if len( listeTriee) == 0:
-            aText = u"Erreur génante : pas de fichier MID en entrée à traiter..."
-            physiocap_log( aText)
-            return physiocap_error( aText)
+            raise physiocap_exception_no_mid()
         for mid in listeTriee:
-            shutil.copyfileobj(open(mid, "r"), csv_concat)
-            # et copie des MID
-            shutil.copy(mid,chemin_sources)
+            try:
+                shutil.copyfileobj(open(mid, "r"), csv_concat)
+                # et copie des MID
+                shutil.copy(mid,chemin_sources)
+            except :
+                raise physiocap_exception_mid( mid)
         csv_concat.close()
 
-        # Todo: V0.2 ?Remplacer le fichier synthese par un ecran du plugin           
-        # Todo: V0.2 Assert Trouver les lignes de données invalides (trop longue, sans 58 virgules ... etc...
+        # Assert le fichier de données n'est pas vide
+        if os.path.getsize( nom_csv_concat ) == 0 :
+            uMsg =u"Le fichier " + nom_court_csv_concat + u" a une taille nulle !"
+            physiocap_message_box( self, uMsg)
+            return physiocap_error( uMsg)
+        
+
+        # Todo:  Vx ? Remplacer le fichier synthese par un ecran du plugin           
         # Création la première partie du fichier de synthèse
-        nom_fichier_synthese = os.path.join(chemin_projet, FICHIER_RESULTAT)
-        try :
-            fichier_synthese = open(nom_fichier_synthese, "w")
-        except :
-            return physiocap_error(u"Problème lors de la création du fichier de synthese: " + 
-            nom_fichier_synthese)
+        nom_fichier_synthese, fichier_synthese = physiocap_open_file( FICHIER_RESULTAT, chemin_projet , "w")
         fichier_synthese.write("SYNTHESE PHYSIOCAP\n\n")
         fichier_synthese.write("Fichier généré le : ")
         a_time = time.strftime("%d/%m/%y %H:%M\n",time.localtime())
         fichier_synthese.write(a_time)
-        fichier_synthese.write("\nPARAMETRES SAISIS ")
-        
         physiocap_log ( u"Fin de la création csv et début de synthèse")
        
-        # Assert le fichier de données n'est pas vide
-        if os.path.getsize(nom_csv_concat ) == 0 :
-            msg =u"Le fichier " + nom_court_csv_concat + u" a une taille nulle !"
-            physiocap_message_box( self, msg)
-            # Todo: V0.4 Assert verifier si fichiers fermés
-            return physiocap_error( msg)
-
         # Verification de l'existance ou création du répertoire textes
         chemin_textes = os.path.join(chemin_projet, REPERTOIRE_TEXTES)
         if not (os.path.exists( chemin_textes)):
             try :
                 os.mkdir( chemin_textes)
             except :
-                return physiocap_error(u"Problème lors de la création du répertoire des fichiers textes: " + 
-                chemin_textes)
+                raise physiocap_exception_rep( REPERTOIRE_TEXTES)
                        
         # Ouverture du fichier des diamètres     
         nom_court_fichier_diametre = "diam" + SUFFIXE_BRUT_CSV
-        nom_fichier_diametre = os.path.join(chemin_textes, nom_court_fichier_diametre)
-        if os.path.isfile( nom_fichier_diametre):
-            os.remove( nom_fichier_diametre)
-        try :
-            histo_diametre = open(nom_fichier_diametre, "w")
-        except :
-            return physiocap_error(u"Problème lors de la création du fichier des diamètres: " + 
-            nom_fichier_diametre)
+        nom_histo_diametre, histo_diametre = physiocap_open_file( nom_court_fichier_diametre, chemin_textes)
         
-        # Todo: Appel fonction de creation de fichier
+        # Appel fonction de creation de fichier
         nom_court_fichier_sarment = "nbsarm" + SUFFIXE_BRUT_CSV
-        nom_fichier_sarment = os.path.join(chemin_textes, nom_court_fichier_sarment)
-        histo_sarment = open(nom_fichier_sarment, "w")
-        # Todo: V0.2 ? Supprimer le fichier erreur
-        nom_court_fichier_erreur = "erreurs.csv"
-        nom_fichier_error = os.path.join(chemin_textes, nom_court_fichier_erreur)
-        erreur = open(nom_fichier_error,"w")
+        nom_histo_sarment, histo_sarment = physiocap_open_file( nom_court_fichier_sarment, chemin_textes)
+
+        # Todo: V1.5 ? Supprimer le fichier erreur
+        nom_fichier_erreur, erreur = physiocap_open_file( "erreurs.csv" , chemin_textes)
+    
         # ouverture du fichier source
         csv_concat = open(nom_csv_concat, "r")
- 
+
+        # Appeler la fonction de vérification du format du fichier csv
+        # Si plus de 20 % d'erreur exception est monté
+        try:
+            pourcentage_erreurs = physiocap_assert_csv( csv_concat, erreur)
+            if ( pourcentage_erreurs > TAUX_LIGNES_ERREUR):
+                fichier_synthese.write("\nTrop d'erreurs dans les données brutes")
+                raise physiocap_exception_err_csv( pourcentage_erreurs)
+        except:
+            raise
+        
+        fichier_synthese.write("\nPARAMETRES SAISIS ")
         # Appeler la fonction de traitement
         #################
-        physiocap_fichier_histo( csv_concat, histo_diametre, \
-                                histo_sarment, erreur)
+        physiocap_fichier_histo( csv_concat, histo_diametre,    
+                        histo_sarment, erreur)
         #################
         # Fermerture des fichiers
         csv_concat.close()
@@ -350,29 +476,29 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
 
         # Création des csv
         nom_court_csv_sans_0 = NOM_PROJET + "_OUT.csv"
-        nom_csv_sans_0 = os.path.join(chemin_textes, nom_court_csv_sans_0)
-        csv_sans_0 = open(nom_csv_sans_0, "w")
+        nom_csv_sans_0, csv_sans_0 = physiocap_open_file( 
+            nom_court_csv_sans_0, chemin_textes)
 
         nom_court_csv_avec_0 = NOM_PROJET + "_OUT0.csv"
-        nom_csv_avec_0 = os.path.join(chemin_textes, nom_court_csv_avec_0)
-        csv_avec_0 = open(nom_csv_avec_0, "w")
-        
+        nom_csv_avec_0, csv_avec_0 = physiocap_open_file( 
+            nom_court_csv_sans_0, chemin_textes)
+       
         nom_court_fichier_diametre_filtre = "diam_FILTERED.csv"
-        nom_fichier_diametre_filtre = os.path.join(chemin_textes, nom_court_fichier_diametre_filtre)
-        diametre_filtre = open(nom_fichier_diametre_filtre, "w")
+        nom_fichier_diametre_filtre, diametre_filtre = physiocap_open_file( 
+            nom_court_fichier_diametre_filtre, chemin_textes )
 
-        # Ouverture du fichier source
+        # Ouverture du fichier source et re ouverture du ficheir erreur
         csv_concat = open(nom_csv_concat, "r")       
-        erreur = open(nom_fichier_error,"a")
+        erreur = open(nom_fichier_erreur,"a")
 
-        # Filtrage des données PHysiocap
+        # Filtrage des données Physiocap
         #################
         if details == "NO":
             interrangs = 1
             interceps = 1 
             densite = 1
             hauteur = 1        
-        retour = physiocap_filtrer( csv_concat, csv_sans_0, csv_avec_0, \
+        retour_filtre = physiocap_filtrer( csv_concat, csv_sans_0, csv_avec_0, \
                     diametre_filtre, nom_fichier_synthese, erreur, \
                     mindiam, maxdiam, max_sarments_metre, details,
                     interrangs, interceps, densite, hauteur)
@@ -384,13 +510,12 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         erreur.close()
         # Fermerture du fichier source
         csv_concat.close()  
-        
-        if retour != 0:
+
+        if retour_filtre != 0:
             return physiocap_error(u"Erreur bloquante : problème lors du filtrage des données de : " + 
                     nom_court_csv_concat)  
                                        
         # Todo: V0.2 Assert taille du diametre fitré non nulle
-        # Todo: V0.2 Assert pour fichiers csv c'est au moins 2 lignes
         
         # On écrit dans le fichiers résultats les paramètres du modéle
         fichier_synthese = open(nom_fichier_synthese, "a")
@@ -398,7 +523,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             fichier_synthese.write("\nAucune information parcellaire saisie\n")
         else:
             fichier_synthese.write("\n")
-            fichier_synthese.write("Cepage : %s\n" %leCepage)
+            fichier_synthese.write("Cépage : %s\n" %leCepage)
             fichier_synthese.write("Type de taille : %s\n" %laTaille)        
             fichier_synthese.write("Hauteur de végétation : %s cm\n" %hauteur)
             fichier_synthese.write("Densité des bois de taille : %s \n" %densite)
@@ -418,9 +543,8 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             try :
                 os.mkdir( chemin_shapes)
             except :
-                return physiocap_error(u"Problème lors de la création du répertoire des shapes: " + 
-                chemin_shapes)
-                
+                raise physiocap_exception_rep( REPERTOIRE_SHAPEFILE)
+               
         # Création des shapes sans 0
         nom_court_shape_sans_0 = NOM_PROJET + EXTENSION_SHP
         nom_shape_sans_0 = os.path.join(chemin_shapes, nom_court_shape_sans_0)
@@ -461,7 +585,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             vector = QgsVectorLayer( s, n, 'ogr')
             QgsMapLayerRegistry.instance().addMapLayer( vector)
             
-        # Todo: V0.2 ? Récupérer des styles pour chaque style de shape
+        # Todo: V1.5? Récupérer des styles pour chaque style de shape
         
         # Fin 
         physiocap_log ( u"Fin de la synthèse Physiocap : sans erreur")
