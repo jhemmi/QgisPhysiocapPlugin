@@ -65,13 +65,14 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
 # dont les fonctions de calcul sont conservé à l'identique
 # Répertoire de base et projet
 REPERTOIRE_DONNEES_BRUTES = "/home/jhemmi/Documents/GIS/SCRIPT/QGIS/PhysiocapAnalyseur/data"
-NOM_PROJET = "MonProjetPhysiocap"
+NOM_PROJET = "VotreProjetPhysiocap"
 PHYSIOCAP_NOM = "Physiocap"
 PHYSIOCAP_VERSION = PHYSIOCAP_NOM + "_V1_0"
+
 # Listes de valeurs
-CEPAGES = [ u"Négrette", "Chardonnay", "Pinot Noir", "Pinot Meunier"]
+CEPAGES = [ "CHARDONNAY", "MERLOT", "NEGRETTE", "PINOT NOIR", "PINOT MEUNIER"]
 TAILLES = [ "Chablis", "Guyot simple", "Guyot double", "Cordon de Royat", "Cordon libre" ]
-FORMAT_VECTEUR = [ "ESRI Shapefile", "postgres", "memory"]
+FORMAT_VECTEUR = [ "ESRI Shapefile"] #, "postgres", "memory"]
 
 # Répertoires des sources et de concaténation en fichiers texte
 FICHIER_RESULTAT = NOM_PROJET +"_resultat.txt"
@@ -145,7 +146,10 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.toolButtonDirectoryPhysiocap.pressed.connect( self.lecture_repertoire_donnees_brutes )  
         
         physiocap_log( u"Votre machine tourne sous " + platform.system())
-        # Récuperation des settings
+
+        ###############
+        # Récuperation dans les settings (derniers parametres saisies)
+        ###############
         self.settings= QSettings(PHYSIOCAP_NOM, PHYSIOCAP_VERSION)
         # Initialisation des parametres à partir des settings
         self.lineEditProjet.setText( self.settings.value("Physiocap/projet", 
@@ -200,8 +204,23 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
                 if ( unFormat == leFormat):
                     self.fieldComboTaille.setCurrentIndex( i)
                 i=i+1
-                              
-        # TODO: V1.5 ? Recherche du projet courant ?
+                            
+        # Remplissage des autre parametre à partir des settings
+        self.doubleSpinBoxMinVitesse.setValue( float( self.settings.value("Physiocap/minVitesse", 1 )))
+        self.spinBoxMinDiametre.setValue( int( self.settings.value("Physiocap/mindiam", 2 )))
+        self.spinBoxMaxDiametre.setValue( int( self.settings.value("Physiocap/maxdiam", 28 )))
+        self.spinBoxMaxSarmentsParMetre.setValue( int( self.settings.value("Physiocap/max_sarments_metre", 25 )))
+        if (self.settings.value("Physiocap/details") == "YES"):
+            self.checkBoxInfoVignoble.setChecked( Qt.Checked)
+        else:
+            self.checkBoxInfoVignoble.setChecked( Qt.Unchecked)
+
+        self.spinBoxInterrangs.setValue( int( self.settings.value("Physiocap/interrangs", 110 )))
+        self.spinBoxInterceps.setValue( int( self.settings.value("Physiocap/interceps", 100 )))
+        self.spinBoxHauteur.setValue( int( self.settings.value("Physiocap/hauteur", 90 )))
+        self.doubleSpinBoxDensite.setValue( float( self.settings.value("Physiocap/densite", 0.9 )))
+ 
+       # TODO: V1.5 ? Recherche du projet courant ?
         
     # Slots
     def helpRequested(self):
@@ -217,8 +236,9 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
     def accept( self ):
         """Verify when bouton is OK"""
         # Vérifier les valeurs saisies
-        # QT confiance sert d'assert sur la cohérence des variables saisies
-        # Todo: v0.2 verifier settings et présence de toutes les variables obligatoires et exception param
+        # QT confiance et initilaisation par Qsettings sert d'assert sur la
+        # cohérence des variables saisies
+
         if self.lineEditDirectoryPhysiocap.text() == "":
             physiocap_error( u"Pas de répertoire de donnée spécifié")
             return physiocap_message_box( self, 
@@ -233,12 +253,18 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
 
         # Sauvergarde des saisies dans les settings
         self.settings= QSettings( PHYSIOCAP_NOM, PHYSIOCAP_VERSION)
-        #s = QSettings()
         self.settings.setValue("Physiocap/projet", self.lineEditProjet.text() )
         self.settings.setValue("Physiocap/repertoire", self.lineEditDirectoryPhysiocap.text() )
         self.settings.setValue("Physiocap/minVitesse", float( self.doubleSpinBoxMinVitesse.value()))
         self.settings.setValue("Physiocap/mindiam", float( self.spinBoxMinDiametre.value()))
         self.settings.setValue("Physiocap/maxdiam", float( self.spinBoxMaxDiametre.value()))
+
+        # Cas détail vignoble
+        details = "NO"
+        if self.checkBoxInfoVignoble.isChecked():
+            details = "YES"
+            physiocap_log(u"Les détails du vignoble sont précisées")
+        self.settings.setValue("Physiocap/details", details)
         self.settings.setValue("Physiocap/max_sarments_metre", float( self.spinBoxMaxSarmentsParMetre.value()))
         self.settings.setValue("Physiocap/interrangs", float( self.spinBoxInterrangs.value()))
         self.settings.setValue("Physiocap/interceps", float( self.spinBoxInterceps.value()))
@@ -247,11 +273,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.settings.setValue("Physiocap/leCepage", self.fieldComboCepage.currentText())
         self.settings.setValue("Physiocap/laTaille", self.fieldComboTaille.currentText())
 
-        # Cas détail vignoble
-        details = "NO"
-        if self.checkBoxInfoVignoble.isChecked():
-            details = "YES"
-            physiocap_log(u"Les détails du vignoble sont précisées")
+
 
         # ########################################
         # Gestion de capture des erreurs Physiocap
@@ -320,7 +342,6 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         except:
             raise
         finally:
-            # Todo: V1.5 Assert verifier si fichiers fermés
             self.reject()
         # ########################################
         # Fin de capture des erreurs Physiocap
@@ -419,7 +440,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             return physiocap_error( uMsg)
         
 
-        # Todo:  Vx ? Remplacer le fichier synthese par un ecran du plugin           
+        # Todo: Vx ? Remplacer le fichier synthese par un ecran du plugin           
         # Création la première partie du fichier de synthèse
         nom_fichier_synthese, fichier_synthese = physiocap_open_file( FICHIER_RESULTAT, chemin_projet , "w")
         fichier_synthese.write("SYNTHESE PHYSIOCAP\n\n")
@@ -481,7 +502,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
 
         nom_court_csv_avec_0 = NOM_PROJET + "_OUT0.csv"
         nom_csv_avec_0, csv_avec_0 = physiocap_open_file( 
-            nom_court_csv_sans_0, chemin_textes)
+            nom_court_csv_avec_0, chemin_textes)
        
         nom_court_fichier_diametre_filtre = "diam_FILTERED.csv"
         nom_fichier_diametre_filtre, diametre_filtre = physiocap_open_file( 
@@ -514,16 +535,15 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         if retour_filtre != 0:
             return physiocap_error(u"Erreur bloquante : problème lors du filtrage des données de : " + 
                     nom_court_csv_concat)  
-                                       
-        # Todo: V0.2 Assert taille du diametre fitré non nulle
-        
+                                              
         # On écrit dans le fichiers résultats les paramètres du modéle
         fichier_synthese = open(nom_fichier_synthese, "a")
         if details == "NO":
             fichier_synthese.write("\nAucune information parcellaire saisie\n")
         else:
             fichier_synthese.write("\n")
-            fichier_synthese.write("Cépage : %s\n" %leCepage)
+            msg = "Cépage : " + str( leCepage) + "\n"
+            fichier_synthese.write( msg)
             fichier_synthese.write("Type de taille : %s\n" %laTaille)        
             fichier_synthese.write("Hauteur de végétation : %s cm\n" %hauteur)
             fichier_synthese.write("Densité des bois de taille : %s \n" %densite)

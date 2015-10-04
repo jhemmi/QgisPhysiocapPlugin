@@ -204,7 +204,7 @@ def physiocap_csv_to_shapefile( csv_name, shape_name, prj_name,
     """ Creation de shape file à partir des données des CSV
     Si nom_fichier_synthese n'est pas "NO", on produit les moyennes dans le fichier 
     qui se nomme nom_fichier_synthese
-    Selon la valeur de détails , on crée les 5 premiers ("NO") ou tous les attibuts ("YES"
+    Selon la valeur de détails , on crée les 5 premiers ("NO") ou tous les attibuts ("YES")
     """
     #Préparation de la liste d'arguments
     x,y,nbsarmshp,diamshp,biomshp,dateshp,vitesseshp= [],[],[],[],[],[],[]
@@ -244,7 +244,8 @@ def physiocap_csv_to_shapefile( csv_name, shape_name, prj_name,
     #un_crs = QgsCoordinateReferenceSystem.createFromUserInput(u"EPSG:2154")
     # Prepare les attributs
     les_champs = QgsFields()
-    # Todo: V0.2 ? GID
+    # V1.0 Ajout du GID
+    les_champs.append( QgsField("GID", QVariant.Int, "integer", 10))
     les_champs.append( QgsField("DATE", QVariant.String, "string", 25))
     les_champs.append( QgsField("VITESSE", QVariant.Double, "double", 10,2))
     les_champs.append(QgsField("NBSARM",  QVariant.Double, "double", 10,2))
@@ -258,7 +259,8 @@ def physiocap_csv_to_shapefile( csv_name, shape_name, prj_name,
         les_champs.append(QgsField("BIOMGM2", QVariant.Double,"double", 10,2))
         les_champs.append(QgsField("BIOMGCEP", QVariant.Double,"double", 10,2))
     # Creation du Shape
-    writer = QgsVectorFileWriter( shape_name, "UTF-8", les_champs, QGis.WKBPoint, None , "ESRI Shapefile")
+    writer = QgsVectorFileWriter( shape_name, "utf-8", les_champs, 
+        QGis.WKBPoint, None , "ESRI Shapefile")
 
 ##        # Création du shape et des champs vides
 ##        w = shp.Writer(shp.POINT)
@@ -283,13 +285,13 @@ def physiocap_csv_to_shapefile( csv_name, shape_name, prj_name,
         feat.setGeometry( QgsGeometry.fromPoint(QgsPoint(k,y[j]))) #écrit la géométrie
         if details == "YES":
             # Ecrit tous les attributs
-           feat.setAttributes( [ dateshp[j], vitesseshp[j], nbsarmshp[j], 
+           feat.setAttributes( [ j, dateshp[j], vitesseshp[j], nbsarmshp[j], 
                                 diamshp[j], biomshp[j],
                                 nbsarmm2[j], nbsarcep[j], biommm2[j], 
                                 biomgm2[j], biomgcep[j]]) 
         else:
             # Ecrit les 5 premiers attributs
-            feat.setAttributes( [ dateshp[j], vitesseshp[j], nbsarmshp[j], 
+            feat.setAttributes( [ j, dateshp[j], vitesseshp[j], nbsarmshp[j], 
                                 diamshp[j], biomshp[j]])
         # Ecrit le feature
         writer.addFeature( feat)
@@ -483,8 +485,10 @@ def physiocap_filtrer(src, csv_sans_0, csv_avec_0, diametre_filtre,
         # Assert details == "YES"
         if details != "YES" : 
             return physiocap_error(u"Problème majeur dans le choix du détail du parcellaire")
-        csv_sans_0.write("%s\n" % ("X ; Y ; XL93 ; YL93 ; NBSARM ; DIAM ; BIOM ; Date ; Vitesse ; NBSARMM2 ; NBSARCEP ; BIOMMM2 ; BIOMGM2 ; BIOMGCEP ")) # ecriture de l'entête
-        csv_avec_0.write("%s\n" % ("X ; Y ; XL93 ; YL93 ; NBSARM ; DIAM ; BIOM ; Date ; Vitesse ; NBSARMM2 ; NBSARCEP ; BIOMMM2 ; BIOMGM2 ; BIOMGCEP ")) # ecriture de l'entête
+        csv_sans_0.write("%s\n" % ("X ; Y ; XL93 ; YL93 ; NBSARM ; DIAM ; BIOM ; Date ; Vitesse ; \
+            NBSARMM2 ; NBSARCEP ; BIOMMM2 ; BIOMGM2 ; BIOMGCEP ")) # ecriture de l'entête
+        csv_avec_0.write("%s\n" % ("X ; Y ; XL93 ; YL93 ; NBSARM ; DIAM ; BIOM ; Date ; Vitesse ; \
+            NBSARMM2 ; NBSARCEP ; BIOMMM2 ; BIOMGM2 ; BIOMGCEP ")) # ecriture de l'entête
 
     nombre_ligne = 0
     while True :
@@ -552,6 +556,6 @@ def physiocap_filtrer(src, csv_sans_0, csv_avec_0, diametre_filtre,
             physiocap_error( uMsg )
             err.write( aMsg) # on écrit la ligne dans le fichier ERREUR.csv
             return -1
-    physiocap_log( u"Fin filtrage OK des "+ str(nombre_ligne) + " lignes.")
+    physiocap_log( u"Fin filtrage OK des "+ str(nombre_ligne - 1) + " lignes.")
     return 0
  

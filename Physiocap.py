@@ -62,7 +62,7 @@ class PhysiocapAnalyseur:
             self.plugin_dir,
             'i18n',
             'PhysiocapAnalyseur_{}.qm'.format(locale))
-
+        #physiocap_log( "Locale : <" +  str( locale ) + ">" ) 
         if os.path.exists(locale_path):
             self.translator = QTranslator()
             self.translator.load(locale_path)
