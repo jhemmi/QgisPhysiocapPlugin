@@ -1,1 +1,1 @@
-jhemmi.eu & CIVC - Août 2015 - Voir la [license](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/LICENSE)
+jhemmi.eu & CIVC - Octobre 2015 - V1.0 - Voir la [license](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/LICENSE)https://github.com/jhemmi/QgisPhysiocapPlugin/wiki/_new
