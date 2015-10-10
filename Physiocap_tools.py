@@ -55,9 +55,17 @@ except ImportError:
     aText = "Erreur bloquante : module GDAL osr n'est pas accessible." 
     print( aText)
     QgsMessageLog.logMessage( aText, "Physiocap erreurs", QgsMessageLog.WARNING)
+    
+try :
+    import matplotlib.pyplot as plt
+except ImportError:
+    aText ="Erreur bloquante : module matplotlib.pyplot n'est pas accessible" 
+    aText = aText + "Sous Fedora : installez python-matplotlib-qt4" 
+    print( aText)
+    QgsMessageLog.logMessage( aText, "Physiocap erreurs", QgsMessageLog.WARNING)
+    
 try :
     import numpy as np
-    #import matplotlib.pyplot as plt
 except ImportError:
     aText ="Erreur bloquante : module numpy n'est pas accessible" 
     print( aText)
@@ -187,12 +195,12 @@ def physiocap_open_file( nom_court, chemin, type_ouverture="w"):
     """ Créer ou detruit et re-crée un fichier"""
     # Fichier des diamètres     
     nom_fichier = os.path.join(chemin, nom_court)
-    if os.path.isfile( nom_fichier):
+    if ((type_ouverture == "w") and os.path.isfile( nom_fichier)):
         os.remove( nom_fichier)
     try :
         fichier_pret = open(nom_fichier, type_ouverture)
     except :
-        raise physiocap_exception_rep( nom_court)
+        raise physiocap_exception_fic( nom_court)
     return nom_fichier, fichier_pret
 
 # Partie Calcul non modifié
@@ -432,7 +440,7 @@ def physiocap_fichier_histo(src, histo_diametre, histo_nbsarment, err):
     Lit et traite ligne par ligne le fichier source (src).
     Les résultats est écrit au fur et à mesure dans histo_diametre ou histo_nbsarment
     """
-    
+   
     numero_ligne = 0     
     while True :
         ligne = src.readline() # lit les lignes 1 à 1
@@ -461,6 +469,32 @@ def physiocap_fichier_histo(src, histo_diametre, histo_nbsarment, err):
             physiocap_error( msg )
             err.write( str(msg) ) # on écrit la ligne dans le fichier ERREUR.csv
             pass # on mange l'exception
+
+
+
+def physiocap_histo(src, name, min=0, max =28, labelx = "Lab X", labely = "Lab Y", titre = "Titre", bins = 100):
+    #"""Fonction de traitement.
+    #Lit et traite ligne par ligne le fichier source (src).
+    #Le résultat est écrit au fur et à mesure dans le
+    #fichier destination (dst). 
+    #"""
+    ligne2 = src.readline()
+    histo = ligne2.split(";") # split en fonction des virgules
+    # Assert len(histo)
+    XY = [float(x) for x in histo[0:-1]]   # on extrait les XY et on les transforme en float  
+    valeur = len(XY)
+    #physiocap_log( u"Histo min %d et nombre de valeurs : %d " % (min, valeur))
+    classes = np.linspace(min, max, max+1)
+    plt.hist(XY,bins=classes,normed=1, facecolor='green', alpha=0.75) 
+    plt.xlabel(labelx)
+    plt.ylabel(labely)
+    plt.title(titre)
+    plt.xlim((min, max))
+    plt.grid(True)
+    plt.savefig(name)
+    plt.show( block = 'false')
+    plt.close()
+
 
 # Fonction de filtrage et traitement des données
 def physiocap_filtrer(src, csv_sans_0, csv_avec_0, diametre_filtre, 

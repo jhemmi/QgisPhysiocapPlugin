@@ -26,9 +26,12 @@ var/
 
 # temporairement JH
 Physiocap_dialog_base_save*.ui
+Physiocap*.zip
 Makefile~
 data (esquive)/
 data/UnProjetPhysiocap*/*
+data/*OK
+data/*erreur
 test/
 scripts/
 i18n/

@@ -39,7 +39,7 @@
 from Physiocap_tools import physiocap_log,physiocap_error,physiocap_message_box, \
         physiocap_rename_create_dir, physiocap_open_file, \
         physiocap_csv_to_shapefile, physiocap_assert_csv, \
-        physiocap_fichier_histo, physiocap_filtrer       
+        physiocap_fichier_histo, physiocap_histo, physiocap_filtrer       
 
 from PyQt4 import QtGui, uic
 from PyQt4.QtCore import QSettings
@@ -81,7 +81,11 @@ SUFFIXE_BRUT_CSV = "_RAW.csv"
 EXTENSION_MID = "*.MID"
 PROJECTION_MID = "L93"
 REPERTOIRE_TEXTES = "fichiers_texte"
-REPERTOIRE_HISTO = "histogrammes"
+TRACE_HISTO = "YES"
+REPERTOIRE_HISTOS = "histogrammes"
+FICHIER_HISTO_SARMENT = "histogramme_SARMENT_RAW.png"
+FICHIER_HISTO_DIAMETRE = "histogramme_DIAMETRE_RAW.png"
+FICHIER_HISTO_DIAMETRE_FILTRE = "histogramme_DIAM_FILTERED.png"
 
 REPERTOIRE_SHAPEFILE = "shapefile"
 PROJECTION_SHP = "L93"
@@ -459,18 +463,19 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
                        
         # Ouverture du fichier des diamètres     
         nom_court_fichier_diametre = "diam" + SUFFIXE_BRUT_CSV
-        nom_histo_diametre, histo_diametre = physiocap_open_file( nom_court_fichier_diametre, chemin_textes)
+        nom_data_histo_diametre, data_histo_diametre = physiocap_open_file( nom_court_fichier_diametre, 
+            chemin_textes)
         
         # Appel fonction de creation de fichier
         nom_court_fichier_sarment = "nbsarm" + SUFFIXE_BRUT_CSV
-        nom_histo_sarment, histo_sarment = physiocap_open_file( nom_court_fichier_sarment, chemin_textes)
+        nom_data_histo_sarment, data_histo_sarment = physiocap_open_file( nom_court_fichier_sarment, 
+            chemin_textes)
 
         # Todo: V1.5 ? Supprimer le fichier erreur
         nom_fichier_erreur, erreur = physiocap_open_file( "erreurs.csv" , chemin_textes)
     
         # ouverture du fichier source
         csv_concat = open(nom_csv_concat, "r")
-
         # Appeler la fonction de vérification du format du fichier csv
         # Si plus de 20 % d'erreur exception est monté
         try:
@@ -482,18 +487,50 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             raise
         
         fichier_synthese.write("\nPARAMETRES SAISIS ")
+        
+        if os.path.getsize( nom_csv_concat ) == 0 :
+            uMsg =u"Le fichier " + nom_court_csv_concat + u" a une taille nulle !"
+            physiocap_message_box( self, uMsg)
+            return physiocap_error( uMsg)
+
+        # ouverture du fichier source
+        csv_concat = open(nom_csv_concat, "r")
+
         # Appeler la fonction de traitement
         #################
-        physiocap_fichier_histo( csv_concat, histo_diametre,    
-                        histo_sarment, erreur)
+        physiocap_fichier_histo( csv_concat, data_histo_diametre,    
+                        data_histo_sarment, erreur)
         #################
         # Fermerture des fichiers
         csv_concat.close()
-        histo_diametre.close()
-        histo_sarment.close()
+        data_histo_diametre.close()
+        data_histo_sarment.close()
         erreur.close()
 
-        physiocap_log ( u"Fin de la création fichier pour histogramme")
+        # Verification de l'existance ou création du répertoire des sources MID et fichier csv
+        chemin_histos = os.path.join(chemin_projet, REPERTOIRE_HISTOS)
+        if not (os.path.exists( chemin_histos)):
+            try:
+                os.mkdir( chemin_histos)
+            except:
+                raise physiocap_exception_rep( REPERTOIRE_HISTOS)
+
+        # creation d'un histo
+        nom_data_histo_sarment, data_histo_sarment = physiocap_open_file( nom_court_fichier_sarment, chemin_textes, 'r')
+        nom_histo_sarment, histo_sarment = physiocap_open_file( FICHIER_HISTO_SARMENT, chemin_histos)
+        name = nom_histo_sarment
+        if (TRACE_HISTO == "YES"):
+            physiocap_histo( data_histo_sarment, name, 0, 80, "SARMENT au m", "FREQUENCE en %", "HISTOGRAMME NBSARM AVANT TRAITEMENT")
+        histo_sarment.close()
+        
+        nom_data_histo_diametre, data_histo_diametre = physiocap_open_file( nom_court_fichier_diametre, chemin_textes, 'r')
+        nom_histo_diametre, histo_diametre = physiocap_open_file( FICHIER_HISTO_DIAMETRE, chemin_histos)
+        name = nom_histo_diametre
+        if (TRACE_HISTO == "YES"):
+            physiocap_histo( data_histo_diametre, name, 0, 30, "DIAMETRE en mm", "FREQUENCE en %", "HISTOGRAMME DIAMETRE AVANT TRAITEMENT")
+        histo_diametre.close()        
+        
+        physiocap_log ( u"Fin de la création des histogrammes bruts")
 
         # Création des csv
         nom_court_csv_sans_0 = NOM_PROJET + "_OUT.csv"
@@ -535,6 +572,15 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         if retour_filtre != 0:
             return physiocap_error(u"Erreur bloquante : problème lors du filtrage des données de : " + 
                     nom_court_csv_concat)  
+
+        # Histo apres filtatration
+        nom_fichier_diametre_filtre, diametre_filtre = physiocap_open_file( 
+            nom_court_fichier_diametre_filtre, chemin_textes , "r")
+        nom_histo_diametre_filtre, histo_diametre = physiocap_open_file( FICHIER_HISTO_DIAMETRE_FILTRE, chemin_histos)
+
+        if (TRACE_HISTO == "YES"):
+            physiocap_histo( diametre_filtre, nom_histo_diametre_filtre, 0, 30, "DIAMETRE en mm", "FREQUENCE en %", "HISTOGRAMME DIAMETRE APRES TRAITEMENT")
+        diametre_filtre.close()        
                                               
         # On écrit dans le fichiers résultats les paramètres du modéle
         fichier_synthese = open(nom_fichier_synthese, "a")
@@ -599,14 +645,20 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             return physiocap_error(u"Erreur bloquante : problème lors de la création du shapefile : " + 
                     nom_court_shape_avec_0) 
                               
+        # Récupérer des styles pour chaque shape
+        dirTemplate = os.path.join( os.path.dirname(__file__), 'modeleQgis')       
         # Affichage des deux shapes dans Qgis
-        for s,n in [ (nom_shape_sans_0, nom_court_shape_sans_0) , 
-                     (nom_shape_avec_0, nom_court_shape_avec_0)]:
-            vector = QgsVectorLayer( s, n, 'ogr')
+        for s,ti,te in [(nom_shape_sans_0, 'DIAMETRE', 'Diametre 6 quantilles.qml') , 
+                        (nom_shape_sans_0, 'SARMENT', 'Sarments 4 Jenks.qml') , 
+                        (nom_shape_avec_0, 'VITESSE', 'Vitesse.qml')]:
+            vector = QgsVectorLayer( s, ti, 'ogr')
             QgsMapLayerRegistry.instance().addMapLayer( vector)
+            leTemplate = os.path.join( dirTemplate, te)
+            physiocap_log ( u"Physiocap le template : " + leTemplate )
+            vector.loadNamedStyle( leTemplate)
+            #self.vectorlayer_name.loadNamedStyle('path_to_qml_file')
+            #layer.readSymbology(myDocRoot,errmsg)  
             
-        # Todo: V1.5? Récupérer des styles pour chaque style de shape
-        
         # Fin 
         physiocap_log ( u"Fin de la synthèse Physiocap : sans erreur")
         return 0 
