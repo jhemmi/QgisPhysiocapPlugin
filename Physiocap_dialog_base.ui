@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>526</width>
-    <height>650</height>
+    <width>572</width>
+    <height>761</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>50</x>
-     <y>610</y>
+     <y>710</y>
      <width>301</width>
      <height>31</height>
     </rect>
@@ -32,16 +32,16 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QTabWidget" name="tabWidgetHisto">
+  <widget class="QTabWidget" name="tabWidgetPhysiocap">
    <property name="enabled">
     <bool>true</bool>
    </property>
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>30</y>
-     <width>511</width>
-     <height>561</height>
+     <x>10</x>
+     <y>10</y>
+     <width>551</width>
+     <height>691</height>
     </rect>
    </property>
    <property name="toolTip">
@@ -51,287 +51,21 @@
     <enum>QTabWidget::North</enum>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>4</number>
    </property>
    <property name="movable">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
-   <widget class="QWidget" name="tabBrutes">
-    <attribute name="title">
-     <string>Votre projet</string>
-    </attribute>
-    <widget class="QLabel" name="lab_1">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>20</y>
-       <width>461</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Nom du projet Physiocap (répertoire et préfixes des fichiers générés)</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="lineEditProjet">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>40</y>
-       <width>321</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="inputMethodHints">
-      <set>Qt::ImhDialableCharactersOnly</set>
-     </property>
-     <property name="maxLength">
-      <number>50</number>
-     </property>
-     <property name="dragEnabled">
-      <bool>true</bool>
-     </property>
-    </widget>
-    <widget class="QRadioButton" name="radioButtonL93">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>290</x>
-       <y>170</y>
-       <width>171</width>
-       <height>26</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <stylestrategy>NoAntialias</stylestrategy>
-      </font>
-     </property>
-     <property name="text">
-      <string>L93 - EPSG 2154</string>
-     </property>
-     <property name="checked">
-      <bool>true</bool>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lab_4">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>170</y>
-       <width>271</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Préférence de systeme de coordonées</string>
-     </property>
-    </widget>
-    <widget class="QRadioButton" name="radioButtonGPS">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>220</x>
-       <y>190</y>
-       <width>221</width>
-       <height>26</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>GPS WG84 - EPSG 4326</string>
-     </property>
-    </widget>
-    <widget class="QRadioButton" name="radioButtonQgisProject">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>190</y>
-       <width>201</width>
-       <height>26</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Defaut de projet Qgis</string>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="checkBoxContour">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>240</y>
-       <width>351</width>
-       <height>26</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Exclure les données brutes hors contour</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lab_3">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>120</y>
-       <width>431</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Format des cartes de points générés</string>
-     </property>
-    </widget>
-    <widget class="QComboBox" name="fieldComboFormats">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>140</y>
-       <width>291</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="editable">
-      <bool>true</bool>
-     </property>
-     <property name="currentIndex">
-      <number>-1</number>
-     </property>
-     <property name="minimumContentsLength">
-      <number>1</number>
-     </property>
-    </widget>
-   </widget>
    <widget class="QWidget" name="tabParametres">
     <attribute name="title">
-     <string>Vos paramètres</string>
+     <string>Paramètres</string>
     </attribute>
-    <widget class="QLineEdit" name="lineEditDirectoryPhysiocap">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>30</y>
-       <width>271</width>
-       <height>21</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QToolButton" name="toolButtonDirectoryPhysiocap">
-     <property name="geometry">
-      <rect>
-       <x>290</x>
-       <y>30</y>
-       <width>21</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>...</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lab_15">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>60</y>
-       <width>321</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Vecteur et champ décrivant vos contours</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="lineEditContours">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>80</y>
-       <width>271</width>
-       <height>21</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QToolButton" name="toolButtonContours">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>290</x>
-       <y>80</y>
-       <width>21</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>...</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lab_16">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>330</x>
-       <y>60</y>
-       <width>151</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Choisir un descripteur</string>
-     </property>
-    </widget>
-    <widget class="QComboBox" name="fieldComboFieldContours">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>330</x>
-       <y>80</y>
-       <width>121</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
     <widget class="QGroupBox" name="Vignoble">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>320</y>
-       <width>451</width>
+       <x>20</x>
+       <y>440</y>
+       <width>461</width>
        <height>201</height>
       </rect>
      </property>
@@ -730,25 +464,12 @@
       </widget>
      </widget>
     </widget>
-    <widget class="QLabel" name="lab_10">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>10</y>
-       <width>301</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Répertoire des données brutes de Physiocap</string>
-     </property>
-    </widget>
     <widget class="QGroupBox" name="Filtres">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>120</y>
-       <width>451</width>
+       <x>20</x>
+       <y>220</y>
+       <width>471</width>
        <height>191</height>
       </rect>
      </property>
@@ -758,10 +479,10 @@
      <property name="title">
       <string/>
      </property>
-     <widget class="QLabel" name="lab_17">
+     <widget class="QLabel" name="lab_29">
       <property name="geometry">
        <rect>
-        <x>30</x>
+        <x>0</x>
         <y>10</y>
         <width>451</width>
         <height>21</height>
@@ -835,7 +556,7 @@
        <number>2</number>
       </property>
      </widget>
-     <widget class="QLabel" name="lab_19">
+     <widget class="QLabel" name="lab_30">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -848,7 +569,7 @@
        <string>Tailles d'exclusion des mesures  de sarments (en mm)</string>
       </property>
      </widget>
-     <widget class="QLabel" name="lab_20">
+     <widget class="QLabel" name="lab_31">
       <property name="geometry">
        <rect>
         <x>60</x>
@@ -908,7 +629,7 @@
        <double>1.000000000000000</double>
       </property>
      </widget>
-     <widget class="QLabel" name="lab_18">
+     <widget class="QLabel" name="lab_38">
       <property name="enabled">
        <bool>false</bool>
       </property>
@@ -928,45 +649,507 @@
       </property>
      </widget>
     </widget>
-   </widget>
-   <widget class="QWidget" name="tab">
-    <attribute name="title">
-     <string>Histogrammes</string>
-    </attribute>
-    <widget class="QLabel" name="lab_38">
+    <widget class="QGroupBox" name="groupBox">
      <property name="geometry">
       <rect>
-       <x>30</x>
+       <x>10</x>
+       <y>10</y>
+       <width>481</width>
+       <height>191</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string/>
+     </property>
+     <widget class="QLabel" name="lab_10">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>301</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Répertoire des données brutes de Physiocap</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEditDirectoryPhysiocap">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>431</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="toolButtonDirectoryPhysiocap">
+      <property name="geometry">
+       <rect>
+        <x>450</x>
+        <y>30</y>
+        <width>21</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>...</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lab_11">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>60</y>
+        <width>461</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Nom du projet Physiocap (répertoire et préfixes des fichiers générés)</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEditProjet">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>80</y>
+        <width>321</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhDialableCharactersOnly</set>
+      </property>
+      <property name="maxLength">
+       <number>50</number>
+      </property>
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lab_12">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>110</y>
+        <width>271</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Préférence de systeme de coordonées</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="radioButtonL93">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>300</x>
+        <y>110</y>
+        <width>171</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <stylestrategy>NoAntialias</stylestrategy>
+       </font>
+      </property>
+      <property name="text">
+       <string>L93 - EPSG 2154</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lab_13">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>140</y>
+        <width>431</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Format des cartes de points générés</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="fieldComboFormats">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>160</y>
+        <width>291</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="editable">
+       <bool>true</bool>
+      </property>
+      <property name="currentIndex">
+       <number>-1</number>
+      </property>
+      <property name="minimumContentsLength">
+       <number>1</number>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tabSynthese">
+    <attribute name="title">
+     <string>Synthèse</string>
+    </attribute>
+    <widget class="QTextEdit" name="textEditSynthese">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
        <y>40</y>
-       <width>281</width>
+       <width>531</width>
+       <height>561</height>
+      </rect>
+     </property>
+     <property name="textInteractionFlags">
+      <set>Qt::TextEditorInteraction</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lab_14">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>211</width>
        <height>21</height>
       </rect>
      </property>
      <property name="text">
-      <string>Non implémenté dans cette version</string>
+      <string>Dernier répertoire Physiocap</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEditDernierProjet">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>10</y>
+       <width>271</width>
+       <height>21</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tabHistogrammes">
+    <attribute name="title">
+     <string>Histogrammes</string>
+    </attribute>
+    <widget class="QLabel" name="label_histo_sarment">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>50</y>
+       <width>251</width>
+       <height>201</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Histo sarment</string>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_histo_diametre_avant">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>50</y>
+       <width>251</width>
+       <height>201</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Histo diamètre</string>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_histo_diametre_apres">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>260</y>
+       <width>511</width>
+       <height>331</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Histo Diamètre filtré</string>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBoxHistogramme">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>231</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Création des histogrammes</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tabEnProjet">
+    <attribute name="title">
+     <string>En projet</string>
+    </attribute>
+    <widget class="QRadioButton" name="radioButtonGPS">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>220</y>
+       <width>221</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>GPS WG84 - EPSG 4326</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="radioButtonQgisProject">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>190</y>
+       <width>201</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Defaut de projet Qgis</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBoxContour">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>90</y>
+       <width>351</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Exclure les données brutes hors contour</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lab_27">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>40</y>
+       <width>321</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Vecteur décrivant vos contours</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="fieldComboFieldContours_2">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>340</x>
+       <y>60</y>
+       <width>121</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEditContours_2">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>60</y>
+       <width>271</width>
+       <height>21</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lab_28">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>340</x>
+       <y>40</y>
+       <width>151</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Choisir un descripteur</string>
+     </property>
+    </widget>
+    <widget class="QToolButton" name="toolButtonContours_2">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>60</y>
+       <width>21</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>...</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>320</y>
+       <width>491</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Mise en base de données Physiocap de vos moyennes</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tabAide">
+    <attribute name="title">
+     <string>A propos</string>
+    </attribute>
+    <widget class="QLabel" name="label_101">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>250</x>
+       <y>20</y>
+       <width>71</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Version 1.1</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_100">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>20</y>
+       <width>201</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Plugin Physiocap pour Qgis</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_102">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>60</y>
+       <width>311</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QTextBrowser" name="textBrowser">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>50</y>
+       <width>451</width>
+       <height>111</height>
+      </rect>
+     </property>
+     <property name="html">
+      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Cantarell'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Utilisez le bouton &lt;span style=&quot; font-weight:600;&quot;&gt;Aide&lt;/span&gt; pour accéder aux documentations, à la licence et au suivi des évolutions sous gitHub.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;N'hésitez pas à poster vos questions, proposition d'évolutions et retour de bugs.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
    </widget>
   </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="enabled">
-    <bool>true</bool>
-   </property>
+  <widget class="QProgressBar" name="progressBar">
    <property name="geometry">
     <rect>
-     <x>440</x>
-     <y>10</y>
-     <width>70</width>
-     <height>16</height>
+     <x>350</x>
+     <y>710</y>
+     <width>191</width>
+     <height>31</height>
     </rect>
    </property>
-   <property name="font">
-    <font>
-     <pointsize>8</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Version 1.0</string>
+   <property name="value">
+    <number>0</number>
    </property>
   </widget>
  </widget>

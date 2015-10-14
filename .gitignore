@@ -25,10 +25,12 @@ var/
 *.egg
 
 # temporairement JH
+Ecran Physiocap Plugin.png
 Physiocap_dialog_base_save*.ui
 Physiocap*.zip
 Makefile~
 data (esquive)/
+dataChavot/
 data/UnProjetPhysiocap*/*
 data/*OK
 data/*erreur

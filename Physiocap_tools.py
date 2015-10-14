@@ -106,14 +106,10 @@ def physiocap_error( aText, level ="WARNING"):
 
     return -1      
 
-def physiocap_write_in_list( self, aText):
+def physiocap_write_in_synthese( self, aText):
     """Write a text in the results list"""
-    if platform.system() == "Windows":
-        info = aText.split( "\r\n" )        
-    else:
-        info = aText.split( "\n" )
-    for aInfo in info:
-        self.textEdit.insertPlainText( aInfo + "\n")   
+    uText = unicode( aText, 'utf-8')
+    self.textEditSynthese.insertPlainText( uText)   
 
 def get_vector_layers( self ):
     """Create a list of vector """
@@ -270,23 +266,6 @@ def physiocap_csv_to_shapefile( csv_name, shape_name, prj_name,
     writer = QgsVectorFileWriter( shape_name, "utf-8", les_champs, 
         QGis.WKBPoint, None , "ESRI Shapefile")
 
-##        # Création du shape et des champs vides
-##        w = shp.Writer(shp.POINT)
-##        w.autoBalance = 1 #vérifie la geom
-##        w.field('DATE','S',25)
-##        w.field('VITESSE','F',10,2)
-##        w.field('NBSARM','F',10,2)
-##        w.field('DIAM','F',10,2)
-##        w.field('BIOM','F',10,2)
-##        if details == "YES":
-##            # Niveau de detail demandé
-##            w.field('NBSARMM2','F',10,2)
-##            w.field('NBSARCEP','F',10,2)
-##            w.field('BIOMM2','F',10,2)
-##            w.field('BIOMGM2','F',10,2)
-##            w.field('BIOMGCEP','F',10,2)
-    
- 
     #Ecriture du shp
     for j,k in enumerate(x):
         feat = QgsFeature()
@@ -303,22 +282,7 @@ def physiocap_csv_to_shapefile( csv_name, shape_name, prj_name,
                                 diamshp[j], biomshp[j]])
         # Ecrit le feature
         writer.addFeature( feat)
-    # Ecrit le shape
-    #del writer
 
-##        for j,k in enumerate(x):
-##            w.point(k,y[j]) #écrit la géométrie
-##            if details == "YES":
-##                # Ecrit tous les attributs
-##                w.record(dateshp[j],vitesseshp[j],nbsarmshp[j], diamshp[j], biomshp[j], \
-##                    nbsarmm2[j], nbsarcep[j], biommm2[j], biomgm2[j], biomgcep[j]) #écrit les attributs
-##            else:
-##                # Ecrit les 5 premiers attributs
-##                w.record(dateshp[j],vitesseshp[j],nbsarmshp[j], diamshp[j], biomshp[j])
-##            
-##        #Save shapefile
-##        w.save(shape_name)
-    
     # Create the PRJ file
     prj = open(prj_name, "w")
     # Todo: V1.5 ? Faire un fichier de metadata et mettre prj texte dans dialogue ?
@@ -379,16 +343,6 @@ def physiocap_assert_csv(src, err):
         # Vérifier si ligne OK
         numero_ligne = numero_ligne + 1
         #physiocap_log( u"Assert CVS ligne lue %d" % (numero_ligne))
-        comptage = ligne.count(",") # compte le nombre de virgules
-        if comptage != NB_VIRGULES:
-            # Assert Trouver les lignes de données invalides ( sans 58 virgules ... etc)
-            aMsg = "La ligne numéro %d n'a pas %s virgules" % (numero_ligne, NB_VIRGULES)
-            uMsg = unicode(aMsg, 'utf-8')
-            nombre_erreurs = nombre_erreurs + 1
-            if nombre_erreurs < 10:
-                physiocap_error( uMsg )
-            err.write( aMsg + '\n') # on écrit la ligne dans le fichier ERREUR.csv
-            continue # on a tracé erreur et on saute la ligne
 
         result = ligne.split(",") # split en fonction des virgules        
         # Vérifier si le champ date a bien deux - et 2 deux points
@@ -420,6 +374,18 @@ def physiocap_assert_csv(src, err):
                     physiocap_error( uMsg )
                     err.write( aMsg + "\n") # on écrit la ligne dans le fichier ERREUR.csv
                 break # on a tracé une erreur et on saute la ligne            
+
+        comptage = ligne.count(",") # compte le nombre de virgules
+        if comptage > NB_VIRGULES:
+            # Assert Trouver les lignes de données invalides ( sans 58 virgules ... etc)
+            aMsg = "La ligne numéro %d n'a pas %s virgules" % (numero_ligne, NB_VIRGULES)
+            uMsg = unicode(aMsg, 'utf-8')
+            nombre_erreurs = nombre_erreurs + 1
+            if nombre_erreurs < 10:
+                physiocap_error( uMsg )
+            err.write( aMsg + '\n') # on écrit la ligne dans le fichier ERREUR.csv
+            continue # on a tracé erreur et on saute la ligne
+
 
     # Au bilan
     if (numero_ligne != 0):

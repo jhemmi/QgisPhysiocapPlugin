@@ -37,6 +37,7 @@
 ***************************************************************************/
 """
 from Physiocap_tools import physiocap_log,physiocap_error,physiocap_message_box, \
+        physiocap_write_in_synthese, \
         physiocap_rename_create_dir, physiocap_open_file, \
         physiocap_csv_to_shapefile, physiocap_assert_csv, \
         physiocap_fichier_histo, physiocap_histo, physiocap_filtrer       
@@ -57,6 +58,19 @@ import glob
 import shutil
 import time  
 
+
+
+class MyProgressBar(QtGui.QProgressBar):
+    def __init__(self, parent = None):
+        QtGui.QProgressBar.__init__(self, parent)
+        self.setStyleSheet(DEFAULT_STYLE)
+
+    def setValue(self, value):
+        QtGui.QProgressBar.setValue(self, value)
+
+        if value == self.maximum():
+            self.setStyleSheet(COMPLETED_STYLE)
+
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'Physiocap_dialog_base.ui'))
 
@@ -67,7 +81,7 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
 REPERTOIRE_DONNEES_BRUTES = "/home/jhemmi/Documents/GIS/SCRIPT/QGIS/PhysiocapAnalyseur/data"
 NOM_PROJET = "VotreProjetPhysiocap"
 PHYSIOCAP_NOM = "Physiocap"
-PHYSIOCAP_VERSION = PHYSIOCAP_NOM + "_V1_0"
+PHYSIOCAP_VERSION = PHYSIOCAP_NOM + "_V1_1"
 
 # Listes de valeurs
 CEPAGES = [ "CHARDONNAY", "MERLOT", "NEGRETTE", "PINOT NOIR", "PINOT MEUNIER"]
@@ -81,11 +95,16 @@ SUFFIXE_BRUT_CSV = "_RAW.csv"
 EXTENSION_MID = "*.MID"
 PROJECTION_MID = "L93"
 REPERTOIRE_TEXTES = "fichiers_texte"
-TRACE_HISTO = "YES"
+
 REPERTOIRE_HISTOS = "histogrammes"
-FICHIER_HISTO_SARMENT = "histogramme_SARMENT_RAW.png"
-FICHIER_HISTO_DIAMETRE = "histogramme_DIAMETRE_RAW.png"
-FICHIER_HISTO_DIAMETRE_FILTRE = "histogramme_DIAM_FILTERED.png"
+if platform.system() == 'Windows':
+    # Matplotlib et png problematique sous Windows
+    SUFFIXE_HISTO = ".pdf"
+else:
+    SUFFIXE_HISTO = ".png"
+FICHIER_HISTO_SARMENT = "histogramme_SARMENT_RAW" + SUFFIXE_HISTO
+FICHIER_HISTO_DIAMETRE = "histogramme_DIAMETRE_RAW"  + SUFFIXE_HISTO
+FICHIER_HISTO_DIAMETRE_FILTRE = "histogramme_DIAM_FILTERED" +  SUFFIXE_HISTO
 
 REPERTOIRE_SHAPEFILE = "shapefile"
 PROJECTION_SHP = "L93"
@@ -93,10 +112,6 @@ EXTENSION_SHP = "_" + PROJECTION_SHP + ".shp"
 EXTENSION_POUR_ZERO = "_0"
 EXTENSION_PRJ = "_" + PROJECTION_SHP + ".prj"
 
-##FICHIER_SAUVE_PARAMETRES = os.path.join(
-##                    os.path.dirname(__file__), 
-##                    '.physiocap')
-##                    
 # Exceptions Physiocap 
 ERREUR_EXCEPTION = u"Physiocap n'a pas correctement terminé son analyse"
 TAUX_LIGNES_ERREUR= 20
@@ -150,7 +165,12 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.toolButtonDirectoryPhysiocap.pressed.connect( self.lecture_repertoire_donnees_brutes )  
         
         physiocap_log( u"Votre machine tourne sous " + platform.system())
-
+        
+        # Style sheet pour QProgressBar
+        self.setStyleSheet( "QProgressBar {color:black; text-align:center; font-weight:bold; padding:2px;}"
+           "QProgressBar:chunk {background-color:green; width: 10px; margin-left:1px;}")
+#            "QProgressBar:chunk {background-color: #0088dd; width: 10px; margin-left:1px;}")
+        
         ###############
         # Récuperation dans les settings (derniers parametres saisies)
         ###############
@@ -160,6 +180,11 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             NOM_PROJET ))
         self.lineEditDirectoryPhysiocap.setText(  self.settings.value("Physiocap/repertoire",
             REPERTOIRE_DONNEES_BRUTES))
+        self.lineEditDernierProjet.setText( self.settings.value("Physiocap/dernier_repertoire",
+            ""))    
+            
+        # Remettre vide le textEditSynthese
+        self.textEditSynthese.clear()
         
         # Remplissage de la liste de cépage
         self.fieldComboCepage.setCurrentIndex( 0)
@@ -223,9 +248,12 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.spinBoxInterceps.setValue( int( self.settings.value("Physiocap/interceps", 100 )))
         self.spinBoxHauteur.setValue( int( self.settings.value("Physiocap/hauteur", 90 )))
         self.doubleSpinBoxDensite.setValue( float( self.settings.value("Physiocap/densite", 0.9 )))
- 
-       # TODO: V1.5 ? Recherche du projet courant ?
-        
+
+        if (self.settings.value("Physiocap/histogrammes") == "YES"):
+            self.checkBoxHistogramme.setChecked( Qt.Checked)
+        else:
+            self.checkBoxHistogramme.setChecked( Qt.Unchecked)
+
     # Slots
     def helpRequested(self):
         """ Help html qui pointe vers gitHub""" 
@@ -253,12 +281,15 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             return physiocap_message_box( self,
                 self.tr( u"Pas de nom de projet spécifié" ),
                 "information")
-                                        
+                 
+        # Remettre vide le textEditSynthese
+        self.textEditSynthese.clear()
 
         # Sauvergarde des saisies dans les settings
         self.settings= QSettings( PHYSIOCAP_NOM, PHYSIOCAP_VERSION)
         self.settings.setValue("Physiocap/projet", self.lineEditProjet.text() )
         self.settings.setValue("Physiocap/repertoire", self.lineEditDirectoryPhysiocap.text() )
+        #self.settings.setValue("Physiocap/dernier_repertoire", self.lineEditDernierProjet.text() )
         self.settings.setValue("Physiocap/minVitesse", float( self.doubleSpinBoxMinVitesse.value()))
         self.settings.setValue("Physiocap/mindiam", float( self.spinBoxMinDiametre.value()))
         self.settings.setValue("Physiocap/maxdiam", float( self.spinBoxMaxDiametre.value()))
@@ -277,14 +308,19 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.settings.setValue("Physiocap/leCepage", self.fieldComboCepage.currentText())
         self.settings.setValue("Physiocap/laTaille", self.fieldComboTaille.currentText())
 
-
-
+        # Onglet Histogramme
+        TRACE_HISTO = "NO"
+        if self.checkBoxHistogramme.isChecked():
+            TRACE_HISTO = "YES"
+            physiocap_log(u"Les histogrammes sont attendus")
+        self.settings.setValue("Physiocap/histogrammes", TRACE_HISTO)
+            
         # ########################################
         # Gestion de capture des erreurs Physiocap
         # ########################################
         try:
             # Création des répertoires et des résultats de synthèse
-            retour = self.creer_donnees_resultats( details)
+            retour = self.creer_donnees_resultats( details, TRACE_HISTO)
         except physiocap_exception_rep as e:
             physiocap_log( ERREUR_EXCEPTION + ". Consultez le journal Physiocap Erreur",
                 "WARNING")
@@ -346,20 +382,24 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         except:
             raise
         finally:
-            self.reject()
-        # ########################################
+            pass
+            # Todo : Afficher les histo
+            # Todo : Se mettre sur l'onglet resutats (histo)
+            # self.reject()
         # Fin de capture des erreurs Physiocap
-        # #########################################
         
         physiocap_log(u"Physiocap a terminé son analyse.")
-
-    
+        
     # Repertoire données brutes :
     def lecture_repertoire_donnees_brutes( self):
         """Catch directory for raw data"""
         # TODO: Vx ? Faire traduction du titre self.?iface.tr("Répertoire des données brutes")
+        # Récuperer dans setting le nom du dernier ou sinon REPERTOIRE_DONNEES_BRUTES
+        self.settings= QSettings(PHYSIOCAP_NOM, PHYSIOCAP_VERSION)
+        exampleDirName =  self.settings.value("Physiocap/repertoire", REPERTOIRE_DONNEES_BRUTES)
+        
         dirName = QFileDialog.getExistingDirectory( self, u"Répertoire des données brutes",
-                                                 REPERTOIRE_DONNEES_BRUTES,
+                                                 exampleDirName,
                                                  QFileDialog.ShowDirsOnly
                                                  | QFileDialog.DontResolveSymlinks);
         if len( dirName) == 0:
@@ -368,7 +408,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         
     
     # Creation des repertoires source puis resultats
-    def creer_donnees_resultats( self, details = "NO"):
+    def creer_donnees_resultats( self, details = "NO", histogrammes = "NO"):
         """ Récupération des paramètres saisies et 
         creation de l'arbre "soure" "texte" et du fichier "resultats"
         Ce sont les résultats de l'analyse filtration des données brutes"""
@@ -403,6 +443,16 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
                 chemin_projet = physiocap_rename_create_dir( chemin_projet)
             except:
                 return
+        
+        # Stocker dans la fenetre de synthese le nom du projet
+        chemin_base_projet = os.path.basename( chemin_projet)
+        self.lineEditDernierProjet.setText( chemin_base_projet)
+        self.settings= QSettings( PHYSIOCAP_NOM, PHYSIOCAP_VERSION)
+        self.settings.value("Physiocap/dernier_repertoire", chemin_base_projet) 
+        
+        # Progress BAR 10 %
+        self.progressBar.setValue( 10)
+        
             
         # Verification de l'existance ou création du répertoire des sources MID et fichier csv
         chemin_sources = os.path.join(chemin_projet, REPERTOIRE_SOURCES)
@@ -444,13 +494,24 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             return physiocap_error( uMsg)
         
 
+        # Progress BAR 20 %
+        self.progressBar.setValue( 20)
+        
         # Todo: Vx ? Remplacer le fichier synthese par un ecran du plugin           
         # Création la première partie du fichier de synthèse
         nom_fichier_synthese, fichier_synthese = physiocap_open_file( FICHIER_RESULTAT, chemin_projet , "w")
-        fichier_synthese.write("SYNTHESE PHYSIOCAP\n\n")
-        fichier_synthese.write("Fichier généré le : ")
-        a_time = time.strftime("%d/%m/%y %H:%M\n",time.localtime())
-        fichier_synthese.write(a_time)
+        fichier_synthese.write( "SYNTHESE PHYSIOCAP\n\n")
+        fichier_synthese.write( "Répertoire ")
+        fichier_synthese.write( chemin_base_projet + "\n")
+        fichier_synthese.write( "généré le : ")
+        a_time = time.strftime( "%d/%m/%y %H:%M\n",time.localtime())
+        fichier_synthese.write( a_time)
+        nom_mid = ""
+        for fichier_mid in listeTriee:
+            nom_mid = nom_mid + os.path.basename( fichier_mid) + " & "
+        fichier_synthese.write("Liste des fichiers MID : " + nom_mid[:-3] + "\n")
+        physiocap_log( "Liste des MID : " + nom_mid[:-3])
+       
         physiocap_log ( u"Fin de la création csv et début de synthèse")
        
         # Verification de l'existance ou création du répertoire textes
@@ -497,17 +558,21 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         csv_concat = open(nom_csv_concat, "r")
 
         # Appeler la fonction de traitement
-        #################
-        physiocap_fichier_histo( csv_concat, data_histo_diametre,    
+        if histogrammes == "YES":
+            #################
+            physiocap_fichier_histo( csv_concat, data_histo_diametre,    
                         data_histo_sarment, erreur)
-        #################
-        # Fermerture des fichiers
+            #################
+            # Fermerture des fichiers
+            data_histo_diametre.close()
+            data_histo_sarment.close()
         csv_concat.close()
-        data_histo_diametre.close()
-        data_histo_sarment.close()
         erreur.close()
-
-        # Verification de l'existance ou création du répertoire des sources MID et fichier csv
+        
+        # Progress BAR 35 %
+        self.progressBar.setValue( 35)
+        
+        # Verification de l'existance 
         chemin_histos = os.path.join(chemin_projet, REPERTOIRE_HISTOS)
         if not (os.path.exists( chemin_histos)):
             try:
@@ -515,23 +580,24 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             except:
                 raise physiocap_exception_rep( REPERTOIRE_HISTOS)
 
-        # creation d'un histo
-        nom_data_histo_sarment, data_histo_sarment = physiocap_open_file( nom_court_fichier_sarment, chemin_textes, 'r')
-        nom_histo_sarment, histo_sarment = physiocap_open_file( FICHIER_HISTO_SARMENT, chemin_histos)
-        name = nom_histo_sarment
-        if (TRACE_HISTO == "YES"):
-            physiocap_histo( data_histo_sarment, name, 0, 80, "SARMENT au m", "FREQUENCE en %", "HISTOGRAMME NBSARM AVANT TRAITEMENT")
-        histo_sarment.close()
-        
-        nom_data_histo_diametre, data_histo_diametre = physiocap_open_file( nom_court_fichier_diametre, chemin_textes, 'r')
-        nom_histo_diametre, histo_diametre = physiocap_open_file( FICHIER_HISTO_DIAMETRE, chemin_histos)
-        name = nom_histo_diametre
-        if (TRACE_HISTO == "YES"):
+        if histogrammes == "YES":
+            # creation d'un histo
+            nom_data_histo_sarment, data_histo_sarment = physiocap_open_file( nom_court_fichier_sarment, chemin_textes, 'r')
+            nom_histo_sarment, histo_sarment = physiocap_open_file( FICHIER_HISTO_SARMENT, chemin_histos)
+            name = nom_histo_sarment
+            physiocap_histo( data_histo_sarment, name, 0, 50, "SARMENT au m", "FREQUENCE en %", "HISTOGRAMME NBSARM AVANT TRAITEMENT")
+            histo_sarment.close()
+            
+            nom_data_histo_diametre, data_histo_diametre = physiocap_open_file( nom_court_fichier_diametre, chemin_textes, 'r')
+            nom_histo_diametre, histo_diametre = physiocap_open_file( FICHIER_HISTO_DIAMETRE, chemin_histos)
+            name = nom_histo_diametre
             physiocap_histo( data_histo_diametre, name, 0, 30, "DIAMETRE en mm", "FREQUENCE en %", "HISTOGRAMME DIAMETRE AVANT TRAITEMENT")
-        histo_diametre.close()        
-        
-        physiocap_log ( u"Fin de la création des histogrammes bruts")
-
+            histo_diametre.close()        
+            
+            physiocap_log ( u"Fin de la création des histogrammes bruts")
+        else:
+            physiocap_log ( u"Pas de création des histogrammes")
+            
         # Création des csv
         nom_court_csv_sans_0 = NOM_PROJET + "_OUT.csv"
         nom_csv_sans_0, csv_sans_0 = physiocap_open_file( 
@@ -569,18 +635,22 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         # Fermerture du fichier source
         csv_concat.close()  
 
+        # Todo : V1.5 ? Gerer erreur par exception
         if retour_filtre != 0:
             return physiocap_error(u"Erreur bloquante : problème lors du filtrage des données de : " + 
                     nom_court_csv_concat)  
 
-        # Histo apres filtatration
-        nom_fichier_diametre_filtre, diametre_filtre = physiocap_open_file( 
-            nom_court_fichier_diametre_filtre, chemin_textes , "r")
-        nom_histo_diametre_filtre, histo_diametre = physiocap_open_file( FICHIER_HISTO_DIAMETRE_FILTRE, chemin_histos)
+        # Progress BAR 60 %
+        self.progressBar.setValue( 60)
 
-        if (TRACE_HISTO == "YES"):
+        if histogrammes == "YES":
+            # Histo apres filtatration
+            nom_fichier_diametre_filtre, diametre_filtre = physiocap_open_file( 
+                nom_court_fichier_diametre_filtre, chemin_textes , "r")
+            nom_histo_diametre_filtre, histo_diametre = physiocap_open_file( FICHIER_HISTO_DIAMETRE_FILTRE, chemin_histos)
+
             physiocap_histo( diametre_filtre, nom_histo_diametre_filtre, 0, 30, "DIAMETRE en mm", "FREQUENCE en %", "HISTOGRAMME DIAMETRE APRES TRAITEMENT")
-        diametre_filtre.close()        
+            diametre_filtre.close()        
                                               
         # On écrit dans le fichiers résultats les paramètres du modéle
         fichier_synthese = open(nom_fichier_synthese, "a")
@@ -602,7 +672,9 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         fichier_synthese.write("Diamètre maximal : %s mm\n" %maxdiam)
         fichier_synthese.close()
     
-
+        # Progress BAR 70 %
+        self.progressBar.setValue( 70)
+        
         # Verification de l'existance ou création du répertoire des sources MID et fichier csv
         chemin_shapes = os.path.join(chemin_projet, REPERTOIRE_SHAPEFILE)
         if not (os.path.exists( chemin_shapes)):
@@ -645,6 +717,9 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             return physiocap_error(u"Erreur bloquante : problème lors de la création du shapefile : " + 
                     nom_court_shape_avec_0) 
                               
+        # Progress BAR 95 %
+        self.progressBar.setValue( 95)
+        
         # Récupérer des styles pour chaque shape
         dirTemplate = os.path.join( os.path.dirname(__file__), 'modeleQgis')       
         # Affichage des deux shapes dans Qgis
@@ -654,12 +729,33 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             vector = QgsVectorLayer( s, ti, 'ogr')
             QgsMapLayerRegistry.instance().addMapLayer( vector)
             leTemplate = os.path.join( dirTemplate, te)
-            physiocap_log ( u"Physiocap le template : " + leTemplate )
+            physiocap_log ( u"Physiocap le template : " + os.path.basename( leTemplate) )
             vector.loadNamedStyle( leTemplate)
             #self.vectorlayer_name.loadNamedStyle('path_to_qml_file')
             #layer.readSymbology(myDocRoot,errmsg)  
+         
+        # Fichier de synthese dans la fenetre resultats   
+        fichier_synthese = open(nom_fichier_synthese, "r")
+        while True :
+            ligne = fichier_synthese.readline() # lit les lignes 1 à 1
+            physiocap_write_in_synthese( self, ligne)
+            if not ligne: 
+                fichier_synthese.close
+                break     
             
+        # Mettre à jour les histogrammes dans fenetre resultat
+        if histogrammes == "YES":
+            if ( self.label_histo_sarment.setPixmap( QPixmap( nom_histo_sarment))):
+                physiocap_log ( u"Physiocap histo sarment chargé")
+            if ( self.label_histo_diametre_avant.setPixmap( QPixmap( nom_histo_diametre))):
+                physiocap_log ( u"Physiocap histo diametre chargé")                
+            if ( self.label_histo_diametre_apres.setPixmap( QPixmap( nom_histo_diametre_filtre))):
+                physiocap_log ( u"Physiocap histo diametre chargé")    
+                           
+        # Progress BAR 100 %
+        self.progressBar.setValue( 100)
         # Fin 
+        
         physiocap_log ( u"Fin de la synthèse Physiocap : sans erreur")
         return 0 
 
