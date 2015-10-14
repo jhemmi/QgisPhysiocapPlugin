@@ -21,6 +21,6 @@ L'extension QgisPysiocapPlugin intègre le code de calcul du CIVC (PHYSIOCAP_V8)
 La documentation se trouve dans le Wiki https://github.com/jhemmi/QgisPhysiocapPlugin/wiki/Qgis-Physiocap-Plugin-usage-&-installation
 
 	
-**Ce dépot contient la version 1.0 - Octobre 2015**
+**Attention, ce dépot contient la version 1.0 (version stable https://github.com/jhemmi/QgisPhysiocapPlugin/releases) et la version 1.1 en cours de construction - Octobre 2015**
 
-**This repo is version 1.0 - October 2015**
+**Warning, this repo is version 1.0 (stable https://github.com/jhemmi/QgisPhysiocapPlugin/releases) and version 1.1 under construction - October 2015**
