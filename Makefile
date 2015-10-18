@@ -53,7 +53,7 @@ PY_FILES = \
 UI_FILES = Physiocap_dialog_base.ui
 
 DATA = data
-DATA_FILES = $(DATA)/01021103.MIF $(DATA)/01021103.MID $(DATA)/01021103.ERC
+DATA_FILES = $(DATA)/01021103.MID $(DATA)/01021103.ERC
 
 EXTRAS = icon.png metadata.txt LICENSE README.md
 
@@ -67,7 +67,8 @@ PEP8EXCLUDE=pydev,resources_rc.py,conf.py,third_party,ui
 #################################################
 
 HELP = help
-HELP_FILES = help/index.html
+HELP_FILES = $(HELP)/index.html $(HELP)/Histo_non_calcule.png \
+    $(HELP)/jhemmi.eu.png $(HELP)/CIVC.jpg
 TEMPLATE = modeleQgis
 
 PLUGIN_UPLOAD = $(c)/plugin_upload.py

@@ -58,19 +58,6 @@ import glob
 import shutil
 import time  
 
-
-
-class MyProgressBar(QtGui.QProgressBar):
-    def __init__(self, parent = None):
-        QtGui.QProgressBar.__init__(self, parent)
-        self.setStyleSheet(DEFAULT_STYLE)
-
-    def setValue(self, value):
-        QtGui.QProgressBar.setValue(self, value)
-
-        if value == self.maximum():
-            self.setStyleSheet(COMPLETED_STYLE)
-
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'Physiocap_dialog_base.ui'))
 
@@ -95,13 +82,17 @@ SUFFIXE_BRUT_CSV = "_RAW.csv"
 EXTENSION_MID = "*.MID"
 PROJECTION_MID = "L93"
 REPERTOIRE_TEXTES = "fichiers_texte"
+# Pour histo
+REPERTOIRE_HELP = os.path.join( os.path.dirname(__file__),"HELP")
+FICHIER_HISTO_NON_CALCULE = os.path.join( REPERTOIRE_HELP, 
+    "Histo_non_calcule.png")
 
 REPERTOIRE_HISTOS = "histogrammes"
 if platform.system() == 'Windows':
     # Matplotlib et png problematique sous Windows
-    SUFFIXE_HISTO = ".pdf"
-else:
     SUFFIXE_HISTO = ".png"
+else:
+    SUFFIXE_HISTO = ".tiff"
 FICHIER_HISTO_SARMENT = "histogramme_SARMENT_RAW" + SUFFIXE_HISTO
 FICHIER_HISTO_DIAMETRE = "histogramme_DIAMETRE_RAW"  + SUFFIXE_HISTO
 FICHIER_HISTO_DIAMETRE_FILTRE = "histogramme_DIAM_FILTERED" +  SUFFIXE_HISTO
@@ -162,6 +153,9 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.buttonBox.button( QDialogButtonBox.Help ).pressed.connect(self.helpRequested)
         
         # Slot pour données brutes
+        self.toolButtonDirectoryPhysiocap.pressed.connect( self.lecture_repertoire_donnees_brutes )  
+        # Slot pour le groupe vignoble
+        self.checkBoxInfoVignoble.stateChanged.connect( self.bascule_details_vignoble)
         self.toolButtonDirectoryPhysiocap.pressed.connect( self.lecture_repertoire_donnees_brutes )  
         
         physiocap_log( u"Votre machine tourne sous " + platform.system())
@@ -241,8 +235,10 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.spinBoxMaxSarmentsParMetre.setValue( int( self.settings.value("Physiocap/max_sarments_metre", 25 )))
         if (self.settings.value("Physiocap/details") == "YES"):
             self.checkBoxInfoVignoble.setChecked( Qt.Checked)
+            self.Vignoble.setEnabled( True)
         else:
             self.checkBoxInfoVignoble.setChecked( Qt.Unchecked)
+            self.Vignoble.setEnabled( False)
 
         self.spinBoxInterrangs.setValue( int( self.settings.value("Physiocap/interrangs", 110 )))
         self.spinBoxInterceps.setValue( int( self.settings.value("Physiocap/interceps", 100 )))
@@ -253,8 +249,29 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             self.checkBoxHistogramme.setChecked( Qt.Checked)
         else:
             self.checkBoxHistogramme.setChecked( Qt.Unchecked)
+        # Pas d'histo avant calcul
+        self.label_histo_sarment.setPixmap( QPixmap( FICHIER_HISTO_NON_CALCULE))
+        self.label_histo_diametre_avant.setPixmap( QPixmap( FICHIER_HISTO_NON_CALCULE))
+        self.label_histo_diametre_apres.setPixmap( QPixmap( FICHIER_HISTO_NON_CALCULE))
+        
+        # Auteurs : Icone
+        self.label_jhemmi.setPixmap( QPixmap( os.path.join( REPERTOIRE_HELP, 
+            "jhemmi.eu.png")))
+        self.label_CIVC.setPixmap( QPixmap( os.path.join( REPERTOIRE_HELP, 
+            "CIVC.jpg")))        
+    # Init fin 
 
     # Slots
+    def bascule_details_vignoble(self):
+        """ Changement de demande pour les details vignoble : 
+        on grise le groupe Vignoble
+        """ 
+        #physiocap_log( u"Changement de demande pour les details vignoble")
+        if self.checkBoxInfoVignoble.isChecked():
+            self.Vignoble.setEnabled( True)
+        else:
+            self.Vignoble.setEnabled( False)         
+     
     def helpRequested(self):
         """ Help html qui pointe vers gitHub""" 
         help_url = QUrl("file:///%s/help/index.html" % self.plugin_dir)
@@ -543,7 +560,8 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             pourcentage_erreurs = physiocap_assert_csv( csv_concat, erreur)
             if ( pourcentage_erreurs > TAUX_LIGNES_ERREUR):
                 fichier_synthese.write("\nTrop d'erreurs dans les données brutes")
-                raise physiocap_exception_err_csv( pourcentage_erreurs)
+                # Todo : raise selon le taux de lignes en erreur autorisées
+                #raise physiocap_exception_err_csv( pourcentage_erreurs)
         except:
             raise
         
@@ -751,6 +769,11 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
                 physiocap_log ( u"Physiocap histo diametre chargé")                
             if ( self.label_histo_diametre_apres.setPixmap( QPixmap( nom_histo_diametre_filtre))):
                 physiocap_log ( u"Physiocap histo diametre chargé")    
+        else:
+            self.label_histo_sarment.setPixmap( QPixmap( FICHIER_HISTO_NON_CALCULE))
+            self.label_histo_diametre_avant.setPixmap( QPixmap( FICHIER_HISTO_NON_CALCULE))
+            self.label_histo_diametre_apres.setPixmap( QPixmap( FICHIER_HISTO_NON_CALCULE))
+            physiocap_log ( u"Physiocap pas d'histogramme calculé")    
                            
         # Progress BAR 100 %
         self.progressBar.setValue( 100)

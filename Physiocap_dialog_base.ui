@@ -51,7 +51,7 @@
     <enum>QTabWidget::North</enum>
    </property>
    <property name="currentIndex">
-    <number>4</number>
+    <number>0</number>
    </property>
    <property name="movable">
     <bool>true</bool>
@@ -61,12 +61,15 @@
      <string>Paramètres</string>
     </attribute>
     <widget class="QGroupBox" name="Vignoble">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>440</y>
+       <y>420</y>
        <width>461</width>
-       <height>201</height>
+       <height>211</height>
       </rect>
      </property>
      <property name="title">
@@ -236,29 +239,6 @@
         <width>291</width>
         <height>20</height>
        </rect>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="checkBoxInfoVignoble">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>491</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>11</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Calculs détaillés :  précisez les informations du vignoble    </string>
-      </property>
-      <property name="tristate">
-       <bool>false</bool>
       </property>
      </widget>
      <widget class="QComboBox" name="fieldComboTaille">
@@ -814,6 +794,32 @@
       </property>
      </widget>
     </widget>
+    <widget class="QCheckBox" name="checkBoxInfoVignoble">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>420</y>
+       <width>491</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>11</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Calculs détaillés :  précisez les informations du vignoble    </string>
+     </property>
+     <property name="tristate">
+      <bool>false</bool>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="tabSynthese">
     <attribute name="title">
@@ -1125,7 +1131,7 @@
        <x>40</x>
        <y>50</y>
        <width>451</width>
-       <height>111</height>
+       <height>101</height>
       </rect>
      </property>
      <property name="html">
@@ -1135,6 +1141,51 @@ p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Cantarell'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Utilisez le bouton &lt;span style=&quot; font-weight:600;&quot;&gt;Aide&lt;/span&gt; pour accéder aux documentations, à la licence et au suivi des évolutions sous gitHub.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;N'hésitez pas à poster vos questions, proposition d'évolutions et retour de bugs.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_jhemmi">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>190</y>
+       <width>131</width>
+       <height>181</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>jhemmi.eu</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_CIVC">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>190</y>
+       <width>131</width>
+       <height>181</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>CIVC</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_103">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>160</y>
+       <width>201</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Auteurs</string>
      </property>
     </widget>
    </widget>

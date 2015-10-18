@@ -57,9 +57,11 @@ except ImportError:
     QgsMessageLog.logMessage( aText, "Physiocap erreurs", QgsMessageLog.WARNING)
     
 try :
+    ##    from matplotlib.figure import Figure
+    ##    from matplotlib import axes
     import matplotlib.pyplot as plt
 except ImportError:
-    aText ="Erreur bloquante : module matplotlib.pyplot n'est pas accessible" 
+    aText ="Erreur bloquante : module matplotlib.pyplot n'est pas accessible\n" 
     aText = aText + "Sous Fedora : installez python-matplotlib-qt4" 
     print( aText)
     QgsMessageLog.logMessage( aText, "Physiocap erreurs", QgsMessageLog.WARNING)
@@ -460,7 +462,7 @@ def physiocap_histo(src, name, min=0, max =28, labelx = "Lab X", labely = "Lab Y
     plt.savefig(name)
     plt.show( block = 'false')
     plt.close()
-
+    
 
 # Fonction de filtrage et traitement des données
 def physiocap_filtrer(src, csv_sans_0, csv_avec_0, diametre_filtre, 
