@@ -38,7 +38,7 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>0</x>
      <y>10</y>
      <width>551</width>
      <height>691</height>
@@ -846,18 +846,18 @@
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>211</width>
+       <width>191</width>
        <height>21</height>
       </rect>
      </property>
      <property name="text">
-      <string>Dernier répertoire Physiocap</string>
+      <string>Dernier calcul Physiocap</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="lineEditDernierProjet">
      <property name="geometry">
       <rect>
-       <x>200</x>
+       <x>180</x>
        <y>10</y>
        <width>271</width>
        <height>21</height>
@@ -1084,7 +1084,7 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>250</x>
+       <x>350</x>
        <y>20</y>
        <width>71</width>
        <height>20</height>
@@ -1186,6 +1186,57 @@ p, li { white-space: pre-wrap; }
      </property>
      <property name="text">
       <string>Auteurs</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_104">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>470</y>
+       <width>351</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Contributions :  </string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="buttonContribuer">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>530</y>
+       <width>191</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Contribuez maintenant !</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_105">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>500</y>
+       <width>351</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Le plugin Physiocap pour Qgis est utile pour vous ?</string>
      </property>
     </widget>
    </widget>

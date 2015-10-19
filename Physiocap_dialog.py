@@ -83,7 +83,7 @@ EXTENSION_MID = "*.MID"
 PROJECTION_MID = "L93"
 REPERTOIRE_TEXTES = "fichiers_texte"
 # Pour histo
-REPERTOIRE_HELP = os.path.join( os.path.dirname(__file__),"HELP")
+REPERTOIRE_HELP = os.path.join( os.path.dirname(__file__),"help")
 FICHIER_HISTO_NON_CALCULE = os.path.join( REPERTOIRE_HELP, 
     "Histo_non_calcule.png")
 
