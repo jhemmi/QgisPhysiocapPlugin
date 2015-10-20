@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>572</width>
-    <height>702</height>
+    <height>682</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>660</y>
+     <y>640</y>
      <width>301</width>
      <height>31</height>
     </rect>
@@ -41,7 +41,7 @@
      <x>10</x>
      <y>0</y>
      <width>551</width>
-     <height>651</height>
+     <height>621</height>
     </rect>
    </property>
    <property name="toolTip">
@@ -67,8 +67,8 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>430</y>
-       <width>461</width>
+       <y>410</y>
+       <width>471</width>
        <height>161</height>
       </rect>
      </property>
@@ -447,10 +447,10 @@
     <widget class="QGroupBox" name="Filtres">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>10</x>
        <y>200</y>
        <width>471</width>
-       <height>191</height>
+       <height>211</height>
       </rect>
      </property>
      <property name="cursor">
@@ -628,11 +628,37 @@
        <string>Vitesse minimale (km/h) -  pour exclure les mesures à l'arrêt</string>
       </property>
      </widget>
+     <widget class="QCheckBox" name="checkBoxInfoVignoble">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>180</y>
+        <width>491</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Calculs détaillés :  précisez les informations du vignoble    </string>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
     </widget>
     <widget class="QGroupBox" name="groupBox">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>0</x>
        <y>10</y>
        <width>481</width>
        <height>191</height>
@@ -793,32 +819,6 @@
        <number>1</number>
       </property>
      </widget>
-    </widget>
-    <widget class="QCheckBox" name="checkBoxInfoVignoble">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>400</y>
-       <width>491</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>11</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Calculs détaillés :  précisez les informations du vignoble    </string>
-     </property>
-     <property name="tristate">
-      <bool>false</bool>
-     </property>
     </widget>
    </widget>
    <widget class="QWidget" name="tabSynthese">
@@ -1251,7 +1251,7 @@ p, li { white-space: pre-wrap; }
    <property name="geometry">
     <rect>
      <x>350</x>
-     <y>660</y>
+     <y>640</y>
      <width>191</width>
      <height>31</height>
     </rect>
