@@ -38,7 +38,7 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>0</x>
+     <x>10</x>
      <y>10</y>
      <width>551</width>
      <height>691</height>
@@ -1146,27 +1146,33 @@ p, li { white-space: pre-wrap; }
     <widget class="QLabel" name="label_jhemmi">
      <property name="geometry">
       <rect>
-       <x>40</x>
+       <x>110</x>
        <y>190</y>
-       <width>131</width>
-       <height>181</height>
+       <width>128</width>
+       <height>128</height>
       </rect>
      </property>
      <property name="text">
       <string>jhemmi.eu</string>
      </property>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
     </widget>
     <widget class="QLabel" name="label_CIVC">
      <property name="geometry">
       <rect>
-       <x>200</x>
+       <x>260</x>
        <y>190</y>
-       <width>131</width>
-       <height>181</height>
+       <width>128</width>
+       <height>128</height>
       </rect>
      </property>
      <property name="text">
       <string>CIVC</string>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
      </property>
     </widget>
     <widget class="QLabel" name="label_103">
@@ -1185,7 +1191,7 @@ p, li { white-space: pre-wrap; }
       </font>
      </property>
      <property name="text">
-      <string>Auteurs</string>
+      <string>Auteurs :</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_104">
@@ -1204,7 +1210,7 @@ p, li { white-space: pre-wrap; }
       </font>
      </property>
      <property name="text">
-      <string>Contributions :  </string>
+      <string>Contributions pour jhemmi.eu :  </string>
      </property>
     </widget>
     <widget class="QPushButton" name="buttonContribuer">

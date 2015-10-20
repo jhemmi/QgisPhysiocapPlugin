@@ -146,12 +146,13 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.setupUi(self)
         self.plugin_dir = os.path.dirname(__file__)  
 
-        # Examples Slot for boutons 
+        # Slot for boutons 
         #self.refreshButton.pressed.connect(self.create_contour_list )
         #self.buttonBox.button( QDialogButtonBox.Ok ).pressed.connect(self.accept)
         #self.buttonBox.button( QDialogButtonBox.Cancel ).pressed.connect(self.reject)
         self.buttonBox.button( QDialogButtonBox.Help ).pressed.connect(self.helpRequested)
-        
+        self.buttonContribuer.pressed.connect(self.contributionRequested)
+
         # Slot pour données brutes
         self.toolButtonDirectoryPhysiocap.pressed.connect( self.lecture_repertoire_donnees_brutes )  
         # Slot pour le groupe vignoble
@@ -271,7 +272,12 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             self.Vignoble.setEnabled( True)
         else:
             self.Vignoble.setEnabled( False)         
-     
+
+    def contributionRequested(self):
+        """ Pointer vers payname """ 
+        help_url = QUrl("http://plus.payname.fr/jhemmi/?type=9xwqt")
+        QDesktopServices.openUrl(help_url)
+    
     def helpRequested(self):
         """ Help html qui pointe vers gitHub""" 
         help_url = QUrl("file:///%s/help/index.html" % self.plugin_dir)
