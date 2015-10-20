@@ -25,9 +25,9 @@ Ouvrir Qgis & activer Physiocap menu depuis le menu Extension ou directement sur
 
 Dans cette version les cartes de points sont générés au format shapefile et en L93. La sauvegarde de l'ensemble de ces paramètres est effectuée avant chaque exécution du calcul.
 
-Pour activer les calculs, cliquez sur le bouton OK
+**Pour activer les calculs, cliquez sur le bouton OK**
 
-La barre d'avancement indique à 100 % la fin des traitements.
+_La barre d'avancement indique à 100 % la fin des traitements._
  
 Durant l'exécution, l'extension crée les répertoires:
 * Nom projet Physiocap (en cas d'existence du répertoire, il est créé un répertoire Nom projet Physiocap(1), le plus haut chiffre est le plus récent.
