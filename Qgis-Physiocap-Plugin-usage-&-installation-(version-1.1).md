@@ -16,9 +16,7 @@ Note : L'extension n'est pas encore déposé sous le dépôt Qgis
 ### Utilisation
 ![Onglet Paramètre](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Version%201.1%20Parametres.png)
 
-Ouvrir Qgis & activer Physiocap menu depuis le menu Extension ou directement sur l'icone Physiocap (en haut à droite sur la copie d'écran). Dans le dialogue Physiocap plusieurs onglets :
-* Votre projet : permet de donner un 
-Dans cette fenêtre, d'autres options sont à venir. 
+Ouvrir Qgis & activer Physiocap menu depuis le menu Extension ou directement sur l'icone Physiocap (en haut à gauche sur la copie d'écran). Dans le dialogue Physiocap plusieurs onglets :
 * Vos paramètres (visible à droite dans la copie d'écran) : permet de préciser vos paramètres d'entrée pour les calculs
 - Répertoire des données brutes
 - Nom à votre projet Physiocap qui sert de répertoire de base pour le stockage des résultats et de préfixe pour les fichiers générées
