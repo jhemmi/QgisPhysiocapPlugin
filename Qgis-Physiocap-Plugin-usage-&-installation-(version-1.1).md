@@ -14,7 +14,7 @@ L'extension tourne sous Qgis 2.*. Aucune installation de librairie Python n'est 
 Note : L'extension n'est pas encore déposé sous le dépôt Qgis
 
 ### Utilisation
-[Ecran onglet Paramètres](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Version%201.1%20Parametres.png)
+![Onglet Paramètre](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Version%201.1%20Parametres.png)
 
 Ouvrir Qgis & activer Physiocap menu depuis le menu Extension ou directement sur l'icone Physiocap (en haut à droite sur la copie d'écran). Dans le dialogue Physiocap plusieurs onglets :
 * Votre projet : permet de donner un 
@@ -39,9 +39,9 @@ Le fichier de synthèse du traitement : nom-projet-physiocap_resulat.txt
 - "shapefile" contient les deux fichiers shape résultats du filtrage des données brutes.
 
 Dans l'onglet Synthèse, vous pouvez consulter le "résultat" du dernier traitement effectué.
-[Ecran Onglet synthese](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Version%201.1%20Synthese.png)
+![Onglet Synthèse](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Version%201.1%20Synthese.png)
 Dans l'onglet Histogramme, vous devez demander la création et les derniers histogrammes sont affichés
-[Ecran Onglet Histogrammes](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Version%201.1%20Histogrammes.png)
+![Onglet Histogrammes](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Version%201.1%20Histogrammes.png)
 Dans la log Qgis, deux onglets (Physiocap Information - visible au tiers haut dans la copie d'écran) et Physiocap Erreurs) permettent de suivre le déroulement du traitement et d'éventuelles erreurs).
 _la Log Qgis peut être visualisée en appuyant sur l'icone ! à bas à droite ou par le menu Vues => Panneaux => Journal des messages. _
 Les trois thématiques des fichiers shape sont ouvertes dans Qgis et sont mise en forme avec les styles qui se trouvent dans $HOME/.qgis2/python/plugins/physiocap_analyseur/modeleQgis
