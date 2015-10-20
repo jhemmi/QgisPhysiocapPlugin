@@ -10,3 +10,8 @@ Les tests de la version 1.0 d’octobre 2015 ont été réalisés par jhemmi.eu 
 * Windows 8 & Qgis 2.10-Pisa (64 bits) - settings dans registre "hkey_current_user/Software/physiocap"
 
 et par le CIVC sous Windows en version 2.6 et 2.8 de Qgis.
+
+Les tests de la version 1.1 du 20 octobre 2015 ont été réalisés par jhemmi.eu sous 
+* Fedora 20 (Heisenbug) & Qgis 2.8.0-Wien 
+* Windows 8 & Qgis 2.10-Pisa (64 bits) à partir d'un zip file
+* Windows 7 & Qgis 2.8.1- Wien (64 bits) à partir du dépot github
