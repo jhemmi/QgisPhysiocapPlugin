@@ -90,9 +90,9 @@ FICHIER_HISTO_NON_CALCULE = os.path.join( REPERTOIRE_HELP,
 REPERTOIRE_HISTOS = "histogrammes"
 if platform.system() == 'Windows':
     # Matplotlib et png problematique sous Windows
-    SUFFIXE_HISTO = ".png"
-else:
     SUFFIXE_HISTO = ".tiff"
+else:
+    SUFFIXE_HISTO = ".png"
 FICHIER_HISTO_SARMENT = "histogramme_SARMENT_RAW" + SUFFIXE_HISTO
 FICHIER_HISTO_DIAMETRE = "histogramme_DIAMETRE_RAW"  + SUFFIXE_HISTO
 FICHIER_HISTO_DIAMETRE_FILTRE = "histogramme_DIAM_FILTERED" +  SUFFIXE_HISTO
