@@ -18,8 +18,8 @@ L'extension permet de saisir plusieurs paramètres pour filter les données qui 
 
 L'extension QgisPysiocapPlugin intègre le code de calcul du CIVC (PHYSIOCAP_V8). QgisPysiocapPlugin est donc sous licence Common Creative CC-BY-NC-SA V4.
 
-La documentation se trouve dans le Wiki https://github.com/jhemmi/QgisPhysiocapPlugin/wiki/Qgis-Physiocap-Plugin-usage-&-installation
-
+La documentation se trouve dans le Wiki
+https://github.com/jhemmi/QgisPhysiocapPlugin/wiki/Qgis-Physiocap-Plugin-usage-&-installation-(version-1.1)
 	
 **Attention, ce dépot contient la version 1.1 (version stable https://github.com/jhemmi/QgisPhysiocapPlugin/releases) et la version 1.2 en cours de construction - Novembre 2015**
 
