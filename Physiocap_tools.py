@@ -142,16 +142,15 @@ def is_int_number(s):
     except ValueError:
         return False
     
-def physiocap_rename_create_dir( chemin):
-    """ Retourne le repertoire qu'il est possible de creer
+def physiocap_rename_existing( chemin):
+    """ Retourne le nom qu'il est possible de creer
         si chemin existe deja, on creer un "chemin + (1)"
         si "chemin_projet + (1)" existe déjà, on crée un "chemin_projet + (2)" etc         
     """
-    
-    # on teste si chemin a déjà une parenthèse dans la 3 derniers caracteres
+    # Si chemin a déjà une parenthèse dans la 3 derniers caracteres
     longueur = len(chemin)
     if chemin[-1:] == ")":
-        # cas du chemin qui a été déjà renomer
+        # cas du chemin qui a été déjà renommer
         pos = -2
         while chemin[ pos:][0] != "(":
             pos = pos - 1
@@ -175,19 +174,39 @@ def physiocap_rename_create_dir( chemin):
     else:
         # cas du premier fichier renommer
         nouveau_chemin = chemin + "(1)"
-       
-    if os.path.exists( nouveau_chemin):
-        # on rapelle la moulinette de rename
-        nouveau_chemin = physiocap_rename_create_dir ( nouveau_chemin)
+               
+    return nouveau_chemin
+
+def physiocap_rename_existing_file ( chemin):
+    """ Retourne le nom de fichier qu'il est possible de creer
+        si chemin existe deja, on creer un "chemin + (1)"
+        si "chemin_projet + (1)" existe déjà, on crée un "chemin_projet + (2)" etc         
+    """
+    if ( os.path.exists( chemin)):
+        nouveau_chemin = physiocap_rename_existing( chemin)
+        return physiocap_rename_existing_file( nouveau_chemin) 
+    else:
+        #physiocap_log( "chemin pour creation du fichier ==" + chemin)
+        return chemin
+
+def physiocap_rename_create_dir( chemin):
+    """ Retourne le repertoire qu'il est possible de creer
+        si chemin existe deja, on creer un "chemin + (1)"
+        si "chemin_projet + (1)" existe déjà, on crée un "chemin_projet + (2)" etc         
+    """
+    #physiocap_log( "Dans create rename DIR DEBUT ==" + chemin)
+    if ( os.path.exists( chemin)):
+        nouveau_chemin = physiocap_rename_existing( chemin)
+        return physiocap_rename_create_dir( nouveau_chemin) 
     else:
         try:
-            os.mkdir( nouveau_chemin)
-        except :
-            raise physiocap_exception_rep( nouveau_chemin)
-        
-    #physiocap_log( "avant retour  et apres creation ==" + nouveau_chemin)
-        
-    return nouveau_chemin
+            os.mkdir( chemin)
+        except:
+            raise physiocap_exception_rep( chemin)
+            
+        #physiocap_log( "avant retour OK et apres creation DIR ==>>" + chemin + "<<==")
+        return chemin
+
 
 def physiocap_open_file( nom_court, chemin, type_ouverture="w"):
     """ Créer ou detruit et re-crée un fichier"""
@@ -205,8 +224,8 @@ def physiocap_open_file( nom_court, chemin, type_ouverture="w"):
 # Definition des fonctions de traitement
 # Ces variables sont nommées en Francais par compatibilité avec la version physiocap_V8
 
-def physiocap_csv_to_shapefile( csv_name, shape_name, prj_name, 
-    nom_fichier_synthese = "NO", details="NO", laProjection = "L93"):
+def physiocap_csv_to_shapefile( csv_name, shape_name, prj_name, laProjection, 
+    nom_fichier_synthese = "NO", details = "NO"):
     """ Creation de shape file à partir des données des CSV
     Si nom_fichier_synthese n'est pas "NO", on produit les moyennes dans le fichier 
     qui se nomme nom_fichier_synthese
@@ -322,7 +341,7 @@ def physiocap_csv_to_shapefile( csv_name, shape_name, prj_name,
         fichier_synthese = open(nom_fichier_synthese, "a")
         try:
             fichier_synthese.write("\n\nSTATISTIQUES\n")
-            fichier_synthese.write("vitesse moyenne d'avancement  \n	mean : %0.1f km/h\n" %np.mean(vitesseshp))
+            fichier_synthese.write("Vitesse moyenne d'avancement  \n	mean : %0.1f km/h\n" %np.mean(vitesseshp))
             fichier_synthese.write("Section moyenne \n	mean : %0.2f mm	std : %0.1f\n" %(np.mean(diamshp), np.std(diamshp)))
             fichier_synthese.write("Nombre de sarments au m \n	mean : %0.2f	std : %0.1f\n" %(np.mean(nbsarmshp), np.std(nbsarmshp)))
             fichier_synthese.write("Biomasse en mm²/m linéaire \n	mean : %0.1f	std : %0.1f\n" %(np.mean(biomshp), np.std(biomshp)))
@@ -342,9 +361,8 @@ def physiocap_csv_to_shapefile( csv_name, shape_name, prj_name,
 
 
 # Fonction pour vérifier le fichier csv    
-def physiocap_chercher_MID( repertoire, recursif = "Non", exclusion="fic_sources"):
-    """Fonction de recherche des MID. 
-    Par défaut juste au niveau du repertoire
+def physiocap_chercher_MID( repertoire, recursif, exclusion="fic_sources"):
+    """Fonction de recherche des ".MID". 
     Si recursif vaut "Oui", on scrute les sous repertoires à la recheche de MID 
     mais on exclut le repertoire de Exclusion dont on ignore les MID 
     """
@@ -359,8 +377,8 @@ def physiocap_chercher_MID( repertoire, recursif = "Non", exclusion="fic_sources
         if exclusion in root:
             continue
         for name_file in files:
-            if "MID" in name_file[-3:]:
-                MIDs.append( os.path.join( root_base, name_file))
+            if ".MID" in name_file[-4:]:
+                MIDs.append( os.path.join( root, name_file))
     return sorted( MIDs)
 
 def physiocap_lister_MID( repertoire, MIDs, synthese="xx"):
@@ -653,3 +671,21 @@ def physiocap_filtrer(src, csv_sans_0, csv_avec_0, diametre_filtre,
     physiocap_log( u"Fin filtrage OK des "+ str(nombre_ligne - 1) + " lignes.")
     return 0
  
+
+# Example pour faire une jointure patiale sous Py Qgis
+##lyrs = iface.legendInterface().layers()
+##lyrPoly = lyrs[1] #polygon layer
+##lyrPnts = lyrs[0] #point layer
+##
+##featsPoly = lyrPoly.getFeatures() #get all features of poly layer
+###featsPoly = lyrPoly.selectedFeatures() #for testing, use selected features only
+##
+##for featPoly in featsPoly: #iterate poly features
+##    zipPoly = featPoly["POSTCODE"] #get attribute of poly layer
+##    geomPoly = featPoly.geometry() #get geometry of poly layer
+##    #performance boost: get point features by poly bounding box first
+##    featsPnt = lyrPnts.getFeatures(QgsFeatureRequest().setFilterRect(geomPoly.boundingBox()))
+##    for featPnt in featsPnt:
+##        #iterate preselected point features and perform exact check with current polygon
+##        if featPnt.geometry().within(geomPoly):
+##            print '"' + zipPoly + '"' + ';' + featPnt["Zipcode"]

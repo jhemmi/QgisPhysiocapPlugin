@@ -38,7 +38,7 @@
 """
 from Physiocap_tools import physiocap_log,physiocap_error,physiocap_message_box, \
         physiocap_write_in_synthese, \
-        physiocap_rename_create_dir, physiocap_open_file, \
+        physiocap_rename_existing_file, physiocap_rename_create_dir, physiocap_open_file, \
         physiocap_chercher_MID, physiocap_lister_MID, \
         physiocap_csv_to_shapefile, physiocap_assert_csv, \
         physiocap_fichier_histo, physiocap_histo, physiocap_filtrer       
@@ -105,6 +105,7 @@ EXTENSION_SHP_GPS = "_" + PROJECTION_GPS + ".shp"
 EXTENSION_POUR_ZERO = "_0"
 EXTENSION_PRJ_L93 = "_" + PROJECTION_L93 + ".prj"
 EXTENSION_PRJ_GPS = "_" + PROJECTION_GPS + ".prj"
+CENTROIDES = "NO"
 
 # Exceptions Physiocap 
 ERREUR_EXCEPTION = u"Physiocap n'a pas correctement terminé son analyse"
@@ -500,7 +501,8 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             try: 
                 chemin_projet = physiocap_rename_create_dir( chemin_projet)
             except:
-                return
+                raise physiocap_exception_rep( chemin_projet)
+        
         
         # Stocker dans la fenetre de synthese le nom du projet
         chemin_base_projet = os.path.basename( chemin_projet)
@@ -553,8 +555,13 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             try:
                 shutil.copyfileobj(open(mid, "r"), csv_concat)
                 # et copie des MID
-                shutil.copy(mid,chemin_sources)
-            except :
+                nom_cible = os.path.join( chemin_sources, os.path.basename(mid))
+                if os.path.exists( nom_cible):
+                    nouveau_long = physiocap_rename_existing_file( nom_cible)
+                    shutil.copyfile( mid, nouveau_long)
+                else:
+                    shutil.copy( mid, chemin_sources)
+            except:
                 raise physiocap_exception_mid( mid)
         csv_concat.close()
 
@@ -572,18 +579,23 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         # Création la première partie du fichier de synthèse
         nom_fichier_synthese, fichier_synthese = physiocap_open_file( FICHIER_RESULTAT, chemin_projet , "w")
         fichier_synthese.write( "SYNTHESE PHYSIOCAP\n\n")
-        fichier_synthese.write( "générée le : ")
+        fichier_synthese.write( "Générée le : ")
         a_time = time.strftime( "%d/%m/%y %H:%M\n",time.localtime())
         fichier_synthese.write( a_time)
         fichier_synthese.write( "Répertoire de base ")
         fichier_synthese.write( chemin_base_projet + "\n")
-        fichier_synthese.write( "Fichiers MID \t Date et heures\nNb. Mesures\tVitesse km/h\tCentroïdes\n")
-        
+        fichier_synthese.write( "Nom des MID \t\t Date et heures\n=>Nb. Valeurs brutes\tVitesse km/h")
+        if (CENTROIDES == "YES"):
+            fichier_synthese.write("\nCentroïdes")
+        fichier_synthese.write("\n")
         info_mid = physiocap_lister_MID( REPERTOIRE_DONNEES_BRUTES, listeTriee)
         for all_info in info_mid:
             info = all_info.split(";")
             fichier_synthese.write( str(info[0]) + "\t" + str(info[1]) + "->" + str(info[2])+ "\n")
-            fichier_synthese.write( str(info[3]) + "\t" + str(info[4]) + "\t" + str(info[5]) + "--" + str(info[6]) + "\n")            
+            fichier_synthese.write( "=>\t" +str(info[3]) + "\t" + str(info[4]))
+            if (CENTROIDES == "YES"):
+                fichier_synthese.write( "\n" + str(info[5]) + "--" + str(info[6]))
+            fichier_synthese.write("\n")
 ##        nom_mid = ""
 ##        for fichier_mid in listeTriee:
 ##            nom_mid = nom_mid + os.path.basename( fichier_mid) + " & "
@@ -780,7 +792,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             os.remove( nom_shape_sans_0)            
 
         # cas sans 0, on demande la synthese en passant le nom du fichier
-        retour = physiocap_csv_to_shapefile( nom_csv_sans_0, nom_shape_sans_0, nom_prj_sans_0, 
+        retour = physiocap_csv_to_shapefile( nom_csv_sans_0, nom_shape_sans_0, nom_prj_sans_0, laProjection,
                 nom_fichier_synthese, details)
         if retour != 0:
             return physiocap_error(u"Erreur bloquante : problème lors de la création du shapefile : " + 
@@ -797,8 +809,8 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             os.remove( nom_shape_avec_0) 
             
         # cas avec 0, pas de demande de synthese
-        retour = physiocap_csv_to_shapefile( nom_csv_avec_0, nom_shape_avec_0, nom_prj_avec_0, 
-            "NO", details, laProjection)
+        retour = physiocap_csv_to_shapefile( nom_csv_avec_0, nom_shape_avec_0, nom_prj_avec_0, laProjection,
+            "NO", details)
         if retour != 0:
             return physiocap_error(u"Erreur bloquante : problème lors de la création du shapefile : " + 
                     nom_court_shape_avec_0) 
@@ -815,7 +827,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             vector = QgsVectorLayer( s, ti, 'ogr')
             QgsMapLayerRegistry.instance().addMapLayer( vector)
             leTemplate = os.path.join( dirTemplate, te)
-            physiocap_log ( u"Physiocap le template : " + os.path.basename( leTemplate) )
+            #physiocap_log ( u"Physiocap le template : " + os.path.basename( leTemplate) )
             vector.loadNamedStyle( leTemplate)
             #self.vectorlayer_name.loadNamedStyle('path_to_qml_file')
             #layer.readSymbology(myDocRoot,errmsg)  
