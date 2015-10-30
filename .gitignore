@@ -1,4 +1,4 @@
-# Byte-compiled / optimized / DLL files
+﻿# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *.py~
@@ -30,7 +30,11 @@ Physiocap_dialog_base_save*.ui
 Physiocap*.zip
 Makefile~
 data (esquive)/
-dataChavot/
+dataChavot*/
+data Checker/
+data Pulve*/
+data Salleboeuf*/
+data Cap M*/
 data/UnProjetPhysiocap*/*
 data/*OK
 data/*erreur

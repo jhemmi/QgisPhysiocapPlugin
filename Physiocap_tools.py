@@ -206,7 +206,7 @@ def physiocap_open_file( nom_court, chemin, type_ouverture="w"):
 # Ces variables sont nommées en Francais par compatibilité avec la version physiocap_V8
 
 def physiocap_csv_to_shapefile( csv_name, shape_name, prj_name, 
-    nom_fichier_synthese = "NO", details="NO"):
+    nom_fichier_synthese = "NO", details="NO", laProjection = "L93"):
     """ Creation de shape file à partir des données des CSV
     Si nom_fichier_synthese n'est pas "NO", on produit les moyennes dans le fichier 
     qui se nomme nom_fichier_synthese
@@ -226,8 +226,12 @@ def physiocap_csv_to_shapefile( csv_name, shape_name, prj_name,
             return -1
         for i,row in enumerate(r):
             if i > 0: #skip header
-                x.append(float(row[2]))
-                y.append(float(row[3]))
+                if ( laProjection == "L93"):
+                    x.append(float(row[2]))
+                    y.append(float(row[3]))
+                if ( laProjection == "GPS"):
+                    x.append(float(row[0]))
+                    y.append(float(row[1]))
                 nbsarmshp.append(float(row[4]))
                 diamshp.append(float(row[5]))
                 biomshp.append(float(row[6]))
@@ -287,14 +291,22 @@ def physiocap_csv_to_shapefile( csv_name, shape_name, prj_name,
 
     # Create the PRJ file
     prj = open(prj_name, "w")
-    # Todo: V1.5 ? Faire un fichier de metadata et mettre prj texte dans dialogue ?
-    epsg = 'PROJCS["RGF93_Lambert_93",GEOGCS["GCS_RGF93",DATUM["D_RGF_1993", \
-    SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0], \
-    UNIT["Degree",0.017453292519943295]],PROJECTION["Lambert_Conformal_Conic"], \
-    PARAMETER["standard_parallel_1",49],PARAMETER["standard_parallel_2",44], \
-    PARAMETER["latitude_of_origin",46.5],PARAMETER["central_meridian",3], \
-    PARAMETER["false_easting",700000],PARAMETER["false_northing",6600000], \
-    UNIT["Meter",1]]'
+    epsg = 'inconnu'
+    if ( laProjection == "L93"):
+        # Todo: V1.x ? Faire un fichier de metadata 
+        epsg = 'PROJCS["RGF93_Lambert_93",GEOGCS["GCS_RGF93",DATUM["D_RGF_1993", \
+        SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0], \
+        UNIT["Degree",0.017453292519943295]],PROJECTION["Lambert_Conformal_Conic"], \
+        PARAMETER["standard_parallel_1",49],PARAMETER["standard_parallel_2",44], \
+        PARAMETER["latitude_of_origin",46.5],PARAMETER["central_meridian",3], \
+        PARAMETER["false_easting",700000],PARAMETER["false_northing",6600000], \
+        UNIT["Meter",1]]'
+    if ( laProjection == "GPS"):
+        #  prj pour GPS 4326
+        epsg = 'GEOGCS["GCS_WGS_1984",DATUM["D_WGS_1984", \
+        SPHEROID["WGS_1984",6378137,298.257223563]],PRIMEM["Greenwich",0], \
+        UNIT["Degree",0.017453292519943295]]'
+        
     prj.write(epsg)
     prj.close()    
     
@@ -329,6 +341,77 @@ def physiocap_csv_to_shapefile( csv_name, shape_name, prj_name,
     return 0
 
 
+# Fonction pour vérifier le fichier csv    
+def physiocap_chercher_MID( repertoire, recursif = "Non", exclusion="fic_sources"):
+    """Fonction de recherche des MID. 
+    Par défaut juste au niveau du repertoire
+    Si recursif vaut "Oui", on scrute les sous repertoires à la recheche de MID 
+    mais on exclut le repertoire de Exclusion dont on ignore les MID 
+    """
+    root_base = ""
+    MIDs = []
+    for root, dirs, files in os.walk( repertoire, topdown=True):
+        if root_base == "":
+            root_base = root
+##        physiocap_log("ALL Root :" + str(root))
+##        physiocap_log("ALL DIR :" + str(dirs))
+##        physiocap_log("ALL FILE :" + str(files))
+        if exclusion in root:
+            continue
+        for name_file in files:
+            if "MID" in name_file[-3:]:
+                MIDs.append( os.path.join( root_base, name_file))
+    return sorted( MIDs)
+
+def physiocap_lister_MID( repertoire, MIDs, synthese="xx"):
+    """Fonction qui liste les MID.
+    En entrée la liste des MIDs avec leurs nom complet
+    nom court, taille en ligne, centroide GPS, vitesse moyenne
+    sont ajoutés à la synthse
+    """
+    resultats = []
+    un_MIDs_court = ""
+  
+    for un_mid in MIDs: 
+        texte_MID = ""
+        if (os.path.isfile( un_mid)):
+            fichier_pret = open(un_mid, "r")
+            lignes = fichier_pret.readlines()
+            if un_mid.find( repertoire) == 0:
+                #print( "VERY GOOD MID :" + trouve[ len( root_base) + 1:])
+                un_MIDs_court = un_mid[ len( repertoire) + 1:]
+            gps_x = []
+            gps_y = []
+            vitesse = []
+            for ligne in lignes:
+                try:
+                    champ = ligne.split( ",")
+                    if len(champ) >= 2:
+                        gps_x.append( float(champ[ 1]))
+                        gps_y.append( float(champ[ 2]))
+                    if len(champ) >= 8:
+                        vitesse.append( float(champ[ 8]))
+                except ValueError:
+                    pass
+            texte_MID = un_MIDs_court + ";" + lignes[0][0:19] + \
+                ";" + lignes[-1][10:19]
+            if ((len( gps_x) > 0) and (len( gps_y) > 0) ):
+                texte_MID = texte_MID + ";" + str( len(gps_x))                  
+                if (len( vitesse) > 0 ):
+                    texte_MID = texte_MID + ";" + \
+                        str(sum(vitesse)/len(vitesse))
+                else:
+                    texte_MID = texte_MID + ";"
+                texte_MID = texte_MID + ";" + \
+                    str(sum(gps_x)/len(gps_x))+ ";" +   \
+                    str(sum(gps_y)/len(gps_y))
+
+            resultats.append( texte_MID)
+    
+    # Mettre dans Synthese
+    return resultats
+    
+    
 # Fonction pour vérifier le fichier csv    
 def physiocap_assert_csv(src, err):
     """Fonction d'assert. 
@@ -428,7 +511,10 @@ def physiocap_fichier_histo(src, histo_diametre, histo_nbsarment, err):
             diams = [float(x) for x in result[9:NB_VIRGULES+1]] # on extrait les diams et on les transforme en float 
             diamsF = [i for i in diams if i > 2 and i < 28 ] # on filtre les diams > diamsF correspond aux diams filtrés entre 2 et 28       
             if comptage==NB_VIRGULES and len(diamsF)>0 : # si le nombre de diamètre après filtrage != 0 alors mesures
-                nbsarm = len(diamsF)/(XY[7]*1000/3600) #8eme donnée du GPS est la vitesse. Dernier terme : distance entre les sarments
+                if XY[7] != 0:
+                    nbsarm = len(diamsF)/(XY[7]*1000/3600) #8eme donnée du GPS est la vitesse. Dernier terme : distance entre les sarments
+                else:
+                    nbsarm = 0
                 histo_nbsarment.write("%f%s" %(nbsarm,";"))                
                 for n in range(len(diamsF)) :
                     histo_diametre.write("%f%s" %(diamsF[n],";"))
@@ -519,7 +605,10 @@ def physiocap_filtrer(src, csv_sans_0, csv_avec_0, diametre_filtre,
                     biom = 0
                     csv_avec_0.write("%.7f%s%.7f%s%.7f%s%.7f%s%i%s%i%s%i%s%s%s%0.2f\n" %(XY[0],";",XY[1],";",L93[0],";",L93[1],";",nbsarm,";",diam ,";",biom,";",result[0],";",XY[7]))  # on écrit la ligne dans le fichier OUT0.csv  
                 elif comptage==NB_VIRGULES and len(diamsF)>0 : # si le nombre de diamètre après filtrage != 0 alors mesures
-                    nbsarm = len(diamsF)/(XY[7]*1000/3600)
+                    if XY[7] != 0:
+                        nbsarm = len(diamsF)/(XY[7]*1000/3600)
+                    else:
+                        nbsarm = 0
                     if nbsarm > 1 and nbsarm < max_sarments_metre :                   
                         diam =sum(diamsF)/len(diamsF)
                         biom=3.1416*(diam/2)*(diam/2)*nbsarm
@@ -539,7 +628,10 @@ def physiocap_filtrer(src, csv_sans_0, csv_avec_0, diametre_filtre,
                     biomgcep = 0
                     csv_avec_0.write("%.7f%s%.7f%s%.7f%s%.7f%s%i%s%i%s%i%s%s%s%0.2f%s%i%s%i%s%i%s%i%s%i\n" %(XY[0],";",XY[1],";",L93[0],";",L93[1],";",nbsarm,";",diam ,";",biom,";",result[0],";",XY[7],";",nbsarmm2,";",nbsarcep,";",biommm2,";",biomgm2,";",biomgcep))  # on écrit la ligne dans le fichier OUT0.csv  
                 elif comptage==NB_VIRGULES and len(diamsF)>0 : # si le nombre de diamètre après filtrage != 0 alors mesures
-                    nbsarm = len(diamsF)/(XY[7]*1000/3600)
+                    if XY[7] != 0:
+                        nbsarm = len(diamsF)/(XY[7]*1000/3600)
+                    else:
+                        nbsarm = 0
                     if nbsarm > 1 and nbsarm < max_sarments_metre :                   
                         diam =sum(diamsF)/len(diamsF)
                         biom=3.1416*(diam/2)*(diam/2)*nbsarm

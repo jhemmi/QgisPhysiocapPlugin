@@ -39,6 +39,7 @@
 from Physiocap_tools import physiocap_log,physiocap_error,physiocap_message_box, \
         physiocap_write_in_synthese, \
         physiocap_rename_create_dir, physiocap_open_file, \
+        physiocap_chercher_MID, physiocap_lister_MID, \
         physiocap_csv_to_shapefile, physiocap_assert_csv, \
         physiocap_fichier_histo, physiocap_histo, physiocap_filtrer       
 
@@ -68,11 +69,10 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
 REPERTOIRE_DONNEES_BRUTES = "/home/jhemmi/Documents/GIS/SCRIPT/QGIS/PhysiocapAnalyseur/data"
 NOM_PROJET = "VotreProjetPhysiocap"
 PHYSIOCAP_NOM = "Physiocap"
-PHYSIOCAP_VERSION = PHYSIOCAP_NOM + "_V1_1"
 
 # Listes de valeurs
-CEPAGES = [ "CHARDONNAY", "MERLOT", "NEGRETTE", "PINOT NOIR", "PINOT MEUNIER"]
-TAILLES = [ "Chablis", "Guyot simple", "Guyot double", "Cordon de Royat", "Cordon libre" ]
+CEPAGES = [ "INCONNU", "CHARDONNAY", "MERLOT", "NEGRETTE", "PINOT NOIR", "PINOT MEUNIER"]
+TAILLES = [ "Inconnue", "Chablis", "Guyot simple", "Guyot double", "Cordon de Royat", "Cordon libre" ]
 FORMAT_VECTEUR = [ "ESRI Shapefile"] #, "postgres", "memory"]
 
 # Répertoires des sources et de concaténation en fichiers texte
@@ -80,7 +80,7 @@ FICHIER_RESULTAT = NOM_PROJET +"_resultat.txt"
 REPERTOIRE_SOURCES = "fichiers_sources"
 SUFFIXE_BRUT_CSV = "_RAW.csv"
 EXTENSION_MID = "*.MID"
-PROJECTION_MID = "L93"
+
 REPERTOIRE_TEXTES = "fichiers_texte"
 # Pour histo
 REPERTOIRE_HELP = os.path.join( os.path.dirname(__file__),"help")
@@ -98,10 +98,13 @@ FICHIER_HISTO_DIAMETRE = "histogramme_DIAMETRE_RAW"  + SUFFIXE_HISTO
 FICHIER_HISTO_DIAMETRE_FILTRE = "histogramme_DIAM_FILTERED" +  SUFFIXE_HISTO
 
 REPERTOIRE_SHAPEFILE = "shapefile"
-PROJECTION_SHP = "L93"
-EXTENSION_SHP = "_" + PROJECTION_SHP + ".shp"
+PROJECTION_L93 = "L93"
+PROJECTION_GPS = "GPS"
+EXTENSION_SHP_L93 = "_" + PROJECTION_L93 + ".shp"
+EXTENSION_SHP_GPS = "_" + PROJECTION_GPS + ".shp"
 EXTENSION_POUR_ZERO = "_0"
-EXTENSION_PRJ = "_" + PROJECTION_SHP + ".prj"
+EXTENSION_PRJ_L93 = "_" + PROJECTION_L93 + ".prj"
+EXTENSION_PRJ_GPS = "_" + PROJECTION_GPS + ".prj"
 
 # Exceptions Physiocap 
 ERREUR_EXCEPTION = u"Physiocap n'a pas correctement terminé son analyse"
@@ -157,7 +160,6 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.toolButtonDirectoryPhysiocap.pressed.connect( self.lecture_repertoire_donnees_brutes )  
         # Slot pour le groupe vignoble
         self.checkBoxInfoVignoble.stateChanged.connect( self.bascule_details_vignoble)
-        self.toolButtonDirectoryPhysiocap.pressed.connect( self.lecture_repertoire_donnees_brutes )  
         
         physiocap_log( u"Votre machine tourne sous " + platform.system())
         
@@ -169,14 +171,29 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         ###############
         # Récuperation dans les settings (derniers parametres saisies)
         ###############
-        self.settings= QSettings(PHYSIOCAP_NOM, PHYSIOCAP_VERSION)
+        self.settings= QSettings(PHYSIOCAP_NOM, PHYSIOCAP_NOM)
         # Initialisation des parametres à partir des settings
         self.lineEditProjet.setText( self.settings.value("Physiocap/projet", 
             NOM_PROJET ))
+
         self.lineEditDirectoryPhysiocap.setText(  self.settings.value("Physiocap/repertoire",
             REPERTOIRE_DONNEES_BRUTES))
+        if (self.settings.value("Physiocap/recursif") == "YES"):
+            self.checkBoxRecursif.setChecked( Qt.Checked)
+        else:
+            self.checkBoxRecursif.setChecked( Qt.Unchecked)
+        
         self.lineEditDernierProjet.setText( self.settings.value("Physiocap/dernier_repertoire",
             ""))    
+            
+        # Choisir radioButtonL93 ou radioButtonGPS
+        laProjection = self.settings.value("Physiocap/laProjection", PROJECTION_L93)
+        #physiocap_log( u"Projection récupérée " + laProjection)
+        if ( laProjection == PROJECTION_GPS ):
+            self.radioButtonGPS.setChecked(  Qt.Checked)
+        else:
+            #physiocap_log( u"Projection allumé L93 ==? " + laProjection)
+            self.radioButtonL93.setChecked(  Qt.Checked)
             
         # Remettre vide le textEditSynthese
         self.textEditSynthese.clear()
@@ -309,13 +326,31 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.textEditSynthese.clear()
 
         # Sauvergarde des saisies dans les settings
-        self.settings= QSettings( PHYSIOCAP_NOM, PHYSIOCAP_VERSION)
+        self.settings= QSettings( PHYSIOCAP_NOM, PHYSIOCAP_NOM)
         self.settings.setValue("Physiocap/projet", self.lineEditProjet.text() )
         self.settings.setValue("Physiocap/repertoire", self.lineEditDirectoryPhysiocap.text() )
+
+        # Cas recursif
+        recursif = "NO"
+        if self.checkBoxRecursif.isChecked():
+            recursif = "YES"
+            physiocap_log(u"La recherche des MID fouille l'arbre de données")
+        self.settings.setValue("Physiocap/recursif", recursif )
+            
+        laProjection = PROJECTION_L93
+        if self.radioButtonGPS.isChecked():
+            laProjection = PROJECTION_GPS
+            self.settings.setValue("Physiocap/laProjection", PROJECTION_GPS)
+        if self.radioButtonL93.isChecked():
+            self.settings.setValue("Physiocap/laProjection", PROJECTION_L93)
+            laProjection = PROJECTION_L93
+        physiocap_log(u"Projection des shapefiles demandée en " + laProjection)
+           
         #self.settings.setValue("Physiocap/dernier_repertoire", self.lineEditDernierProjet.text() )
         self.settings.setValue("Physiocap/minVitesse", float( self.doubleSpinBoxMinVitesse.value()))
         self.settings.setValue("Physiocap/mindiam", float( self.spinBoxMinDiametre.value()))
         self.settings.setValue("Physiocap/maxdiam", float( self.spinBoxMaxDiametre.value()))
+
 
         # Cas détail vignoble
         details = "NO"
@@ -343,7 +378,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         # ########################################
         try:
             # Création des répertoires et des résultats de synthèse
-            retour = self.creer_donnees_resultats( details, TRACE_HISTO)
+            retour = self.creer_donnees_resultats( details, TRACE_HISTO, recursif, laProjection)
         except physiocap_exception_rep as e:
             physiocap_log( ERREUR_EXCEPTION + ". Consultez le journal Physiocap Erreur",
                 "WARNING")
@@ -418,7 +453,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         """Catch directory for raw data"""
         # TODO: Vx ? Faire traduction du titre self.?iface.tr("Répertoire des données brutes")
         # Récuperer dans setting le nom du dernier ou sinon REPERTOIRE_DONNEES_BRUTES
-        self.settings= QSettings(PHYSIOCAP_NOM, PHYSIOCAP_VERSION)
+        self.settings= QSettings(PHYSIOCAP_NOM, PHYSIOCAP_NOM)
         exampleDirName =  self.settings.value("Physiocap/repertoire", REPERTOIRE_DONNEES_BRUTES)
         
         dirName = QFileDialog.getExistingDirectory( self, u"Répertoire des données brutes",
@@ -431,9 +466,9 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         
     
     # Creation des repertoires source puis resultats
-    def creer_donnees_resultats( self, details = "NO", histogrammes = "NO"):
+    def creer_donnees_resultats( self, details = "NO", histogrammes = "NO", recursif = "NO", laProjection = "L93"):
         """ Récupération des paramètres saisies et 
-        creation de l'arbre "soure" "texte" et du fichier "resultats"
+        creation de l'arbre "source" "texte" et du fichier "resultats"
         Ce sont les résultats de l'analyse filtration des données brutes"""
         
         # Récupérer les paramètres saisies
@@ -470,7 +505,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         # Stocker dans la fenetre de synthese le nom du projet
         chemin_base_projet = os.path.basename( chemin_projet)
         self.lineEditDernierProjet.setText( chemin_base_projet)
-        self.settings= QSettings( PHYSIOCAP_NOM, PHYSIOCAP_VERSION)
+        self.settings= QSettings( PHYSIOCAP_NOM, PHYSIOCAP_NOM)
         self.settings.value("Physiocap/dernier_repertoire", chemin_base_projet) 
         
         # Progress BAR 10 %
@@ -498,9 +533,22 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         # Todo: Vx ? choisir parmi les MID
         # Assert le nombre de MID > 0
         # le Tri pour retomber dans l'ordre de Physiocap_V8
-        listeTriee = sorted(glob.glob( nom_fichiers_recherches))
+        if ( recursif == "YES"):
+            # On appelle la fonction de recherche récursive
+            listeTriee = physiocap_chercher_MID( REPERTOIRE_DONNEES_BRUTES, "YES", REPERTOIRE_SOURCES)
+        else:
+            # Non recursif
+            listeTriee = sorted(glob.glob( nom_fichiers_recherches))
+
         if len( listeTriee) == 0:
             raise physiocap_exception_no_mid()
+        
+        # Verification si plus de 10 MIDs
+        if len( listeTriee) >= 10:
+            # Todo : Poser une questionet si cancel, on stoppe
+            uMsg =u"Plus de 10 fichier MIDs sont à analyser. Voulez-vous continuer ?"
+            physiocap_message_box( self, uMsg)
+            
         for mid in listeTriee:
             try:
                 shutil.copyfileobj(open(mid, "r"), csv_concat)
@@ -524,16 +572,23 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         # Création la première partie du fichier de synthèse
         nom_fichier_synthese, fichier_synthese = physiocap_open_file( FICHIER_RESULTAT, chemin_projet , "w")
         fichier_synthese.write( "SYNTHESE PHYSIOCAP\n\n")
-        fichier_synthese.write( "Répertoire ")
-        fichier_synthese.write( chemin_base_projet + "\n")
-        fichier_synthese.write( "généré le : ")
+        fichier_synthese.write( "générée le : ")
         a_time = time.strftime( "%d/%m/%y %H:%M\n",time.localtime())
         fichier_synthese.write( a_time)
-        nom_mid = ""
-        for fichier_mid in listeTriee:
-            nom_mid = nom_mid + os.path.basename( fichier_mid) + " & "
-        fichier_synthese.write("Liste des fichiers MID : " + nom_mid[:-3] + "\n")
-        physiocap_log( "Liste des MID : " + nom_mid[:-3])
+        fichier_synthese.write( "Répertoire de base ")
+        fichier_synthese.write( chemin_base_projet + "\n")
+        fichier_synthese.write( "Fichiers MID \t Date et heures\nNb. Mesures\tVitesse km/h\tCentroïdes\n")
+        
+        info_mid = physiocap_lister_MID( REPERTOIRE_DONNEES_BRUTES, listeTriee)
+        for all_info in info_mid:
+            info = all_info.split(";")
+            fichier_synthese.write( str(info[0]) + "\t" + str(info[1]) + "->" + str(info[2])+ "\n")
+            fichier_synthese.write( str(info[3]) + "\t" + str(info[4]) + "\t" + str(info[5]) + "--" + str(info[6]) + "\n")            
+##        nom_mid = ""
+##        for fichier_mid in listeTriee:
+##            nom_mid = nom_mid + os.path.basename( fichier_mid) + " & "
+##        fichier_synthese.write("Liste des fichiers MID : " + nom_mid[:-3] + "\n")
+##        physiocap_log( "Liste des MID : " + nom_mid[:-3])
        
         physiocap_log ( u"Fin de la création csv et début de synthèse")
        
@@ -571,7 +626,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         except:
             raise
         
-        fichier_synthese.write("\nPARAMETRES SAISIS ")
+        fichier_synthese.write("\n\nPARAMETRES SAISIS ")
         
         if os.path.getsize( nom_csv_concat ) == 0 :
             uMsg =u"Le fichier " + nom_court_csv_concat + u" a une taille nulle !"
@@ -706,7 +761,14 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
                 os.mkdir( chemin_shapes)
             except :
                 raise physiocap_exception_rep( REPERTOIRE_SHAPEFILE)
-               
+        # Traiter le cas GPS    
+        if ( laProjection == PROJECTION_L93 ):
+            EXTENSION_SHP = EXTENSION_SHP_L93
+            EXTENSION_PRJ = EXTENSION_PRJ_L93
+        if ( laProjection == PROJECTION_GPS ):
+            EXTENSION_SHP = EXTENSION_SHP_GPS
+            EXTENSION_PRJ = EXTENSION_PRJ_GPS
+            
         # Création des shapes sans 0
         nom_court_shape_sans_0 = NOM_PROJET + EXTENSION_SHP
         nom_shape_sans_0 = os.path.join(chemin_shapes, nom_court_shape_sans_0)
@@ -736,7 +798,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             
         # cas avec 0, pas de demande de synthese
         retour = physiocap_csv_to_shapefile( nom_csv_avec_0, nom_shape_avec_0, nom_prj_avec_0, 
-            "NO", details)
+            "NO", details, laProjection)
         if retour != 0:
             return physiocap_error(u"Erreur bloquante : problème lors de la création du shapefile : " + 
                     nom_court_shape_avec_0) 
