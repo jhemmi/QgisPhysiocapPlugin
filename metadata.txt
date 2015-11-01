@@ -10,7 +10,7 @@
 name=Physiocap
 qgisMinimumVersion=2.0
 description=Physiocap plugin helps analysing raw data from Physiocap in Qgis
-version=0.1
+version=1.15
 author=jhemmi.eu
 email=jean@jhemmi.eu
 
@@ -22,7 +22,7 @@ email=jean@jhemmi.eu
 # changelog=
 
 # Tags are comma separated with spaces allowed
-tags=Physiocap CIVC Ereca jhemmi.eu sarments biomasse
+tags=Physiocap CIVC E.re.c.a jhemmi.eu Hemmi sarment diametre biomasse
 
 homepage=https://github.com/jhemmi/QgisPhysiocapPlugin/wiki
 tracker=https://github.com/jhemmi/QgisPhysiocapPlugin/issues
@@ -30,7 +30,7 @@ repository=https://github.com/jhemmi/QgisPhysiocapPlugin
 category=Plugins
 icon=icon.png
 # experimental flag
-experimental=True
+experimental=False
 
 # deprecated flag (applies to the whole plugin, not just a single version)
 deprecated=False
