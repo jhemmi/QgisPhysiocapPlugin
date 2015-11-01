@@ -78,7 +78,7 @@ PHYSIOCAP_TRACE = "Yes"
 NB_VIRGULES = 58
 
 # MESSAGES & LOG
-def physiocap_message_box( self, text, level ="warning", title="Physiocap",):
+def physiocap_message_box( self, text, level ="warning", title="Physiocap"):
     """Send a message box by default Warning"""
     if level == "about":
         QMessageBox.about( self, title, text)
@@ -88,6 +88,16 @@ def physiocap_message_box( self, text, level ="warning", title="Physiocap",):
         QMessageBox.error( self, title, text)
     else:
         QMessageBox.warning( self, title, text)
+
+def physiocap_question_box( self, text="Etes-vous sûr(e) ?" , title = "Physiocap"):
+    """Send a question box """
+    reply = QMessageBox.question(self, title, text,
+            QMessageBox.Yes|QMessageBox.Cancel)
+    if reply == QMessageBox.Cancel:
+        return False
+    if reply == QMessageBox.Yes:
+        return True
+    return False
 
 def physiocap_log( aText, level ="INFO"):
     """Send a text to the Physiocap log"""
@@ -269,8 +279,6 @@ def physiocap_csv_to_shapefile( csv_name, shape_name, prj_name, laProjection,
                     biomgm2.append(float(row[12]))
                     biomgcep.append(float(row[13]))
                 
-    # Todo: V1.5 format pour Crs
-    #un_crs = QgsCoordinateReferenceSystem.createFromUserInput(u"EPSG:2154")
     # Prepare les attributs
     les_champs = QgsFields()
     # V1.0 Ajout du GID
@@ -312,7 +320,7 @@ def physiocap_csv_to_shapefile( csv_name, shape_name, prj_name, laProjection,
     prj = open(prj_name, "w")
     epsg = 'inconnu'
     if ( laProjection == "L93"):
-        # Todo: V1.x ? Faire un fichier de metadata 
+        # Todo: V1.x ? Faire aussi un fichier de metadata 
         epsg = 'PROJCS["RGF93_Lambert_93",GEOGCS["GCS_RGF93",DATUM["D_RGF_1993", \
         SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0], \
         UNIT["Degree",0.017453292519943295]],PROJECTION["Lambert_Conformal_Conic"], \

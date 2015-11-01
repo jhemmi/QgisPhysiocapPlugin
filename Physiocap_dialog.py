@@ -37,7 +37,7 @@
 ***************************************************************************/
 """
 from Physiocap_tools import physiocap_log,physiocap_error,physiocap_message_box, \
-        physiocap_write_in_synthese, \
+        physiocap_question_box, physiocap_write_in_synthese, \
         physiocap_rename_existing_file, physiocap_rename_create_dir, physiocap_open_file, \
         physiocap_chercher_MID, physiocap_lister_MID, \
         physiocap_csv_to_shapefile, physiocap_assert_csv, \
@@ -134,7 +134,8 @@ class physiocap_exception_mid( physiocap_exception):
     
 class physiocap_exception_no_mid( ):
     pass
-     
+class physiocap_exception_stop_user( ):
+    pass     
 class physiocap_exception_params( physiocap_exception):
     pass
     
@@ -437,14 +438,16 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             return physiocap_message_box( self, self.tr( ERREUR_EXCEPTION + "\n" + \
                 u"Erreur bloquante : aucun fichier mid à traiter"),
                 "information" )
-        # On remonte les autres exceptions
+        except physiocap_exception_stop_user:
+            return physiocap_log( "Arret de Physiocap à la demande de l'utilisateur",
+                "WARNING")
+         # On remonte les autres exceptions
         except:
             raise
         finally:
             pass
-            # Todo : Afficher les histo
-            # Todo : Se mettre sur l'onglet resutats (histo)
-            # self.reject()
+            # Todo : Se mettre sur l'onglet synthese ou (histo)
+
         # Fin de capture des erreurs Physiocap
         
         physiocap_log(u"Physiocap a terminé son analyse.")
@@ -532,7 +535,6 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         # Création du fichier concaténé
         nom_fichiers_recherches = os.path.join(REPERTOIRE_DONNEES_BRUTES, EXTENSION_MID)
         
-        # Todo: Vx ? choisir parmi les MID
         # Assert le nombre de MID > 0
         # le Tri pour retomber dans l'ordre de Physiocap_V8
         if ( recursif == "YES"):
@@ -546,10 +548,14 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             raise physiocap_exception_no_mid()
         
         # Verification si plus de 10 MIDs
-        if len( listeTriee) >= 10:
-            # Todo : Poser une questionet si cancel, on stoppe
-            uMsg =u"Plus de 10 fichier MIDs sont à analyser. Voulez-vous continuer ?"
-            physiocap_message_box( self, uMsg)
+        if len( listeTriee) >= 15:
+            # Beaucoup de MIDs Poser une question si cancel, on stoppe
+            uMsg =u"Plus de 15 fichier MIDs sont à analyser. Voulez-vous continuer ?"
+            if ( physiocap_question_box( self, uMsg)):
+                pass
+            else:
+                # Arret demandé
+                raise physiocap_exception_stop_user()
             
         for mid in listeTriee:
             try:
@@ -575,7 +581,6 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         # Progress BAR 20 %
         self.progressBar.setValue( 20)
         
-        # Todo: Vx ? Remplacer le fichier synthese par un ecran du plugin           
         # Création la première partie du fichier de synthèse
         nom_fichier_synthese, fichier_synthese = physiocap_open_file( FICHIER_RESULTAT, chemin_projet , "w")
         fichier_synthese.write( "SYNTHESE PHYSIOCAP\n\n")
@@ -633,7 +638,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             pourcentage_erreurs = physiocap_assert_csv( csv_concat, erreur)
             if ( pourcentage_erreurs > TAUX_LIGNES_ERREUR):
                 fichier_synthese.write("\nTrop d'erreurs dans les données brutes")
-                # Todo : raise selon le taux de lignes en erreur autorisées
+                # Todo : question selon le taux de lignes en erreur autorisées
                 #raise physiocap_exception_err_csv( pourcentage_erreurs)
         except:
             raise
@@ -818,17 +823,25 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         # Progress BAR 95 %
         self.progressBar.setValue( 95)
         
+        # Creer un groupe pour cette analyse
+        root = QgsProject.instance().layerTreeRoot( )
+        # Nommmer le groupe chemin_base_projet
+        sous_groupe = root.addGroup( chemin_base_projet)
+        
         # Récupérer des styles pour chaque shape
         dirTemplate = os.path.join( os.path.dirname(__file__), 'modeleQgis')       
         # Affichage des deux shapes dans Qgis
-        for s,ti,te in [(nom_shape_sans_0, 'DIAMETRE', 'Diametre 6 quantilles.qml') , 
-                        (nom_shape_sans_0, 'SARMENT', 'Sarments 4 Jenks.qml') , 
-                        (nom_shape_avec_0, 'VITESSE', 'Vitesse.qml')]:
+        for s,tc, ti,te in [(nom_shape_sans_0, 'DIA', 'DIAMETRE', 'Diametre 6 quantilles.qml') , 
+                        (nom_shape_sans_0, 'SAR', 'SARMENT', 'Sarments 4 Jenks.qml') , 
+                        (nom_shape_avec_0, 'VIT', 'VITESSE', 'Vitesse.qml')]:
             vector = QgsVectorLayer( s, ti, 'ogr')
-            QgsMapLayerRegistry.instance().addMapLayer( vector)
+            QgsMapLayerRegistry.instance().addMapLayer( vector, False)
+            # Todo : Ajouter le vecteur dans un group
+            vector_node = sous_groupe.addLayer( vector)
             leTemplate = os.path.join( dirTemplate, te)
             #physiocap_log ( u"Physiocap le template : " + os.path.basename( leTemplate) )
             vector.loadNamedStyle( leTemplate)
+            
             #self.vectorlayer_name.loadNamedStyle('path_to_qml_file')
             #layer.readSymbology(myDocRoot,errmsg)  
          
