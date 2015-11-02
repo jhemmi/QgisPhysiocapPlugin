@@ -114,7 +114,7 @@ def physiocap_error( aText, level ="WARNING"):
     else:
         QgsMessageLog.logMessage( aText, "Physiocap erreurs", QgsMessageLog.CRITICAL)
 
-    # Todo 1.5 ? Rajouter la trace d'errerur au fichier ?
+    # Todo 1.5 ? Rajouter la trace d'erreur au fichier ?
 
     return -1      
 
@@ -122,36 +122,14 @@ def physiocap_write_in_synthese( self, aText):
     """Write a text in the results list"""
     uText = unicode( aText, 'utf-8')
     self.textEditSynthese.insertPlainText( uText)   
-
-def get_vector_layers( self ):
-    """Create a list of vector """
-    layerMap = QgsMapLayerRegistry.instance().mapLayers()
-    layerList = []
-    for name, layer in layerMap.iteritems():
-        if layer.type() == QgsMapLayer.VectorLayer:
-            layerList.append( layer.name() )
-            
-    return layerList
-            
-        
-def get_layer_by_name( self, layerName ):
-    layerMap = QgsMapLayerRegistry.instance().mapLayers()
-    for name, layer in layerMap.iteritems():
-        if layer.type() == QgsMapLayer.VectorLayer and layer.name() == layerName:
-            # The layer is found
-            break
-    if layer.isValid():
-        return layer
-    else:
-        return none
- 
+    
 def is_int_number(s):
     try:
         int(s)
         return True
     except ValueError:
         return False
-    
+
 def physiocap_rename_existing( chemin):
     """ Retourne le nom qu'il est possible de creer
         si chemin existe deja, on creer un "chemin + (1)"
@@ -212,6 +190,7 @@ def physiocap_rename_create_dir( chemin):
         try:
             os.mkdir( chemin)
         except:
+            physiocap_log( "Erreur dans fonction recursive ==" + chemin)
             raise physiocap_exception_rep( chemin)
             
         #physiocap_log( "avant retour OK et apres creation DIR ==>>" + chemin + "<<==")
@@ -680,20 +659,3 @@ def physiocap_filtrer(src, csv_sans_0, csv_avec_0, diametre_filtre,
     return 0
  
 
-# Example pour faire une jointure patiale sous Py Qgis
-##lyrs = iface.legendInterface().layers()
-##lyrPoly = lyrs[1] #polygon layer
-##lyrPnts = lyrs[0] #point layer
-##
-##featsPoly = lyrPoly.getFeatures() #get all features of poly layer
-###featsPoly = lyrPoly.selectedFeatures() #for testing, use selected features only
-##
-##for featPoly in featsPoly: #iterate poly features
-##    zipPoly = featPoly["POSTCODE"] #get attribute of poly layer
-##    geomPoly = featPoly.geometry() #get geometry of poly layer
-##    #performance boost: get point features by poly bounding box first
-##    featsPnt = lyrPnts.getFeatures(QgsFeatureRequest().setFilterRect(geomPoly.boundingBox()))
-##    for featPnt in featsPnt:
-##        #iterate preselected point features and perform exact check with current polygon
-##        if featPnt.geometry().within(geomPoly):
-##            print '"' + zipPoly + '"' + ';' + featPnt["Zipcode"]
