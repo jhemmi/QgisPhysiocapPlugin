@@ -1,9 +1,6 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis version="2.8.1-Wien" minimumScale="-4.65661e-10" maximumScale="1e+08" simplifyDrawingHints="0" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" simplifyMaxScale="1" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
+<qgis version="2.6.0-Brighton" minimumScale="-4.65661e-10" maximumScale="1e+08" simplifyDrawingHints="0" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" simplifyMaxScale="1" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
   <edittypes>
-    <edittype widgetv2type="TextEdit" name="GID">
-      <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
-    </edittype>
     <edittype widgetv2type="TextEdit" name="DATE">
       <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
     </edittype>
@@ -20,30 +17,48 @@
       <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
     </edittype>
   </edittypes>
-  <renderer-v2 attr="NBSARM" symbollevels="0" type="graduatedSymbol">
+  <renderer-v2 attr="VITESSE" symbollevels="0" type="graduatedSymbol">
     <ranges>
-      <range render="true" symbol="0" lower="1.090000" upper="3.640000" label=" 1.1 - 3.6 "/>
-      <range render="true" symbol="1" lower="3.640000" upper="5.560000" label=" 3.6 - 5.6 "/>
-      <range render="true" symbol="2" lower="5.560000" upper="9.370000" label=" 5.6 - 9.4 "/>
-      <range render="true" symbol="3" lower="9.370000" upper="16.740000" label=" 9.4 - 16.7 "/>
+      <range render="true" symbol="0" lower="0.000000" upper="1.500000" label=" 0.0000 - 1.5"/>
+      <range render="true" symbol="1" lower="1.500000" upper="3.000000" label=" 1.5 - 3"/>
+      <range render="true" symbol="2" lower="3.000000" upper="30.000000" label="3 et plus "/>
     </ranges>
     <symbols>
       <symbol alpha="1" type="marker" name="0">
         <layer pass="0" class="SimpleMarker" locked="0">
           <prop k="angle" v="0"/>
-          <prop k="color" v="241,238,246,255"/>
+          <prop k="color" v="227,26,28,255"/>
           <prop k="horizontal_anchor_point" v="1"/>
-          <prop k="name" v="diamond"/>
+          <prop k="name" v="regular_star"/>
           <prop k="offset" v="0,0"/>
           <prop k="offset_map_unit_scale" v="0,0"/>
           <prop k="offset_unit" v="MM"/>
-          <prop k="outline_color" v="0,0,0,255"/>
+          <prop k="outline_color" v="255,0,0,0"/>
           <prop k="outline_style" v="solid"/>
           <prop k="outline_width" v="0"/>
           <prop k="outline_width_map_unit_scale" v="0,0"/>
           <prop k="outline_width_unit" v="MM"/>
           <prop k="scale_method" v="area"/>
-          <prop k="size" v="3"/>
+          <prop k="size" v="5"/>
+          <prop k="size_map_unit_scale" v="0,0"/>
+          <prop k="size_unit" v="MM"/>
+          <prop k="vertical_anchor_point" v="1"/>
+        </layer>
+        <layer pass="0" class="SimpleMarker" locked="1">
+          <prop k="angle" v="0"/>
+          <prop k="color" v="0,0,0,0"/>
+          <prop k="horizontal_anchor_point" v="1"/>
+          <prop k="name" v="circle"/>
+          <prop k="offset" v="0,0"/>
+          <prop k="offset_map_unit_scale" v="0,0"/>
+          <prop k="offset_unit" v="MM"/>
+          <prop k="outline_color" v="0,0,0,0"/>
+          <prop k="outline_style" v="solid"/>
+          <prop k="outline_width" v="0"/>
+          <prop k="outline_width_map_unit_scale" v="0,0"/>
+          <prop k="outline_width_unit" v="MM"/>
+          <prop k="scale_method" v="area"/>
+          <prop k="size" v="1.66667"/>
           <prop k="size_map_unit_scale" v="0,0"/>
           <prop k="size_unit" v="MM"/>
           <prop k="vertical_anchor_point" v="1"/>
@@ -52,9 +67,9 @@
       <symbol alpha="1" type="marker" name="1">
         <layer pass="0" class="SimpleMarker" locked="0">
           <prop k="angle" v="0"/>
-          <prop k="color" v="217,154,202,255"/>
+          <prop k="color" v="166,206,227,255"/>
           <prop k="horizontal_anchor_point" v="1"/>
-          <prop k="name" v="diamond"/>
+          <prop k="name" v="circle"/>
           <prop k="offset" v="0,0"/>
           <prop k="offset_map_unit_scale" v="0,0"/>
           <prop k="offset_unit" v="MM"/>
@@ -64,7 +79,7 @@
           <prop k="outline_width_map_unit_scale" v="0,0"/>
           <prop k="outline_width_unit" v="MM"/>
           <prop k="scale_method" v="area"/>
-          <prop k="size" v="3"/>
+          <prop k="size" v="1"/>
           <prop k="size_map_unit_scale" v="0,0"/>
           <prop k="size_unit" v="MM"/>
           <prop k="vertical_anchor_point" v="1"/>
@@ -73,9 +88,9 @@
       <symbol alpha="1" type="marker" name="2">
         <layer pass="0" class="SimpleMarker" locked="0">
           <prop k="angle" v="0"/>
-          <prop k="color" v="221,52,138,255"/>
+          <prop k="color" v="178,223,138,255"/>
           <prop k="horizontal_anchor_point" v="1"/>
-          <prop k="name" v="diamond"/>
+          <prop k="name" v="circle"/>
           <prop k="offset" v="0,0"/>
           <prop k="offset_map_unit_scale" v="0,0"/>
           <prop k="offset_unit" v="MM"/>
@@ -85,28 +100,7 @@
           <prop k="outline_width_map_unit_scale" v="0,0"/>
           <prop k="outline_width_unit" v="MM"/>
           <prop k="scale_method" v="area"/>
-          <prop k="size" v="3"/>
-          <prop k="size_map_unit_scale" v="0,0"/>
-          <prop k="size_unit" v="MM"/>
-          <prop k="vertical_anchor_point" v="1"/>
-        </layer>
-      </symbol>
-      <symbol alpha="1" type="marker" name="3">
-        <layer pass="0" class="SimpleMarker" locked="0">
-          <prop k="angle" v="0"/>
-          <prop k="color" v="152,0,67,255"/>
-          <prop k="horizontal_anchor_point" v="1"/>
-          <prop k="name" v="diamond"/>
-          <prop k="offset" v="0,0"/>
-          <prop k="offset_map_unit_scale" v="0,0"/>
-          <prop k="offset_unit" v="MM"/>
-          <prop k="outline_color" v="0,0,0,255"/>
-          <prop k="outline_style" v="solid"/>
-          <prop k="outline_width" v="0"/>
-          <prop k="outline_width_map_unit_scale" v="0,0"/>
-          <prop k="outline_width_unit" v="MM"/>
-          <prop k="scale_method" v="area"/>
-          <prop k="size" v="3"/>
+          <prop k="size" v="2"/>
           <prop k="size_map_unit_scale" v="0,0"/>
           <prop k="size_unit" v="MM"/>
           <prop k="vertical_anchor_point" v="1"/>
@@ -117,19 +111,38 @@
       <symbol alpha="1" type="marker" name="0">
         <layer pass="0" class="SimpleMarker" locked="0">
           <prop k="angle" v="0"/>
-          <prop k="color" v="178,223,138,255"/>
+          <prop k="color" v="106,61,154,255"/>
           <prop k="horizontal_anchor_point" v="1"/>
-          <prop k="name" v="diamond"/>
+          <prop k="name" v="regular_star"/>
           <prop k="offset" v="0,0"/>
           <prop k="offset_map_unit_scale" v="0,0"/>
           <prop k="offset_unit" v="MM"/>
-          <prop k="outline_color" v="0,0,0,255"/>
+          <prop k="outline_color" v="255,0,0,0"/>
           <prop k="outline_style" v="solid"/>
           <prop k="outline_width" v="0"/>
           <prop k="outline_width_map_unit_scale" v="0,0"/>
           <prop k="outline_width_unit" v="MM"/>
           <prop k="scale_method" v="area"/>
-          <prop k="size" v="3"/>
+          <prop k="size" v="6"/>
+          <prop k="size_map_unit_scale" v="0,0"/>
+          <prop k="size_unit" v="MM"/>
+          <prop k="vertical_anchor_point" v="1"/>
+        </layer>
+        <layer pass="0" class="SimpleMarker" locked="1">
+          <prop k="angle" v="0"/>
+          <prop k="color" v="255,255,127,255"/>
+          <prop k="horizontal_anchor_point" v="1"/>
+          <prop k="name" v="circle"/>
+          <prop k="offset" v="0,0"/>
+          <prop k="offset_map_unit_scale" v="0,0"/>
+          <prop k="offset_unit" v="MM"/>
+          <prop k="outline_color" v="0,0,0,0"/>
+          <prop k="outline_style" v="solid"/>
+          <prop k="outline_width" v="0"/>
+          <prop k="outline_width_map_unit_scale" v="0,0"/>
+          <prop k="outline_width_unit" v="MM"/>
+          <prop k="scale_method" v="area"/>
+          <prop k="size" v="2"/>
           <prop k="size_map_unit_scale" v="0,0"/>
           <prop k="size_unit" v="MM"/>
           <prop k="vertical_anchor_point" v="1"/>
@@ -137,16 +150,16 @@
       </symbol>
     </source-symbol>
     <colorramp type="gradient" name="[source]">
-      <prop k="color1" v="241,238,246,255"/>
-      <prop k="color2" v="152,0,67,255"/>
+      <prop k="color1" v="247,251,255,255"/>
+      <prop k="color2" v="8,48,107,255"/>
       <prop k="discrete" v="0"/>
-      <prop k="stops" v="0.25;215,181,216,255:0.5;223,101,176,255:0.75;221,28,119,255"/>
+      <prop k="stops" v="0.13;222,235,247,255:0.26;198,219,239,255:0.39;158,202,225,255:0.52;107,174,214,255:0.65;66,146,198,255:0.78;33,113,181,255:0.9;8,81,156,255"/>
     </colorramp>
     <invertedcolorramp value="0"/>
     <mode name="jenks"/>
     <rotation/>
     <sizescale scalemethod="area"/>
-    <labelformat format=" %1 - %2 " trimtrailingzeroes="true" decimalplaces="1"/>
+    <labelformat format=" %1 - %2 " trimtrailingzeroes="false" decimalplaces="1"/>
   </renderer-v2>
   <customproperties>
     <property key="labeling" value="pal"/>
@@ -294,7 +307,7 @@
   <blendMode>0</blendMode>
   <featureBlendMode>0</featureBlendMode>
   <layerTransparency>0</layerTransparency>
-  <displayfield>GID</displayfield>
+  <displayfield>DATE</displayfield>
   <label>0</label>
   <labelattributes>
     <label fieldname="" text="Étiquette"/>
@@ -316,10 +329,10 @@
     <multilineenabled fieldname="" on=""/>
     <selectedonly on=""/>
   </labelattributes>
-  <editform>.</editform>
-  <editforminit/>
+  <editform></editform>
+  <editforminit></editforminit>
   <featformsuppress>0</featformsuppress>
-  <annotationform>.</annotationform>
+  <annotationform></annotationform>
   <editorlayout>generatedlayout</editorlayout>
   <excludeAttributesWMS/>
   <excludeAttributesWFS/>

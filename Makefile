@@ -37,18 +37,24 @@ LOCALES =
 
 # translation
 SOURCES = \
-	__init__.py \
-	Physiocap.py \
-	Physiocap_tools.py \
-	Physiocap_dialog.py
+    __init__.py \
+    Physiocap.py \
+    Physiocap_tools.py \
+    Physiocap_exception.py \
+    Physiocap_CIVC.py \
+    Physiocap_inter.py \
+    Physiocap_dialog.py
 
 PLUGINNAME = PhysiocapAnalyseur
 
 PY_FILES = \
-	Physiocap.py \
-	Physiocap_dialog.py \
-	Physiocap_tools.py \
-	__init__.py
+    Physiocap.py \
+    Physiocap_dialog.py \
+    Physiocap_exception.py \
+    Physiocap_tools.py \
+    Physiocap_CIVC.py \
+    Physiocap_inter.py \
+    __init__.py
 
 UI_FILES = Physiocap_dialog_base.ui
 
@@ -69,6 +75,11 @@ PEP8EXCLUDE=pydev,resources_rc.py,conf.py,third_party,ui
 HELP = help
 HELP_FILES = $(HELP)/index.html $(HELP)/Histo_non_calcule.png \
     $(HELP)/jhemmi.eu.png $(HELP)/CIVC.jpg
+    
+CONF_TARGET = $(HOME)/.config/Physiocap/Physiocap.conf
+CONF_MODEL = test/Physiocap.conf
+CONF_SAVE = $(CONF_TARGET).sauve
+
 TEMPLATE = modeleQgis
 
 PLUGIN_UPLOAD = $(c)/plugin_upload.py
@@ -87,23 +98,30 @@ compile: $(COMPILED_RESOURCE_FILES)
 %.qm : %.ts
 	$(LRELEASE) $<
 
-test: compile transcompile
+test: compile 
+#transcompile
 	@echo
 	@echo "----------------------"
 	@echo "Regression Test Suite"
 	@echo "----------------------"
-
+	@cp $(CONF_TARGET) $(CONF_SAVE)
+	@cp $(CONF_MODEL) $(CONF_TARGET)  
+	@echo "------- Copy ------------"
+	
 	@# Preceding dash means that make will continue in case of errors
 	@-export PYTHONPATH=`pwd`:$(PYTHONPATH); \
-		export QGIS_DEBUG=0; \
-		export QGIS_LOG_FILE=/dev/null; \
-		nosetests -v --with-id --with-coverage --cover-package=. \
-		3>&1 1>&2 2>&3 3>&- || true
-	@echo "----------------------"
-	@echo "If you get a 'no module named qgis.core error, try sourcing"
-	@echo "the helper script we have provided first then run make test."
-	@echo "e.g. source run-env-linux.sh <path to qgis install>; make test"
-	@echo "----------------------"
+	export QGIS_DEBUG=0; \
+	export QGIS_LOG_FILE=/dev/null; \
+	nosetests -v --with-id --with-coverage --cover-package=. \
+	3>&1 1>&2 2>&3 3>&- || true
+	
+	@echo "-- FIN --------------------"
+	#@echo "If you get a 'no module named qgis.core error, try sourcing"
+	#@echo "the helper script we have provided first then run make test."
+	#@echo "e.g. source run-env-linux.sh <path to qgis install>; make test"
+	#@echo "----------------------"
+	@cp $(CONF_SAVE) $(CONF_TARGET) 
+
 
 deploy: compile doc transcompile
 	@echo
@@ -119,14 +137,14 @@ deploy: compile doc transcompile
 	mkdir -p $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)/$(HELP)
 	mkdir -p $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)/$(TEMPLATE)
 	cp -vf $(PY_FILES) $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
-	cp -vf $(UI_FILES) $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
-	cp -vf $(COMPILED_RESOURCE_FILES) $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
+	@cp -vf $(UI_FILES) $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
+	@cp -vf $(COMPILED_RESOURCE_FILES) $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
 	cp -vf $(EXTRAS) $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
-	cp -vfr i18n $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
-	cp -vf $(HELP_FILES)  $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)/$(HELP)
-	cp -vf $(DATA_FILES) $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)/$(DATA)
-	cp -vf $(TEMPLATE)/* $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)/$(TEMPLATE)
-	cp -vf $(TEMPLATE)/* $(HOME)/$(QGISDIR)/project_templates
+	@cp -vfr i18n $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
+	@cp -vf $(HELP_FILES)  $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)/$(HELP)
+	@cp -vf $(DATA_FILES) $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)/$(DATA)
+	@cp -vf $(TEMPLATE)/* $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)/$(TEMPLATE)
+	@cp -vf $(TEMPLATE)/* $(HOME)/$(QGISDIR)/project_templates
 	# Todo copy du processing Physiocap
 
 # The dclean target removes compiled python files from plugin directory

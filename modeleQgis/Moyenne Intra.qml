@@ -1,31 +1,28 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
 <qgis version="2.8.1-Wien" minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" simplifyMaxScale="1" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
   <edittypes>
-    <edittype widgetv2type="TextEdit" name="id">
+    <edittype widgetv2type="TextEdit" name="GID">
       <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
     </edittype>
-    <edittype widgetv2type="TextEdit" name="Surface">
+    <edittype widgetv2type="TextEdit" name="NOM">
       <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
     </edittype>
-    <edittype widgetv2type="TextEdit" name="Name">
+    <edittype widgetv2type="TextEdit" name="DATE">
       <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
     </edittype>
-    <edittype widgetv2type="TextEdit" name="MEANGID">
+    <edittype widgetv2type="TextEdit" name="HEURE">
       <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
     </edittype>
-    <edittype widgetv2type="TextEdit" name="MEANVITESS">
+    <edittype widgetv2type="TextEdit" name="VITESSE">
       <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
     </edittype>
-    <edittype widgetv2type="TextEdit" name="MEANNBSARM">
+    <edittype widgetv2type="TextEdit" name="NBSARM">
       <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
     </edittype>
-    <edittype widgetv2type="TextEdit" name="MEANDIAM">
+    <edittype widgetv2type="TextEdit" name="DIAM">
       <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
     </edittype>
-    <edittype widgetv2type="TextEdit" name="MEANBIOM">
-      <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
-    </edittype>
-    <edittype widgetv2type="TextEdit" name="COUNT">
+    <edittype widgetv2type="TextEdit" name="BIOM">
       <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
     </edittype>
   </edittypes>
@@ -39,8 +36,8 @@
           <prop k="offset" v="0,0"/>
           <prop k="offset_map_unit_scale" v="0,0"/>
           <prop k="offset_unit" v="MM"/>
-          <prop k="outline_color" v="0,0,0,255"/>
-          <prop k="outline_style" v="solid"/>
+          <prop k="outline_color" v="0,0,246,255"/>
+          <prop k="outline_style" v="dash dot"/>
           <prop k="outline_width" v="0.26"/>
           <prop k="outline_width_unit" v="MM"/>
           <prop k="style" v="no"/>
@@ -77,7 +74,7 @@
     <property key="labeling/distMapUnitMaxScale" value="0"/>
     <property key="labeling/distMapUnitMinScale" value="0"/>
     <property key="labeling/enabled" value="true"/>
-    <property key="labeling/fieldName" value="  concat(   'sarm : ', format_number(&quot;MEANNBSARM&quot;, 1.1) , '~diam : ', format_number(&quot;MEANDIAM&quot;, 1.1))"/>
+    <property key="labeling/fieldName" value="  concat(   &#xa;  &quot;NOM&quot; , ' Vit:', &quot;VITESSE&quot; , 'km/h', &#xa;  '~', &quot;DATE&quot;, ' -- ', &quot;HEURE&quot;,  &#xa;  '~Sar/m : ', format_number(&quot;NBSARM&quot;, 1) , &#xa;  ' Diam : ', format_number(&quot;DIAM&quot;, 1), &#xa;  ' Biom ', format_number(&quot;BIOM&quot;,0)&#xa;  )"/>
     <property key="labeling/fontBold" value="false"/>
     <property key="labeling/fontCapitals" value="0"/>
     <property key="labeling/fontFamily" value="Cantarell"/>
@@ -86,7 +83,7 @@
     <property key="labeling/fontLimitPixelSize" value="false"/>
     <property key="labeling/fontMaxPixelSize" value="10000"/>
     <property key="labeling/fontMinPixelSize" value="3"/>
-    <property key="labeling/fontSize" value="11"/>
+    <property key="labeling/fontSize" value="10"/>
     <property key="labeling/fontSizeInMapUnits" value="false"/>
     <property key="labeling/fontSizeMapUnitMaxScale" value="0"/>
     <property key="labeling/fontSizeMapUnitMinScale" value="0"/>
@@ -218,10 +215,10 @@
     <multilineenabled fieldname="" on=""/>
     <selectedonly on=""/>
   </labelattributes>
-  <editform></editform>
+  <editform>.</editform>
   <editforminit/>
   <featformsuppress>0</featformsuppress>
-  <annotationform></annotationform>
+  <annotationform>.</annotationform>
   <editorlayout>generatedlayout</editorlayout>
   <excludeAttributesWMS/>
   <excludeAttributesWFS/>
