@@ -112,7 +112,7 @@ def physiocap_quelle_projection_demandee( self):
         laProjection = PROJECTION_GPS
     if self.radioButtonL93.isChecked():
         laProjection = PROJECTION_L93
-    physiocap_log(u"Projection des shapefiles demandée en " + laProjection)
+    #physiocap_log(u"Projection des shapefiles demandée en " + laProjection)
     
     if ( laProjection == PROJECTION_L93 ):
         EXTENSION_SHP = EXTENSION_SHP_L93

@@ -86,20 +86,25 @@ except ImportError:
     print( aText)
     QgsMessageLog.logMessage( aText, "Physiocap erreurs", QgsMessageLog.WARNING)
 
-# VARIABLES GLOBALES
-NB_VIRGULES = 58
-
-
-def physiocap_csv_vers_shapefile( csv_name, shape_name, prj_name, laProjection, 
+def physiocap_csv_vers_shapefile( self, progress_barre, csv_name, shape_name, prj_name, laProjection, 
     nom_fichier_synthese = "NO", details = "NO"):
     """ Creation de shape file à partir des données des CSV
     Si nom_fichier_synthese n'est pas "NO", on produit les moyennes dans le fichier 
     qui se nomme nom_fichier_synthese
     Selon la valeur de détails , on crée les 5 premiers ("NO") ou tous les attibuts ("YES")
     """
+    crs = None
     #Préparation de la liste d'arguments
     x,y,nbsarmshp,diamshp,biomshp,dateshp,vitesseshp= [],[],[],[],[],[],[]
     nbsarmm2,nbsarcep,biommm2,biomgm2,biomgcep=[],[],[],[],[]
+    
+    un_fic = open( csv_name, "r")
+    lignes = un_fic.readlines()
+    nombre_ligne = len( lignes)
+    un_fic.close()
+    progress_step = int( nombre_ligne / 19)
+    barre = 1
+    
     #Lecture des data dans le csv et stockage dans une liste
     with open(csv_name, "rt") as csvfile:
         try:
@@ -109,8 +114,16 @@ def physiocap_csv_vers_shapefile( csv_name, shape_name, prj_name, laProjection,
             physiocap_erreur( uText)
             QgsMessageLog.logMessage( uText, "Physiocap erreurs", QgsMessageLog.WARNING)
             return -1
-        for i,row in enumerate(r):
-            if i > 0: #skip header
+
+        for jj, row in enumerate( r):
+            #skip header
+            if jj > 0: 
+                # ON fait avancer la barre de progression de 19 points
+                if ( jj > progress_step * barre):
+                    barre = barre + 1
+                    progress_barre = progress_barre + 1
+                    self.progressBar.setValue( progress_barre)
+                    
                 crs = None
                 if ( laProjection == "L93"):
                     x.append(float(row[2]))
@@ -359,7 +372,7 @@ def physiocap_tracer_histo(src, name, min=0, max =28, labelx = "Lab X", labely =
     
 
 # Fonction de filtrage et traitement des données
-def physiocap_filtrer(src, csv_sans_0, csv_avec_0, diametre_filtre, 
+def physiocap_filtrer(self, src, csv_sans_0, csv_avec_0, diametre_filtre, 
     nom_fichier_synthese, err, 
     mindiam, maxdiam, max_sarments_metre, details,
     eer, eec, d, hv):
@@ -387,10 +400,24 @@ def physiocap_filtrer(src, csv_sans_0, csv_avec_0, diametre_filtre,
             NBSARMM2 ; NBSARCEP ; BIOMMM2 ; BIOMGM2 ; BIOMGCEP ")) # ecriture de l'entête
 
     nombre_ligne = 0
-    while True :
-        ligne = src.readline()
+    # Pour progress bar entre 15 et 40
+    lignes = src.readlines()
+    max_lignes = len(lignes)
+    progress_step = int( max_lignes / 25)
+    #physiocap_log("Bar step: " + str( progress_step))
+    progress_bar = 15
+    barre = 1
+    for ligne in lignes :
         nombre_ligne = nombre_ligne + 1
         if not ligne: break 
+        
+        # Progress BAR de 15 à 40 %
+        if ( nombre_ligne > barre * progress_step):
+            progress_bar = progress_bar + 1
+            barre = barre + 1
+            self.progressBar.setValue( progress_bar)  
+            #physiocap_log("Bar : " + str( progress_bar) + "lignes : " + str(nombre_ligne))
+                
         comptage = ligne.count(",") # compte le nombre de virgules
         result = ligne.split(",") # split en fonction des virgules
         #physiocap_log("Comptage de virgules : " + str(comptage))
@@ -399,9 +426,9 @@ def physiocap_filtrer(src, csv_sans_0, csv_avec_0, diametre_filtre,
             XY = [float(x) for x in result[1:9]]   # on extrait les XY et on les transforme en float  
             # On transforme les WGS84 en L93
             WGS84 = osr.SpatialReference()
-            WGS84.ImportFromEPSG(4326)
+            WGS84.ImportFromEPSG( EPSG_NUMBER_GPS)
             LAMB93 = osr.SpatialReference()
-            LAMB93.ImportFromEPSG(2154)
+            LAMB93.ImportFromEPSG( EPSG_NUMBER_L93)
             transformation1 = osr.CoordinateTransformation(WGS84,LAMB93) 
             L93 = transformation1.TransformPoint(XY[0],XY[1])
             diams = [float(x) for x in result[9:NB_VIRGULES+1]] # on extrait les diams et on les transforme en float 

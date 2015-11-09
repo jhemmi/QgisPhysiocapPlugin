@@ -56,54 +56,36 @@ from qgis.gui import *
 
 
     # Vectors
-##    def physiocap_get_vector_layers( self ):
-##        """Create a list of vector """
-##        layerMap = QgsMapLayerRegistry.instance().mapLayers()
-##        layerList = []
-##        for name, layer in layerMap.iteritems():
-##            if layer.type() == QgsMapLayer.VectorLayer:
-##                layerList.append( layer.name() )
-##                
-##        return layerList
-                
-##    def physiocap_create_vector_point_list( self ):
-##        """Create a list of vector and initialize the comboBoxPoints"""
-##        layers = self.physiocap_get_vector_layers()
-##        if len( layers) == 0:
-##            self.comboBoxPoints.setCurrentIndex( 0)
-##            physiocap_log( u"Pas de layer de type Points")
-##        self.comboBoxPoints.clear( )
-##        self.comboBoxPoints.addItems( layers )
-##        self.comboBoxPoints.setCurrentIndex( 2)
 
-def JH_get_layer_by_name( layerName, noeud = None ):
-    # exemple : layers = QgsMapLayerRegistry.instance().mapLayers().values()
-    layerMap = QgsMapLayerRegistry.instance().mapLayers()
-    for name, layer in layerMap.iteritems():
-        if layer.type() == QgsMapLayer.VectorLayer and layer.name() == layerName:
-            # The layer is found
-            # Vérifier si on est dans le bon noeud
-            if noeud == None:
-                break
-            else:
-                root = QgsProject.instance().layerTreeRoot()
-                un_groupe = root.findGroup( noeud)
-                if ( un_groupe != None ):
-                    #physiocap_log( "- group: ")
-                    layer_trouve = un_groupe.findLayer( layer.id())
-                    if ( layer_trouve != None ):
-                        #physiocap_log( "- layerid: " + str( layer.id()))
-                        break
-    if layer.isValid():
-        return layer, layer.id()
+def JH_get_layer_by_ID( layerID):
+    """ Retrouve un layer ID dans la map Tree Root"""
+    layer_trouve = None
+    root = QgsProject.instance().layerTreeRoot()
+ 
+    ids = root.findLayerIds()
+    layers = root.findLayers()
+    #physiocap_log( "--- layerids: " + str( ids))
+    #physiocap_log( "- layers : " + str( layers))    
+    for id in ids:
+        if id == layerID:
+            physiocap_log( u"Layer retrouvé : " + str( layerID))
+            layer_trouve = root.findLayer( layerID)
+            le_layer = layer_trouve.layer()
+            break
+    if ( layer_trouve != None):
+        if ( le_layer.isValid()):
+            return le_layer
+        else:
+            physiocap_log( "Layer invalide : " + str( le_layer.layerName()))
+            return None
     else:
+        physiocap_log( "Aucun layer retrouvé pour : " + str( layerID))
         return None
+
 
 def JH_vector_poly_or_point( vector):
     """Vérifie le type de forme du vector : s'appuie sur la premiere valeur"""
-            
-##    if ( vector.isValid()):
-##        physiocap_log( "- vecteur: valide")        
+
     try:
         # geom = vector.getFeatures().next().geometry()
         # Todo : tester avec QGis.WKBPolygon
@@ -128,10 +110,13 @@ def physiocap_fill_combo_poly_or_point( self, isRoot = None, node = None ):
     """ Recherche dans l'arbre Physiocap (recursif)
     les Polygones,
     les Points de nom DIAMETRE qui correspondent au données filtreés
-    Rend deux listes pour le comboxBox des vecteurs "inter Parcellaire"
+    Remplit deux listes pour le comboxBox des vecteurs "inter Parcellaire"
+    Rend aussi le nombre de poly et point retrouvé
     """
-    
     # Todo : Memoriser les eventuels choix : les remettre en place en fin de traitement 
+    nombre_poly = 0
+    nombre_point = 0
+    
     if ( isRoot == None):
         root = QgsProject.instance().layerTreeRoot()
         self.comboBoxPolygone.clear( )
@@ -145,22 +130,28 @@ def physiocap_fill_combo_poly_or_point( self, isRoot = None, node = None ):
     # On descend de l'arbre par la racine
     for child in noeud.children():
         if isinstance(child, QgsLayerTreeGroup):
-##            physiocap_log( "- group: " + child.name())
+            #physiocap_log( "- group: " + child.name())
             noeud_en_cours = child.name()
             if ( noeud_en_cours != VIGNETTES ):
                 # On exclut les vignettes
-                physiocap_fill_combo_poly_or_point( self, noeud, child)
+                un_nombre_poly, un_nombre_point = physiocap_fill_combo_poly_or_point( self, noeud, child)
+                nombre_point = nombre_point + un_nombre_point
+                nombre_poly = nombre_poly + un_nombre_poly
         elif isinstance(child, QgsLayerTreeLayer):
-##            physiocap_log( "- layer: " + child.layerName() + "  ID: " + child.layerId()) 
+            #physiocap_log( "- layer: " + child.layerName() + "  ID: " + child.layerId()) 
 ##            if ( child.layer().isValid()):
 ##                physiocap_log( "- layer: valide")
-            node_layer = noeud_en_cours + SEPARATEUR_NOEUD + child.layerId()        
             # Tester si poly ou point
             if ( JH_vector_poly_or_point( child.layer()) == "Point"):
                 if ( child.layerName() == "DIAMETRE"):
+                    node_layer = noeud_en_cours + SEPARATEUR_NOEUD + child.layerId()        
                     self.comboBoxPoints.addItem( str(node_layer))
+                    nombre_point = nombre_point + 1
             elif ( JH_vector_poly_or_point( child.layer()) == "Polygone"):
-                self.comboBoxPolygone.addItem( str(child.layerName()) )
+                node_layer = child.layerName() + SEPARATEUR_NOEUD + child.layerId()        
+                self.comboBoxPolygone.addItem( str(node_layer) )
+                nombre_poly = nombre_poly + 1
+    return nombre_poly, nombre_point
 
 def physiocap_moyenne_InterParcelles( self):
     """Verification et requete spatiale"""
@@ -179,11 +170,26 @@ def physiocap_moyenne_InterParcelles( self):
     physiocap_log( u"Début du calcul des moyennes à partir de vos contours" )
     
     # Récupérer des styles pour chaque shape
-    dirTemplate = os.path.join( os.path.dirname(__file__), 'modeleQgis')       
-    leTemplate = os.path.join( dirTemplate, "Moyenne Intra.qml")
+    dir_template = os.path.join( os.path.dirname(__file__), 'modeleQgis')       
+    le_template_moyenne = os.path.join( dir_template, "Moyenne Intra.qml")
+    le_template_point = os.path.join( dir_template, "Diametre 6 quantilles.qmll")
  
     # QT confiance
-    vecteur_poly, poly_ID = JH_get_layer_by_name( self.comboBoxPolygone.currentText())
+ 
+    # Pour polygone de contour   
+    nom_complet_poly = self.comboBoxPolygone.currentText().split( SEPARATEUR_NOEUD)
+    if ( len( nom_complet_poly) != 2):
+        physiocap_error( u"Le polygone de contour n'est pas choisi." +
+          "Avez-vous ouvert votre shapefile de contour ?")
+        return physiocap_message_box( self,
+            self.tr( u"Le polygone de contour n'est pas choisi." +
+                "Avez-vous ouvert votre shapefile de contour ?" ),
+            "information")            
+    nom_poly = nom_complet_poly[ 0] 
+    id_poly = nom_complet_poly[ 1] 
+    vecteur_poly = JH_get_layer_by_ID( id_poly)
+    
+    # Pour les points
     nom_complet_point = self.comboBoxPoints.currentText().split( SEPARATEUR_NOEUD)
     if ( len( nom_complet_point) != 2):
         physiocap_error( u"Le shape de points n'est pas choisi." +
@@ -195,15 +201,16 @@ def physiocap_moyenne_InterParcelles( self):
                 "calcul de Moyenne Inter Parcellaire" ),
             "information")
     nom_noeud_arbre = nom_complet_point[ 0] 
-    nom_ID = nom_complet_point[ 1] 
-    vecteur_point, point_ID = JH_get_layer_by_name( "DIAMETRE", nom_noeud_arbre)
-    if (( vecteur_point == None) or ( not vecteur_point.isValid()) or
-        ( point_ID != nom_ID)):
+    id_point = nom_complet_point[ 1] 
+    vecteur_point = JH_get_layer_by_ID( id_point)
+    
+    # Vérification 
+    if ( vecteur_point == None):
         physiocap_error( u"Le jeu de données choisi n'est pas valide. " +
           "Lancez le traitement initial - bouton OK - avant de faire votre" +
           "calcul de Moyenne Inter Parcellaire")
         return physiocap_message_box( self,
-            self.tr( u"Le shape de points choisi n'est pas valide. " +
+            self.tr( u"Le jeu de données choisi n'est pas valide. " +
                 "Lancez le traitement initial - bouton OK - avant de faire votre" +
                 "calcul de Moyenne Inter Parcellaire" ),
             "information")    
@@ -230,27 +237,22 @@ def physiocap_moyenne_InterParcelles( self):
         chemin_shapes = os.path.dirname( unicode( vecteur_point.dataProvider().dataSourceUri() ) ) ;
         if ( not os.path.exists( chemin_shapes)):
             raise physiocap_exception_rep( chemin_shapes)
-
-        # Gestion de l'arbre
-        root = QgsProject.instance().layerTreeRoot( )
-        un_groupe = root.findGroup( nom_noeud_arbre)
-        if un_groupe != None:
-            vignette_existante = un_groupe.findGroup( VIGNETTES)
-            if ( vignette_existante == None ):
-                vignette_group = un_groupe.addGroup( VIGNETTES)
-            else:
-                # Si vignette preexiste, on ne recommence pas
-                raise physiocap_exception_vignette_exists( nom_noeud_arbre) 
-        
+       
         # On passe sur les differents contours
         id = 0
+        contour_avec_point = 0
         for un_contour in vecteur_poly.getFeatures(): #iterate poly features
             id = id + 1
             try:
-                un_nom = str( un_contour["Name"]) #get attribute of poly layer
+                un_nom = str( un_contour["NAME"]) #get attribute of poly layer
             except:
                 un_nom = "PHY_ID" + str(id)
                 pass
+            
+            physiocap_log ( u"================ ")
+            physiocap_log ( u"== Nom Contour : " + un_nom)
+            
+            un_autre_nom = "PHY_ID" + str(id)
             geom_poly = un_contour.geometry() #get geometry of poly layer
             #physiocap_log ( "Dans polygone geom multipart : " + str(geom_poly.wkbType()))
 ##            if geom_poly.wkbType() == QGis.WKBPolygon:
@@ -259,46 +261,65 @@ def physiocap_moyenne_InterParcelles( self):
 ##                physiocap_log ( "c'est un polygone multiple: " + un_nom)
                 
             # Préfiltre dans un rectangle
-            vitesse = []
-            sarment = []
-            diametre = []
-            biom = []
-            biomgm2 = []
+            les_geom = []
+            les_dates = []
+            les_GID = []
+            les_vitesses = []
+            les_sarments = []
+            les_diametres = []
+            nb_dia = 0
+            nb_sar = 0
+            les_biom = []
+            les_biomgm2 = []
             i = 0
             date_debut = ""
             heure_fin = ""
             for un_point in vecteur_point.getFeatures(QgsFeatureRequest().
                             setFilterRect(geom_poly.boundingBox())):
+                # un_point est un feature ! 
+##                geom_point = None
+##                geom_point = un_point.geometry().within(geom_poly)
+                #feat.setGeometry( QgsGeometry.fromPolygon(geom_poly.asPolygon())) #écrit la géométrie tel que lu dans shape contour
+                #physiocap_log ( "Dans un point : " + str(i))
+                #if geom_point != None:
                 if un_point.geometry().within(geom_poly):
+                    if i == 0:
+                        contour_avec_point = contour_avec_point + 1
                     i = i + 1
+                    #physiocap_log ( "Dans un point : " + str(i))
                     try:
                         if i == 2:
                             # Attraper date début
                             date_debut = un_point["DATE"]
-                        vitesse.append( un_point["VITESSE"])
-                        sarment.append( un_point["NBSARM"])
-                        diametre.append( un_point["DIAM"])
-                        biom.append( un_point["BIOM"])
-                        # todo : shape de points : geom_point.append( un_point.geometry())
+                        les_geom.append( un_point.geometry().asPoint())
+                        les_dates.append( un_point["DATE"])
+                        les_GID.append( un_point["GID"])
+                        les_vitesses.append( un_point["VITESSE"])
+                        les_sarments.append( un_point["NBSARM"])
+                        les_diametres.append( un_point["DIAM"])
+                        les_biom.append( un_point["BIOM"])
                         if ( details == "YES"):
-                            biomgm2.append( un_point["BIOMGM2"])
+                            les_biomgm2.append( un_point["BIOMGM2"])
                     except:
-                        raise physiocap_exception_points_invalid( un_nom) 
+                        raise
+                        #raise physiocap_exception_points_invalid( un_nom) 
                             
             # en sortie de boucle on attrape la derniere heure
             if i > 10:
                 heure_fin = un_point["DATE"][-8:]
-            nb_dia = len( diametre)
-            nb_sar = len( sarment)
-            if ( (len( diametre) > 0) and ( nb_dia == nb_sar )):
-                moyenne_vitesse = sum(vitesse) /  len( vitesse)
-                moyenne_sar = sum(sarment) / nb_sar
-                moyenne_dia = sum(diametre) / nb_dia
-                moyenne_biom = sum(biom) / len( biom)
-                moyenne_biomgm2 = sum(biomgm2) / len( biom)
+            nb_dia = len( les_diametres)
+            nb_sar = len( les_sarments)
+            if ( (nb_dia > 0) and ( nb_dia == nb_sar )):
+                moyenne_vitesse = sum(les_vitesses) /  len( les_vitesses)
+                moyenne_sar = sum(les_sarments) / nb_sar
+                moyenne_dia = sum(les_diametres) / nb_dia
+                moyenne_biom = sum(les_biom) / len( les_biom)
+                moyenne_biomgm2 = sum(les_biomgm2) / len( les_biom)
+                physiocap_log ( u"== Nombre Diam : " + str(nb_dia) ) 
                 physiocap_log ( u"== Date début : " + str(date_debut) + " et heure Fin : " + heure_fin) 
                 physiocap_log ( u"== Moyenne des sarments : " + str(moyenne_sar))
                 physiocap_log ( u"== Moyenne des diamètres : " + str(moyenne_dia))
+                physiocap_log ( u"================ ")
                 #physiocap_log( u"Fin du calcul des moyennes à partir de vos contours" )
                 
                 # Création du Shape moyenne et prj
@@ -307,31 +328,68 @@ def physiocap_moyenne_InterParcelles( self):
                 # vignette - nom_noeud_arbre + SEPARATEUR_
                 nom_court_vignette = un_nom + NOM_MOYENNE + EXT_SHP     
                 nom_court_prj = un_nom + NOM_MOYENNE + EXT_PRJ     
-                physiocap_log( u"== Vignette court : " + nom_court_vignette )       
+                #physiocap_log( u"== Vignette court : " + nom_court_vignette )       
                 nom_vignette = physiocap_rename_existing_file( os.path.join( chemin_shapes, nom_court_vignette))        
                 nom_prj = physiocap_rename_existing_file( os.path.join( chemin_shapes, nom_court_prj))        
+
                 # ###################
                 # CRÉATION Vignette
                 # ###################
+                if ( contour_avec_point == 1):
+                    # Gestion de l'arbre
+                    root = QgsProject.instance().layerTreeRoot( )
+                    un_groupe = root.findGroup( nom_noeud_arbre)
+                    if un_groupe != None:
+                        vignette_existante = un_groupe.findGroup( VIGNETTES)
+                        if ( vignette_existante == None ):
+                            vignette_group = un_groupe.addGroup( VIGNETTES)
+                        else:
+                            # Si vignette preexiste, on ne recommence pas
+                            raise physiocap_exception_vignette_exists( nom_noeud_arbre) 
+ 
                 physiocap_moyenne_vers_vignette( crs, nom_vignette, nom_prj, 
-                    geom_poly, un_nom, date_debut, heure_fin,
+                    geom_poly, un_nom, un_autre_nom, date_debut, heure_fin,
                     moyenne_vitesse, moyenne_sar, moyenne_dia, moyenne_biom, 
                     moyenne_biomgm2, details)
                 
+                # ###################
+                # CRÉATION point
+                # ###################
+                # point 
+                nom_court_point = un_nom + NOM_POINTS + EXT_SHP     
+                nom_court_point_prj = un_nom + NOM_POINTS + EXT_PRJ     
+                #physiocap_log( u"== Vignette court : " + nom_court_vignette )       
+                nom_point = physiocap_rename_existing_file( os.path.join( chemin_shapes, nom_court_point))        
+                nom_point_prj = physiocap_rename_existing_file( os.path.join( chemin_shapes, nom_court_point_prj))        
+                
+                physiocap_moyenne_vers_point( crs, nom_point, nom_point_prj, 
+                    les_geom, les_GID, les_dates, 
+                    les_vitesses, les_sarments, les_diametres, les_biom, 
+                    les_biomgm2, details)
+                
                 # Affichage dans arbre "vignettes"
                 vignette_vector = QgsVectorLayer( nom_vignette, nom_court_vignette, 'ogr')
+                points_vector = QgsVectorLayer( nom_point, nom_court_point, 'ogr')
                 if vignette_group != None:
                     QgsMapLayerRegistry.instance().addMapLayer( vignette_vector, False)
+                    QgsMapLayerRegistry.instance().addMapLayer( points_vector, False)
                     # Ajouter le vecteur dans un groupe
                     vector_node = vignette_group.addLayer( vignette_vector)
+                    vector_point_node = vignette_group.addLayer( points_vector)
                 else:
                     QgsMapLayerRegistry.instance().addMapLayer( vignette_vector)
+                    QgsMapLayerRegistry.instance().addMapLayer( points_vector)
                 # Mise en action du template
-                if ( os.path.exists( leTemplate)):
-                    vignette_vector.loadNamedStyle( leTemplate)                                
+                if ( os.path.exists( le_template_moyenne)):
+                    vignette_vector.loadNamedStyle( le_template_moyenne)                                
+                if ( os.path.exists( le_template_point)):
+                    points_vector.loadNamedStyle( le_template_point)                                
             else:
-                physiocap_log( u"Aucune point dans vos contours : pas de comparaison inter parcellaire" )       
-                return physiocap_message_box( self, 
+                physiocap_log( u"Aucune point dans votre contour : " + str(un_nom) + 
+                    ". Pas de comparaison inter parcellaire" )       
+        
+        if ( contour_avec_point == 0):
+            return physiocap_message_box( self, 
                     self.tr( u"Aucune point dans vos contours : pas de comparaison inter parcellaire"),
                     "information")
                     
@@ -340,7 +398,7 @@ def physiocap_moyenne_InterParcelles( self):
             "information")
 
 def physiocap_moyenne_vers_vignette( crs, nom_vignette, nom_prj,
-        geom_poly, un_nom, date_debut, heure_fin, 
+        geom_poly, un_nom, un_autre_nom, date_debut, heure_fin, 
         moyenne_vitesse, moyenne_sar, moyenne_dia, moyenne_biom,
         moyenne_biomgm2, details = "NO", NAME_NAME = "PHY_ID"):
     """ Creation d'une vignette nommé un_nom avec les moyennes
@@ -354,6 +412,7 @@ def physiocap_moyenne_vers_vignette( crs, nom_vignette, nom_prj,
     les_champs = QgsFields()
     les_champs.append( QgsField( "GID", QVariant.Int, "integer", 10))
     les_champs.append( QgsField( NAME_NAME, QVariant.String, "string", 25))
+    les_champs.append( QgsField( "NOM_PHY", QVariant.String, "string", 25))
     les_champs.append( QgsField( "DEBUT", QVariant.String, "string", 25))
     les_champs.append( QgsField( "FIN", QVariant.String, "string", 12))
     les_champs.append( QgsField("VITESSE", QVariant.Double, "double", 10,2))
@@ -372,11 +431,11 @@ def physiocap_moyenne_vers_vignette( crs, nom_vignette, nom_prj,
     feat.setGeometry( QgsGeometry.fromPolygon(geom_poly.asPolygon())) #écrit la géométrie tel que lu dans shape contour
     if details == "YES":
         # Ecrit tous les attributs
-        feat.setAttributes( [ 1, un_nom, date_debut, heure_fin, 
+        feat.setAttributes( [ 1, un_nom, un_autre_nom, date_debut, heure_fin, 
             moyenne_vitesse, moyenne_sar, moyenne_dia, moyenne_biom, moyenne_biomgm2])
     else:
         # Ecrit les premiers attributs
-        feat.setAttributes( [ 1, un_nom, date_debut, heure_fin, 
+        feat.setAttributes( [ 1, un_nom, un_autre_nom, date_debut, heure_fin, 
             moyenne_vitesse, moyenne_sar, moyenne_dia, moyenne_biom])
    # Ecrit le feature
     writer.addFeature( feat)
@@ -393,6 +452,59 @@ def physiocap_moyenne_vers_vignette( crs, nom_vignette, nom_prj,
     prj.close()    
     
     physiocap_log( u"Fin vignette :"+ str( un_nom ))
+    return 0
+
+def physiocap_moyenne_vers_point( crs, nom_point, nom_prj,
+                    les_geom, les_GID, les_dates, 
+                    les_vitesses, les_sarments, les_diametres, les_biom, 
+                    les_biomgm2, details = "NO"):
+    """ Creation d'un shape de points se trouvant dans le contour
+    """
+    physiocap_log( u"Début de shape point :")
+    # Prepare les attributs
+    les_champs = QgsFields()
+    les_champs.append( QgsField( "GID", QVariant.Int, "integer", 10))
+    les_champs.append( QgsField( "DATE", QVariant.String, "string", 25))
+    les_champs.append( QgsField("VITESSE", QVariant.Double, "double", 10,2))
+    les_champs.append(QgsField( "NBSARM",  QVariant.Double, "double", 10,2))
+    les_champs.append(QgsField( "DIAM",  QVariant.Double, "double", 10,2))
+    les_champs.append(QgsField("BIOM", QVariant.Double,"double", 10,2)) 
+    if details == "YES":
+        # Niveau de detail demandé
+        les_champs.append(QgsField("BIOMGM2", QVariant.Double,"double", 10,2))
+
+    # Creation du Shape
+    writer = QgsVectorFileWriter( nom_point, "utf-8", les_champs, 
+        QGis.WKBPoint, crs , "ESRI Shapefile")
+
+    i = -1
+    for gid in les_GID:   
+        i = i+1
+        feat = QgsFeature()
+        feat.setGeometry( QgsGeometry.fromPoint( les_geom[ i])) #écrit la géométrie tel que lu dans shape contour
+        if details == "YES":
+            # Ecrit tous les attributs
+            feat.setAttributes( [ les_GID[ i], les_dates[ i], les_vitesses[ i], 
+            les_sarments[ i], les_diametres[ i], les_biom[ i], les_biomgm2[ i] ])
+        else:
+            # Ecrit les premiers attributs
+            feat.setAttributes( [ les_GID[ i], les_dates[ i], les_vitesses[ i], 
+             les_sarments[ i], les_diametres[ i], les_biom[ i] ])
+       # Ecrit le feature
+        writer.addFeature( feat)
+
+    # Create the PRJ file
+    prj = open(nom_prj, "w")
+    epsg = 'inconnu'
+    if ( crs == EPSG_NUMBER_L93):
+        # Todo: V1.x ? Faire aussi un fichier de metadata 
+        epsg = EPSG_TEXT_L93
+    if (crs == EPSG_NUMBER_GPS):
+        epsg = EPSG_TEXT_GPS
+    prj.write(epsg)
+    prj.close()    
+    
+    physiocap_log( u"Fin point :")
     return 0
 
 ##def physiocap_moyenne_vers_shapefile( crs, shape_name, prj_name,

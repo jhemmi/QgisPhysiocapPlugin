@@ -84,6 +84,10 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         ##self.buttonBox.button( QDialogButtonBox.Cancel ).pressed.connect(self.reject)
         self.buttonBox.button( QDialogButtonBox.Help ).pressed.connect(self.demander_aide)
         self.buttonContribuer.pressed.connect(self.demander_contribution)
+        
+        self.spinBoxInterrangs.valueChanged.connect( self.calcul_densite)
+        self.spinBoxInterceps.valueChanged.connect( self.calcul_densite)
+        
         self.ButtonInter.pressed.connect(self.moyenne_inter_parcelles)
         self.ButtonInterRefresh.pressed.connect(self.liste_inter_parcelles)
         self.groupBoxInter.setEnabled( False)
@@ -94,7 +98,6 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.checkBoxInfoVignoble.stateChanged.connect( self.bascule_details_vignoble)
         # Slot pour les contours
         # self.toolButtonContours.pressed.connect( self.lecture_shape_contours )   
-        
               
         physiocap_log( u"Votre machine tourne sous " + platform.system())
         
@@ -185,7 +188,6 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
                 i=i+1
                             
         # Remplissage des autre parametre à partir des settings
-        self.doubleSpinBoxMinVitesse.setValue( float( self.settings.value("Physiocap/minVitesse", 1 )))
         self.spinBoxMinDiametre.setValue( int( self.settings.value("Physiocap/mindiam", 2 )))
         self.spinBoxMaxDiametre.setValue( int( self.settings.value("Physiocap/maxdiam", 28 )))
         self.spinBoxMaxSarmentsParMetre.setValue( int( self.settings.value("Physiocap/max_sarments_metre", 25 )))
@@ -195,9 +197,17 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         else:
             self.checkBoxInfoVignoble.setChecked( Qt.Unchecked)
             self.Vignoble.setEnabled( False)
-
-        self.spinBoxInterrangs.setValue( int( self.settings.value("Physiocap/interrangs", 110 )))
-        self.spinBoxInterceps.setValue( int( self.settings.value("Physiocap/interceps", 100 )))
+        
+        interrang = float( self.settings.value("Physiocap/interrangs", 110 ))
+        intercep = float( self.settings.value("Physiocap/interceps", 100 ))
+        self.spinBoxInterrangs.setValue( int( interrang))
+        self.spinBoxInterceps.setValue( int( intercep))
+        # Densité pied /ha
+        densite = ""
+        if (interrang !=0) and ( intercep != 0):
+            densite = int (10000 / (interrang/100) * (intercep/100))
+        self.lineEditDensite.setText( str( densite))
+        
         self.spinBoxHauteur.setValue( int( self.settings.value("Physiocap/hauteur", 90 )))
         self.doubleSpinBoxDensite.setValue( float( self.settings.value("Physiocap/densite", 0.9 )))
 
@@ -257,14 +267,19 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
     def liste_inter_parcelles( self):
         """ Rafraichit les listes avant le calcul inter parcelles"""
         # Todo : refresh auto avec addedChildrenSignal ?
-        physiocap_fill_combo_poly_or_point( self)
-        # Liberer le bouton "moyenne"
-        self.groupBoxInter.setEnabled( True)
+        nombre_poly = 0
+        nombre_point = 0
+        nombre_poly, nombre_point = physiocap_fill_combo_poly_or_point( self)
 
+        if (( nombre_poly > 0) and ( nombre_point > 0)):
+            # Liberer le bouton "moyenne"
+            self.groupBoxInter.setEnabled( True)
+        else:
+            self.groupBoxInter.setEnabled( False)
+            
     def moyenne_inter_parcelles(self):
-        """ Slot qui fait appel et traite exceptions """
-        # Traiter le cas GPS    
-        
+        """ Slot qui fait appel au traitement Inter Parcelels et traite exceptions """
+       
         nom_complet_point = self.comboBoxPoints.currentText().split( SEPARATEUR_NOEUD)
         if ( len( nom_complet_point) != 2):
             physiocap_error( u"Le shape de points n'est pas choisi." +
@@ -323,6 +338,16 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         else:
             self.Vignoble.setEnabled( False)         
 
+    def calcul_densite( self):
+        # Densité pied /ha
+
+        interrang  = float( self.spinBoxInterrangs.value())
+        intercep   = float( self.spinBoxInterceps.value())
+        densite = ""
+        if (interrang !=0) and ( intercep != 0):
+            densite = int (10000 / (interrang/100) * (intercep/100))
+        self.lineEditDensite.setText( str( densite))
+        
     def demander_contribution( self):
         """ Pointer vers payname """ 
         help_url = QUrl("http://plus.payname.fr/jhemmi/?type=9xwqt")
@@ -377,7 +402,6 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         physiocap_log(u"Projection des shapefiles demandée en " + laProjection)
            
         #self.settings.setValue("Physiocap/dernier_repertoire", self.lineEditDernierProjet.text() )
-        self.settings.setValue("Physiocap/minVitesse", float( self.doubleSpinBoxMinVitesse.value()))
         self.settings.setValue("Physiocap/mindiam", float( self.spinBoxMinDiametre.value()))
         self.settings.setValue("Physiocap/maxdiam", float( self.spinBoxMaxDiametre.value()))
 
@@ -492,7 +516,6 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         # Récupérer les paramètres saisies
         REPERTOIRE_DONNEES_BRUTES = self.lineEditDirectoryPhysiocap.text()
         NOM_PROJET = self.lineEditProjet.text()
-        minVitesse = float( self.doubleSpinBoxMinVitesse.value())
         mindiam = float( self.spinBoxMinDiametre.value())
         maxdiam = float( self.spinBoxMaxDiametre.value())
         max_sarments_metre = float( self.spinBoxMaxSarmentsParMetre.value())
@@ -529,8 +552,8 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.settings= QSettings( PHYSIOCAP_NOM, PHYSIOCAP_NOM)
         self.settings.value("Physiocap/dernier_repertoire", chemin_base_projet) 
         
-        # Progress BAR 10 %
-        self.progressBar.setValue( 10)
+        # Progress BAR 2 %
+        self.progressBar.setValue( 2)
         
             
         # Verification de l'existance ou création du répertoire des sources MID et fichier csv
@@ -593,10 +616,6 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             physiocap_message_box( self, uMsg)
             return physiocap_error( uMsg)
         
-
-        # Progress BAR 20 %
-        self.progressBar.setValue( 20)
-        
         # Création la première partie du fichier de synthèse
         nom_fichier_synthese, fichier_synthese = physiocap_open_file( FICHIER_RESULTAT, chemin_projet , "w")
         fichier_synthese.write( "SYNTHESE PHYSIOCAP\n\n")
@@ -623,6 +642,8 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
 ##        fichier_synthese.write("Liste des fichiers MID : " + nom_mid[:-3] + "\n")
 ##        physiocap_log( "Liste des MID : " + nom_mid[:-3])
        
+        # Progress BAR 5 %
+        self.progressBar.setValue( 5)
         physiocap_log ( u"Fin de la création csv et début de synthèse")
        
         # Verification de l'existance ou création du répertoire textes
@@ -658,7 +679,9 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
                 #raise physiocap_exception_err_csv( pourcentage_erreurs)
         except:
             raise
-        
+
+        # Progress BAR 10 %
+        self.progressBar.setValue( 10)        
         fichier_synthese.write("\n\nPARAMETRES SAISIS ")
         
         if os.path.getsize( nom_csv_concat ) == 0 :
@@ -681,8 +704,8 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         csv_concat.close()
         erreur.close()
         
-        # Progress BAR 35 %
-        self.progressBar.setValue( 35)
+        # Progress BAR 12 %
+        self.progressBar.setValue( 12)
         
         # Verification de l'existance 
         chemin_histos = os.path.join(chemin_projet, REPERTOIRE_HISTOS)
@@ -709,7 +732,10 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             physiocap_log ( u"Fin de la création des histogrammes bruts")
         else:
             physiocap_log ( u"Pas de création des histogrammes")
-            
+
+        # Progress BAR 15 %
+        self.progressBar.setValue( 15) 
+                  
         # Création des csv
         nom_court_csv_sans_0 = NOM_PROJET + "_OUT.csv"
         nom_csv_sans_0, csv_sans_0 = physiocap_open_file( 
@@ -734,7 +760,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             interceps = 1 
             densite = 1
             hauteur = 1        
-        retour_filtre = physiocap_filtrer( csv_concat, csv_sans_0, csv_avec_0, \
+        retour_filtre = physiocap_filtrer( self, csv_concat, csv_sans_0, csv_avec_0, \
                     diametre_filtre, nom_fichier_synthese, erreur, \
                     mindiam, maxdiam, max_sarments_metre, details,
                     interrangs, interceps, densite, hauteur)
@@ -753,7 +779,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
                     nom_court_csv_concat)  
 
         # Progress BAR 60 %
-        self.progressBar.setValue( 60)
+        self.progressBar.setValue( 41)
 
         if histogrammes == "YES":
             # Histo apres filtatration
@@ -784,8 +810,8 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         fichier_synthese.write("Diamètre maximal : %s mm\n" %maxdiam)
         fichier_synthese.close()
     
-        # Progress BAR 70 %
-        self.progressBar.setValue( 70)
+        # Progress BAR 42%
+        self.progressBar.setValue( 42)
         
         # Verification de l'existance ou création du répertoire des sources MID et fichier csv
         chemin_shapes = os.path.join(chemin_projet, REPERTOIRE_SHAPEFILE)
@@ -806,12 +832,16 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             os.remove( nom_shape_sans_0)            
 
         # cas sans 0, on demande la synthese en passant le nom du fichier
-        retour = physiocap_csv_vers_shapefile( nom_csv_sans_0, nom_shape_sans_0, nom_prj_sans_0, laProjection,
+        retour = physiocap_csv_vers_shapefile( self, 45, nom_csv_sans_0, nom_shape_sans_0, nom_prj_sans_0, 
+                laProjection,
                 nom_fichier_synthese, details)
         if retour != 0:
             return physiocap_error(u"Erreur bloquante : problème lors de la création du shapefile : " + 
                 nom_court_shape_sans_0)                
-        
+
+        # Progress BAR 65 %
+        self.progressBar.setValue( 65)
+                
         # Création des shapes avec 0
         nom_court_shape_avec_0 = NOM_PROJET + "_POINTS" + EXTENSION_POUR_ZERO + EXT_SHP
         nom_shape_avec_0 = os.path.join(chemin_shapes, nom_court_shape_avec_0)
@@ -823,13 +853,13 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             os.remove( nom_shape_avec_0) 
             
         # cas avec 0, pas de demande de synthese
-        retour = physiocap_csv_vers_shapefile( nom_csv_avec_0, nom_shape_avec_0, nom_prj_avec_0, laProjection,
+        retour = physiocap_csv_vers_shapefile( self, 65, nom_csv_avec_0, nom_shape_avec_0, nom_prj_avec_0, laProjection,
             "NO", details)
         if retour != 0:
             return physiocap_error(u"Erreur bloquante : problème lors de la création du shapefile : " + 
                     nom_court_shape_avec_0) 
                               
-        # Progress BAR 95 %
+        # Progress BAR 95%
         self.progressBar.setValue( 95)
         
         # Creer un groupe pour cette analyse
@@ -859,7 +889,10 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             if not ligne: 
                 fichier_synthese.close
                 break     
-            
+
+        # Progress BAR 95 %
+        self.progressBar.setValue( 95)
+                    
         # Mettre à jour les histogrammes dans fenetre resultat
         if histogrammes == "YES":
             if ( self.label_histo_sarment.setPixmap( QPixmap( nom_histo_sarment))):

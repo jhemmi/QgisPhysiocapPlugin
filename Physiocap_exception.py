@@ -44,7 +44,7 @@ PHYSIOCAP_TRACE = "Yes"
 CENTROIDES = "NO"
 
 REPERTOIRE_DONNEES_BRUTES = "/home/jhemmi/Documents/GIS/SCRIPT/QGIS/PhysiocapAnalyseur/data"
-NOM_PROJET = "VotreProjetPhysiocap"
+NOM_PROJET = "PHY_"
 PHYSIOCAP_NOM = "Physiocap"
 
 # Listes de valeurs
@@ -57,6 +57,7 @@ FICHIER_RESULTAT = NOM_PROJET +"_resultat.txt"
 REPERTOIRE_SOURCES = "fichiers_sources"
 SUFFIXE_BRUT_CSV = "_RAW.csv"
 EXTENSION_MID = "*.MID"
+NB_VIRGULES = 58
 
 REPERTOIRE_TEXTES = "fichiers_texte"
 # Pour histo
