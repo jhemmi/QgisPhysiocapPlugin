@@ -371,14 +371,14 @@ def physiocap_moyenne_InterParcelles( self):
                 nom_court_vignette = un_nom + SEPARATEUR_ + NOM_MOYENNE + EXT_CRS_SHP     
                 nom_court_prj = un_nom + SEPARATEUR_ + NOM_MOYENNE + EXT_CRS_PRJ     
                 #physiocap_log( u"== Vignette court : " + nom_court_vignette )       
-                nom_vignette = physiocap_rename_existing_file( os.path.join( chemin_vignettes, nom_court_vignette))        
-                nom_prj = physiocap_rename_existing_file( os.path.join( chemin_vignettes, nom_court_prj))        
-
-                
-                physiocap_moyenne_vers_vignette( crs, nom_vignette, nom_prj, 
-                    geom_poly, un_nom, un_autre_ID, date_debut, heure_fin,
-                    moyenne_vitesse, moyenne_sar, moyenne_dia, moyenne_biom, 
-                    moyenne_biomgm2, details)
+##                nom_vignette = physiocap_rename_existing_file( os.path.join( chemin_vignettes, nom_court_vignette))        
+##                nom_prj = physiocap_rename_existing_file( os.path.join( chemin_vignettes, nom_court_prj))        
+##
+##                
+##                physiocap_moyenne_vers_vignette( crs, nom_vignette, nom_prj, 
+##                    geom_poly, un_nom, un_autre_ID, date_debut, heure_fin,
+##                    moyenne_vitesse, moyenne_sar, moyenne_dia, moyenne_biom, 
+##                    moyenne_biomgm2, details)
                                         
                 
                 # Memorisation de la parcelle du contour et des moyennes
@@ -410,20 +410,20 @@ def physiocap_moyenne_InterParcelles( self):
                     les_biomgm2, details)
                 
                 # Affichage dans arbre "vignettes"
-                vignette_vector = QgsVectorLayer( nom_vignette, nom_court_vignette, 'ogr')
+##                vignette_vector = QgsVectorLayer( nom_vignette, nom_court_vignette, 'ogr')
                 points_vector = QgsVectorLayer( nom_point, nom_court_point, 'ogr')
                 if vignette_group != None:
-                    QgsMapLayerRegistry.instance().addMapLayer( vignette_vector, False)
+##                    QgsMapLayerRegistry.instance().addMapLayer( vignette_vector, False)
                     QgsMapLayerRegistry.instance().addMapLayer( points_vector, False)
                     # Ajouter le vecteur dans un groupe
-                    vector_node = vignette_group.addLayer( vignette_vector)
+##                    vector_node = vignette_group.addLayer( vignette_vector)
                     vector_point_node = vignette_group.addLayer( points_vector)
                 else:
-                    QgsMapLayerRegistry.instance().addMapLayer( vignette_vector)
+##                    QgsMapLayerRegistry.instance().addMapLayer( vignette_vector)
                     QgsMapLayerRegistry.instance().addMapLayer( points_vector)
                 # Mise en action du template
-                if ( os.path.exists( le_template_moyenne)):
-                    vignette_vector.loadNamedStyle( le_template_moyenne)                                
+##                if ( os.path.exists( le_template_moyenne)):
+##                    vignette_vector.loadNamedStyle( le_template_moyenne)                                
                 if ( os.path.exists( le_template_point)):
                     points_vector.loadNamedStyle( le_template_point)                                
             else:
