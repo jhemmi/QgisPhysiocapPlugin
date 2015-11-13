@@ -23,6 +23,7 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+*~
 
 # temporairement JH
 Ecran Physiocap Plugin.png
@@ -35,10 +36,14 @@ data Checker*/
 data Pulve*/
 data Salleboeuf*/
 data Cap*/
+data JH*/
 data/UnProjetPhysiocap*/*
+data/Contour*
+data/PHY_*
 data/*OK
 data/*erreur
 test/
+print/
 scripts/
 i18n/
 pylintrc

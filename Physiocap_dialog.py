@@ -114,8 +114,8 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.lineEditProjet.setText( self.settings.value("Physiocap/projet", 
             NOM_PROJET ))
 
-        self.lineEditContours.setText(  self.settings.value("Physiocap/contours",
-            SHAPE_CONTOURS))
+##        self.lineEditContours.setText(  self.settings.value("Physiocap/contours",
+##            SHAPE_CONTOURS))
 
         self.lineEditDirectoryPhysiocap.setText(  self.settings.value("Physiocap/repertoire",
             REPERTOIRE_DONNEES_BRUTES))
@@ -205,7 +205,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         # Densité pied /ha
         densite = ""
         if (interrang !=0) and ( intercep != 0):
-            densite = int (10000 / (interrang/100) * (intercep/100))
+            densite = int (10000 / ((interrang/100) * (intercep/100)))
         self.lineEditDensite.setText( str( densite))
         
         self.spinBoxHauteur.setValue( int( self.settings.value("Physiocap/hauteur", 90 )))
@@ -345,7 +345,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         intercep   = float( self.spinBoxInterceps.value())
         densite = ""
         if (interrang !=0) and ( intercep != 0):
-            densite = int (10000 / (interrang/100) * (intercep/100))
+            densite = int (10000 / ((interrang/100) * (intercep/100)))
         self.lineEditDensite.setText( str( densite))
         
     def demander_contribution( self):
@@ -388,7 +388,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.settings= QSettings( PHYSIOCAP_NOM, PHYSIOCAP_NOM)
         self.settings.setValue("Physiocap/projet", self.lineEditProjet.text() )
         self.settings.setValue("Physiocap/repertoire", self.lineEditDirectoryPhysiocap.text() )
-        self.settings.setValue("Physiocap/contours", self.lineEditContours.text() )
+        #self.settings.setValue("Physiocap/contours", self.lineEditContours.text() )
 
         # Cas recursif
         recursif = "NO"
@@ -737,11 +737,11 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.progressBar.setValue( 15) 
                   
         # Création des csv
-        nom_court_csv_sans_0 = NOM_PROJET + "_OUT.csv"
+        nom_court_csv_sans_0 = NOM_PROJET + SEPARATEUR_ + "OUT.csv"
         nom_csv_sans_0, csv_sans_0 = physiocap_open_file( 
             nom_court_csv_sans_0, chemin_textes)
 
-        nom_court_csv_avec_0 = NOM_PROJET + "_OUT0.csv"
+        nom_court_csv_avec_0 = NOM_PROJET + SEPARATEUR_ + "OUT0.csv"
         nom_csv_avec_0, csv_avec_0 = physiocap_open_file( 
             nom_court_csv_avec_0, chemin_textes)
        
@@ -822,9 +822,9 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
                 raise physiocap_exception_rep( REPERTOIRE_SHAPEFILE)
 
         # Création des shapes sans 0
-        nom_court_shape_sans_0 = NOM_PROJET + "_POINTS" + EXT_SHP
+        nom_court_shape_sans_0 = NOM_PROJET + NOM_POINTS + EXT_SHP
         nom_shape_sans_0 = os.path.join(chemin_shapes, nom_court_shape_sans_0)
-        nom_court_prj_sans_0 = NOM_PROJET + "_POINTS" + EXT_PRJ
+        nom_court_prj_sans_0 = NOM_PROJET + NOM_POINTS + EXT_PRJ
         nom_prj_sans_0 = os.path.join(chemin_shapes, nom_court_prj_sans_0)
         # Si le shape existe dejà il faut le détruire
         if os.path.isfile( nom_shape_sans_0):
@@ -843,9 +843,9 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.progressBar.setValue( 65)
                 
         # Création des shapes avec 0
-        nom_court_shape_avec_0 = NOM_PROJET + "_POINTS" + EXTENSION_POUR_ZERO + EXT_SHP
+        nom_court_shape_avec_0 = NOM_PROJET + NOM_POINTS + EXTENSION_POUR_ZERO + EXT_SHP
         nom_shape_avec_0 = os.path.join(chemin_shapes, nom_court_shape_avec_0)
-        nom_court_prj_avec_0 = NOM_PROJET + "_POINTS" + EXTENSION_POUR_ZERO + EXT_PRJ
+        nom_court_prj_avec_0 = NOM_PROJET + NOM_POINTS + EXTENSION_POUR_ZERO + EXT_PRJ
         nom_prj_avec_0 = os.path.join(chemin_shapes, nom_court_prj_avec_0)
         # Si le shape existe dejà il faut le détruire
         if os.path.isfile( nom_shape_avec_0):
@@ -870,7 +870,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         # Récupérer des styles pour chaque shape
         dirTemplate = os.path.join( os.path.dirname(__file__), 'modeleQgis')       
         # Affichage des deux shapes dans Qgis
-        for shapename, titre,unTemplate   in [(nom_shape_sans_0, 'DIAMETRE', 'Diametre 6 quantilles.qml') , 
+        for shapename, titre,unTemplate   in [(nom_shape_sans_0, 'DIAMETRE', 'Diametre 6 Jenks.qml') , 
                         (nom_shape_sans_0, 'SARMENT', 'Sarments 4 Jenks.qml') , 
                         (nom_shape_avec_0, 'VITESSE', 'Vitesse.qml')]:
             vector = QgsVectorLayer( shapename, titre, 'ogr')
