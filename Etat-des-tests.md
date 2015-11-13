@@ -24,3 +24,8 @@ Les tests de la version 1.18 du 9 novembre 2015 ont été réalisés par jhemmi.
 * Fedora 20 (Heisenbug) & Qgis 2.8.0-Wien 
 * Windows 8 & Qgis 2.10-Pisa (64 bits) (à partir d'un zip file)
 * Windows 8 & Qgis 2.12-Lyon (64 bits) (à partir du dépôt github)
+
+Les tests de la version 1.2 du 13 novembre 2015 ont été réalisés par jhemmi.eu sous
+* Fedora 20 (Heisenbug) & Qgis 2.8.0-Wien
+* Windows 8 & Qgis 2.10-Pisa (64 bits) (à partir d'un zip file)
+* Windows 8 & Qgis 2.12-Lyon (64 bits) (à partir du dépôt github)
