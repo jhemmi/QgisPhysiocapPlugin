@@ -53,7 +53,7 @@ Dans la log Qgis, deux onglets (Physiocap Information - visible au tiers haut da
 *Les trois thématiques des fichiers shape sont ouvertes dans Qgis et sont mises en forme avec les styles qui se trouvent dans $HOME/.qgis2/python/plugins/physiocap_analyseur/modeleQgis
 * "Vitesse.qml" pour le shape non filtré nom-projet-physiocap_0_L93.shp qui se nomme VITESSE (deuxième copie d'écran)
 * "Sarment 4 Jenks.qml" pour le shape filtré nom-projet-physiocap_L93.shp qui se nomme SARMENT 
-* "Diametre 6 quantilles.qml" pour le shape filtré nom-projet-physiocap_L93.shp qui se nomme DIAMETRE (troisième copie d'écran)
+* "Diametre 6 Jenks.qml" pour le shape filtré nom-projet-physiocap_L93.shp qui se nomme DIAMETRE (troisième copie d'écran)
 
 Dans **l'onglet Inter**, vous devez demander le calcul des moyenne inter parcellaire à partir d'un contour de parcelles qui vous intéressent. Dans le shapefile de Contour, veillez à garder la même projection que celle demandés lors des traitements initiaux.
 Le bouton "Rafraîchir la liste des vecteurs" permet de lister les polygones de contours disponibles dans votre projet Qgis mais aussi le jeu de mesures à comparer (shapefiles de points) qui serviront de  base au calcul des moyennes.
