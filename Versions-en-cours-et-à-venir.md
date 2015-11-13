@@ -15,7 +15,11 @@ Pour la **Version 1.15** (début novembre), voici les évolutions majeures :
 - Cépage et mode de taille peut prendre la valeur "Inconnu"
 
 Évolutions prévues pour la **Version 1.2** (mi novembre) 
-* Extraction à partir d'un contour de parcelles des valeurs moyennes : sarment/m2, diamètre et biomasse
+* Comparaison Inter parcellaire : extractions à partir d'un contour de parcelles des valeurs moyennes : sarment/m2, diamètre et biomasse. On extrait aussi les points de mesures contenus dans chaque parcelle.
+
+Évolutions prévues pour la **Version 1.5** (fin décembre 2015)
+* Composeur de compte rendu pour l'inter et l'intra parcellaire.
+* Carte de zones intra parcellaire. Il s'agit d’intégrer dans le plugin le processing Physiocap développé par le CIVC.
 
 Évolutions non planifiées
 * Liste paramétrable de cépage et des modes de conduites
