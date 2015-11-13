@@ -15,11 +15,12 @@ L'extension tourne sous Qgis 2.*. Aucune installation de librairie Python n'est 
 Note : L'extension n'est pas encore déposé sous le dépôt Qgis
 
 ### Utilisation
-![Onglet Paramètre](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Version%201.1%20Parametres.png)
+![Onglet Paramètre](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Version%201.2%20Parametres.png)
 
 Ouvrir Qgis & activer Physiocap menu depuis le menu Extension ou directement sur l'icone Physiocap (en haut à gauche sur la copie d'écran). Dans le dialogue Physiocap plusieurs onglets :
 * Dans **l'onglet Paramètres** (visible à droite dans la copie d'écran) : permet de préciser vos paramètres  pour les calculs
-- Répertoire des données brutes
+- Répertoire des données brutes (MIDs bruts issus du capteur)
+- En option, vous pouvez choisir de chercher les MIDs dans les sous répertoires
 - Nom à votre projet Physiocap qui sert de répertoire de base pour le stockage des résultats et de préfixe pour les fichiers générées
 - Filtres permettant de nettoyer les données brutes
 - Calculs détaillés :  précisez si les informations du vignoble doivent être prises en compte pour un calcul détaillé (ce choix est optionnel)
@@ -40,11 +41,11 @@ Le fichier de synthèse du traitement : nom-projet-physiocap_resulat.txt
 **Dans panneaux de couches de Qgis, les shapefiles créés par le plugin sont regroupés dans un groupe qui porte le nom du projet Physiocap.**
 
 Dans **l'onglet Synthèse**, vous pouvez consulter le "résultat" du dernier traitement effectué.
-![Onglet Synthèse](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Version%201.1%20Synthese.png)
+![Onglet Synthèse](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Version%201.2%20Synthese.png)
 
 
 Dans **l'onglet Histogramme**, vous devez demander la création et les derniers histogrammes sont affichés
-![Onglet Histogrammes](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Version%201.1%20Histogrammes.png)
+![Onglet Histogrammes](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Version%201.2%20Histogrammes.png)
 
 
 Dans la log Qgis, deux onglets (Physiocap Information - visible au tiers haut dans la copie d'écran) et Physiocap Erreurs) permettent de suivre le déroulement du traitement et d'éventuelles erreurs).
