@@ -1,6 +1,6 @@
-Qgis Physiocap Extension Utilisation & installation (version 1.18)
+Qgis Physiocap Extension Utilisation & installation (version 1.2)
 
-Voici la documentation de l'Extension Physiocap pour Qgis qui permet de traiter les données brutes de Physiocap et de visualiser les résultats filtrés sous Qgis.
+Voici la documentation de l'Extension Physiocap pour Qgis qui permet de traiter les données brutes de Physiocap et de visualiser les résultats filtrés sous Qgis. La version 1.2 permet d'activer le calcul des moyennes inter parcellaire à partir de votre contour de parcelles.
 
 ### Installation de l'extension 
 
@@ -8,7 +8,7 @@ Depuis un zip file envoyé par jhemmi.eu ou depuis le gitHub zip file (*1):
 
 Extraire le contenu de "Qgis Physiocap Plugin zip" dans $HOME/.qgis2/python/plugins (*2) 
 (*1) Renommer le nouveau répertoire en PhysiocapAnalyseur.
-(*2) Si vous n'avez jamais installé de plugin, il faut créer le répertoire plugins
+(*2) Si vous n'avez jamais installé aucun plugin, il faut créer le répertoire "plugins"
  
 L'extension tourne sous Qgis 2.*. Aucune installation de librairie Python n'est requise en plus de celles déjà présentes dans Qgis 2.* (ogr, csv, numpy, mapplotlib, shutil, qgis et pyQT4). 
 
@@ -18,7 +18,7 @@ Note : L'extension n'est pas encore déposé sous le dépôt Qgis
 ![Onglet Paramètre](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Version%201.1%20Parametres.png)
 
 Ouvrir Qgis & activer Physiocap menu depuis le menu Extension ou directement sur l'icone Physiocap (en haut à gauche sur la copie d'écran). Dans le dialogue Physiocap plusieurs onglets :
-* Dans **l'onglet Paramètres** (visible à droite dans la copie d'écran) : permet de préciser vos paramètres d'entrée pour les calculs
+* Dans **l'onglet Paramètres** (visible à droite dans la copie d'écran) : permet de préciser vos paramètres  pour les calculs
 - Répertoire des données brutes
 - Nom à votre projet Physiocap qui sert de répertoire de base pour le stockage des résultats et de préfixe pour les fichiers générées
 - Filtres permettant de nettoyer les données brutes
