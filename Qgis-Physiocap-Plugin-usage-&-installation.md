@@ -21,7 +21,7 @@ Ouvrir Qgis & activer Physiocap menu depuis le menu Extension ou directement sur
 * Dans **l'onglet Paramètres** (visible à droite dans la copie d'écran) : permet de préciser vos paramètres  pour les calculs
 - Répertoire des données brutes (MIDs bruts issus du capteur)
 - En option, vous pouvez choisir de chercher les MIDs dans les sous répertoires
-- Nom à votre projet Physiocap qui sert de répertoire de base pour le stockage des résultats et de préfixe pour les fichiers générées
+- Nom à votre projet Physiocap qui sert de répertoire de base pour le stockage des résultats et de préfixe pour les fichiers générées. Ce même nom est un groupe dans QGIS pour regrouper les entités de chaque itération.
 - Filtres permettant de nettoyer les données brutes
 - Calculs détaillés :  précisez si les informations du vignoble doivent être prises en compte pour un calcul détaillé (ce choix est optionnel)
 
