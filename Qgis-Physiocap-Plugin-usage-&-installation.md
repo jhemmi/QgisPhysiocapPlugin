@@ -56,9 +56,8 @@ Dans cette racine, l'extension crée les répertoires et les fichiers suivants (
 
 A la racine, vous trouvez le fichier de synthèse du traitement : nom-projet-physiocap_resulat.txt.
 - "fichier_sources" contient la copie des données sources brutes (fichiers MID) et une version en csv "nom-projet-physiocap_RAW.cvs" qui contient les mesures brutes (copie de tous les MIDs).
-- "fichier_textes" contient deux cvs "nom-projet-physiocap_OUT.cvs" données filtrées et moyennées et "nom-projet-physiocap_OUT0.cvs" données sans filtre (les vitesses nulles sont conservées). Les autres cvs sont utile pour le calcul des histogrammes ("nbsarm*" et "diam*" tous les nombres de sarments et les diamètres bruts et filtrés).
-Erreur.cvs contient la trace des erreurs que vous pouvez aussi retrouver dans la log Physiocap Erreur
-- "histogrammes" contient les fichiers image des histogrammes des sarments, des diamètres bruts et des diamètres filtrés 
+- "fichier_textes" contient deux cvs "nom-projet-physiocap_OUT.cvs" données filtrées et moyennées et "nom-projet-physiocap_OUT0.cvs" données sans filtre (les vitesses nulles sont conservées). Les autres cvs sont utiles pour le calcul des histogrammes ("nbsarm*" et "diam*" tous les nombres de sarments et les diamètres bruts et filtrés). "Erreur.cvs" contient la trace des erreurs que vous pouvez aussi retrouver dans la log Physiocap Erreur.
+- "histogrammes" contient les fichiers image des histogrammes des sarments, des diamètres bruts et des diamètres filtrés.
 - "shapefile" contient les deux fichiers shape résultats du filtrage des données brutes (avec ou sans 0).
 
 **Dans panneaux de couches de Qgis, les shapefiles créés par le plugin sont regroupés dans un groupe qui porte le nom du projet Physiocap. L'organisation est semblable à celle des fichiers**
