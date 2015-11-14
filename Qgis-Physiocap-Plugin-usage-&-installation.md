@@ -6,7 +6,8 @@ Voici la documentation de l'Extension Physiocap pour Qgis qui permet de traiter 
 
 Depuis un zip file envoyé par jhemmi.eu ou depuis le gitHub zip file (*1):
 
-Extraire le contenu de "Qgis Physiocap Plugin zip" dans $HOME/.qgis2/python/plugins (*2) 
+Extraire le contenu de "Qgis Physiocap Plugin zip" dans $HOME/.qgis2/python/plugins (*2)
+
 (*1) Renommer le nouveau répertoire en PhysiocapAnalyseur.
 (*2) Si vous n'avez jamais installé aucun plugin, il faut créer le répertoire "plugins"
  
