@@ -18,10 +18,15 @@ Notes :
  
 L'extension tourne sous Qgis 2.x. Aucune installation de librairie Python n'est requise. Celles présentent dans Qgis 2.x sont suffisantes (ogr, csv, numpy, mapplotlib, shutil, qgis et pyQT4). 
 
-L'extension n'est pas encore déposé sous le dépôt Qgis
+L'extension n'est pas encore déposé sous le dépôt standard Qgis.
 
 ### Utilisation
-![Onglet Paramètre](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Version%201.2%20Parametres.png)
+A tout moment vous pouvez accéder aux boutons : 
+* "Aide" pour retrouver les liens vers la documentation de l'extension Physiocap.
+* "Fermer" pour quitter l'extension 
+* "Ok" pour lancer une itération de calcul dans un nouveau projet Physiocap.
+
+![Onglet Paramètres](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Version%201.2%20Parametres.png)
 
 Ouvrir Qgis & activer Physiocap menu depuis le menu Extension ou directement sur l'icone Physiocap (en haut à gauche sur la copie d'écran). Dans le dialogue Physiocap plusieurs onglets :
 * Dans **l'onglet Paramètres** (visible à droite dans la copie d'écran) : permet de préciser vos paramètres  pour les calculs
@@ -72,5 +77,3 @@ Dans panneaux de couches de Qgis :
 * en haut du panneaux de couche, un shapefile PROJET_PHYSIOCAP_MOYENNE_INTER_nom_contour permet de visualiser les moyennes spécifiques à chaque parcelle.
 
 Le projet Qgis n'est pas sauvé, mais vous pouvez le faire vous même (il vous gérer la conservation des répertoires de calcul et des shapefile utilisés).
-
-Vous pouvez quitter l'extension par le bouton "Fermer".
