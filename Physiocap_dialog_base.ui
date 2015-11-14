@@ -798,14 +798,14 @@
       </rect>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;Version 1.2 : module inter-parcellaire&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;Version 1.2.0 : module inter-parcellaire&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
     <widget class="QGroupBox" name="groupBoxInter">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>70</y>
+       <y>80</y>
        <width>531</width>
        <height>181</height>
       </rect>
@@ -924,7 +924,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Version 1.2</string>
+      <string>Version 1.2.0</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_100">
