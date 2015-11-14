@@ -7,14 +7,14 @@ Pour la **Version 1.1** (fin octobre), voici les évolutions majeures :
 * Affichage du fichier de synthèse dans le plugin
 * Onglet de paramétrage unique
 
-Pour la **Version 1.15** (début novembre), voici les évolutions majeures :
+Pour la **Version 1.1.5** (début novembre), voici les évolutions majeures :
 - Recherche des MIDs dans l'ensemble de l'arborescence des données.
 - Apparition dans la synthèse d'une liste détaillée des MIDs, avec la date début et l'heure de fin, le nombre de mesures brutes et la vitesse moyenne (afin d'identifier plus facilement des MID en doublons)
 - Possibilité de créer des shapefiles en GPS plutôt qu'en L93.
 - Dans le panneaux des couches, les shapefiles ​d'une itération sont regroupés ​dans un groupe portant le no​m​ de l'analyse Physiocap
 - Cépage et mode de taille peut prendre la valeur "Inconnu"
 
-Évolutions prévues pour la **Version 1.2** (mi novembre) 
+Pour la **Version 1.2.0** (mi novembre), voici l'évolution majeure :
 * Comparaison Inter parcellaire : extractions à partir d'un contour de parcelles des valeurs moyennes : sarment/m2, diamètre et biomasse. On extrait aussi les points de mesures contenus dans chaque parcelle.
 
 Évolutions prévues pour la **Version 1.5** (fin décembre 2015)
