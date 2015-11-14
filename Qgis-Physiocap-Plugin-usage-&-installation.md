@@ -12,11 +12,9 @@ Renommer le nouveau répertoire en PhysiocapAnalyseur.
 
 Relancer Qgis. Dans la barre d'outils, l'icone !["Phy"](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/icon.png) permet de lancer Physiocap Analyseur. Dans le menu Extension, le menu Physiocap permet aussi d’accéder à Physiocap Analyseur.
 
-Si vous n'avez jamais installé aucune extension sous Qgis, il faut dans le menu Extension, puis "Installer/Gérer les extensions" (onglet "Toutes") retrouver l'extension Physiocap et la cocher pour la rendre active.
+Si vous n'avez jamais installé aucune extension sous Qgis, ouvrir le menu Extension, puis "Installer/Gérer les extensions" (onglet "Toutes") retrouver l'extension Physiocap et la cocher pour la rendre active.
 
-Notes : 
- 
-L'extension tourne sous Qgis 2.x. Aucune installation de librairie Python n'est requise. Celles présentent dans Qgis 2.x sont suffisantes (ogr, csv, numpy, mapplotlib, shutil, qgis et pyQT4). 
+Note : l'extension tourne sous Qgis 2.x. Aucune installation de librairie Python n'est requise. Celles présentent dans Qgis 2.x sont suffisantes (ogr, csv, numpy, mapplotlib, shutil, qgis et pyQT4). 
 
 L'extension n'est pas encore déposé sous le dépôt standard Qgis.
 
@@ -36,16 +34,16 @@ Pour activer Physiocap Analyseur,ouvrir Qgis & activer l'icone Physiocap (en hau
 ## Onglet Paramètres
 ![Onglet Paramètres](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Version%201.2%20Parametres.png)
 
-Dans l'onglet Paramètres (visible à droite dans la copie d'écran), vous pouvez préciser vos paramètres  pour les calculs
-- Répertoire des données brutes (MIDs bruts issus du capteur)
-- En option, vous pouvez choisir de chercher les MIDs dans les sous répertoires
-- Nom à votre projet Physiocap qui sert de répertoire de base pour le stockage des résultats et de préfixe pour les fichiers générées. Un préfixe "PHY_" est proposé.
-- Filtres permettant de nettoyer les données brutes
-- Calculs détaillés : précisez si les informations du vignoble doivent être prises en compte pour un calcul détaillé (ce choix est optionnel)
+Dans l'onglet Paramètres (visible à droite dans la copie d'écran), vous pouvez préciser vos paramètres  pour les calculs : 
+- Le Répertoire des données brutes (MIDs bruts issus du capteur).
+- En option, vous pouvez choisir de chercher les MIDs dans les sous répertoires.
+- Le nom de votre projet Physiocap qui sert de répertoire de base pour le stockage des résultats, de préfixe pour les fichiers générées et pour nommer le groupe dans le panneau de couches Qgis. Un nom concis et un préfixe "PHY_" est conseillé.
+- Choisir votre référentiel en L93 ou en GPS. 
+- Les cartes de points sont générées au format shapefile uniquement.
+- Les filtres permettant de nettoyer les données brutes.
+- Calculs détaillés : précisez si les informations du vignoble doivent être prises en compte pour un calcul détaillé (ce choix est optionnel).
 
-Les cartes de points sont générées au format shapefile et selon votre choix dans la référentiel L93 ou GPS. 
-
-La sauvegarde de l'ensemble des paramètres saisies est effectuée avant chaque exécution du calcul.
+La sauvegarde des derniers paramètres saisies est effectuée à chaque exécution du calcul.
 
 **_Pour activer les calculs, cliquez sur le bouton OK_**
 
@@ -78,7 +76,8 @@ Dans l'onglet Synthèse, vous pouvez consulter le "résultat" du dernier traitem
 Dans l'onglet Histogrammes, vous devez demander la création des histogrammes avant de lancer le traitement. Les derniers histogrammes sont affichés.
 ![Onglet Histogrammes](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Version%201.2%20Histogrammes.png)
 
-Dans **l'onglet Inter**, vous devez rafraîchir la liste avant de demander le calcul des moyenne inter parcellaire à partir d'un contour des parcelles qui vous intéressent. 
+## Onglet Inter
+Dans l'onglet Inter, vous devez rafraîchir la liste avant de demander le calcul des moyenne inter parcellaire à partir d'un contour des parcelles qui vous intéressent. 
 Le shapefile de Contour doit être ouvert dans Qgis - Menu Couche => Ajouter un vecteur et donnez le nom de votre shapefile de contour. Choisissez un contour avec la même projection que celle demandés lors des traitements initiaux.
 ![Onglet Inter](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Version%201.2%20Choix%20Contour.png)
 Le bouton "Rafraîchir la liste des vecteurs" permet de lister les polygones de contours disponibles dans votre projet Qgis mais aussi le jeu de mesures à comparer (shapefiles de points) qui serviront de  base au calcul des moyennes.
