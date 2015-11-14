@@ -16,7 +16,7 @@ Pour la **Version 1.1.5** (début novembre), voici les évolutions majeures :
 
 Pour la **Version 1.2.0** (mi novembre), voici l'évolution majeure :
 * Comparaison Inter parcellaire : extractions à partir d'un contour de parcelles des valeurs moyennes : sarment/m2, diamètre et biomasse. On extrait aussi les points de mesures contenus dans chaque parcelle.
-
+-------------------------------------------------------------------------------------------------------
 Évolutions prévues pour la **Version 1.5** (fin décembre 2015)
 * Composeur de compte rendu pour l'inter et l'intra parcellaire.
 * Carte de zones intra parcellaire. Il s'agit d’intégrer dans le plugin le processing Physiocap développé par le CIVC.
