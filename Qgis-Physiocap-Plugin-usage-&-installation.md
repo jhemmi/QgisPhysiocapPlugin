@@ -94,4 +94,4 @@ Dans panneaux de couches de Qgis :
 Le "projet Qgis" n'est pas sauvé, mais vous pouvez le faire vous même (à vous de gérer la conservation des répertoires de calcul et des shapefile utilisés).
 
 ###  Vos retours et votre contribution
-L'extension Physiocap pour Qgis est open source. Il est important de faire vos retours de tests [par courriel ](jean@jhemmi.eu)au développeur ou directement de proposer des améliorations [sur le Wiki](https://github.com/jhemmi/QgisPhysiocapPlugin/issues). N'oubliez pas de [contribuer](https://plus.payname.fr/jhemmi?type=9xwqt) si l'extension vous est utile. Vous pourrez ainsi apparaître dans l'onglet "A propos".
+L'extension Physiocap pour Qgis est open source. Il est important de faire vos retours de tests [par courriel ](mailto://jean@jhemmi.eu)au développeur ou directement de proposer des améliorations [sur le Wiki](https://github.com/jhemmi/QgisPhysiocapPlugin/issues). N'oubliez pas de [contribuer](https://plus.payname.fr/jhemmi?type=9xwqt) si l'extension vous est utile. Vous pourrez ainsi apparaître dans l'onglet "A propos".
