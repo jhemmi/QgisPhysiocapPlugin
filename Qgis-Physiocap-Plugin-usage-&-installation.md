@@ -30,14 +30,16 @@ Ouvrir Qgis & activer Physiocap menu depuis l'icone Physiocap (en haut à gauche
 
 ![Onglet Paramètres](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Version%201.2%20Parametres.png)
 
-* Dans **l'onglet Paramètres** (visible à droite dans la copie d'écran) : permet de préciser vos paramètres  pour les calculs
+Dans **l'onglet Paramètres** (visible à droite dans la copie d'écran), vous pouvez préciser vos paramètres  pour les calculs
 - Répertoire des données brutes (MIDs bruts issus du capteur)
 - En option, vous pouvez choisir de chercher les MIDs dans les sous répertoires
-- Nom à votre projet Physiocap qui sert de répertoire de base pour le stockage des résultats et de préfixe pour les fichiers générées. 
+- Nom à votre projet Physiocap qui sert de répertoire de base pour le stockage des résultats et de préfixe pour les fichiers générées. Un préfixe "PHY_" est proposé.
 - Filtres permettant de nettoyer les données brutes
-- Calculs détaillés :  précisez si les informations du vignoble doivent être prises en compte pour un calcul détaillé (ce choix est optionnel)
+- Calculs détaillés : précisez si les informations du vignoble doivent être prises en compte pour un calcul détaillé (ce choix est optionnel)
 
-Dans cette version, les cartes de points sont générés au format shapefile et en L93 (ou GPS). La sauvegarde de l'ensemble de ces paramètres est effectuée avant chaque exécution du calcul.
+Les cartes de points sont générées au format shapefile et selon votre choix dans la référentiel L93 ou GPS. 
+
+La sauvegarde de l'ensemble des paramètres saisies est effectuée avant chaque exécution du calcul.
 
 **_Pour activer les calculs, cliquez sur le bouton OK_**
 
@@ -47,7 +49,9 @@ Durant l'exécution, l'extension crée les répertoires:
 * Nom projet Physiocap (en cas d'existence du répertoire, il est créé un répertoire Nom projet Physiocap(1), le plus haut chiffre est le plus récent.
 Le fichier de synthèse du traitement : nom-projet-physiocap_resulat.txt
 - "fichier_sources" contient les données sources brutes et une copie en csv
-- "fichier_textes" contient les nom-projet-physiocap_OUT*.cvs filtré et les listes "nbsarm*" et "diam*" (respectivement) tous les nombre de sarments et les diametres bruts et filtrés prêts pour créer des histogramme.
+- "fichier_textes" contient les nom-projet-physiocap_OUT*.cvs filtré. Un fichier ne contient que les 
+
+ et les listes "nbsarm*" et "diam*" (respectivement) tous les nombres de sarments et les diamètres bruts et filtrés prêts pour créer des histogramme.
 - "shapefile" contient les deux fichiers shape résultats du filtrage des données brutes.
 
 **Dans panneaux de couches de Qgis, les shapefiles créés par le plugin sont regroupés dans un groupe qui porte le nom du projet Physiocap.**
