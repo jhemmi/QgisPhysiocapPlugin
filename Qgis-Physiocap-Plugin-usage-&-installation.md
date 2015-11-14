@@ -88,7 +88,10 @@ Le bouton "Rafraîchir la liste des vecteurs" permet de lister les polygones de 
 Après le choix du contour et du jeu de mesures, vous lancez le traitement par le bouton "Moyenne Inter Parcellaire". 
 ![Onglet Inter après](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Version%201.2%20Inter%20Parcellaire.png)
 Dans panneaux de couches de Qgis :  
-* dans le groupe du projet Physiocap, il est ajouté un shapefile des points de mesure inclut chaque parcelle. 
-* en haut du panneaux de couche, un shapefile PROJET_PHYSIOCAP_MOYENNE_INTER_nom_contour permet de visualiser les moyennes spécifiques à chaque parcelle.
+* dans le groupe du projet Physiocap, il est ajouté un shapefile des points de mesures incluses chaque parcelle. 
+* en haut du panneaux de couche, un shapefile PROJET_PHYSIOCAP_MOYENNE_INTER_nom_contour permet de visualiser les moyennes spécifiques de chaque parcelle.
 
 Le "projet Qgis" n'est pas sauvé, mais vous pouvez le faire vous même (à vous de gérer la conservation des répertoires de calcul et des shapefile utilisés).
+
+###  Vos retours et votre contribution
+L'extension Physiocap pour Qgis est open source. Il est important de faire vos retours de tests [par courriel ](jean@jhemmi.eu)au développeur ou directement de proposer des améliorations [sur le Wiki](https://github.com/jhemmi/QgisPhysiocapPlugin/issues). N'oubliez pas de [contribuer](https://plus.payname.fr/jhemmi?type=9xwqt) si l'extension vous est utile. Vous pourrez ainsi apparaître dans l'onglet "A propos".
