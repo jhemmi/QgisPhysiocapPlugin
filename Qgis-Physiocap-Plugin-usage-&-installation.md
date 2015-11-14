@@ -21,16 +21,22 @@ L'extension tourne sous Qgis 2.x. Aucune installation de librairie Python n'est 
 L'extension n'est pas encore déposé sous le dépôt standard Qgis.
 
 ### Utilisation
+
+## Vos outils
 A tout moment vous pouvez accéder aux boutons : 
 * "Aide" pour retrouver les liens vers la documentation de l'extension Physiocap.
 * "Fermer" pour quitter l'extension 
 * "Ok" pour lancer une itération de calcul dans un nouveau projet Physiocap.
 
+Dans la log Qgis, deux onglets (Physiocap Information - visible au tiers haut dans la copie d'écran) et Physiocap Erreurs) permettent de suivre le déroulement du traitement et d'éventuelles erreurs).
+*la Log Qgis peut être visualisée en appuyant sur l'icone ! à bas à droite ou par le menu Vues => Panneaux => Journal des messages. 
+
 Ouvrir Qgis & activer Physiocap menu depuis l'icone Physiocap (en haut à gauche sur la copie d'écran) ou par le menu Extension sous menu Physiocap. Dans le dialogue Physiocap, vous pouvez accéder aux onglets Paramètres, Synthèse, Histogrammes, Inter, A propos.
 
+## Onglet Paramètres
 ![Onglet Paramètres](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Version%201.2%20Parametres.png)
 
-Dans **l'onglet Paramètres** (visible à droite dans la copie d'écran), vous pouvez préciser vos paramètres  pour les calculs
+Dans l'onglet Paramètres (visible à droite dans la copie d'écran), vous pouvez préciser vos paramètres  pour les calculs
 - Répertoire des données brutes (MIDs bruts issus du capteur)
 - En option, vous pouvez choisir de chercher les MIDs dans les sous répertoires
 - Nom à votre projet Physiocap qui sert de répertoire de base pour le stockage des résultats et de préfixe pour les fichiers générées. Un préfixe "PHY_" est proposé.
@@ -44,9 +50,6 @@ La sauvegarde de l'ensemble des paramètres saisies est effectuée avant chaque 
 **_Pour activer les calculs, cliquez sur le bouton OK_**
 
 _La barre d'avancement indique 100 % à la fin des traitements._
- 
-Dans la log Qgis, deux onglets (Physiocap Information - visible au tiers haut dans la copie d'écran) et Physiocap Erreurs) permettent de suivre le déroulement du traitement et d'éventuelles erreurs).
-*la Log Qgis peut être visualisée en appuyant sur l'icone ! à bas à droite ou par le menu Vues => Panneaux => Journal des messages. 
 
 Durant l'exécution, l'extension crée le répertoire "Nom projet Physiocap" (en cas d'existence du répertoire, il est créé un répertoire Nom projet Physiocap(1), le plus haut chiffre est le plus récent.
 Dans cette racine, l'extension crée les répertoires et les fichiers suivants (même organisation et nommage que l'outil PHYSIOCAP_V8 du CIVC):
