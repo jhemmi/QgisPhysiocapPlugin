@@ -21,11 +21,11 @@ L'extension n'est pas encore déposé sous le dépôt standard Qgis.
 
 ### Utilisation
 
-## Vos outils
+## Vos repères et outils
 A tout moment vous pouvez accéder aux boutons : 
 * "Aide" pour retrouver les liens vers la documentation de l'extension Physiocap.
 * "Fermer" pour quitter l'extension 
-* "Ok" pour lancer une itération de calcul dans un nouveau projet Physiocap.
+* "Ok" pour lancer une itération de calculs dans un nouveau projet Physiocap.
 
 Dans la log Qgis, deux onglets (Physiocap Information - visible au tiers haut dans la copie d'écran) et Physiocap Erreurs) permettent de suivre le déroulement du traitement et d'éventuelles erreurs).
 *la Log Qgis peut être visualisée en appuyant sur l'icone ! à bas à droite ou par le menu Vues => Panneaux => Journal des messages. 
@@ -38,9 +38,9 @@ Pour activer Physiocap Analyseur,ouvrir Qgis & activer l'icone Physiocap (en hau
 Dans l'onglet Paramètres (visible à droite dans la copie d'écran), vous pouvez préciser vos paramètres  pour les calculs : 
 - Le Répertoire des données brutes (MIDs bruts issus du capteur).
 - En option, vous pouvez choisir de chercher les MIDs dans les sous répertoires.
-- Le nom de votre projet Physiocap qui sert de répertoire de base pour le stockage des résultats, de préfixe pour les fichiers générées et pour nommer le groupe dans le panneau de couches Qgis. Un nom concis et un préfixe "PHY_" est conseillé.
-- Choisir votre référentiel en L93 ou en GPS. 
-- Les cartes de points sont générées au format shapefile uniquement.
+- Le nom de votre projet Physiocap qui sert de répertoire de base pour le stockage des résultats, de préfixe pour les fichiers générées et pour nommer le groupe dans le panneau de couches Qgis. ***Un nom concis et un préfixe "PHY_" est conseillé***.
+- Choisir votre projection en L93 ou en GPS. Tous les shapefiles générés sont nommés en finissant par "_PROJECTION.shp" (par exemple _L93.shp).
+- Les cartes de points et polygones sont générées au format shapefile uniquement.
 - Les filtres permettant de nettoyer les données brutes.
 - Calculs détaillés : précisez si les informations du vignoble doivent être prises en compte pour un calcul détaillé (ce choix est optionnel).
 
@@ -80,12 +80,12 @@ Dans l'onglet Histogrammes, vous devez demander la création des histogrammes av
 ## Onglet Inter
 Dans l'onglet Inter, vous devez rafraîchir la liste avant de demander le calcul des moyennes inter parcellaire à partir d'un contour des parcelles qui vous intéressent. 
 ***Le shapefile de Contour doit être ouvert dans Qgis - Menu Couche => Ajouter un vecteur et donnez le nom de votre shapefile de contour. Choisissez un contour avec la même projection que celle demandés lors des traitements initiaux.***
-![Onglet Inter](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Version%201.2%20Choix%20Contour.png)
+![Onglet Inter avant](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Version%201.2%20Choix%20Contour.png)
 Le bouton "Rafraîchir la liste des vecteurs" permet de lister les polygones de contours disponibles dans votre projet Qgis mais aussi le jeu de mesures à comparer (shapefiles de points) qui serviront de  base au calcul des moyennes.
 Après le choix du contour et du jeu de mesures, vous lancez le traitement par le bouton "Moyenne Inter Parcellaire". 
-![Onglet Inter](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Version%201.2%20Inter%20Parcellaire.png)
+![Onglet Inter après](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Version%201.2%20Inter%20Parcellaire.png)
 Dans panneaux de couches de Qgis :  
 * dans le groupe du projet Physiocap, il est ajouté un shapefile des points de mesure inclut chaque parcelle. 
 * en haut du panneaux de couche, un shapefile PROJET_PHYSIOCAP_MOYENNE_INTER_nom_contour permet de visualiser les moyennes spécifiques à chaque parcelle.
 
-Le projet Qgis n'est pas sauvé, mais vous pouvez le faire vous même (il vous gérer la conservation des répertoires de calcul et des shapefile utilisés).
+Le "projet Qgis" n'est pas sauvé, mais vous pouvez le faire vous même (à vous de gérer la conservation des répertoires de calcul et des shapefile utilisés).
