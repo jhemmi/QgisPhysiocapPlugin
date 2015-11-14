@@ -1,20 +1,24 @@
 Qgis Physiocap Extension Utilisation & installation (version 1.2)
 
-Voici la documentation de l'Extension Physiocap pour Qgis qui permet de traiter les données brutes du capteur Physiocap et de visualiser les résultats filtrés sous Qgis. La version 1.2 permet d'activer le calcul des moyennes inter parcellaire à partir de votre contour de parcelles.
+Voici la documentation de l'extension Physiocap pour Qgis qui permet de traiter les données brutes du capteur Physiocap et de visualiser les résultats filtrés sous Qgis. La version 1.2 permet d'activer le calcul des moyennes inter parcellaire à partir de votre contour de parcelles.
 
-### Installation de l'extension 
+### Installation de l'extension (plugin) 
 
-Depuis un zip file envoyé par jhemmi.eu ou depuis le gitHub zip file (*1):
+Ouvrir le fichier zip envoyé par jhemmi.eu ou télécharger depuis gitHub.
 
-Extraire le contenu de "Qgis Physiocap Plugin zip" dans $HOME/.qgis2/python/plugins (*2)
+Extraire le contenu de "Qgis Physiocap Plugin zip" dans $HOME/.qgis2/python/plugins . Si vous n'avez jamais installé aucune extension sous Qgis, il faut créer le répertoire "plugins" 
 
-(*1) Renommer le nouveau répertoire en PhysiocapAnalyseur.
+Renommer le nouveau répertoire en PhysiocapAnalyseur.
 
-(*2) Si vous n'avez jamais installé aucun plugin, il faut créer le répertoire "plugins"
+Relancer Qgis. Dans la barre d'outils, l'icone !["Phy"](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/icon.png) permet de lancer Physiocap Analyseur. Dans le menu Extension, le menu Physiocap permet aussi d’accéder à Physiocap Analyseur
+
+Si vous n'avez jamais installé aucune extension sous Qgis, il faut dans le menu Exetension, puis Installer/Gérer les extensions (onglet "Toutes") retrouver l'extension Physiocap et la cocher pour la rendre active.
+
+Notes : 
  
-L'extension tourne sous Qgis 2.*. Aucune installation de librairie Python n'est requise en plus de celles déjà présentes dans Qgis 2.* (ogr, csv, numpy, mapplotlib, shutil, qgis et pyQT4). 
+L'extension tourne sous Qgis 2.*. Aucune installation de librairie Python n'est requise. Celles présentent dans Qgis 2.* sont suffisantes (ogr, csv, numpy, mapplotlib, shutil, qgis et pyQT4). 
 
-Note : L'extension n'est pas encore déposé sous le dépôt Qgis
+L'extension n'est pas encore déposé sous le dépôt Qgis
 
 ### Utilisation
 ![Onglet Paramètre](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Version%201.2%20Parametres.png)
