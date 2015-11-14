@@ -15,7 +15,7 @@ Pour la **Version 1.1.5** (début novembre), voici les évolutions majeures :
 - Cépage et mode de taille peut prendre la valeur "Inconnu"
 
 Pour la **Version 1.2.0** (mi novembre), voici l'évolution majeure :
-* Comparaison Inter parcellaire : extractions à partir d'un contour de parcelles des valeurs moyennes : sarment/m2, diamètre et biomasse. On extrait aussi les points de mesures contenus dans chaque parcelle.
+- Comparaison Inter parcellaire : extractions à partir d'un contour de parcelles des valeurs moyennes : sarment/m2, diamètre et biomasse. On extrait aussi les points de mesures contenus dans chaque parcelle.
 -------------------------------------------------------------------------------------------------------
 Évolutions prévues pour la **Version 1.5** (fin décembre 2015)
 * Composeur de compte rendu pour l'inter et l'intra parcellaire.
