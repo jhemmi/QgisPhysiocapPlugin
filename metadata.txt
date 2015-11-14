@@ -10,7 +10,7 @@
 name=Physiocap
 qgisMinimumVersion=2.0
 description=Physiocap plugin helps analysing raw data from Physiocap in Qgis
-version=1.15
+version=1.2
 author=jhemmi.eu
 email=jean@jhemmi.eu
 
