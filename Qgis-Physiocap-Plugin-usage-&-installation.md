@@ -27,15 +27,15 @@ A tout moment vous pouvez accéder aux boutons :
 * "Fermer" pour quitter l'extension 
 * "Ok" pour lancer une itération de calculs dans un nouveau projet Physiocap.
 
-Dans la log Qgis, deux onglets (Physiocap Information - visible au tiers haut dans la copie d'écran) et Physiocap Erreurs) permettent de suivre le déroulement du traitement et d'éventuelles erreurs).
+Dans la log Qgis, deux onglets (Physiocap Information - visible au tiers haut dans la copie d'écran de l'onglet Paramètres et Physiocap Erreurs) permettent de suivre le déroulement du traitement et d'éventuelles erreurs).
 *la Log Qgis peut être visualisée en appuyant sur l'icone ! à bas à droite ou par le menu Vues => Panneaux => Journal des messages. 
 
-Pour activer Physiocap Analyseur,ouvrir Qgis & activer l'icone Physiocap (en haut à gauche sur la copie d'écran). Vous pouvez aussi utiliser le menu Extension et le sous menu Physiocap. Dans le dialogue Physiocap, vous pouvez accéder aux onglets Paramètres, Synthèse, Histogrammes, Inter, A propos.
+Pour activer Physiocap Analyseur,ouvrir Qgis & activer l'icone Physiocap (en haut à gauche sur la copie d'écran de l'onglet Paramètres). Vous pouvez aussi utiliser le menu Extension et le sous menu Physiocap. Dans le dialogue Physiocap, vous pouvez accéder aux onglets Paramètres, Synthèse, Histogrammes, Inter, A propos.
 
 ## Onglet Paramètres
 ![Onglet Paramètres](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Version%201.2%20Parametres.png)
 
-Dans l'onglet Paramètres (visible à droite dans la copie d'écran), vous pouvez préciser vos paramètres  pour les calculs : 
+Dans l'onglet Paramètres (visible à droite dans la copie d'écran ci dessus), vous pouvez préciser vos paramètres  pour les calculs : 
 - Le Répertoire des données brutes (MIDs bruts issus du capteur).
 - En option, vous pouvez choisir de chercher les MIDs dans les sous répertoires.
 - Le nom de votre projet Physiocap qui sert de répertoire de base pour le stockage des résultats, de préfixe pour les fichiers générées et pour nommer le groupe dans le panneau de couches Qgis. ***Un nom concis et un préfixe "PHY_" est conseillé***.
@@ -55,7 +55,7 @@ Cette description n'est pas à connaitre, car vous retrouvez l'ensemble de ces d
 Dans cette racine, l'extension crée les répertoires et les fichiers suivants (même organisation et nommage que l'outil PHYSIOCAP_V8 du CIVC):
 ![Arbre de données](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Organisation%20des%20fichiers%20de%20chaque%20projet%20Physiocap.png)
 
-A la racine, vous trouvez le fichier de synthèse du traitement : nom-projet-physiocap_resulat.txt (en bleu dans la deuxième copie d'écran).
+A la racine, vous trouvez le fichier de synthèse du traitement : nom-projet-physiocap_resulat.txt (en bleu dans la copie d'écran ci dessus).
 - "fichier_sources" contient la copie des données sources brutes (fichiers MID) et une version en csv "nom-projet-physiocap_RAW.cvs" qui contient les mesures brutes (copie de tous les MIDs).
 - "fichier_textes" contient deux cvs "nom-projet-physiocap_OUT.cvs" données filtrées et moyennées et "nom-projet-physiocap_OUT0.cvs" données sans filtre (les vitesses nulles sont conservées). Les autres cvs sont utiles pour le calcul des histogrammes ("nbsarm*" et "diam*" tous les nombres de sarments et les diamètres bruts et filtrés). "Erreur.cvs" contient la trace des erreurs que vous pouvez aussi retrouver dans la log Physiocap Erreur.
 - "histogrammes" contient les fichiers image des histogrammes des sarments, des diamètres bruts et des diamètres filtrés.
@@ -64,9 +64,9 @@ A la racine, vous trouvez le fichier de synthèse du traitement : nom-projet-phy
 **Dans panneaux de couches de Qgis, les shapefiles créés sont dans un groupe qui porte le nom du projet Physiocap**. L'organisation est semblable à celle des fichiers.
 
 Trois thématiques sont ouvertes dans Qgis et sont mises en forme avec les styles qui se trouvent dans $HOME/.qgis2/python/plugins/physiocap_analyseur/modeleQgis
-* "Vitesse.qml" pour le shapefile non filtré nom-projet-physiocap_0_L93.shp qui se nomme VITESSE (deuxième copie d'écran)
+* "Vitesse.qml" pour le shapefile non filtré nom-projet-physiocap_0_L93.shp qui se nomme VITESSE (copie d'écran de l'onglet Synthèse)
 * "Sarment 4 Jenks.qml" pour le shapefile filtré nom-projet-physiocap_L93.shp qui se nomme SARMENT 
-* "Diametre 6 Jenks.qml" pour le shapefile filtré nom-projet-physiocap_L93.shp qui se nomme DIAMETRE (troisième copie d'écran)
+* "Diametre 6 Jenks.qml" pour le shapefile filtré nom-projet-physiocap_L93.shp qui se nomme DIAMETRE (copie d'écran de l'onglet Histogramme)
 
 ## Onglet Synthèse
 Dans l'onglet Synthèse, vous pouvez consulter le "résultat" du dernier traitement effectué.
