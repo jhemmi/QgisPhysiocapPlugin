@@ -48,7 +48,7 @@ _La barre d'avancement indique 100 % à la fin des traitements._
 Durant l'exécution, l'extension crée les répertoires:
 * Nom projet Physiocap (en cas d'existence du répertoire, il est créé un répertoire Nom projet Physiocap(1), le plus haut chiffre est le plus récent.
 Le fichier de synthèse du traitement : nom-projet-physiocap_resulat.txt
-- "fichier_sources" contient les données sources brutes et une copie en csv
+- "fichier_sources" contient la copie des données sources brutes (fichier MID) et une version en csv qui contient les mesures de tous les MIDs.
 - "fichier_textes" contient les nom-projet-physiocap_OUT*.cvs filtré. Un fichier ne contient que les 
 
  et les listes "nbsarm*" et "diam*" (respectivement) tous les nombres de sarments et les diamètres bruts et filtrés prêts pour créer des histogramme.
