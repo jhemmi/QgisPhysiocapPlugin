@@ -26,9 +26,10 @@ A tout moment vous pouvez accéder aux boutons :
 * "Fermer" pour quitter l'extension 
 * "Ok" pour lancer une itération de calcul dans un nouveau projet Physiocap.
 
+Ouvrir Qgis & activer Physiocap menu depuis l'icone Physiocap (en haut à gauche sur la copie d'écran) ou par le menu Extension sous menu Physiocap. Dans le dialogue Physiocap, vous pouvez accéder aux onglets Paramètres, Synthèse, Histogrammes, Inter, A propos.
+
 ![Onglet Paramètres](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Version%201.2%20Parametres.png)
 
-Ouvrir Qgis & activer Physiocap menu depuis le menu Extension ou directement sur l'icone Physiocap (en haut à gauche sur la copie d'écran). Dans le dialogue Physiocap plusieurs onglets :
 * Dans **l'onglet Paramètres** (visible à droite dans la copie d'écran) : permet de préciser vos paramètres  pour les calculs
 - Répertoire des données brutes (MIDs bruts issus du capteur)
 - En option, vous pouvez choisir de chercher les MIDs dans les sous répertoires
