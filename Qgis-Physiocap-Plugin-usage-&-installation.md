@@ -6,17 +6,17 @@ Voici la documentation de l'extension Physiocap pour Qgis qui permet de traiter 
 
 Ouvrir le fichier zip envoyé par jhemmi.eu ou télécharger depuis gitHub.
 
-Extraire le contenu de "Qgis Physiocap Plugin zip" dans $HOME/.qgis2/python/plugins . Si vous n'avez jamais installé aucune extension sous Qgis, il faut créer le répertoire "plugins" 
+Extraire le contenu de "Qgis Physiocap Plugin zip" dans $HOME/.qgis2/python/plugins . Si vous n'avez jamais installé aucune extension sous Qgis, il faut créer le répertoire "plugins".
 
 Renommer le nouveau répertoire en PhysiocapAnalyseur.
 
-Relancer Qgis. Dans la barre d'outils, l'icone !["Phy"](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/icon.png) permet de lancer Physiocap Analyseur. Dans le menu Extension, le menu Physiocap permet aussi d’accéder à Physiocap Analyseur
+Relancer Qgis. Dans la barre d'outils, l'icone !["Phy"](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/icon.png) permet de lancer Physiocap Analyseur. Dans le menu Extension, le menu Physiocap permet aussi d’accéder à Physiocap Analyseur.
 
-Si vous n'avez jamais installé aucune extension sous Qgis, il faut dans le menu Exetension, puis Installer/Gérer les extensions (onglet "Toutes") retrouver l'extension Physiocap et la cocher pour la rendre active.
+Si vous n'avez jamais installé aucune extension sous Qgis, il faut dans le menu Extension, puis "Installer/Gérer les extensions" (onglet "Toutes") retrouver l'extension Physiocap et la cocher pour la rendre active.
 
 Notes : 
  
-L'extension tourne sous Qgis 2.*. Aucune installation de librairie Python n'est requise. Celles présentent dans Qgis 2.* sont suffisantes (ogr, csv, numpy, mapplotlib, shutil, qgis et pyQT4). 
+L'extension tourne sous Qgis 2.x. Aucune installation de librairie Python n'est requise. Celles présentent dans Qgis 2.x sont suffisantes (ogr, csv, numpy, mapplotlib, shutil, qgis et pyQT4). 
 
 L'extension n'est pas encore déposé sous le dépôt Qgis
 
