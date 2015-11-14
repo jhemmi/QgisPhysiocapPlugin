@@ -83,6 +83,7 @@ Dans l'onglet Inter, vous devez rafraîchir la liste avant de demander le calcul
 Vous pouvez efficacement, vous appuyer sur le couche Vitesse pour dessiner vos contours. Une photo aérienne (accessible par l'extension "OpenLayers Plugin") est le meilleur support pour être précis au rang.
 
 ![Onglet Inter avant](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Version%201.2%20Choix%20Contour.png)
+
 Le bouton "Rafraîchir la liste des vecteurs" permet de lister les polygones de contours disponibles dans votre projet Qgis mais aussi le jeu de mesures à comparer (shapefiles de points) qui serviront de  base au calcul des moyennes. Le jeu de données de point est identifié par le nom du projet Physiocap.
 
 Après le choix du contour et du jeu de mesures, vous lancez le traitement par le bouton "Moyenne Inter Parcellaire". 
@@ -94,4 +95,4 @@ Dans panneaux de couches de Qgis :
 Le "projet Qgis" n'est pas sauvé, mais vous pouvez le faire vous même (à vous de gérer la conservation des répertoires de calcul et des shapefile utilisés).
 
 ###  Vos retours et votre contribution
-L'extension Physiocap pour Qgis est open source. Il est important de faire vos retours de tests [par courriel ](mailto://jean@jhemmi.eu)au développeur ou directement de proposer des améliorations [sur le Wiki](https://github.com/jhemmi/QgisPhysiocapPlugin/issues). N'oubliez pas de [contribuer](https://plus.payname.fr/jhemmi?type=9xwqt) si l'extension vous est utile. Vous pourrez ainsi apparaître dans l'onglet "A propos".
+L'extension Physiocap pour Qgis est open source. Il est important de faire vos retours de tests [par courriel](mailto://jean@jhemmi.eu) au développeur ou directement de proposer des améliorations [sur le Wiki](https://github.com/jhemmi/QgisPhysiocapPlugin/issues). N'oubliez pas de [contribuer](https://plus.payname.fr/jhemmi?type=9xwqt) si l'extension vous est utile. Vous pourrez ainsi apparaître dans l'onglet "A propos".
