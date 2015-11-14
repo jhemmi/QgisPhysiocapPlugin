@@ -79,9 +79,12 @@ Dans l'onglet Histogrammes, vous devez demander la création des histogrammes av
 
 ## Onglet Inter
 Dans l'onglet Inter, vous devez rafraîchir la liste avant de demander le calcul des moyennes inter parcellaire à partir d'un contour des parcelles qui vous intéressent. 
-***Le shapefile de Contour doit être ouvert dans Qgis - Menu Couche => Ajouter un vecteur et donnez le nom de votre shapefile de contour. Choisissez un contour avec la même projection que celle demandés lors des traitements initiaux.***
+***Le shapefile de Contour doit être ouvert dans Qgis - Menu Couche => Ajouter un vecteur et donnez le nom de votre shapefile de contour***. Choisissez un contour avec la même projection que celle demandée lors des traitements initiaux.
+Vous pouvez efficacement, vous appuyer sur le couche Vitesse pour dessiner vos contours. Une photo aérienne (accessible par l'extension "OpenLayers Plugin") est le meilleur support pour être précis au rang.
+
 ![Onglet Inter avant](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Version%201.2%20Choix%20Contour.png)
-Le bouton "Rafraîchir la liste des vecteurs" permet de lister les polygones de contours disponibles dans votre projet Qgis mais aussi le jeu de mesures à comparer (shapefiles de points) qui serviront de  base au calcul des moyennes.
+Le bouton "Rafraîchir la liste des vecteurs" permet de lister les polygones de contours disponibles dans votre projet Qgis mais aussi le jeu de mesures à comparer (shapefiles de points) qui serviront de  base au calcul des moyennes. Le jeu de données de point est identifié par le nom du projet Physiocap.
+
 Après le choix du contour et du jeu de mesures, vous lancez le traitement par le bouton "Moyenne Inter Parcellaire". 
 ![Onglet Inter après](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Version%201.2%20Inter%20Parcellaire.png)
 Dans panneaux de couches de Qgis :  
