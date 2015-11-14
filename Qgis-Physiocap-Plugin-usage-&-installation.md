@@ -1,4 +1,4 @@
-Qgis Physiocap Extension Utilisation & installation (version 1.2)
+Qgis Physiocap Extension installation & utilisation (version 1.2)
 
 Voici la documentation de l'extension Physiocap pour Qgis qui permet de traiter les données brutes du capteur Physiocap et de visualiser les résultats filtrés sous Qgis. La version 1.2 permet d'activer le calcul des moyennes inter parcellaire à partir de votre contour de parcelles.
 
@@ -45,7 +45,7 @@ La sauvegarde de l'ensemble des paramètres saisies est effectuée avant chaque 
 
 _La barre d'avancement indique 100 % à la fin des traitements._
  
-Durant l'exécution, l'extension crée les répertoires:
+Durant l'exécution, l'extension crée les répertoires et les fichiers suivants :
 * Nom projet Physiocap (en cas d'existence du répertoire, il est créé un répertoire Nom projet Physiocap(1), le plus haut chiffre est le plus récent.
 Le fichier de synthèse du traitement : nom-projet-physiocap_resulat.txt
 - "fichier_sources" contient la copie des données sources brutes (fichier MID) et une version en csv qui contient les mesures de tous les MIDs.
@@ -53,7 +53,7 @@ Le fichier de synthèse du traitement : nom-projet-physiocap_resulat.txt
 
  et les listes "nbsarm*" et "diam*" (respectivement) tous les nombres de sarments et les diamètres bruts et filtrés prêts pour créer des histogramme.
 - "shapefile" contient les deux fichiers shape résultats du filtrage des données brutes.
-
+![Arbre de données](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Organisation%20des%20fichiers%20de%20chaque%20projet%20Physiocap.png)
 **Dans panneaux de couches de Qgis, les shapefiles créés par le plugin sont regroupés dans un groupe qui porte le nom du projet Physiocap.**
 
 Dans **l'onglet Synthèse**, vous pouvez consulter le "résultat" du dernier traitement effectué.
