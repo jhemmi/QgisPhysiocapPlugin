@@ -130,6 +130,16 @@ def JH_rename_existing( chemin):
         si chemin existe deja, on creer un "chemin + (1)"
         si "chemin_projet + (1)" existe déjà, on crée un "chemin_projet + (2)" etc         
     """
+    # Exception suffixe
+    extension = ""
+    pos_extension = -1
+    if ( os.path.isfile(chemin)):
+        pos_extension = chemin.rfind( ".")
+        extension = chemin[ pos_extension:]
+        if ( pos_extension != -1):
+            chemin = chemin[: pos_extension]
+            #physiocap_log(u"Nouveau chemin" + chemin)
+            
     # Si chemin a déjà une parenthèse dans la 3 derniers caracteres
     longueur = len(chemin)
     if chemin[-1:] == ")":
@@ -157,6 +167,10 @@ def JH_rename_existing( chemin):
     else:
         # cas du premier fichier renommer
         nouveau_chemin = chemin + "(1)"
+
+    # Remettre extension
+    if (extension != ""):
+        nouveau_chemin = nouveau_chemin + extension
                
     return nouveau_chemin
 

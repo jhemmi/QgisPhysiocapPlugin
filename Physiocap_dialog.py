@@ -82,6 +82,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         #self.refreshButton.pressed.connect(self.create_contour_list )
         ##self.buttonBox.button( QDialogButtonBox.Ok ).pressed.connect(self.accept)
         ##self.buttonBox.button( QDialogButtonBox.Cancel ).pressed.connect(self.reject)
+        self.comboBoxPolygone.currentIndexChanged[int].connect( self.update_field_list )
         self.buttonBox.button( QDialogButtonBox.Help ).pressed.connect(self.demander_aide)
         self.buttonContribuer.pressed.connect(self.demander_contribution)
         
@@ -232,7 +233,34 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
     # ################
     #  Différents SLOT
     # ################
-    
+
+    # FIELDS
+    def update_field_list( self ):
+        """ Create a list of fields for the current vector in fieldCombo Box"""
+        nom_complet_poly = self.comboBoxPolygone.currentText().split( SEPARATEUR_NOEUD)
+        inputLayer = nom_complet_poly[0] #str(self.comboBoxPolygone.itemText(self.comboBoxPolygone.currentIndex()))
+        self.fieldComboContours.clear()
+        layer = self.get_layer_by_name( inputLayer )
+        self.fieldComboContours.addItem( "NOM_PHY")
+        if layer is not None:
+            #physiocap_log(u"Look for fields of layer >" + layer.name())
+            for index, field in enumerate(layer.dataProvider().fields()):
+                self.fieldComboContours.addItem( str( field.name()) )
+##        else:
+##            self.fieldComboContours( "Aucun autre champ retrouvé")
+ 
+    def get_layer_by_name( self, layerName ):
+        layerMap = QgsMapLayerRegistry.instance().mapLayers()
+        for name, layer in layerMap.iteritems():
+            if layer.type() == QgsMapLayer.VectorLayer and layer.name() == layerName:
+                # The layer is found
+                break
+        if layer.isValid():
+            return layer
+        else:
+            return none
+        
+
     # Repertoire données brutes :
     def lecture_repertoire_donnees_brutes( self):
         """Catch directory for raw data"""
@@ -274,6 +302,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         if (( nombre_poly > 0) and ( nombre_point > 0)):
             # Liberer le bouton "moyenne"
             self.groupBoxInter.setEnabled( True)
+            self.update_field_list()
         else:
             self.groupBoxInter.setEnabled( False)
             
@@ -307,10 +336,10 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             physiocap_log( ERREUR_EXCEPTION + ". Consultez le journal Physiocap Erreur",
                 "WARNING")
             physiocap_error( ERREUR_EXCEPTION)
-            physiocap_error(u"Les vignettes du projet Physiocap " + str( e) + " existent déjà.",
+            physiocap_error(u"Les moyennes InterParcellaires du projet Physiocap " + str( e) + " existent déjà.",
                 "CRITICAL")
             return physiocap_message_box( self, self.tr( ERREUR_EXCEPTION + "\n" + \
-                u"Les vignettes du projet Physiocap " + str( e) + " existent déjà."),
+                u"Les moyennes InterParcellaires du projet Physiocap " + str( e) + " existent déjà."),
                 "information" )
         except physiocap_exception_points_invalid as e:
             physiocap_log( ERREUR_EXCEPTION + ". Consultez le journal Physiocap Erreur",

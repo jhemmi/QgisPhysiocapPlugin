@@ -42,6 +42,7 @@ import platform
 # Répertoire de base et projet
 PHYSIOCAP_TRACE = "Yes"
 CENTROIDES = "NO"
+SHAPE_MOYENNE_PAR_CONTOUR = "YES"
 
 REPERTOIRE_DONNEES_BRUTES = "/home/jhemmi/Documents/GIS/SCRIPT/QGIS/PhysiocapAnalyseur/data"
 PHYSIOCAP_NOM = "Physiocap"

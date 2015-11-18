@@ -798,7 +798,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;Version 1.2.0 : module inter-parcellaire&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;Version 1.2.2 : module inter-parcellaire&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
     <widget class="QGroupBox" name="groupBoxInter">
@@ -807,7 +807,7 @@
        <x>10</x>
        <y>80</y>
        <width>531</width>
-       <height>181</height>
+       <height>211</height>
       </rect>
      </property>
      <property name="autoFillBackground">
@@ -822,11 +822,48 @@
      <widget class="QPushButton" name="ButtonInter">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>80</y>
+        <x>60</x>
+        <y>170</y>
         <width>461</width>
         <height>31</height>
        </rect>
+      </property>
+      <property name="palette">
+       <palette>
+        <active>
+         <colorrole role="WindowText">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>0</red>
+            <green>85</green>
+            <blue>255</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </active>
+        <inactive>
+         <colorrole role="WindowText">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>0</red>
+            <green>85</green>
+            <blue>255</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </inactive>
+        <disabled>
+         <colorrole role="WindowText">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>143</red>
+            <green>146</green>
+            <blue>147</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </disabled>
+       </palette>
       </property>
       <property name="autoFillBackground">
        <bool>true</bool>
@@ -887,6 +924,56 @@
        <string>Choisir le jeu de mesures à comparer </string>
       </property>
      </widget>
+     <widget class="QLabel" name="lab_62">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>60</y>
+        <width>281</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Choisir le champ identifiant vos contours</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="fieldComboContours">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>100</y>
+        <width>201</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lab_64">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>80</y>
+        <width>461</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <italic>true</italic>
+       </font>
+      </property>
+      <property name="text">
+       <string>Dans la Moyenne Inter Parcellaire, ce champ se nomme NOM_PHY</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QPushButton" name="ButtonInterRefresh">
      <property name="geometry">
@@ -924,7 +1011,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Version 1.2.0</string>
+      <string>Version 1.2.2</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_100">
