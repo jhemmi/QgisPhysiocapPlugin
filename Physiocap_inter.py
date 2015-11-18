@@ -136,7 +136,7 @@ def physiocap_fill_combo_poly_or_point( self, isRoot = None, node = None ):
         if isinstance(child, QgsLayerTreeGroup):
             #physiocap_log( "- group: " + child.name())
             noeud_en_cours = child.name()
-            groupe_inter = VIGNETTES_INTER + SEPARATEUR_ + noeud_en_cours
+            groupe_inter = noeud_en_cours + SEPARATEUR_ + VIGNETTES_INTER
             if ( noeud_en_cours != groupe_inter ):
                 # On exclut les vignettes
                 un_nombre_poly, un_nombre_point = physiocap_fill_combo_poly_or_point( self, noeud, child)
@@ -357,7 +357,7 @@ def physiocap_moyenne_InterParcelles( self):
                 # ###################
                 if ( contour_avec_point == 1):
                     if un_groupe != None:
-                        vignette_projet = VIGNETTES_INTER + SEPARATEUR_ + nom_noeud_arbre
+                        vignette_projet = nom_noeud_arbre + SEPARATEUR_ + VIGNETTES_INTER  
                         vignette_existante = un_groupe.findGroup( vignette_projet)
                         if ( vignette_existante == None ):
                             vignette_group = un_groupe.addGroup( vignette_projet)
