@@ -1,6 +1,6 @@
-Qgis Physiocap Extension installation & utilisation (version 1.2.0)
+Qgis Physiocap Extension installation & utilisation (version 1.2.2)
 
-Voici la documentation de l'extension Physiocap pour Qgis qui permet de traiter les données brutes du capteur Physiocap et de visualiser les résultats filtrés sous Qgis. La version 1.2.0 permet d'activer le calcul des moyennes inter parcellaire à partir de votre contour de parcelles.
+Voici la documentation de l'extension Physiocap pour Qgis qui permet de traiter les données brutes du capteur Physiocap et de visualiser les résultats filtrés sous Qgis. La version 1.2.2 permet d'activer le calcul des moyennes inter parcellaire à partir de votre contour de parcelles.
 Pour mieux connaitre Qgis, vous pouvez consulter [une petite introduction sur les SIG](http://docs.qgis.org/testing/en/docs/gentle_gis_introduction/index.html) ou [le Manuel Utilisateur de Qgis.](http://docs.qgis.org/2.8/fr/docs/user_manual/)
 
 ### Installation de l'extension (plugin) 
