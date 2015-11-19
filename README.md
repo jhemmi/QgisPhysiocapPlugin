@@ -8,12 +8,13 @@ Trois métriques sont calculés à partir des données brutes :
 	le diamètre moyen et
 	l'indice de biomasse (kg de bois par m2)
 	
-Chaque métrique peut être utilisé en temps que moyenne par parcelle ou être la base d'une analyse cartographique de chaque parcelle.
-
-L'extension permet de saisir plusieurs paramètres pour filter les données qui ont un interet. Elle réalise une série de calcul aboutissant à :
+L'extension permet de choisir plusieurs paramètres pour filter les données qui ont un interet. Elle réalise une série de calcul aboutissant à :
 	une synthese des métriques moyens des données retenues,
-	deux shapefiles qui permet de visualiser les données mesurées et les données retenues (après filtration),
+	deux shapefiles qui permettent de visualiser les données mesurées et les données retenues (après filtration),
 	trois histogrammes qui décrivent la population des données mesurées (sarment et diamètre).
+
+L'extension "version 1.2.2 Inter" réalise une extraction des données filtrés à partir de votre contour de parcelles. Vous obtenez les moyennes Inter parcellaires pour faire un premier diagnotic de chaque entité agronomique.
+
 *"Physiocap" est déposé par le CIVC.*
 
 L'extension QgisPysiocapPlugin intègre le code de calcul du CIVC (PHYSIOCAP_V8). QgisPysiocapPlugin est donc sous licence Common Creative CC-BY-NC-SA V4.
@@ -21,6 +22,6 @@ L'extension QgisPysiocapPlugin intègre le code de calcul du CIVC (PHYSIOCAP_V8)
 La documentation se trouve dans le Wiki
 https://github.com/jhemmi/QgisPhysiocapPlugin/wiki/Qgis-Physiocap-Plugin-usage-&-installation
 
-**Attention, ce dépot contient la version 1.15 (version stable https://github.com/jhemmi/QgisPhysiocapPlugin/releases) et la version 1.2 en cours de construction - Novembre 2015**
+**Attention, ce dépot contient la version 1.2.2 (version stable https://github.com/jhemmi/QgisPhysiocapPlugin/releases) et la version 1.3 en cours de construction - Novembre 2015**
 
-**Warning, this repo is version 1.15 (stable https://github.com/jhemmi/QgisPhysiocapPlugin/releases) and version 1.2 under construction - Novembre 2015**
+**Warning, this repo is version 1.2.2 (stable https://github.com/jhemmi/QgisPhysiocapPlugin/releases) and version 1.3 under construction - Novembre 2015**
