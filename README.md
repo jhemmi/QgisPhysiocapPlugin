@@ -13,7 +13,7 @@ L'extension permet de choisir plusieurs paramètres pour filtrer les données qu
 	deux shapefiles qui permettent de visualiser les données mesurées et les données retenues (après filtration),
 	trois histogrammes qui décrivent la population des données mesurées (sarment et diamètre).
 
-L'extension "version 1.2.2 Inter" réalise une extraction des données filtrés à partir de votre contour de parcelles. Vous obtenez les moyennes Inter parcellaires pour faire un premier diagnotic de chaque entité agronomique.
+L'extension "version 1.2.2 Inter" réalise une extraction des données filtrés à partir de votre contour de parcelles. Vous obtenez les moyennes Inter parcellaires pour faire un premier diagnostic de chaque entité agronomique.
 
 *"Physiocap" est déposé par le CIVC.*
 
