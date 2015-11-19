@@ -8,8 +8,8 @@ Trois métriques sont calculés à partir des données brutes :
 	le diamètre moyen et
 	l'indice de biomasse (kg de bois par m2)
 	
-L'extension permet de choisir plusieurs paramètres pour filter les données qui ont un interet. Elle réalise une série de calcul aboutissant à :
-	une synthese des métriques moyens des données retenues,
+L'extension permet de choisir plusieurs paramètres pour filtrer les données qui ont un intérêt. Elle réalise une série de calcul aboutissant à :
+	une synthèse des métriques moyens des données retenues,
 	deux shapefiles qui permettent de visualiser les données mesurées et les données retenues (après filtration),
 	trois histogrammes qui décrivent la population des données mesurées (sarment et diamètre).
 
