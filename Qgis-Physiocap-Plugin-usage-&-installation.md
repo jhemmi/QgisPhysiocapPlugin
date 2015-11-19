@@ -9,7 +9,7 @@ Ouvrir le fichier zip envoyé par jhemmi.eu ou télécharger depuis gitHub.
 
 Extraire le contenu de "Qgis Physiocap Plugin zip" dans $HOME/.qgis2/python/plugins 
 $HOME est le chemin à vos données utilisateur :
-- sous Windows, il s'agit du chemin c:/Utilisateur/votre_propre_nom_utilisateur par exemple pour l’utilisateur "toto" le chemin devient c:/Utilisateur/toto/.qgis2/python/plugins
+- sous Windows >= 7, il s'agit du chemin c:/Utilisateur/votre_propre_nom_utilisateur par exemple pour l’utilisateur "toto" le chemin devient c:/Utilisateur/toto/.qgis2/python/plugins
 
 Si vous n'avez jamais installé aucune extension sous Qgis, il faut créer le répertoire "plugins".
 
