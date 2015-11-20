@@ -5,3 +5,5 @@ Voici l'ensemble des documentations sur l'extension Physiocap pour Qgis:
 * [Installation & usage](https://github.com/jhemmi/QgisPhysiocapPlugin/wiki/Qgis-Physiocap-Plugin-usage-&-installation)
 * [Versions](https://github.com/jhemmi/QgisPhysiocapPlugin/wiki/Versions-en-cours-et-%C3%A0-venir)
 * [Etat des tests](https://github.com/jhemmi/QgisPhysiocapPlugin/wiki/Etat-des-tests)
+
+_Pour imprimer ces documents, utiliser l'impression de votre navigateur._
