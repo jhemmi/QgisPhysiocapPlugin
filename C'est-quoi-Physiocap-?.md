@@ -1,5 +1,5 @@
 ### L'essentiel
-Physiocap est un capteur qui mesure le diamètre des sarments d'une vigne.
+Physiocap est un capteur géolocalise des mesures de diamètre des sarments d'une vigne.
 L'extension (plugin) **Physiocap pour Qgis n'intéresse que le métier "Agronomie de la vigne"**. 
 
 Le concept a été défini par le CIVC et industrialisé par Ereca qui s'appuie sur son boitier Tiny.
