@@ -7,13 +7,14 @@ Pour mieux connaitre Qgis, vous pouvez consulter [une petite introduction sur le
 
 Ouvrir le fichier zip envoyé par jhemmi.eu ou télécharger depuis gitHub.
 
-Extraire le contenu de "Qgis Physiocap Plugin zip" dans $HOME/.qgis2/python/plugins 
-$HOME est le chemin à vos données utilisateur :
-- sous Windows >= 7, il s'agit du chemin c:/Utilisateur/votre_propre_nom_utilisateur par exemple pour l’utilisateur "toto" le chemin devient c:/Utilisateur/toto/.qgis2/python/plugins
+Extraire le répertoire contenu de "Qgis Physiocap Plugin zip" dans $HOME/.qgis2/python/plugins
+* Si vous n'avez jamais installé aucune extension sous Qgis, il faut créer le répertoire "plugins".
+* $HOME est le chemin à vos données utilisateur :
+- sous Windows >= 7, il s'agit du chemin C:\Utilisateur\votre_propre_nom_utilisateur par exemple pour l’utilisateur "toto" le chemin devient C:\Utilisateur\toto\.qgis2\python\plugins
+- sous Windows < 7, l'exemple devient C:\Documents and Settings\toto\.qgis2\python\plugins
+- sous Linux, l'exemple devient /home/toto/.qgis2/python/plugins
 
-Si vous n'avez jamais installé aucune extension sous Qgis, il faut créer le répertoire "plugins".
-
-Renommer le nouveau répertoire en PhysiocapAnalyseur.
+Renommer le nouveau répertoire "QgisPhysiocapPlugin-1.X.X" en "PhysiocapAnalyseur".
 
 Relancer Qgis. Dans la barre d'outils, l'icone !["Phy"](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/icon.png) permet de lancer Physiocap Analyseur. Dans le menu Extension, le menu Physiocap permet aussi d’accéder à Physiocap Analyseur.
 
