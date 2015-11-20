@@ -38,8 +38,8 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>10</y>
+     <x>0</x>
+     <y>0</y>
      <width>551</width>
      <height>621</height>
     </rect>
@@ -785,22 +785,6 @@
     <attribute name="title">
      <string>Inter</string>
     </attribute>
-    <widget class="QLabel" name="label_60">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>10</y>
-       <width>311</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;Version 1.2.2 : module inter-parcellaire&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
-    </widget>
     <widget class="QGroupBox" name="groupBoxInter">
      <property name="geometry">
       <rect>
@@ -819,59 +803,6 @@
      <property name="title">
       <string/>
      </property>
-     <widget class="QPushButton" name="ButtonInter">
-      <property name="geometry">
-       <rect>
-        <x>60</x>
-        <y>170</y>
-        <width>461</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="palette">
-       <palette>
-        <active>
-         <colorrole role="WindowText">
-          <brush brushstyle="SolidPattern">
-           <color alpha="255">
-            <red>0</red>
-            <green>85</green>
-            <blue>255</blue>
-           </color>
-          </brush>
-         </colorrole>
-        </active>
-        <inactive>
-         <colorrole role="WindowText">
-          <brush brushstyle="SolidPattern">
-           <color alpha="255">
-            <red>0</red>
-            <green>85</green>
-            <blue>255</blue>
-           </color>
-          </brush>
-         </colorrole>
-        </inactive>
-        <disabled>
-         <colorrole role="WindowText">
-          <brush brushstyle="SolidPattern">
-           <color alpha="255">
-            <red>143</red>
-            <green>146</green>
-            <blue>147</blue>
-           </color>
-          </brush>
-         </colorrole>
-        </disabled>
-       </palette>
-      </property>
-      <property name="autoFillBackground">
-       <bool>true</bool>
-      </property>
-      <property name="text">
-       <string>Moyennes Inter Parcellaires (sarment, diamètre, vitesse et biomasse)</string>
-      </property>
-     </widget>
      <widget class="QComboBox" name="comboBoxPoints">
       <property name="geometry">
        <rect>
@@ -974,6 +905,59 @@
        <string>Dans la Moyenne Inter Parcellaire, ce champ se nomme NOM_PHY</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="ButtonInter">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>170</y>
+        <width>461</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="palette">
+       <palette>
+        <active>
+         <colorrole role="WindowText">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>0</red>
+            <green>85</green>
+            <blue>255</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </active>
+        <inactive>
+         <colorrole role="WindowText">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>0</red>
+            <green>85</green>
+            <blue>255</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </inactive>
+        <disabled>
+         <colorrole role="WindowText">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>143</red>
+            <green>146</green>
+            <blue>147</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </disabled>
+       </palette>
+      </property>
+      <property name="autoFillBackground">
+       <bool>true</bool>
+      </property>
+      <property name="text">
+       <string>Moyennes Inter Parcellaires (sarment, diamètre, vitesse et biomasse)</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QPushButton" name="ButtonInterRefresh">
      <property name="geometry">
@@ -1011,7 +995,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Version 1.2.2</string>
+      <string>Version 1.2.3</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_100">
