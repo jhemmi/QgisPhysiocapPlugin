@@ -16,6 +16,9 @@ Pour la **Version 1.1.5** (début novembre), voici les évolutions majeures :
 
 Pour la **Version 1.2.0 puis 1.2.2** (mi novembre), voici l'évolution majeure :
 - Comparaison Inter parcellaire : extractions à partir d'un contour de parcelles des valeurs moyennes : sarment/m2, diamètre et biomasse. On extrait aussi les points de mesures contenus dans chaque parcelle.
+
+Pour la **Version 1.2.3**, une couche moyennes d'une parcelle n'est pas créé. La création de cette couche sera optionnelle à partir de 1.3
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Évolutions prévues pour la **Version 1.5** (fin décembre 2015)
 * Composeur de compte rendu pour l'inter et l'intra parcellaire.
