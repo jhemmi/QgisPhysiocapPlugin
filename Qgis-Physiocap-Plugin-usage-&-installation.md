@@ -3,7 +3,7 @@ Qgis Physiocap Extension installation & utilisation (version 1.2.3)
 Voici la documentation de l'extension Physiocap pour Qgis qui permet de traiter les données brutes du capteur Physiocap et de visualiser les résultats filtrés sous Qgis. A partir de la version 1.2.2, activation du calcul des moyennes inter parcellaire à partir de votre contour de parcelles.
 Pour mieux connaitre Qgis, vous pouvez consulter [une petite introduction sur les SIG](http://docs.qgis.org/testing/en/docs/gentle_gis_introduction/index.html) ou [le Manuel Utilisateur de Qgis.](http://docs.qgis.org/2.8/fr/docs/user_manual/)
 
-### Installation de l'extension (plugin) 
+## Installation de l'extension (plugin) 
 
 Ouvrir le fichier zip envoyé par jhemmi.eu ou télécharger depuis gitHub.
 
@@ -25,9 +25,9 @@ Note : l'extension tourne sous Qgis 2.x. Aucune installation de librairie Python
 
 L'extension n'est pas encore déposé sous le dépôt standard Qgis.
 
-### Utilisation
+## Utilisation
 
-## Vos repères et outils
+### Vos repères et outils
 A tout moment vous pouvez accéder aux boutons : 
 * "Aide" pour retrouver les liens vers la documentation de l'extension Physiocap.
 * "Fermer" pour quitter l'extension 
@@ -38,7 +38,7 @@ Dans la log Qgis, deux onglets (Physiocap Information - visible au tiers haut da
 
 Pour activer Physiocap Analyseur,ouvrir Qgis & activer l'icone Physiocap (en haut à gauche sur la copie d'écran de l'onglet Paramètres). Vous pouvez aussi utiliser le menu Extension et le sous menu Physiocap. Dans le dialogue Physiocap, vous pouvez accéder aux onglets Paramètres, Synthèse, Histogrammes, Inter, A propos.
 
-## Onglet Paramètres
+### Onglet Paramètres
 ![Onglet Paramètres](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Version%201.2%20Parametres.png)
 
 Dans l'onglet Paramètres (visible à droite dans la copie d'écran ci dessus), vous pouvez préciser vos paramètres  pour les calculs : 
@@ -56,7 +56,7 @@ La sauvegarde des derniers paramètres saisies est effectuée à chaque exécuti
 
 _La barre d'avancement indique 100 % à la fin des traitements._
 
-## Organisation des fichiers
+### Organisation des fichiers
 Cette description n'est pas à connaitre, car vous retrouvez l'ensemble de ces données directement dans les onglets. Durant l'exécution, l'extension crée le répertoire "Nom projet Physiocap" (en cas d'existence du répertoire, il est créé un répertoire Nom projet Physiocap (puis Nom projet Physiocap(1), le plus haut chiffre est la dernière itération de calcul).
 Dans cette racine, l'extension crée les répertoires et les fichiers suivants (même organisation et nommage que l'outil PHYSIOCAP_V8 du CIVC):
 ![Arbre de données](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Organisation%20des%20fichiers%20de%20chaque%20projet%20Physiocap.png)
@@ -74,16 +74,16 @@ Trois thématiques sont ouvertes dans Qgis et sont mises en forme avec les style
 * "Sarment 4 Jenks.qml" pour le shapefile filtré nom-projet-physiocap_L93.shp qui se nomme SARMENT 
 * "Diametre 6 Jenks.qml" pour le shapefile filtré nom-projet-physiocap_L93.shp qui se nomme DIAMETRE (copie d'écran de l'onglet Histogramme)
 
-## Onglet Synthèse
+### Onglet Synthèse
 Dans l'onglet Synthèse, vous pouvez consulter le "résultat" du dernier traitement effectué.
 ![Onglet Synthèse](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Version%201.2%20Synthese.png)
 La synthèse commence par une liste des MIDs pris en compte. Cette liste peut vous permettre d'identifier des doublons car pour chaque MID, il est présenté date et heure de début et fin de capture, moyenne de vitesse et sarment. Lorsque ces informations sont identiques, il s'agit de MID en doublons.
 
-## Onglet Histogrammes
+### Onglet Histogrammes
 Dans l'onglet Histogrammes, vous devez demander la création des histogrammes avant de lancer le traitement. Les derniers histogrammes sont affichés.
 ![Onglet Histogrammes](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/help/Version%201.2%20Histogrammes.png)
 
-## Onglet Inter
+### Onglet Inter
 Dans l'onglet Inter, vous devez rafraîchir la liste avant de demander le calcul des moyennes inter parcellaire à partir d'un contour des parcelles qui vous intéressent. 
 ***Le shapefile de Contour doit être ouvert dans Qgis - Menu Couche => Ajouter un vecteur et donnez le nom de votre shapefile de contour***. Choisissez un contour avec la même projection que celle demandée lors des traitements initiaux.
 Vous pouvez efficacement, vous appuyer sur le couche Vitesse pour dessiner vos contours. Une photo aérienne (accessible par l'extension "OpenLayers Plugin") est le meilleur support pour être précis au rang.
@@ -100,5 +100,5 @@ Dans panneaux de couches de Qgis :
 
 Le "projet Qgis" n'est pas sauvé, mais vous pouvez le faire vous même (à vous de gérer la conservation des répertoires de calcul et des shapefile utilisés).
 
-###  Vos retours et votre contribution
+##  Vos retours et votre contribution
 L'extension Physiocap pour Qgis est open source. Il est important de faire vos retours de tests [par courriel](mailto://jean@jhemmi.eu) au développeur ou directement de proposer des améliorations [sur le Wiki](https://github.com/jhemmi/QgisPhysiocapPlugin/issues). N'oubliez pas de [contribuer](https://plus.payname.fr/jhemmi?type=9xwqt) si l'extension vous est utile. Vous pourrez ainsi apparaître dans l'onglet "A propos".
