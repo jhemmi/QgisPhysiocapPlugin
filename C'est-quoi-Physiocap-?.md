@@ -6,7 +6,7 @@ Le concept a été défini par le CIVC et industrialisé par Ereca qui s'appuie 
 Physiocap est breveté en 2013 par le CIVC.
 
 ### Quelques détails sur le capteur
-Le capteur est embarqué sur un portique qui porte deux cellules (émettrice et réceptrice) qui traitent un rayon laser et réalise une mesure du diamètre des sarments. Il s'agit **de mesures directes de la fréquence et du diamètre des sarments : ** indicateurs fidèles de l'expression végétative et de la vigueur de la vigne.
+Le capteur est embarqué sur un portique qui porte deux cellules (émettrice et réceptrice) qui traitent un rayon laser et réalise une mesure du diamètre des sarments. Il s'agit de mesures directes de la fréquence et du diamètre des sarments : indicateurs fidèles de l'expression végétative et de la vigueur de la vigne.
 Chaque seconde, un GPS capture la position de chaque lot de mesures.
 Les différents fichiers bruts (MID de 15 minutes de capture) sont récupérés sur une clé USB.
 
