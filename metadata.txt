@@ -10,7 +10,7 @@
 name=Physiocap
 qgisMinimumVersion=2.0
 description=Physiocap plugin helps analysing raw data from 
-  Physiocap inside Qgis. This is a pluging dedicaded to  
+  Physiocap inside Qgis. This is a plugin dedicaded to 
   Physiocap users "Agronomist of the vine". 
   This version is available in French only. 
   Physiocap plugin aide à l'analyse des données brutes 
