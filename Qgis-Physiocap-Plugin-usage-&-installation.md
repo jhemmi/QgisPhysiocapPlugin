@@ -1,6 +1,6 @@
-Qgis Physiocap Extension installation & utilisation (version 1.2.2)
+Qgis Physiocap Extension installation & utilisation (version 1.2.3)
 
-Voici la documentation de l'extension Physiocap pour Qgis qui permet de traiter les données brutes du capteur Physiocap et de visualiser les résultats filtrés sous Qgis. La version 1.2.2 permet d'activer le calcul des moyennes inter parcellaire à partir de votre contour de parcelles.
+Voici la documentation de l'extension Physiocap pour Qgis qui permet de traiter les données brutes du capteur Physiocap et de visualiser les résultats filtrés sous Qgis. A partir de la version 1.2.2 activation du calcul des moyennes inter parcellaire à partir de votre contour de parcelles.
 Pour mieux connaitre Qgis, vous pouvez consulter [une petite introduction sur les SIG](http://docs.qgis.org/testing/en/docs/gentle_gis_introduction/index.html) ou [le Manuel Utilisateur de Qgis.](http://docs.qgis.org/2.8/fr/docs/user_manual/)
 
 ### Installation de l'extension (plugin) 
@@ -9,7 +9,8 @@ Ouvrir le fichier zip envoyé par jhemmi.eu ou télécharger depuis gitHub.
 
 Extraire le répertoire contenu dans "Qgis Physiocap Plugin zip" dans $HOME/.qgis2/python/plugins
 * Si vous n'avez jamais installé aucune extension sous Qgis, il faut créer le répertoire "plugins".
-* $HOME est le chemin à vos données utilisateur : 
+* $HOME est le chemin à vos données utilisateur :   
+
 == sous Windows >= 7, il s'agit du chemin C:\Utilisateur\votre_propre_nom_utilisateur par exemple pour l’utilisateur "toto" le chemin devient C:\Utilisateur\toto\.qgis2\python\plugins  
 == sous Windows < 7, l'exemple devient C:\Documents and Settings\toto\.qgis2\python\plugins  
 == sous Linux, l'exemple devient /home/toto/.qgis2/python/plugins  
