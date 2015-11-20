@@ -12,9 +12,11 @@ qgisMinimumVersion=2.0
 description=This plugin helps analysing raw data from 
   Physiocap inside Qgis. This is a plugin dedicaded
   to Physiocap users "Agronomist of the vine".
+  
   This version is available in French only.
-  Physiocap plugin aide à l'analyse des données brutes 
-  à l'intérieur de Qgis. Il est dédié aux 
+  
+  Cette extension aide à l'analyse des données brutes 
+  de Physiocap sans quitter Qgis. Il est dédié aux 
   utilisateurs de Physiocap "Agronome de la vigne"
 about= Physiocap est un capteur qui géolocalise des mesures de
   diamètre des sarments d'une vigne. L'extension (plugin) 
