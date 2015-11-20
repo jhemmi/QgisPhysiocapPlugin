@@ -11,9 +11,9 @@ Extraire le répertoire contenu dans "Qgis Physiocap Plugin zip" dans $HOME/.qgi
 * Si vous n'avez jamais installé aucune extension sous Qgis, il faut créer le répertoire "plugins".
 * $HOME est le chemin à vos données utilisateur : 
    
-+ sous Windows >= 7, il s'agit du chemin C:\Utilisateur\votre_propre_nom_utilisateur par exemple pour l’utilisateur "toto" le chemin devient C:\Utilisateur\toto\.qgis2\python\plugins
-+ sous Windows < 7, l'exemple devient C:\Documents and Settings\toto\.qgis2\python\plugins
-+ sous Linux, l'exemple devient /home/toto/.qgis2/python/plugins
+sous Windows >= 7, il s'agit du chemin C:\Utilisateur\votre_propre_nom_utilisateur par exemple pour l’utilisateur "toto" le chemin devient C:\Utilisateur\toto\.qgis2\python\plugins  
+sous Windows < 7, l'exemple devient C:\Documents and Settings\toto\.qgis2\python\plugins  
+sous Linux, l'exemple devient /home/toto/.qgis2/python/plugins  
 
 Renommer le nouveau répertoire "QgisPhysiocapPlugin-1.X.X" en "PhysiocapAnalyseur".
 
