@@ -43,7 +43,6 @@ data/PHY_*
 data/*OK
 data/*erreur
 print/
-scripts/
 i18n/
 pylintrc
 .gitignore~
