@@ -802,7 +802,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         # Fermerture du fichier source
         csv_concat.close()  
 
-        # Todo : V1.5 ? Gerer erreur par exception
+        # Todo : V1.5 ? Gerer cette erreur par exception
         if retour_filtre != 0:
             return physiocap_error(u"Erreur bloquante : problème lors du filtrage des données de : " + 
                     nom_court_csv_concat)  
@@ -892,6 +892,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.progressBar.setValue( 95)
         
         # Creer un groupe pour cette analyse
+        # Todo : V2.4 ? OK
         root = QgsProject.instance().layerTreeRoot( )
         # Nommmer le groupe chemin_base_projet
         sous_groupe = root.addGroup( chemin_base_projet)

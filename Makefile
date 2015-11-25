@@ -98,8 +98,7 @@ compile: $(COMPILED_RESOURCE_FILES)
 %.qm : %.ts
 	$(LRELEASE) $<
 
-test: compile 
-#transcompile
+test: compile transcompile
 	@echo
 	@echo "----------------------"
 	@echo "Regression Test Suite"
@@ -110,10 +109,10 @@ test: compile
 	
 	@# Preceding dash means that make will continue in case of errors
 	@-export PYTHONPATH=`pwd`:$(PYTHONPATH); \
-	export QGIS_DEBUG=0; \
-	export QGIS_LOG_FILE=/dev/null; \
-	nosetests -v --with-id --with-coverage --cover-package=. \
-	3>&1 1>&2 2>&3 3>&- || true
+		export QGIS_DEBUG=0; \
+		export QGIS_LOG_FILE=/dev/null; \
+		nosetests -v --with-id --with-coverage --cover-package=. \
+		3>&1 1>&2 2>&3 3>&- || true
 	
 	@echo "-- FIN --------------------"
 	#@echo "If you get a 'no module named qgis.core error, try sourcing"
@@ -140,7 +139,7 @@ deploy: compile doc transcompile
 	@cp -vf $(UI_FILES) $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
 	@cp -vf $(COMPILED_RESOURCE_FILES) $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
 	cp -vf $(EXTRAS) $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
-	@cp -vfr i18n $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
+	#@cp -vfr i18n $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
 	@cp -vf $(HELP_FILES)  $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)/$(HELP)
 	@cp -vf $(DATA_FILES) $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)/$(DATA)
 	@cp -vf $(TEMPLATE)/* $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)/$(TEMPLATE)

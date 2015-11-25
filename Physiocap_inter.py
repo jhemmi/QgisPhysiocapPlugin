@@ -291,16 +291,17 @@ def physiocap_moyenne_InterParcelles( self):
             un_autre_ID = "PHY_ID" + str(id)
             geom_poly = un_contour.geometry() #get geometry of poly layer
             
-            # Todo : test validé geom_poly
+            # Todo : BUG CIVC test validé geom_poly
             
             #physiocap_log ( "Dans polygone geom multipart : " + str(geom_poly.wkbType()))
 ##            if geom_poly.wkbType() == QGis.WKBPolygon:
 ##                physiocap_log ( "c'est un polygone simple: " + un_nom)
 ##            if geom_poly.wkbType() == QGis.WKBMultiPolygon:
 ##                physiocap_log ( "c'est un polygone multiple: " + un_nom)
-                
+            
+            
             # Préfiltre dans un rectangle
-            les_geom_point_feat = []
+            #les_geom_point_feat = []
             les_dates = []
             les_GID = []
             les_vitesses = []
