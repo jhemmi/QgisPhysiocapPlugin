@@ -44,6 +44,7 @@ data/*OK
 data/*erreur
 print/
 i18n/
+.noseids
 pylintrc
 .gitignore~
 resources.qrc
@@ -66,7 +67,6 @@ htmlcov/
 .coverage
 .coverage.*
 .cache
-nosetests.xml
 coverage.xml
 *,cover
 
