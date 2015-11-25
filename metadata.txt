@@ -8,7 +8,7 @@
 
 [general]
 name=Physiocap
-qgisMinimumVersion=2.0
+qgisMinimumVersion=2.4
 description=This plugin helps analysing raw data from 
   Physiocap inside Qgis. This is a plugin dedicaded
   to Physiocap users "Agronomist of the vine".
