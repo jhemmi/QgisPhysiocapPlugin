@@ -290,6 +290,9 @@ def physiocap_moyenne_InterParcelles( self):
             
             un_autre_ID = "PHY_ID" + str(id)
             geom_poly = un_contour.geometry() #get geometry of poly layer
+            
+            # Todo : test validé geom_poly
+            
             #physiocap_log ( "Dans polygone geom multipart : " + str(geom_poly.wkbType()))
 ##            if geom_poly.wkbType() == QGis.WKBPolygon:
 ##                physiocap_log ( "c'est un polygone simple: " + un_nom)
