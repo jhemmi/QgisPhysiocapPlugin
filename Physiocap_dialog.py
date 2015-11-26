@@ -426,7 +426,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             physiocap_log(u"La recherche des MID fouille l'arbre de données")
         self.settings.setValue("Physiocap/recursif", recursif )
             
-        laProjection, EXT_SHP, EXT_PRJ, EPSG_NUMBER = physiocap_quelle_projection_demandee( self) 
+        laProjection, EXT_SHP, EXT_PRJ, EXT_RASTER, EPSG_NUMBER = physiocap_quelle_projection_demandee( self) 
         self.settings.setValue("Physiocap/laProjection", laProjection)
         physiocap_log(u"Projection des shapefiles demandée en " + laProjection)
            

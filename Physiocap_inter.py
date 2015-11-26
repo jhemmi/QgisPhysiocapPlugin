@@ -301,7 +301,7 @@ def physiocap_moyenne_InterParcelles( self):
             
             
             # Préfiltre dans un rectangle
-            #les_geom_point_feat = []
+            les_geom_point_feat = []
             les_dates = []
             les_GID = []
             les_vitesses = []
@@ -378,7 +378,7 @@ def physiocap_moyenne_InterParcelles( self):
 
                 
                 # Création du Shape moyenne et prj
-                laProjection, EXT_CRS_SHP, EXT_CRS_PRJ, EPSG_NUMBER = physiocap_quelle_projection_demandee(self)
+                laProjection, EXT_CRS_SHP, EXT_CRS_PRJ, EXT_CRS_RASTER, EPSG_NUMBER = physiocap_quelle_projection_demandee(self)
                 crs = QgsCoordinateReferenceSystem( EPSG_NUMBER, QgsCoordinateReferenceSystem.PostgisCrsId)
                 # vignette - nom_noeud_arbre + SEPARATEUR_
                 nom_court_vignette = nom_noeud_arbre + SEPARATEUR_ + un_nom + SEPARATEUR_ + NOM_MOYENNE + EXT_CRS_SHP     
@@ -441,7 +441,38 @@ def physiocap_moyenne_InterParcelles( self):
                     if ( os.path.exists( le_template_moyenne)):
                         vignette_vector.loadNamedStyle( le_template_moyenne)                                
                 if ( os.path.exists( le_template_point)):
-                    points_vector.loadNamedStyle( le_template_point)                                
+                    points_vector.loadNamedStyle( le_template_point)
+                
+                # Lancer Intra si demandé
+                if INTRA == "YES":
+                    import processing
+                    # ###################
+                    # CRÉATION raster
+                    # ###################
+                    nom_court_raster = nom_noeud_arbre + SEPARATEUR_ + un_nom + NOM_POINTS + EXT_CRS_RASTER
+                    nom_raster = physiocap_rename_existing_file( os.path.join( chemin_vignettes, nom_court_raster))        
+                
+                    physiocap_log( u"Avant Saga: " + str(nom_court_raster))
+                    field= "BIOM" 
+                    target = 0
+                    weighting = 1
+                    power=2
+                    range = 0
+                    bandwidth = 1
+                    radius = 10
+                    direction = 0
+                    mode = 0 
+                    points = 1
+                    npoints = 10
+                    user_size = 1
+                    output_extent = "431900.0,  432045.0, 6421159.0,  6421634.0"
+                    ma_grid = processing.runalg('saga:inversedistanceweighted', 
+                        nom_point, field, weighting, power, bandwidth, range, radius, 
+                        mode, points, npoints, output_extent, user_size, nom_raster)
+                    physiocap_log( u"apres Saga: " )
+                    QgsMapLayerRegistry.instance().addMapRaster( ma_grid)
+                    physiocap_log( u"Affichage Saga: " )
+                   
             else:
                 physiocap_log( u"Aucune point dans votre contour : " + str(un_nom) + 
                     ". Pas de comparaison inter parcellaire" )       
@@ -470,11 +501,9 @@ def physiocap_moyenne_InterParcelles( self):
             # Afficher ce contour_moyennes dans arbre "projet"
             nom_layer = nom_noeud_arbre + SEPARATEUR_ + NOM_MOYENNE + NOM_INTER
             contour_moyenne = QgsVectorLayer( nom_contour_moyenne, nom_layer, 'ogr')
-##            if contour_moyenne.isValid():
-##                physiocap_log( u"Contour moyenne valide")
-##            else:
-##                physiocap_log( u"Contour moyenne invalide")
-                
+            if contour_moyenne.isValid():
+                physiocap_log( u"Contour moyenne valide")
+              
             # On se positionne en haut de l'arbre
             QgsMapLayerRegistry.instance().addMapLayer( contour_moyenne)
             if ( os.path.exists( le_template_moyenne)):

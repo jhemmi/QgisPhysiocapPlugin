@@ -117,13 +117,15 @@ def physiocap_quelle_projection_demandee( self):
     if ( laProjection == PROJECTION_L93 ):
         EXTENSION_SHP = EXTENSION_SHP_L93
         EXTENSION_PRJ = EXTENSION_PRJ_L93
+        EXTENSION_RASTER = EXTENSION_RASTER_L93
         EPSG_NUMBER = EPSG_NUMBER_L93
     if ( laProjection == PROJECTION_GPS ):
         EXTENSION_SHP = EXTENSION_SHP_GPS
         EXTENSION_PRJ = EXTENSION_PRJ_GPS
+        EXTENSION_RASTER = EXTENSION_RASTER_GPS
         EPSG_NUMBER = EPSG_NUMBER_GPS
 
-    return laProjection, EXTENSION_SHP, EXTENSION_PRJ, EPSG_NUMBER
+    return laProjection, EXTENSION_SHP, EXTENSION_PRJ, EXTENSION_RASTER, EPSG_NUMBER
 
 def JH_rename_existing( chemin):
     """ Retourne le nom qu'il est possible de creer

@@ -31,6 +31,7 @@ Physiocap_dialog_base_save*.ui
 Physiocap*.zip
 Makefile~
 data (esquive)/
+test/Physiocap.conf
 dataChavot*/
 data Checker*/
 data Pulve*/
