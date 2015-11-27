@@ -42,9 +42,12 @@ import platform
 # Répertoire de base et projet
 PHYSIOCAP_TRACE = "Yes"
 CENTROIDES = "NO"
-SHAPE_MOYENNE_PAR_CONTOUR = "NO"
-# Todo : Parametre Intra
-INTRA = "YES"
+SHAPE_POINTS_PAR_CONTOUR = "YES"   #  "NO" ou "YES"  ou "CREATE_ONLY"
+SHAPE_MOYENNE_PAR_CONTOUR = "CREATE_ONLY"   #  "NO" ou "YES"  ou "CREATE_ONLY"
+# Todo : INTRA Parametre Intra dans Dialogue
+INTRA = "NO"
+if (( SHAPE_MOYENNE_PAR_CONTOUR == "YES") or ( SHAPE_MOYENNE_PAR_CONTOUR == "CREATE_ONLY")):
+    INTRA =  "YES"                                    #  "NO" ou "YES"  ou "CREATE_ONLY"
 
 REPERTOIRE_DONNEES_BRUTES = "/home/jhemmi/Documents/GIS/SCRIPT/QGIS/PhysiocapAnalyseur/data"
 PHYSIOCAP_NOM = "Physiocap"
@@ -84,7 +87,7 @@ PROJECTION_L93 = "L93"
 PROJECTION_GPS = "GPS"
 EXTENSION_SHP = ".shp"
 EXTENSION_PRJ = ".prj"
-EXTENSION_RASTER = ".grd"
+EXTENSION_RASTER = ".tif"
 
 
 EXTENSION_SHP_L93 = SEPARATEUR_  + PROJECTION_L93 + EXTENSION_SHP

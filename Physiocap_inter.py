@@ -103,8 +103,7 @@ def JH_vector_poly_or_point( vector):
             else:
                 return "Inconnu"
     except:
-        physiocap_log( "Warning Layer ni point, ni polygone : " + vector.id())
-        
+        #physiocap_log( "Warning Layer ni point, ni polygone : " + vector.id())
         pass
         # on evite les cas imprévus
         return "Inconnu"
@@ -155,8 +154,8 @@ def physiocap_fill_combo_poly_or_point( self, isRoot = None, node = None ):
                 node_layer = child.layerName() + SEPARATEUR_NOEUD + child.layerId()        
                 self.comboBoxPolygone.addItem( str(node_layer) )
                 nombre_poly = nombre_poly + 1
-            else:
-                physiocap_log( "- layer rejeté : " + child.layerName() + "  ID: " + child.layerId()) 
+            #else:
+                #physiocap_log( "- layer rejeté : " + child.layerName() + "  ID: " + child.layerId()) 
                 
             
     return nombre_poly, nombre_point
@@ -181,6 +180,7 @@ def physiocap_moyenne_InterParcelles( self):
     dir_template = os.path.join( os.path.dirname(__file__), 'modeleQgis')       
     le_template_moyenne = os.path.join( dir_template, "Moyenne Intra.qml")
     le_template_point = os.path.join( dir_template, "Diametre 6 Jenks.qml")
+    le_template_raster_diametre = os.path.join( dir_template, "IntraDIAM.qml")
  
     # Pour polygone de contour   
     nom_complet_poly = self.comboBoxPolygone.currentText().split( SEPARATEUR_NOEUD)
@@ -384,9 +384,9 @@ def physiocap_moyenne_InterParcelles( self):
                 nom_court_vignette = nom_noeud_arbre + SEPARATEUR_ + un_nom + SEPARATEUR_ + NOM_MOYENNE + EXT_CRS_SHP     
                 nom_court_prj = nom_noeud_arbre + SEPARATEUR_ + un_nom + SEPARATEUR_ + NOM_MOYENNE + EXT_CRS_PRJ     
                 #physiocap_log( u"== Vignette court : " + nom_court_vignette )       
-                if SHAPE_MOYENNE_PAR_CONTOUR == "YES":
-                    nom_vignette = physiocap_rename_existing_file( os.path.join( chemin_vignettes, nom_court_vignette))        
-                    nom_prj = physiocap_rename_existing_file( os.path.join( chemin_vignettes, nom_court_prj))        
+                nom_vignette = physiocap_rename_existing_file( os.path.join( chemin_vignettes, nom_court_vignette))        
+                nom_prj = physiocap_rename_existing_file( os.path.join( chemin_vignettes, nom_court_prj))        
+                if (( SHAPE_MOYENNE_PAR_CONTOUR == "YES") or (SHAPE_MOYENNE_PAR_CONTOUR == "CREATE_ONLY")):
                     physiocap_moyenne_vers_vignette( crs, nom_vignette, nom_prj, 
                         geom_poly, un_nom, un_autre_ID, date_debut, heure_fin,
                         moyenne_vitesse, moyenne_sar, moyenne_dia, moyenne_biom, 
@@ -415,64 +415,87 @@ def physiocap_moyenne_InterParcelles( self):
                 nom_point = physiocap_rename_existing_file( os.path.join( chemin_vignettes, nom_court_point))        
                 nom_point_prj = physiocap_rename_existing_file( os.path.join( chemin_vignettes, nom_court_point_prj))        
                 
-                physiocap_moyenne_vers_point( crs, nom_point, nom_point_prj, 
-                    les_geom_point_feat, les_GID, les_dates, 
-                    les_vitesses, les_sarments, les_diametres, les_biom, 
-                    les_biomgm2, details)
+                if (( SHAPE_POINTS_PAR_CONTOUR == "YES") or (SHAPE_POINTS_PAR_CONTOUR == "CREATE_ONLY")):
+                    physiocap_moyenne_vers_point( crs, nom_point, nom_point_prj, 
+                        les_geom_point_feat, les_GID, les_dates, 
+                        les_vitesses, les_sarments, les_diametres, les_biom, 
+                        les_biomgm2, details)
                 
                 # Affichage dans arbre "vignettes"
                 if SHAPE_MOYENNE_PAR_CONTOUR == "YES":
                     vignette_vector = QgsVectorLayer( nom_vignette, nom_court_vignette, 'ogr')
-                points_vector = QgsVectorLayer( nom_point, nom_court_point, 'ogr')
+                if SHAPE_POINTS_PAR_CONTOUR == "YES":
+                    points_vector = QgsVectorLayer( nom_point, nom_court_point, 'ogr')
                 if vignette_group != None:
                     if SHAPE_MOYENNE_PAR_CONTOUR == "YES":
                         QgsMapLayerRegistry.instance().addMapLayer( vignette_vector, False)
-                    QgsMapLayerRegistry.instance().addMapLayer( points_vector, False)
-                    # Ajouter le vecteur dans un groupe
-                    if SHAPE_MOYENNE_PAR_CONTOUR == "YES":
                         vector_node = vignette_group.addLayer( vignette_vector)
-                    vector_point_node = vignette_group.addLayer( points_vector)
+                    if SHAPE_POINTS_PAR_CONTOUR == "YES":
+                        QgsMapLayerRegistry.instance().addMapLayer( points_vector, False)
+                    # Ajouter le vecteur dans un groupe
+                        vector_point_node = vignette_group.addLayer( points_vector)
                 else:
                     if SHAPE_MOYENNE_PAR_CONTOUR == "YES":
                         QgsMapLayerRegistry.instance().addMapLayer( vignette_vector)
-                    QgsMapLayerRegistry.instance().addMapLayer( points_vector)
+                    if SHAPE_POINTS_PAR_CONTOUR == "YES":
+                        QgsMapLayerRegistry.instance().addMapLayer( points_vector)
                 # Mise en action du template
                 if SHAPE_MOYENNE_PAR_CONTOUR == "YES":
                     if ( os.path.exists( le_template_moyenne)):
                         vignette_vector.loadNamedStyle( le_template_moyenne)                                
-                if ( os.path.exists( le_template_point)):
-                    points_vector.loadNamedStyle( le_template_point)
+                if SHAPE_POINTS_PAR_CONTOUR == "YES":
+                    if ( os.path.exists( le_template_point)):
+                        points_vector.loadNamedStyle( le_template_point)
                 
                 # Lancer Intra si demandé
-                if INTRA == "YES":
+                if (( INTRA == "YES") or (INTRA == "CREATE_ONLY")):
                     import processing
                     # ###################
                     # CRÉATION raster
                     # ###################
                     nom_court_raster = nom_noeud_arbre + SEPARATEUR_ + un_nom + NOM_POINTS + EXT_CRS_RASTER
-                    nom_raster = physiocap_rename_existing_file( os.path.join( chemin_vignettes, nom_court_raster))        
-                
-                    physiocap_log( u"Avant Saga: " + str(nom_court_raster))
-                    field= "BIOM" 
-                    target = 0
-                    weighting = 1
+                    nom_raster =  os.path.join( chemin_vignettes, nom_court_raster) # inutile physiocap_rename_existing_file()        
+
+                    # Todo : INTRA Mettre ces attribut dans le dialogue                
+                    physiocap_log( u"Avant Gdal: " + str(nom_court_raster))
+                    field= "DIAM" 
                     power=2
-                    range = 0
-                    bandwidth = 1
-                    radius = 10
-                    direction = 0
-                    mode = 0 
+                    smooth = 2
+                    rayon = 0
+                    angle = 0
+                    point = 0
+                    val_null = 0
+                    premier_raster = processing.runalg("gdalogr:gridinvdist",
+                        nom_point, field, power, smooth, rayon, rayon, angle, point, point, val_null ,5, 
+                        None)
                     
-                    points = 1
-                    npoints = 10
-                    user_size = 1
-                    output_extent = "431900.0,  432045.0, 6421159.0,  6421634.0"
-                    ma_grid = processing.runalg('saga:inversedistanceweighted', 
-                        nom_point, field, weighting, power, bandwidth, range, radius, 
-                        mode, points, npoints, output_extent, user_size, nom_raster)
-                    physiocap_log( u"apres Saga: " )
-                    QgsMapLayerRegistry.instance().addMapRaster( ma_grid)
-                    physiocap_log( u"Affichage Saga: " )
+                    
+                    # Todo : INTRA Vérifier si ESPG est bien sur les SHP
+                    
+                    # Todo : INTRA Vérifier si GPS a-t-on besoin de cette translation                    
+                    if ( EPSG_NUMBER == EPSG_NUMBER_L93 ):
+                        physiocap_log( u"Projection à translater vers : " + str( EPSG_NUMBER) )
+                        crs_L93 = QgsCoordinateReferenceSystem( EPSG_NUMBER_L93, QgsCoordinateReferenceSystem.PostgisCrsId)
+                        crs_COURANT = QgsCoordinateReferenceSystem( EPSG_NUMBER, QgsCoordinateReferenceSystem.PostgisCrsId)
+##                        deuxieme_raster =  processing.runalg("gdalogr:cliprasterbymasklayer",
+##                        premier_raster[ 'OUTPUT'],
+                        
+                    raster_dans_poly = processing.runalg("gdalogr:cliprasterbymasklayer",
+                        premier_raster[ 'OUTPUT'],
+                        nom_vignette,
+                        "-9999",False,False,"", 
+                        nom_raster)
+                    physiocap_log( u"apres gdal clip: " + str( raster_dans_poly[ 'OUTPUT']))
+                        
+                    # Affichage dans panneau Qgis                           
+                    if (INTRA == "YES"):
+                        intra_raster = QgsRasterLayer( raster_dans_poly[ 'OUTPUT'], 
+                            "INTRA_" + nom_court_vignette)
+                        QgsMapLayerRegistry.instance().addMapLayer( intra_raster)
+                        physiocap_log( u"Affichage INTRA Qgis: OK " )
+                        if ( os.path.exists( le_template_raster_diametre)):
+                            intra_raster.loadNamedStyle( le_template_raster_diametre)
+                            physiocap_log( u"Template INTRA Qgis: OK " )
                    
             else:
                 physiocap_log( u"Aucune point dans votre contour : " + str(un_nom) + 
@@ -685,14 +708,3 @@ def physiocap_moyenne_vers_point( crs, nom_point, nom_prj,
     #physiocap_log( u"Fin point :")
     return 0
 
-#Example d'appel de processing
-##import processing
-##layers = QgsMapLayerRegistry.instance().mapLayers().values()
-##outputLayers=[]
-##
-##for layer in layers:
-##    i = layer.name().split("_")[-1]
-##    processing.runalg('qgis:lineintersections', layer, layer, 'id', 'id', 'C:/Phoenix/intersection_%s.shp' % (i))
-##    outputLayers.append(QgsVectorLayer('C:/Phoenix/intersection_%s.shp' % (i) , 'intersection_%s' % (i), "ogr"))
-##
-##QgsMapLayerRegistry.instance().addMapLayers( outputLayers )
