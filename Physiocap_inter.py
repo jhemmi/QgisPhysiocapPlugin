@@ -462,6 +462,7 @@ def physiocap_moyenne_InterParcelles( self):
                     radius = 10
                     direction = 0
                     mode = 0 
+                    
                     points = 1
                     npoints = 10
                     user_size = 1
