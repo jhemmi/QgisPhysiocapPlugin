@@ -892,7 +892,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.progressBar.setValue( 95)
         
         # Creer un groupe pour cette analyse
-        # Todo : V2.4 ? OK
+        # Attention il faut qgis > 2.4 metadata demande V2.4 mini
         root = QgsProject.instance().layerTreeRoot( )
         # Nommmer le groupe chemin_base_projet
         sous_groupe = root.addGroup( chemin_base_projet)
