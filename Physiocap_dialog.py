@@ -646,7 +646,8 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             return physiocap_error( uMsg)
         
         # Création la première partie du fichier de synthèse
-        nom_fichier_synthese, fichier_synthese = physiocap_open_file( FICHIER_RESULTAT, chemin_projet , "w")
+        fichier_resultat_analyse = chemin_base_projet + SEPARATEUR_ + FICHIER_RESULTAT
+        nom_fichier_synthese, fichier_synthese = physiocap_open_file( fichier_resultat_analyse, chemin_projet , "w")
         fichier_synthese.write( "SYNTHESE PHYSIOCAP\n\n")
         fichier_synthese.write( "Générée le : ")
         a_time = time.strftime( "%d/%m/%y %H:%M\n",time.localtime())
@@ -654,7 +655,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         fichier_synthese.write( "Répertoire de base ")
         fichier_synthese.write( chemin_base_projet + "\n")
         fichier_synthese.write( "Nom des MID \t\t Date et heures\n=>Nb. Valeurs brutes\tVitesse km/h")
-        if (CENTROIDES == "YES"):
+        if (VERBOSE == "YES"):
             fichier_synthese.write("\nCentroïdes")
         fichier_synthese.write("\n")
         info_mid = physiocap_list_MID( REPERTOIRE_DONNEES_BRUTES, listeTriee)
@@ -662,7 +663,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             info = all_info.split(";")
             fichier_synthese.write( str(info[0]) + "\t" + str(info[1]) + "->" + str(info[2])+ "\n")
             fichier_synthese.write( "=>\t" +str(info[3]) + "\t" + str(info[4]))
-            if (CENTROIDES == "YES"):
+            if (VERBOSE == "YES"):
                 fichier_synthese.write( "\n" + str(info[5]) + "--" + str(info[6]))
             fichier_synthese.write("\n")
 ##        nom_mid = ""
@@ -899,10 +900,17 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         
         # Récupérer des styles pour chaque shape
         dirTemplate = os.path.join( os.path.dirname(__file__), 'modeleQgis')       
-        # Affichage des deux shapes dans Qgis
-        for shapename, titre,unTemplate   in [(nom_shape_sans_0, 'DIAMETRE', 'Diametre 6 Jenks.qml') , 
+        # Affichage des différents shapes dans Qgis
+        if (VERBOSE == "YES"):
+            SHAPE_A_AFFICHER = [(nom_shape_sans_0, 'DIAMETRE', 'Diametre 6 Jenks.qml') , 
                         (nom_shape_sans_0, 'SARMENT', 'Sarments 4 Jenks.qml') , 
-                        (nom_shape_avec_0, 'VITESSE', 'Vitesse.qml')]:
+                        (nom_shape_avec_0, 'VITESSE', 'Vitesse.qml')]
+        else:
+            SHAPE_A_AFFICHER = [(nom_shape_sans_0, 'DIAMETRE', 'Diametre 6 Jenks.qml') , 
+                        (nom_shape_sans_0, 'SARMENT', 'Sarments 4 Jenks.qml')]
+
+        
+        for shapename, titre, unTemplate in SHAPE_A_AFFICHER:
             vector = QgsVectorLayer( shapename, titre, 'ogr')
             QgsMapLayerRegistry.instance().addMapLayer( vector, False)
             # Ajouter le vecteur dans un groupe

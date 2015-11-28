@@ -59,14 +59,12 @@ try :
     import csv
 except ImportError:
     aText = "Erreur bloquante : module csv n'est pas accessible." 
-    print( aText)
     QgsMessageLog.logMessage( aText, "Physiocap erreurs", QgsMessageLog.WARNING)
     
 try :
     from osgeo import osr
 except ImportError:
     aText = "Erreur bloquante : module GDAL osr n'est pas accessible." 
-    print( aText)
     QgsMessageLog.logMessage( aText, "Physiocap erreurs", QgsMessageLog.WARNING)
     
 try :
@@ -76,14 +74,12 @@ try :
 except ImportError:
     aText ="Erreur bloquante : module matplotlib.pyplot n'est pas accessible\n" 
     aText = aText + "Sous Fedora : installez python-matplotlib-qt4" 
-    print( aText)
     QgsMessageLog.logMessage( aText, "Physiocap erreurs", QgsMessageLog.WARNING)
     
 try :
     import numpy as np
 except ImportError:
     aText ="Erreur bloquante : module numpy n'est pas accessible" 
-    print( aText)
     QgsMessageLog.logMessage( aText, "Physiocap erreurs", QgsMessageLog.WARNING)
 
 def physiocap_csv_vers_shapefile( self, progress_barre, csv_name, shape_name, prj_name, laProjection, 

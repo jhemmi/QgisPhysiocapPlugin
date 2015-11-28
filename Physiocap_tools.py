@@ -74,7 +74,7 @@ def physiocap_question_box( self, text="Etes-vous sûr(e) ?" , title = "Physioca
 
 def physiocap_log( aText, level ="INFO"):
     """Send a text to the Physiocap log"""
-    if PHYSIOCAP_TRACE == "Yes":
+    if PHYSIOCAP_TRACE == "YES":
         if level == "WARNING":
             QgsMessageLog.logMessage( aText, "Physiocap informations", QgsMessageLog.WARNING)
         else:

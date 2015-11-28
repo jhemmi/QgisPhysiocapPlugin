@@ -40,14 +40,17 @@ import platform
 # Ces variables sont nommées en Francais par compatibilité avec la version physiocap_V8
 # dont les fonctions de calcul sont conservé à l'identique
 # Répertoire de base et projet
-PHYSIOCAP_TRACE = "Yes"
-CENTROIDES = "NO"
+PHYSIOCAP_TRACE = "YES"
+# En prod Verbose vaut NO
+VERBOSE = "NO"  # Verbose YES est pour voir dans panneau ou synthèse tout ce qui est crée
 SHAPE_POINTS_PAR_CONTOUR = "YES"   #  "NO" ou "YES"  ou "CREATE_ONLY"
 SHAPE_MOYENNE_PAR_CONTOUR = "CREATE_ONLY"   #  "NO" ou "YES"  ou "CREATE_ONLY"
+
 # Todo : INTRA Parametre Intra dans Dialogue
 INTRA = "NO"
 if (( SHAPE_MOYENNE_PAR_CONTOUR == "YES") or ( SHAPE_MOYENNE_PAR_CONTOUR == "CREATE_ONLY")):
     INTRA =  "YES"                                    #  "NO" ou "YES"  ou "CREATE_ONLY"
+
 
 REPERTOIRE_DONNEES_BRUTES = "/home/jhemmi/Documents/GIS/SCRIPT/QGIS/PhysiocapAnalyseur/data"
 PHYSIOCAP_NOM = "Physiocap"
@@ -60,7 +63,7 @@ TAILLES = [ "Inconnue", "Chablis", "Guyot simple", "Guyot double", "Cordon de Ro
 FORMAT_VECTEUR = [ "ESRI Shapefile"] #, "postgres", "memory"]
 
 # Répertoires des sources et de concaténation en fichiers texte
-FICHIER_RESULTAT = NOM_PROJET  + SEPARATEUR_ + "resultat.txt"
+FICHIER_RESULTAT = "resultat.txt"
 REPERTOIRE_SOURCES = "fichiers_sources"
 SUFFIXE_BRUT_CSV = SEPARATEUR_ + "RAW.csv"
 EXTENSION_MID = "*.MID"
@@ -118,6 +121,11 @@ NOM_MOYENNE = "MOYENNE"
 VIGNETTES_INTER = "INTER_PARCELLAIRE"
 NOM_POINTS = SEPARATEUR_ + "POINTS"
 NOM_INTER = SEPARATEUR_ + "INTER"
+
+# Inter PARCELLAIRE
+VIGNETTES_INTRA = "INTRA_PARCELLAIRE"
+NOM_INTRA = SEPARATEUR_ + "INTRA"
+REPERTOIRE_RASTERS = "raster"
 
 # Exceptions Physiocap 
 ERREUR_EXCEPTION = u"Physiocap n'a pas correctement terminé son analyse"
