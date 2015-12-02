@@ -525,12 +525,11 @@ def physiocap_moyenne_InterParcelles( self):
                     # Appel SAGA
                     physiocap_log( u"Interpolation SAGA : " + str( nom_court_raster))
                     premier_raster = processing.runalg("saga:inversedistanceweighted",
-                        nom_point, field, 0, 1, powerIntra, 0, 1,rayonIntra, 0, 0,
-                        isoMax, (None,None,None,None), pixelIntra,
+                        nom_point, field, 1, powerIntra, 1, 0,rayonIntra, 0, 0,
+                        isoMax, (0,0,0,0), pixelIntra,
                         None)                        
-                    if ( str( list( premier_raster) == "Output")):
-                        if str( premier_raster[ 'OUTPUT']) != None:
-                            physiocap_log( u"premier fichier SAGA : " + str( premier_raster[ 'OUTPUT']))
+                    if (  premier_raster != None):
+                        physiocap_log( u"premier fichier SAGA : " + str( premier_raster))
                 else:
                     physiocap_log( u"Interpolation GDAL : " + str( nom_court_raster))
                     premier_raster = processing.runalg("gdalogr:gridinvdist",
