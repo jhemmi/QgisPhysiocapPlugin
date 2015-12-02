@@ -905,19 +905,6 @@
        <string>Dans la Moyenne Inter Parcellaire, ce champ se nomme NOM_PHY</string>
       </property>
      </widget>
-     <widget class="QCheckBox" name="checkBoxRecursif_2">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>50</y>
-        <width>431</width>
-        <height>26</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Afficher chaque sh entité</string>
-      </property>
-     </widget>
     </widget>
     <widget class="QPushButton" name="ButtonInterRefresh">
      <property name="geometry">
@@ -1097,31 +1084,6 @@
       </property>
       <property name="text">
        <string>Paramètres de l'interpolation </string>
-      </property>
-     </widget>
-     <widget class="QSpinBox" name="spinBoxPixel">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>310</x>
-        <y>130</y>
-        <width>51</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="minimum">
-       <number>0</number>
-      </property>
-      <property name="maximum">
-       <number>25</number>
-      </property>
-      <property name="singleStep">
-       <number>1</number>
-      </property>
-      <property name="value">
-       <number>1</number>
       </property>
      </widget>
      <widget class="QLabel" name="lab_77">
@@ -1465,6 +1427,31 @@
       </property>
       <property name="text">
        <string>Choisir votre méthode d'interpolation</string>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="spinBoxPixel">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>130</y>
+        <width>61</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>1</number>
+      </property>
+      <property name="minimum">
+       <double>0.200000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>5.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
       </property>
      </widget>
     </widget>

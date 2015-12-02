@@ -534,6 +534,20 @@ def physiocap_moyenne_InterParcelles( self):
                             if str( premier_raster[ 'USER_GRID']) != None:
                                 physiocap_log( u"premier fichier SAGA : " + str( premier_raster[ 'USER_GRID']))
                                 nom_raster_temp =  str( premier_raster[ 'USER_GRID'])
+                                
+                    if ( nom_raster_temp != ""):
+                        #physiocap_log( u"Option du clip: " + option_clip_raster )
+                        raster_dans_poly = processing.runalg("saga:clipgridwithpolygon",
+                        nom_raster_temp,
+                        nom_vignette,
+                        nom_raster)
+                    
+                    if (  raster_dans_poly != None):
+                        physiocap_log( u"Fin interpolation dans : " + str( raster_dans_poly))
+                        # Todo : Intégrer Isolignes 
+                               
+                        else:
+                            raise physiocap_exception_interpolation( nom_point)                    
                 else:
                     physiocap_log( u"Interpolation GDAL : " + str( nom_court_raster))
                     premier_raster = processing.runalg("gdalogr:gridinvdist",
@@ -546,8 +560,6 @@ def physiocap_moyenne_InterParcelles( self):
                                 physiocap_log( u"premier fichier GDAL : " + str( premier_raster[ 'OUTPUT']))
                                 nom_raster_temp =  str( premier_raster[ 'OUTPUT'])
 
-                try:
-                    # Todo : INTRA vérifier si meme rayon pour elipse = cercle                               
                     # Todo : INTRA Vérifier si GPS pas besoin de cette translation                    
                     option_clip_raster = ""
                     if ( EPSG_NUMBER == EPSG_NUMBER_L93 ):
@@ -563,18 +575,21 @@ def physiocap_moyenne_InterParcelles( self):
                         "-9999",False,False,
                         option_clip_raster, 
                         nom_raster)
-                        
-                    if ( str( list( raster_dans_poly) == "Output")):
-                        if str( raster_dans_poly[ 'OUTPUT']) != None:
-                            physiocap_log( u"Fin interpolation dans : " + str( raster_dans_poly[ 'OUTPUT']))
-                            # Todo : Intégrer Isolignes 
+  
+                    if (  raster_dans_poly != None):
+                        if ( str( list( raster_dans_poly) == "Output")):
+                            if str( raster_dans_poly[ 'OUTPUT']) != None:
+                                physiocap_log( u"Fin interpolation dans : " + str( raster_dans_poly[ 'OUTPUT']))
+                                # Todo : Intégrer Isolignes 
                                
                         else:
                             raise physiocap_exception_interpolation( nom_point)
                     
-                
-                except:
-                    raise physiocap_exception_interpolation( nom_point)
+
+##                try:
+##                                      
+##                except:
+##                    raise physiocap_exception_interpolation( nom_point)
 
                                                         
                 # Affichage dans panneau Qgis                           

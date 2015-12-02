@@ -63,8 +63,9 @@ import glob
 import shutil
 import time  
 
-FORM_CLASS, _ = uic.loadUiType(os.path.join(
-    os.path.dirname(__file__), 'Physiocap_dialog_base.ui'))
+import os
+
+FORM_CLASS, _ = uic.loadUiType(os.path.join( os.path.dirname(__file__), 'Physiocap_dialog_base.ui'))
 
 class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
     def __init__(self, parent=None):

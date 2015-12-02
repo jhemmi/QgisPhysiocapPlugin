@@ -44,7 +44,7 @@ PHYSIOCAP_TRACE = "YES"
 # En prod Verbose vaut NO
 VERBOSE = "NO"  # Verbose YES est pour voir dans panneau ou synthèse tout ce qui est crée
 SHAPE_POINTS_PAR_CONTOUR = "YES"   #  "NO" ou "YES"  ou "CREATE_ONLY"
-SHAPE_MOYENNE_PAR_CONTOUR = "CREATE_ONLY"   #  "NO" ou "YES"  ou "CREATE_ONLY"
+SHAPE_MOYENNE_PAR_CONTOUR = "YES"   #  "NO" ou "YES"  ou "CREATE_ONLY"
 
 # Todo : INTRA Parametre Intra provient du Dialogue
 INTRA = "NO"
