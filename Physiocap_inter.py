@@ -521,25 +521,25 @@ def physiocap_moyenne_InterParcelles( self):
                 float_32 = 5
                 
                 # Attraper les exceptions processing
+                if self.radioButtonSAGA.isChecked():
+                    # Appel SAGA
+                    physiocap_log( u"Interpolation SAGA : " + str( nom_court_raster))
+                    premier_raster = processing.runalg("saga:inversedistanceweighted",
+                        nom_point, field, 0, 1, powerIntra, 0, 1,rayonIntra, 0, 0,
+                        isoMax, (None,None,None,None), pixelIntra,
+                        None)                        
+                    if ( str( list( premier_raster) == "Output")):
+                        if str( premier_raster[ 'OUTPUT']) != None:
+                            physiocap_log( u"premier fichier SAGA : " + str( premier_raster[ 'OUTPUT']))
+                else:
+                    physiocap_log( u"Interpolation GDAL : " + str( nom_court_raster))
+                    premier_raster = processing.runalg("gdalogr:gridinvdist",
+                        nom_point, field, powerIntra, 0.0, rayonIntra, rayonIntra, 
+                        isoMax, isoMin, angle, val_nulle ,float_32, 
+                        None)
+ 
                 try:
-                    # Todo : INTRA vérifier si meme rayon pour elipse = cercle 
-                    if self.radioButtonSAGA.isChecked():
-                        # Appel SAGA
-                        physiocap_log( u"Interpolation SAGA : " + str( nom_court_raster))
-                        premier_raster = processing.runalg("saga:inversedistanceweighted",
-                            nom_point, field, 0, 1, powerIntra, 1, 0, rayonIntra, 0, 0,
-                            isoMax, None , pixelIntra,
-                            None)                        
-                        if ( str( list( premier_raster) == "Output")):
-                            if str( premier_raster[ 'OUTPUT']) != None:
-                                physiocap_log( u"premier fichier SAGA : " + str( premier_raster[ 'OUTPUT']))
-                    else:
-                        physiocap_log( u"Interpolation GDAL : " + str( nom_court_raster))
-                        premier_raster = processing.runalg("gdalogr:gridinvdist",
-                            nom_point, field, powerIntra, 0.0, rayonIntra, rayonIntra, 
-                            isoMax, isoMin, angle, val_nulle ,float_32, 
-                            None)
-                               
+                    # Todo : INTRA vérifier si meme rayon pour elipse = cercle                               
                     # Todo : INTRA Vérifier si GPS pas besoin de cette translation                    
                     option_clip_raster = ""
                     if ( EPSG_NUMBER == EPSG_NUMBER_L93 ):
