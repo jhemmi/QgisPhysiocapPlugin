@@ -82,7 +82,8 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         #self.refreshButton.pressed.connect(self.create_contour_list )
         ##self.buttonBox.button( QDialogButtonBox.Ok ).pressed.connect(self.accept)
         ##self.buttonBox.button( QDialogButtonBox.Cancel ).pressed.connect(self.reject)
-        self.comboBoxPolygone.currentIndexChanged[int].connect( self.update_field_list )
+        self.comboBoxPolygone.currentIndexChanged[int].connect( self.update_field_poly_list )
+        self.fieldComboIntra.currentIndexChanged[int].connect( self.update_field_intra_list )
         self.buttonBox.button( QDialogButtonBox.Help ).pressed.connect(self.demander_aide)
         self.buttonContribuer.pressed.connect(self.demander_contribution)
         
@@ -92,6 +93,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.ButtonInter.pressed.connect(self.moyenne_inter_parcelles)
         self.ButtonInterRefresh.pressed.connect(self.liste_inter_parcelles)
         self.groupBoxInter.setEnabled( False)
+        self.groupBoxIntra.setEnabled( False)
 
         # Slot pour données brutes
         self.toolButtonDirectoryPhysiocap.pressed.connect( self.lecture_repertoire_donnees_brutes )  
@@ -221,6 +223,36 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.label_histo_diametre_avant.setPixmap( QPixmap( FICHIER_HISTO_NON_CALCULE))
         self.label_histo_diametre_apres.setPixmap( QPixmap( FICHIER_HISTO_NON_CALCULE))
         
+        # Les parametres Intra  
+        self.spinBoxPower.setValue( int( self.settings.value("Physiocap/powerIntra", 2 )))
+        self.spinBoxRayon.setValue( int( self.settings.value("Physiocap/rayonIntra", 12 )))
+        self.spinBoxPixel.setValue( int( self.settings.value("Physiocap/pixelIntra", 1 )))
+        self.spinBoxIsoMin.setValue( int( self.settings.value("Physiocap/isoMin", 1 )))
+        self.spinBoxIsoMax.setValue( int( self.settings.value("Physiocap/isoMax", 15 )))
+        self.spinBoxIntervalles.setValue( int( self.settings.value("Physiocap/isoIntervalles", 2 )))
+ 
+        if (self.settings.value("Physiocap/library") == "SAGA"):
+            self.radioButtonSAGA.setChecked(  Qt.Checked)
+        else:
+            self.radioButtonGDAL.setChecked(  Qt.Checked)
+
+        # Remplissage de la liste de ATTRIBUTS_INTRA 
+        self.fieldComboIntra.setCurrentIndex( 0)   
+        # Todo : car de details ATTRIBUTS_INTRA_DETAIL
+        if len( ATTRIBUTS_INTRA) == 0:
+            self.fieldComboIntra.clear( )
+            physiocap_error( u"Pas de liste des attribut pour Intra pré défini")
+        else:
+            self.fieldComboIntra.clear( )
+            self.fieldComboIntra.addItems( ATTRIBUTS_INTRA )
+            # Retrouver le format de  settings
+            i=0
+            leFormat = self.settings.value("Physiocap/attributIntra", "xx") 
+            for unFormat in ATTRIBUTS_INTRA:
+                if ( unFormat == leFormat):
+                    self.fieldComboIntra.setCurrentIndex( i)
+                i=i+1
+
         # Auteurs : Icone
         self.label_jhemmi.setPixmap( QPixmap( os.path.join( REPERTOIRE_HELP, 
             "jhemmi.eu.png")))
@@ -235,31 +267,56 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
     # ################
 
     # FIELDS
-    def update_field_list( self ):
+    def update_field_intra_list( self ):
+        """ Create a list of fields for the current vector in fieldCombo Box"""
+        nom_attribut = self.fieldComboIntra.currentText()
+        #physiocap_log(u"Attribut pour Intra >" + nom_attribut )
+        nom_complet_point = self.comboBoxPoints.currentText().split( SEPARATEUR_NOEUD)
+        inputLayer = nom_complet_point[0] 
+        # Todo rechecher min et max du layer
+        layer = self.get_layer_by_name( inputLayer )
+        if layer is not None:
+            physiocap_log(u"Prochainement : recherche de min et max du layer >" + layer.name())
+
+
+    def update_field_poly_list( self ):
         """ Create a list of fields for the current vector in fieldCombo Box"""
         nom_complet_poly = self.comboBoxPolygone.currentText().split( SEPARATEUR_NOEUD)
         inputLayer = nom_complet_poly[0] #str(self.comboBoxPolygone.itemText(self.comboBoxPolygone.currentIndex()))
         self.fieldComboContours.clear()
         layer = self.get_layer_by_name( inputLayer )
         self.fieldComboContours.addItem( "NOM_PHY")
+        self.fieldComboContours.setCurrentIndex( 0)
         if layer is not None:
             #physiocap_log(u"Look for fields of layer >" + layer.name())
-            for index, field in enumerate(layer.dataProvider().fields()):
-                self.fieldComboContours.addItem( str( field.name()) )
+            # On exclut les layer qui ne sont pas de type 0 (exemple 1 raster)
+            if ( layer.type() == 0):
+                i = 1 # Demarre à 1 car NOM_PHY est dejà ajouté
+                dernierAttribut = self.settings.value("Physiocap/attributPoly", "xx") 
+                for index, field in enumerate(layer.dataProvider().fields()):
+                    self.fieldComboContours.addItem( str( field.name()) )
+                    if ( str( field.name()) == dernierAttribut):
+                        self.fieldComboContours.setCurrentIndex( i)
+                    i=i+1
+                               
 ##        else:
 ##            self.fieldComboContours( "Aucun autre champ retrouvé")
- 
+
+
     def get_layer_by_name( self, layerName ):
         layerMap = QgsMapLayerRegistry.instance().mapLayers()
+        layer = None
         for name, layer in layerMap.iteritems():
             if layer.type() == QgsMapLayer.VectorLayer and layer.name() == layerName:
                 # The layer is found
                 break
-        if layer.isValid():
-            return layer
+        if ( layer != None):
+            if layer.isValid():
+                return layer
+            else:
+                return None
         else:
-            return none
-        
+            return None
 
     # Repertoire données brutes :
     def lecture_repertoire_donnees_brutes( self):
@@ -302,12 +359,14 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         if (( nombre_poly > 0) and ( nombre_point > 0)):
             # Liberer le bouton "moyenne"
             self.groupBoxInter.setEnabled( True)
-            self.update_field_list()
+            self.groupBoxIntra.setEnabled( True)
+            self.update_field_poly_list()
+            self.update_field_intra_list()
         else:
             self.groupBoxInter.setEnabled( False)
             
     def moyenne_inter_parcelles(self):
-        """ Slot qui fait appel au traitement Inter Parcelels et traite exceptions """
+        """ Slot qui fait appel au traitement Inter Parcelles et traite exceptions """
        
         nom_complet_point = self.comboBoxPoints.currentText().split( SEPARATEUR_NOEUD)
         if ( len( nom_complet_point) != 2):
@@ -319,6 +378,28 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
                     "Lancez le traitement initial - bouton OK - avant de faire votre" +
                     "calcul de Moyenne Inter Parcellaire" ),
                 "information")        
+
+        # Memorisation des saisies
+        self.settings= QSettings( PHYSIOCAP_NOM, PHYSIOCAP_NOM)
+        self.settings.setValue("Physiocap/interPoint", self.comboBoxPoints.currentText() )
+        self.settings.setValue("Physiocap/interPoly", self.comboBoxPolygone.currentText() )
+        self.settings.setValue("Physiocap/attributPoly", self.fieldComboContours.currentText())
+
+        self.settings.setValue("Physiocap/attributIntra", self.fieldComboIntra.currentText())
+        self.settings.setValue("Physiocap/powerIntra", float( self.spinBoxPower.value()))
+        self.settings.setValue("Physiocap/rayonIntra", float( self.spinBoxRayon.value()))
+        self.settings.setValue("Physiocap/pixelIntra", float( self.spinBoxPixel.value()))
+        self.settings.setValue("Physiocap/isoMin", float( self.spinBoxIsoMin.value()))
+        self.settings.setValue("Physiocap/isoMax", float( self.spinBoxIsoMax.value()))
+        self.settings.setValue("Physiocap/isoIntervalles", float( self.spinBoxIntervalles.value()))
+        # Cas du choix SAGA / GDAL
+        LIB = "DO NOT KNOW"
+        if self.radioButtonSAGA.isChecked():
+            LIB = "SAGA"
+        else:
+            LIB = "GDAL"
+            physiocap_log(u"On force Gdal")
+        self.settings.setValue("Physiocap/library", LIB)
             
         try:
             # Création des répertoires et des résultats de synthèse
@@ -348,7 +429,16 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             physiocap_error(u"Le fichier de points du projet" + str( e) + "ne contient pas les attributs attendus",
                 "CRITICAL")
             return physiocap_message_box( self, self.tr( ERREUR_EXCEPTION + "\n" + \
-                u"Le fichier de points du projet" + str( e) + "ne contient pas les attributs attendus"),
+                u"Le fichier de points du projet" + str( e) + " ne contient pas les attributs attendus"),
+                "information" )
+        except physiocap_exception_interpolation as e:
+            physiocap_log( ERREUR_EXCEPTION + ". Consultez le journal Physiocap Erreur",
+                "WARNING")
+            physiocap_error( ERREUR_EXCEPTION)
+            physiocap_error(u"L'interpolation du fichier : " + str( e) + " n'a pu s'exécuter",
+                "CRITICAL")
+            return physiocap_message_box( self, self.tr( ERREUR_EXCEPTION + "\n" + \
+                u"L'interpolation du fichier : " + str( e) + " n'a pu s'exécuter"),
                 "information" )
         except:
             raise
@@ -664,6 +754,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             fichier_synthese.write( str(info[0]) + "\t" + str(info[1]) + "->" + str(info[2])+ "\n")
             fichier_synthese.write( "=>\t" +str(info[3]) + "\t" + str(info[4]))
             if (VERBOSE == "YES"):
+                # Centroides
                 fichier_synthese.write( "\n" + str(info[5]) + "--" + str(info[6]))
             fichier_synthese.write("\n")
 ##        nom_mid = ""

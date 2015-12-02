@@ -46,11 +46,13 @@ VERBOSE = "NO"  # Verbose YES est pour voir dans panneau ou synthèse tout ce qu
 SHAPE_POINTS_PAR_CONTOUR = "YES"   #  "NO" ou "YES"  ou "CREATE_ONLY"
 SHAPE_MOYENNE_PAR_CONTOUR = "CREATE_ONLY"   #  "NO" ou "YES"  ou "CREATE_ONLY"
 
-# Todo : INTRA Parametre Intra dans Dialogue
+# Todo : INTRA Parametre Intra provient du Dialogue
 INTRA = "NO"
 if (( SHAPE_MOYENNE_PAR_CONTOUR == "YES") or ( SHAPE_MOYENNE_PAR_CONTOUR == "CREATE_ONLY")):
     INTRA =  "YES"                                    #  "NO" ou "YES"  ou "CREATE_ONLY"
 
+ATTRIBUTS_INTRA = [ "DIAM", "NBSARM", "BIOM"] 
+ATTRIBUTS_INTRA_DETAILS = [ "DIAM", "NBSARM", "BIOM", "BIOMGM2"] 
 
 REPERTOIRE_DONNEES_BRUTES = "/home/jhemmi/Documents/GIS/SCRIPT/QGIS/PhysiocapAnalyseur/data"
 PHYSIOCAP_NOM = "Physiocap"
@@ -160,4 +162,6 @@ class physiocap_exception_vignette_exists( physiocap_exception):
     pass
 class physiocap_exception_points_invalid( physiocap_exception):
     pass
-    
+class physiocap_exception_interpolation( physiocap_exception):
+    pass
+

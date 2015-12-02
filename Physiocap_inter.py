@@ -212,7 +212,6 @@ def physiocap_moyenne_InterParcelles( self):
     id_point = nom_complet_point[ 1] 
     vecteur_point = JH_get_layer_by_ID( id_point)
 
-
     # Verification de l'arbre
     root = QgsProject.instance().layerTreeRoot( )
     un_groupe = root.findGroup( nom_noeud_arbre)
@@ -282,7 +281,23 @@ def physiocap_moyenne_InterParcelles( self):
             aText = "Le module processing n'est pas accessible."
             aText = aText + "Pour réaliser du calcul intra parellaire, vous devez installer "
             aText = aText + "l'extension Processing (menu Extension => Installer une extension)" 
-            return QgsMessageLog.logMessage( aText, u'Physiocap nécessite Extension "Processing"', QgsMessageLog.WARNING)
+            return physiocap_message_box( self,
+            self.tr( u'Physiocap nécessite Extension "Processing"' ),
+            "information")
+
+        if self.radioButtonSAGA.isChecked():
+            # Todo : test SAGA version, sinon annoncer l'utilisation de Gdal
+            physiocap_log ( u"= Version SAGA = ")
+        
+        # Récupération des parametres d'Intra
+        powerIntra = float ( self.spinBoxPower.value())
+        rayonIntra = float ( self.spinBoxRayon.value())
+        pixelIntra = float ( self.spinBoxPixel.value())
+
+         # Pour isolignes
+        isoMin = float ( self.spinBoxIsoMin.value())
+        isoMax = float ( self.spinBoxIsoMax.value())
+        isoInterlignes = float ( self.spinBoxIntervalles.value())
 
     # On passe sur les differents contours
     id = 0
@@ -314,14 +329,21 @@ def physiocap_moyenne_InterParcelles( self):
         un_autre_ID = "PHY_ID" + str(id)
         geom_poly = un_contour.geometry() #get geometry of poly layer
         
-        # Todo : BUG CIVC test validé geom_poly
+        # Todo : verifier BUG contour :  test validé geom_poly
         
         #physiocap_log ( "Dans polygone geom multipart : " + str(geom_poly.wkbType()))
-##            if geom_poly.wkbType() == QGis.WKBPolygon:
-##                physiocap_log ( "c'est un polygone simple: " + un_nom)
-##            if geom_poly.wkbType() == QGis.WKBMultiPolygon:
-##                physiocap_log ( "c'est un polygone multiple: " + un_nom)
-        
+        if geom_poly.wkbType() == QGis.WKBPolygon:
+            physiocap_log ( "Polygone simple: " + un_nom)
+        elif geom_poly.wkbType() == QGis.WKBMultiPolygon:
+            physiocap_log ( "Polygone multiple: " + un_nom)
+        else:
+            aText = u"Cette forme n'est pas un polygone : " + str(un_nom)
+            physiocap_log ( aText)
+            physiocap_error ( aText)
+            physiocap_message_box( self,
+                self.tr( aText),
+                "information")
+            continue
         
         # Préfiltre dans un rectangle
         les_geom_point_feat = []
@@ -493,39 +515,60 @@ def physiocap_moyenne_InterParcelles( self):
                 nom_raster =  os.path.join( chemin_raster, nom_court_raster) # inutile physiocap_rename_existing_file()        
                 nom_info_raster = nom_noeud_arbre + SEPARATEUR_ + un_nom + field + "_INFO"
                 
-                physiocap_log( u"Avant Gdal: " + str(nom_court_raster))
-                power=2
-                smooth = 2
-                # Todo : INTRA vérifier si meme rayon pour elipse = cercle 
-                rayon = 0   
+                # Parametres fixes
                 angle = 0    # Pas utiliser
-                point = 0    # Pas de min et max précisé
-                val_null = 0 # Valeur nulle reste nulle
-                premier_raster = processing.runalg("gdalogr:gridinvdist",
-                    nom_point, field, power, smooth, rayon, rayon, angle, point, point, val_null ,5, 
-                    None)
+                val_nulle = 0 # Valeur nulle reste nulle
+                float_32 = 5
                 
-                # Todo : INTRA Vérifier si ESPG est bien sur les SHP
-                # Todo : Gerer exeption processing
-                
-                # Todo : INTRA Vérifier si GPS pas besoin de cette translation                    
-                option_clip_raster = ""
-                if ( EPSG_NUMBER == EPSG_NUMBER_L93 ):
-                    physiocap_log( u"Projection à translater vers : " + str( EPSG_NUMBER) )
-                    #option_clip_raster = '-s_srs "EPSG:' + str(EPSG_NUMBER_GPS) + '" -t_srs "EPSG:' + str(EPSG_NUMBER_L93) + '"'
-                    option_clip_raster = "-t_srs \"EPSG:" + str(EPSG_NUMBER_L93) + "\""
+                # Attraper les exceptions processing
+                try:
+                    # Todo : INTRA vérifier si meme rayon pour elipse = cercle 
+                    if self.radioButtonSAGA.isChecked():
+                        # Appel SAGA
+                        physiocap_log( u"Interpolation SAGA : " + str( nom_court_raster))
+                        premier_raster = processing.runalg("saga:inversedistanceweighted",
+                            nom_point, field, 0, powerIntra, 1, 0, rayonIntra, 0, 0,
+                            isoMax, "", pixelIntra,
+                            None)                        
+                        if ( str( list( premier_raster) == "Output")):
+                            if str( premier_raster[ 'OUTPUT']) != None:
+                                physiocap_log( u"premier fichier SAGA : " + str( premier_raster[ 'OUTPUT']))
+                    else:
+                        physiocap_log( u"Interpolation GDAL : " + str( nom_court_raster))
+                        premier_raster = processing.runalg("gdalogr:gridinvdist",
+                            nom_point, field, powerIntra, 0.0, rayonIntra, rayonIntra, 
+                            isoMax, isoMin, angle, val_nulle ,float_32, 
+                            None)
+                               
+                    # Todo : INTRA Vérifier si GPS pas besoin de cette translation                    
+                    option_clip_raster = ""
+                    if ( EPSG_NUMBER == EPSG_NUMBER_L93 ):
+                        #physiocap_log( u"Projection à translater vers : " + str( EPSG_NUMBER) )
+                        #option_clip_raster = '-s_srs "EPSG:' + str(EPSG_NUMBER_GPS) + '" -t_srs "EPSG:' + str(EPSG_NUMBER_L93) + '"'
+                        option_clip_raster = "-t_srs \"EPSG:" + str(EPSG_NUMBER_L93) + "\""
+                        
+                    if ( str( list( premier_raster) == "Output")):
+                        if str( premier_raster[ 'OUTPUT']) != None:
+                            #physiocap_log( u"Option du clip: " + option_clip_raster )
+                            raster_dans_poly = processing.runalg("gdalogr:cliprasterbymasklayer",
+                            premier_raster[ 'OUTPUT'],
+                            nom_vignette,
+                            "-9999",False,False,
+                            option_clip_raster, 
+                            nom_raster)
+                        
+                    if ( str( list( raster_dans_poly) == "Output")):
+                        if str( raster_dans_poly[ 'OUTPUT']) != None:
+                            physiocap_log( u"Fin interpolation dans : " + str( raster_dans_poly[ 'OUTPUT']))
+                            # Todo : Intégrer Isolignes 
+                               
+                        else:
+                            raise physiocap_exception_interpolation( nom_point)
                     
-                physiocap_log( u"Option du clip: " + option_clip_raster )
+                
+                except:
+                    raise physiocap_exception_interpolation( nom_point)
 
-                raster_dans_poly = processing.runalg("gdalogr:cliprasterbymasklayer",
-                    premier_raster[ 'OUTPUT'],
-                    nom_vignette,
-                    "-9999",False,False,
-                    option_clip_raster, 
-                    nom_raster)
-                    
-                if ( str( list( raster_dans_poly) == "Output")):
-                    physiocap_log( u"apres gdal clip: " + str( raster_dans_poly[ 'OUTPUT']))
                                                         
                 # Affichage dans panneau Qgis                           
                 if (INTRA == "YES"):
@@ -690,7 +733,6 @@ def physiocap_moyenne_vers_vignette( crs, EPSG_NUMBER, nom_vignette, nom_prj,
     prj = open(nom_prj, "w")
     epsg = 'inconnu'
     if ( EPSG_NUMBER == EPSG_NUMBER_L93):
-        # Todo: V1.x ? Faire aussi un fichier de metadata 
         epsg = EPSG_TEXT_L93
     if (EPSG_NUMBER == EPSG_NUMBER_GPS):
         epsg = EPSG_TEXT_GPS
@@ -742,7 +784,6 @@ def physiocap_moyenne_vers_point( crs, EPSG_NUMBER, nom_point, nom_prj,
     prj = open(nom_prj, "w")
     epsg = 'inconnu'
     if ( EPSG_NUMBER == EPSG_NUMBER_L93):
-        # Todo: V1.x ? Faire aussi un fichier de metadata 
         epsg = EPSG_TEXT_L93
     if (EPSG_NUMBER == EPSG_NUMBER_GPS):
         epsg = EPSG_TEXT_GPS

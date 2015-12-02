@@ -189,10 +189,10 @@ def physiocap_csv_vers_shapefile( self, progress_barre, csv_name, shape_name, pr
     # Create the PRJ file
     prj = open(prj_name, "w")
     epsg = 'inconnu'
-    if ( laProjection == "L93"):
+    if ( laProjection == PROJECTION_L93):
         # Todo: V1.x ? Faire aussi un fichier de metadata 
-        espg = EPSG_TEXT_L93
-    if ( laProjection == "GPS"):
+        epsg = EPSG_TEXT_L93
+    if ( laProjection == PROJECTION_GPS):
         #  prj pour GPS 4326
         epsg = EPSG_TEXT_GPS
         
