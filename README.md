@@ -13,7 +13,7 @@ L'extension permet de choisir plusieurs paramètres pour filtrer les données qu
 	deux shapefiles qui permettent de visualiser les données mesurées et les données retenues (après filtration),
 	trois histogrammes qui décrivent la population des données mesurées (sarment et diamètre).
 
-L'extension "version 1.2.2 Inter" réalise une extraction des données filtrés à partir de votre contour de parcelles. Vous obtenez les moyennes Inter parcellaires pour faire un premier diagnostic de chaque entité agronomique.
+L'extension "version 1.2.3 Inter" réalise une extraction des données filtrés à partir de votre contour de parcelles. Vous obtenez les moyennes Inter parcellaires pour faire un premier diagnostic de chaque entité agronomique.
 
 *"Physiocap" est déposé par le CIVC.*
 
@@ -22,6 +22,8 @@ L'extension QgisPysiocapPlugin intègre le code de calcul du CIVC (PHYSIOCAP_V8)
 La documentation se trouve dans le Wiki
 https://github.com/jhemmi/QgisPhysiocapPlugin/wiki/Qgis-Physiocap-Plugin-usage-&-installation
 
-**Attention, ce dépot contient la version 1.2.2 (version stable https://github.com/jhemmi/QgisPhysiocapPlugin/releases) et la version 1.3 en cours de construction - Novembre 2015**
+Depuis la 1.2.3, l'extension est publiée dans le dépot standard de Qgis et donc accessible directement depsui Qgis "Extension Physiocap".
 
-**Warning, this repo is version 1.2.2 (stable https://github.com/jhemmi/QgisPhysiocapPlugin/releases) and version 1.3 under construction - Novembre 2015**
+**Attention, ce dépot contient la version 1.2.3 (version stable https://github.com/jhemmi/QgisPhysiocapPlugin/releases) et la version 1.3.0 en cours de construction - Novembre 2015**
+
+**Warning, this repo is version 1.2.3 (stable https://github.com/jhemmi/QgisPhysiocapPlugin/releases) and version 1.3.0 under construction - Novembre 2015**
