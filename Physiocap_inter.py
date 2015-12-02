@@ -521,22 +521,31 @@ def physiocap_moyenne_InterParcelles( self):
                 float_32 = 5
                 
                 # Attraper les exceptions processing
+                nom_raster_temp = ""
                 if self.radioButtonSAGA.isChecked():
                     # Appel SAGA
                     physiocap_log( u"Interpolation SAGA : " + str( nom_court_raster))
                     premier_raster = processing.runalg("saga:inversedistanceweighted",
                         nom_point, field, 1, powerIntra, 1, 0,rayonIntra, 0, 0,
-                        isoMax, (0,0,0,0), pixelIntra,
+                        isoMax, "0,0,0,0", pixelIntra,
                         None)                        
                     if (  premier_raster != None):
-                        physiocap_log( u"premier fichier SAGA : " + str( premier_raster))
+                        if ( str( list( premier_raster) == "USER_GRID")):
+                            if str( premier_raster[ 'USER_GRID']) != None:
+                                physiocap_log( u"premier fichier SAGA : " + str( premier_raster[ 'USER_GRID']))
+                                nom_raster_temp =  str( premier_raster[ 'USER_GRID'])
                 else:
                     physiocap_log( u"Interpolation GDAL : " + str( nom_court_raster))
                     premier_raster = processing.runalg("gdalogr:gridinvdist",
                         nom_point, field, powerIntra, 0.0, rayonIntra, rayonIntra, 
                         isoMax, isoMin, angle, val_nulle ,float_32, 
                         None)
- 
+                    if (  premier_raster != None):
+                        if ( str( list( premier_raster) == "Output")):
+                            if str( premier_raster[ 'OUTPUT']) != None:
+                                physiocap_log( u"premier fichier GDAL : " + str( premier_raster[ 'OUTPUT']))
+                                nom_raster_temp =  str( premier_raster[ 'OUTPUT'])
+
                 try:
                     # Todo : INTRA vérifier si meme rayon pour elipse = cercle                               
                     # Todo : INTRA Vérifier si GPS pas besoin de cette translation                    
@@ -546,15 +555,14 @@ def physiocap_moyenne_InterParcelles( self):
                         #option_clip_raster = '-s_srs "EPSG:' + str(EPSG_NUMBER_GPS) + '" -t_srs "EPSG:' + str(EPSG_NUMBER_L93) + '"'
                         option_clip_raster = "-t_srs \"EPSG:" + str(EPSG_NUMBER_L93) + "\""
                         
-                    if ( str( list( premier_raster) == "Output")):
-                        if str( premier_raster[ 'OUTPUT']) != None:
-                            #physiocap_log( u"Option du clip: " + option_clip_raster )
-                            raster_dans_poly = processing.runalg("gdalogr:cliprasterbymasklayer",
-                            premier_raster[ 'OUTPUT'],
-                            nom_vignette,
-                            "-9999",False,False,
-                            option_clip_raster, 
-                            nom_raster)
+                    if ( nom_raster_temp != ""):
+                        #physiocap_log( u"Option du clip: " + option_clip_raster )
+                        raster_dans_poly = processing.runalg("gdalogr:cliprasterbymasklayer",
+                        nom_raster_temp,
+                        nom_vignette,
+                        "-9999",False,False,
+                        option_clip_raster, 
+                        nom_raster)
                         
                     if ( str( list( raster_dans_poly) == "Output")):
                         if str( raster_dans_poly[ 'OUTPUT']) != None:
