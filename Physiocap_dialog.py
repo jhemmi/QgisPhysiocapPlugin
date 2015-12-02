@@ -435,10 +435,10 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             physiocap_log( ERREUR_EXCEPTION + ". Consultez le journal Physiocap Erreur",
                 "WARNING")
             physiocap_error( ERREUR_EXCEPTION)
-            physiocap_error(u"L'interpolation du fichier : " + str( e) + " n'a pu s'exécuter",
+            physiocap_error(u"L'interpolation du fichier : " + str( e) + u" n'a pu s'exécuter",
                 "CRITICAL")
             return physiocap_message_box( self, self.tr( ERREUR_EXCEPTION + "\n" + \
-                u"L'interpolation du fichier : " + str( e) + " n'a pu s'exécuter"),
+                u"L'interpolation du fichier : " + str( e) + u" n'a pu s'exécuter"),
                 "information" )
         except:
             raise

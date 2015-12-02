@@ -527,8 +527,8 @@ def physiocap_moyenne_InterParcelles( self):
                         # Appel SAGA
                         physiocap_log( u"Interpolation SAGA : " + str( nom_court_raster))
                         premier_raster = processing.runalg("saga:inversedistanceweighted",
-                            nom_point, field, 0, powerIntra, 1, 0, rayonIntra, 0, 0,
-                            isoMax, "", pixelIntra,
+                            nom_point, field, 0, 1, powerIntra, 1, 0, rayonIntra, 0, 0,
+                            isoMax, None , pixelIntra,
                             None)                        
                         if ( str( list( premier_raster) == "Output")):
                             if str( premier_raster[ 'OUTPUT']) != None:
