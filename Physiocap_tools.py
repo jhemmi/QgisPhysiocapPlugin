@@ -113,19 +113,22 @@ def physiocap_quelle_projection_demandee( self):
     if self.radioButtonL93.isChecked():
         laProjection = PROJECTION_L93
     #physiocap_log(u"Projection des shapefiles demandée en " + laProjection)
-    
+ 
+    EXTENSION_SHP_COMPLET = SEPARATEUR_ + laProjection + EXTENSION_SHP
+    EXTENSION_PRJ_COMPLET = SEPARATEUR_ + laProjection + EXTENSION_PRJ
+   
     if ( laProjection == PROJECTION_L93 ):
-        EXTENSION_SHP = EXTENSION_SHP_L93
-        EXTENSION_PRJ = EXTENSION_PRJ_L93
-        EXTENSION_RASTER = EXTENSION_RASTER_L93
         EPSG_NUMBER = EPSG_NUMBER_L93
     if ( laProjection == PROJECTION_GPS ):
-        EXTENSION_SHP = EXTENSION_SHP_GPS
-        EXTENSION_PRJ = EXTENSION_PRJ_GPS
-        EXTENSION_RASTER = EXTENSION_RASTER_GPS
         EPSG_NUMBER = EPSG_NUMBER_GPS
+    
+    # Cas du nom du raster 
+    if self.radioButtonSAGA.isChecked():
+        EXTENSION_RASTER_COMPLET = SEPARATEUR_ + laProjection + EXTENSION_RASTER_SAGA
+    else:
+        EXTENSION_RASTER_COMPLET = SEPARATEUR_ + laProjection + EXTENSION_RASTER
 
-    return laProjection, EXTENSION_SHP, EXTENSION_PRJ, EXTENSION_RASTER, EPSG_NUMBER
+    return laProjection, EXTENSION_SHP_COMPLET, EXTENSION_PRJ_COMPLET, EXTENSION_RASTER_COMPLET, EPSG_NUMBER
 
 def JH_rename_existing( chemin):
     """ Retourne le nom qu'il est possible de creer

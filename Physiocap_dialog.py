@@ -552,7 +552,8 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         # ########################################
         try:
             # Création des répertoires et des résultats de synthèse
-            retour = self.physiocap_creer_donnees_resultats( details, TRACE_HISTO, recursif, laProjection)
+            retour = self.physiocap_creer_donnees_resultats( laProjection, EXT_SHP, EXT_PRJ,
+                details, TRACE_HISTO, recursif)
         except physiocap_exception_rep as e:
             physiocap_log( ERREUR_EXCEPTION + ". Consultez le journal Physiocap Erreur",
                 "WARNING")
@@ -627,8 +628,8 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         
     
     # Creation des repertoires source puis resultats puis histo puis shape
-    def physiocap_creer_donnees_resultats( self, details = "NO", histogrammes = "NO", recursif = "NO", 
-        laProjection = "L93", EXT_SHP = EXTENSION_SHP_L93, EXT_PRJ = EXTENSION_PRJ_L93):
+    def physiocap_creer_donnees_resultats( self, laProjection, EXT_SHP, EXT_PRJ,
+        details = "NO", histogrammes = "NO", recursif = "NO"):
         """ Récupération des paramètres saisies et 
         creation de l'arbre "source" "texte" et du fichier "resultats"
         Ce sont les résultats de l'analyse filtration des données brutes"""

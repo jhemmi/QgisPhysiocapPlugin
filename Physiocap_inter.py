@@ -513,7 +513,7 @@ def physiocap_moyenne_InterParcelles( self):
                 nom_court_raster = nom_noeud_arbre + SEPARATEUR_ + un_nom + \
                     SEPARATEUR_ + field + EXT_CRS_RASTER
                 nom_raster =  os.path.join( chemin_raster, nom_court_raster) # inutile physiocap_rename_existing_file()        
-                nom_info_raster = nom_noeud_arbre + SEPARATEUR_ + un_nom + field + "_INFO"
+                #nom_info_raster = nom_noeud_arbre + SEPARATEUR_ + un_nom + field + "_INFO"
                 
                 # Parametres fixes
                 angle = 0    # Pas utiliser
@@ -522,12 +522,20 @@ def physiocap_moyenne_InterParcelles( self):
                 
                 # Attraper les exceptions processing
                 nom_raster_temp = ""
+                nom_raster_final = ""
+                
+                # Récuperer Extent du polygone
+                ex = vignette_vector.extent()
+                xmin, xmax, ymin, ymax = ex.xMinimum(),ex.xMaximum(), ex.yMinimum(), ex.yMaximum()
+                info_extent = str(xmin) + "," + str(xmax) + "," + str(ymin) + "," + str(ymax)
+                physiocap_log( u"Extent layer >>> " + info_extent + " <<<")
+                
                 if self.radioButtonSAGA.isChecked():
                     # Appel SAGA
                     physiocap_log( u"Interpolation SAGA : " + str( nom_court_raster))
                     premier_raster = processing.runalg("saga:inversedistanceweighted",
                         nom_point, field, 1, powerIntra, 1, 0,rayonIntra, 0, 0,
-                        isoMax, "0,0,0,0", pixelIntra,
+                        isoMax, info_extent, pixelIntra,
                         None)                        
                     if (  premier_raster != None):
                         if ( str( list( premier_raster) == "USER_GRID")):
@@ -545,8 +553,9 @@ def physiocap_moyenne_InterParcelles( self):
                         nom_raster)
                     
                     if (  raster_dans_poly != None):
-                        physiocap_log( u"Fin interpolation dans : " + str( raster_dans_poly))
-                        # Todo : Intégrer Isolignes 
+                        if ( str( list( raster_dans_poly) == "Output")):
+                            if str( raster_dans_poly[ 'OUTPUT']) != None:
+                                physiocap_log( u"Fin interpolation dans : " + str( raster_dans_poly[ 'OUTPUT']))
                                
                     else:
                         raise physiocap_exception_interpolation( nom_point)                    
