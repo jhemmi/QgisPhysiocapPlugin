@@ -575,10 +575,12 @@ def physiocap_moyenne_InterParcelles( self):
                             2, 20, 5,
                             nom_isoligne)
                         if (  iso_dans_poly != None):
-                            if ( str( list( iso_dans_poly) == "Output")):
-                                if str( iso_dans_poly[ 'OUTPUT']) != None:
-                                    nom_iso_final = str( iso_dans_poly[ 'OUTPUT'])
-                                    physiocap_log( u"Isolignes SAGA : " + nom_iso_final)                                
+                            physiocap_log( u"Isolignes SAGA : " + str( list( iso_dans_poly)
+                            nom_iso_final = nom_isoligne                               
+##                            if ( str( list( iso_dans_poly) == "OUTPUT_VECTOR")):
+##                                if str( iso_dans_poly[ 'OUTPUT_VECTOR']) != None:
+##                                    nom_iso_final = str( iso_dans_poly[ 'OUTPUT_VECTOR'])
+##                                    physiocap_log( u"Isolignes SAGA : " + nom_iso_final)                                
                         else:
                             raise physiocap_exception_interpolation( nom_point)
                     else:

@@ -51,7 +51,7 @@
     <enum>QTabWidget::North</enum>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>3</number>
    </property>
    <property name="movable">
     <bool>true</bool>
@@ -1058,7 +1058,7 @@
        <number>0</number>
       </property>
       <property name="maximum">
-       <number>15</number>
+       <number>20</number>
       </property>
       <property name="singleStep">
        <number>1</number>

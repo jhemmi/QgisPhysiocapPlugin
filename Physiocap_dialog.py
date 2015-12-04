@@ -225,9 +225,9 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.label_histo_diametre_apres.setPixmap( QPixmap( FICHIER_HISTO_NON_CALCULE))
         
         # Les parametres Intra  
-        self.spinBoxPower.setValue( int( self.settings.value("Physiocap/powerIntra", 2 )))
+        self.spinBoxPower.setValue( float( self.settings.value("Physiocap/powerIntra", 2 )))
         self.spinBoxRayon.setValue( int( self.settings.value("Physiocap/rayonIntra", 12 )))
-        self.spinBoxPixel.setValue( int( self.settings.value("Physiocap/pixelIntra", 1 )))
+        self.spinBoxPixel.setValue( float( self.settings.value("Physiocap/pixelIntra", 1 )))
         self.spinBoxIsoMin.setValue( int( self.settings.value("Physiocap/isoMin", 1 )))
         self.spinBoxIsoMax.setValue( int( self.settings.value("Physiocap/isoMax", 15 )))
         self.spinBoxIntervalles.setValue( int( self.settings.value("Physiocap/isoIntervalles", 2 )))
