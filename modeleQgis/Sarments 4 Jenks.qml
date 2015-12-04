@@ -31,7 +31,7 @@
       <symbol alpha="1" type="marker" name="0">
         <layer pass="0" class="SimpleMarker" locked="0">
           <prop k="angle" v="0"/>
-          <prop k="color" v="241,238,246,255"/>
+          <prop k="color" v="247,252,245,255"/>
           <prop k="horizontal_anchor_point" v="1"/>
           <prop k="name" v="diamond"/>
           <prop k="offset" v="0,0"/>
@@ -52,7 +52,7 @@
       <symbol alpha="1" type="marker" name="1">
         <layer pass="0" class="SimpleMarker" locked="0">
           <prop k="angle" v="0"/>
-          <prop k="color" v="217,154,202,255"/>
+          <prop k="color" v="177,223,171,255"/>
           <prop k="horizontal_anchor_point" v="1"/>
           <prop k="name" v="diamond"/>
           <prop k="offset" v="0,0"/>
@@ -73,7 +73,7 @@
       <symbol alpha="1" type="marker" name="2">
         <layer pass="0" class="SimpleMarker" locked="0">
           <prop k="angle" v="0"/>
-          <prop k="color" v="221,52,138,255"/>
+          <prop k="color" v="61,166,89,255"/>
           <prop k="horizontal_anchor_point" v="1"/>
           <prop k="name" v="diamond"/>
           <prop k="offset" v="0,0"/>
@@ -94,7 +94,7 @@
       <symbol alpha="1" type="marker" name="3">
         <layer pass="0" class="SimpleMarker" locked="0">
           <prop k="angle" v="0"/>
-          <prop k="color" v="152,0,67,255"/>
+          <prop k="color" v="0,68,27,255"/>
           <prop k="horizontal_anchor_point" v="1"/>
           <prop k="name" v="diamond"/>
           <prop k="offset" v="0,0"/>
@@ -137,10 +137,10 @@
       </symbol>
     </source-symbol>
     <colorramp type="gradient" name="[source]">
-      <prop k="color1" v="241,238,246,255"/>
-      <prop k="color2" v="152,0,67,255"/>
+      <prop k="color1" v="247,252,245,255"/>
+      <prop k="color2" v="0,68,27,255"/>
       <prop k="discrete" v="0"/>
-      <prop k="stops" v="0.25;215,181,216,255:0.5;223,101,176,255:0.75;221,28,119,255"/>
+      <prop k="stops" v="0.13;229,245,224,255:0.26;199,233,192,255:0.39;161,217,155,255:0.52;116,196,118,255:0.65;65,171,93,255:0.78;35,139,69,255:0.9;0,109,44,255"/>
     </colorramp>
     <invertedcolorramp value="0"/>
     <mode name="jenks"/>

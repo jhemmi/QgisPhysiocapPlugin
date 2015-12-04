@@ -44,6 +44,7 @@ data/PHY_*
 data/*OK
 data/*erreur
 data/test*
+testdata/
 modeleQgis/*.txt
 print/
 i18n/

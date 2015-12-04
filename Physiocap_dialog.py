@@ -103,7 +103,8 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         # Slot pour les contours
         # self.toolButtonContours.pressed.connect( self.lecture_shape_contours )   
               
-        physiocap_log( u"Votre machine tourne sous " + platform.system())
+        machine = platform.system()
+        physiocap_log( u"Votre machine tourne sous " + machine)
         
         # Style sheet pour QProgressBar
         self.setStyleSheet( "QProgressBar {color:black; text-align:center; font-weight:bold; padding:2px;}"
@@ -229,13 +230,27 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.spinBoxRayon.setValue( int( self.settings.value("Physiocap/rayonIntra", 12 )))
         self.spinBoxPixel.setValue( float( self.settings.value("Physiocap/pixelIntra", 1 )))
         self.spinBoxIsoMin.setValue( int( self.settings.value("Physiocap/isoMin", 1 )))
-        self.spinBoxIsoMax.setValue( int( self.settings.value("Physiocap/isoMax", 15 )))
-        self.spinBoxIntervalles.setValue( int( self.settings.value("Physiocap/isoIntervalles", 2 )))
+        self.spinBoxIsoMax.setValue( int( self.settings.value("Physiocap/isoMax", 1000 )))
+        self.spinBoxIntervalles.setValue( int( self.settings.value("Physiocap/isoIntervalles", 4 )))
  
         if (self.settings.value("Physiocap/library") == "SAGA"):
             self.radioButtonSAGA.setChecked(  Qt.Checked)
+            self.spinBoxPower.setEnabled( False)
         else:
             self.radioButtonGDAL.setChecked(  Qt.Checked)
+            self.spinBoxPixel.setEnabled( False)
+            self.spinBoxIsoMin.setEnabled( False)
+            self.spinBoxIsoMax.setEnabled( False)
+                
+        # Cas Windows : on force SAGA
+        if ( machine == "Windows"):
+            self.radioButtonSAGA.setChecked(  Qt.Checked)
+            # On bloque Gdal
+            self.radioButtonGDAL.setEnabled( False)
+            self.spinBoxPower.setEnabled( False)
+            self.spinBoxPixel.setEnabled( True)
+            self.spinBoxIsoMin.setEnabled( True)
+            self.spinBoxIsoMax.setEnabled( True)
 
         # Remplissage de la liste de ATTRIBUTS_INTRA 
         self.fieldComboIntra.setCurrentIndex( 0)   
@@ -399,7 +414,6 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             LIB = "SAGA"
         else:
             LIB = "GDAL"
-            physiocap_log(u"On force Gdal")
         self.settings.setValue("Physiocap/library", LIB)
             
         try:
