@@ -179,13 +179,14 @@ def physiocap_moyenne_InterParcelles( self):
     # Récupérer des styles pour chaque shape
     dir_template = os.path.join( os.path.dirname(__file__), 'modeleQgis')       
     le_template_moyenne = os.path.join( dir_template, "Moyenne Inter.qml")
-    le_template_point = os.path.join( dir_template, "Diametre 6 Jenks.qml")
+    le_template_point = os.path.join( dir_template, "Diametre 4 Jenks.qml")
 
     # INTRA Récupérer nom d'attribut dans le dialogue              
     field = self.fieldComboIntra.currentText()
     nom_intra_attribut = "Intra" + str( field) +".qml"
     le_template_raster = os.path.join( dir_template, nom_intra_attribut)
-    le_template_isolignes  = os.path.join( dir_template, "Isolignes.qml")
+    nom_isolignes_attribut = "Isolignes" + str( field) +".qml"
+    le_template_isolignes  = os.path.join( dir_template, nom_isolignes_attribut)
     
     # Pour polygone de contour   
     nom_complet_poly = self.comboBoxPolygone.currentText().split( SEPARATEUR_NOEUD)
@@ -426,7 +427,7 @@ def physiocap_moyenne_InterParcelles( self):
                     
                 if ( INTRA == "YES"):
                     if un_groupe != None:
-                        vignette_projet = nom_noeud_arbre + SEPARATEUR_ + VIGNETTES_INTRA 
+                        vignette_projet = nom_noeud_arbre + SEPARATEUR_ + field + SEPARATEUR_ + VIGNETTES_INTRA 
                         vignette_existante = un_groupe.findGroup( vignette_projet)
                         if ( vignette_existante == None ):
                             vignette_group_intra = un_groupe.addGroup( vignette_projet)
@@ -434,6 +435,7 @@ def physiocap_moyenne_InterParcelles( self):
                             # Si vignette preexiste, on ne recommence pas
                             raise physiocap_exception_vignette_exists( nom_noeud_arbre) 
             
+            # Todo : chemin inter existe va devenir l'exclusion d'Inter et l'ouverture d'Intra
             chemin_vignettes = os.path.join( chemin_shapes, VIGNETTES_INTER)
             if not (os.path.exists( chemin_vignettes)):
                 try:
@@ -444,8 +446,8 @@ def physiocap_moyenne_InterParcelles( self):
             
             # Création du Shape moyenne et prj
             # vignette - nom_noeud_arbre + SEPARATEUR_
-            nom_court_vignette = nom_noeud_arbre + SEPARATEUR_ + un_nom + SEPARATEUR_ + NOM_MOYENNE + EXT_CRS_SHP     
-            nom_court_prj = nom_noeud_arbre + SEPARATEUR_ + un_nom + SEPARATEUR_ + NOM_MOYENNE + EXT_CRS_PRJ     
+            nom_court_vignette = nom_noeud_arbre + SEPARATEUR_ + NOM_MOYENNE + SEPARATEUR_ + un_nom +  EXT_CRS_SHP     
+            nom_court_prj = nom_noeud_arbre + SEPARATEUR_ + NOM_MOYENNE + SEPARATEUR_ + un_nom  + EXT_CRS_PRJ     
             #physiocap_log( u"== Vignette court : " + nom_court_vignette )       
             nom_vignette = physiocap_rename_existing_file( os.path.join( chemin_vignettes, nom_court_vignette))        
             nom_prj = physiocap_rename_existing_file( os.path.join( chemin_vignettes, nom_court_prj))        
@@ -472,8 +474,8 @@ def physiocap_moyenne_InterParcelles( self):
             # CRÉATION point
             # ###################
             # point 
-            nom_court_point = nom_noeud_arbre + SEPARATEUR_ + un_nom + NOM_POINTS + EXT_CRS_SHP     
-            nom_court_point_prj = nom_noeud_arbre + SEPARATEUR_ + un_nom + NOM_POINTS + EXT_CRS_PRJ     
+            nom_court_point = nom_noeud_arbre + NOM_POINTS + SEPARATEUR_ + un_nom + EXT_CRS_SHP     
+            nom_court_point_prj = nom_noeud_arbre + NOM_POINTS + SEPARATEUR_ + un_nom + EXT_CRS_PRJ     
             #physiocap_log( u"== Vignette court : " + nom_court_vignette )       
             nom_point = physiocap_rename_existing_file( os.path.join( chemin_vignettes, nom_court_point))        
             nom_point_prj = physiocap_rename_existing_file( os.path.join( chemin_vignettes, nom_court_point_prj))        
@@ -517,11 +519,11 @@ def physiocap_moyenne_InterParcelles( self):
                 # ###################
                                 
                 # Nom du raster avec field
-                nom_court_raster = nom_noeud_arbre + SEPARATEUR_ + un_nom + \
-                    SEPARATEUR_ + field + EXT_CRS_RASTER
+                nom_court_raster = nom_noeud_arbre + SEPARATEUR_ + field + SEPARATEUR_ + \
+                    un_nom + SEPARATEUR_  + EXT_CRS_RASTER
                 nom_raster =  os.path.join( chemin_raster, nom_court_raster) # inutile physiocap_rename_existing_file()        
-                nom_court_isoligne = nom_noeud_arbre + SEPARATEUR_ + un_nom + \
-                    SEPARATEUR_ + "ISOLIGNE_" + field + EXT_CRS_SHP
+                nom_court_isoligne = nom_noeud_arbre + SEPARATEUR_  + field + SEPARATEUR_ + "ISOLIGNE_" + \
+                    un_nom + SEPARATEUR_  + EXT_CRS_SHP
                 nom_isoligne =  os.path.join( chemin_raster, nom_court_isoligne) # inutile physiocap_rename_existing_file()        
                 #nom_info_raster = nom_noeud_arbre + SEPARATEUR_ + un_nom + field + "_INFO"
                 

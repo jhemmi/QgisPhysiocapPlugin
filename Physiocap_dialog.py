@@ -252,6 +252,8 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             self.spinBoxIsoMin.setEnabled( True)
             self.spinBoxIsoMax.setEnabled( True)
 
+
+
         # Remplissage de la liste de ATTRIBUTS_INTRA 
         self.fieldComboIntra.setCurrentIndex( 0)   
         # Todo : car de details ATTRIBUTS_INTRA_DETAIL
@@ -626,7 +628,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
                 u"Erreur bloquante : aucun fichier mid à traiter"),
                 "information" )
         except physiocap_exception_stop_user:
-            return physiocap_log( "Arret de Physiocap à la demande de l'utilisateur",
+            return physiocap_log( u"Arrêt de Physiocap à la demande de l'utilisateur",
                 "WARNING")
          # On remonte les autres exceptions
         except:
