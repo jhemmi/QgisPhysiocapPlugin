@@ -146,7 +146,8 @@ def physiocap_fill_combo_poly_or_point( self, isRoot = None, node = None ):
             # Tester si poly ou point
             if ( JH_vector_poly_or_point( child.layer()) == "Point"):
                 if ( child.layerName() == "DIAMETRE"):
-                    node_layer = noeud_en_cours + SEPARATEUR_NOEUD + child.layerId()        
+                    node_layer = noeud_en_cours + SEPARATEUR_NOEUD + child.layerId()
+                    # Todo : Bug unicode acsii dans certain cas...        
                     self.comboBoxPoints.addItem( str(node_layer))
                     nombre_point = nombre_point + 1
             elif ( JH_vector_poly_or_point( child.layer()) == "Polygone"):
@@ -180,7 +181,8 @@ def physiocap_moyenne_InterParcelles( self):
     le_template_moyenne = os.path.join( dir_template, "Moyenne Inter.qml")
     le_template_point = os.path.join( dir_template, "Diametre 6 Jenks.qml")
     le_template_raster_diametre = os.path.join( dir_template, "IntraDIAM.qml")
- 
+    le_template_isoligne_diametre  = os.path.join( dir_template, "Isolignes.qml")
+    
     # Pour polygone de contour   
     nom_complet_poly = self.comboBoxPolygone.currentText().split( SEPARATEUR_NOEUD)
     if ( len( nom_complet_poly) != 2):
@@ -277,6 +279,8 @@ def physiocap_moyenne_InterParcelles( self):
         # Pour appel de processing on attend d'etre dans Qgis et Intra
         try :
             import processing
+            versionGDAL = processing.tools.raster.gdal.__version__
+            isSAGA = processing.algs.saga
         except ImportError:
             aText = "Le module processing n'est pas accessible."
             aText = aText + "Pour réaliser du calcul intra parellaire, vous devez installer "
@@ -287,7 +291,9 @@ def physiocap_moyenne_InterParcelles( self):
 
         if self.radioButtonSAGA.isChecked():
             # Todo : test SAGA version, sinon annoncer l'utilisation de Gdal
-            physiocap_log ( u"= Version SAGA = ")
+            physiocap_log ( u"= Version SAGA = " + str( isSAGA))
+        else:
+            physiocap_log ( u"= Version GDAL = " + str( versionGDAL))
         
         # Récupération des parametres d'Intra
         powerIntra = float ( self.spinBoxPower.value())
@@ -513,6 +519,9 @@ def physiocap_moyenne_InterParcelles( self):
                 nom_court_raster = nom_noeud_arbre + SEPARATEUR_ + un_nom + \
                     SEPARATEUR_ + field + EXT_CRS_RASTER
                 nom_raster =  os.path.join( chemin_raster, nom_court_raster) # inutile physiocap_rename_existing_file()        
+                nom_court_isoligne = nom_noeud_arbre + SEPARATEUR_ + un_nom + \
+                    SEPARATEUR_ + "ISOLIGNE_" + field + EXT_CRS_SHP
+                nom_isoligne =  os.path.join( chemin_raster, nom_court_isoligne) # inutile physiocap_rename_existing_file()        
                 #nom_info_raster = nom_noeud_arbre + SEPARATEUR_ + un_nom + field + "_INFO"
                 
                 # Parametres fixes
@@ -523,12 +532,13 @@ def physiocap_moyenne_InterParcelles( self):
                 # Attraper les exceptions processing
                 nom_raster_temp = ""
                 nom_raster_final = ""
+                nom_iso_final = ""
                 
-                # Récuperer Extent du polygone
+                # Récuperer Extent du polygone en cours
                 ex = vignette_vector.extent()
                 xmin, xmax, ymin, ymax = ex.xMinimum(),ex.xMaximum(), ex.yMinimum(), ex.yMaximum()
                 info_extent = str(xmin) + "," + str(xmax) + "," + str(ymin) + "," + str(ymax)
-                physiocap_log( u"Extent layer >>> " + info_extent + " <<<")
+                #physiocap_log( u"Extent layer >>> " + info_extent + " <<<")
                 
                 if self.radioButtonSAGA.isChecked():
                     # Appel SAGA
@@ -540,7 +550,7 @@ def physiocap_moyenne_InterParcelles( self):
                     if (  premier_raster != None):
                         if ( str( list( premier_raster) == "USER_GRID")):
                             if str( premier_raster[ 'USER_GRID']) != None:
-                                physiocap_log( u"premier fichier SAGA : " + str( premier_raster[ 'USER_GRID']))
+                                #physiocap_log( u"premier fichier SAGA : " + str( premier_raster[ 'USER_GRID']))
                                 nom_raster_temp =  str( premier_raster[ 'USER_GRID'])
                     else:
                         raise physiocap_exception_interpolation( nom_point)
@@ -555,8 +565,22 @@ def physiocap_moyenne_InterParcelles( self):
                     if (  raster_dans_poly != None):
                         if ( str( list( raster_dans_poly) == "Output")):
                             if str( raster_dans_poly[ 'OUTPUT']) != None:
-                                physiocap_log( u"Fin interpolation dans : " + str( raster_dans_poly[ 'OUTPUT']))
-                               
+                                nom_raster_final = str( raster_dans_poly[ 'OUTPUT'])
+                                physiocap_log( u"Fin interpolation SAGA dans : " + nom_raster_final)
+                    
+                    if ( nom_raster_final != ""):
+                        # Isolignes
+                        iso_dans_poly = processing.runalg("saga:contourlinesfromgrid",
+                            nom_raster_final,
+                            2, 20, 5,
+                            nom_isoligne)
+                        if (  iso_dans_poly != None):
+                            if ( str( list( iso_dans_poly) == "Output")):
+                                if str( iso_dans_poly[ 'OUTPUT']) != None:
+                                    nom_iso_final = str( iso_dans_poly[ 'OUTPUT'])
+                                    physiocap_log( u"Isolignes SAGA : " + nom_iso_final)                                
+                        else:
+                            raise physiocap_exception_interpolation( nom_point)
                     else:
                         raise physiocap_exception_interpolation( nom_point)                    
                 else:
@@ -569,7 +593,7 @@ def physiocap_moyenne_InterParcelles( self):
                     if (  premier_raster != None):
                         if ( str( list( premier_raster) == "Output")):
                             if str( premier_raster[ 'OUTPUT']) != None:
-                                physiocap_log( u"premier fichier GDAL : " + str( premier_raster[ 'OUTPUT']))
+                                #physiocap_log( u"premier fichier GDAL : " + str( premier_raster[ 'OUTPUT']))
                                 nom_raster_temp =  str( premier_raster[ 'OUTPUT'])
                     else:
                         raise physiocap_exception_interpolation( nom_point)
@@ -593,11 +617,28 @@ def physiocap_moyenne_InterParcelles( self):
                     if (  raster_dans_poly != None):
                         if ( str( list( raster_dans_poly) == "Output")):
                             if str( raster_dans_poly[ 'OUTPUT']) != None:
-                                physiocap_log( u"Fin interpolation dans : " + str( raster_dans_poly[ 'OUTPUT']))
-                                # Todo : Intégrer Isolignes 
-                               
+                                physiocap_log( u"Fin interpolation GDAL")
+                                nom_raster_final = str( raster_dans_poly[ 'OUTPUT'])
+                    
+                    if ( nom_raster_final != ""):
+                        # Isolignes
+                        iso_dans_poly = processing.runalg("gdalogr:contour",
+                            nom_raster,
+                            3,
+                            field,
+                            "",
+                            nom_isoligne)
+                        if (  iso_dans_poly != None):
+                            if ( str( list( iso_dans_poly) == "OUTPUT_VECTOR")):
+                                if str( iso_dans_poly[ 'OUTPUT_VECTOR']) != None:
+                                    nom_iso_final = str( iso_dans_poly[ 'OUTPUT_VECTOR'])
+                                    physiocap_log( u"Isolignes GDAL : " + nom_iso_final)                                
+                        else:
+                            raise physiocap_exception_interpolation( nom_point)
                     else:
                         raise physiocap_exception_interpolation( nom_point)
+                    
+                    
                     
 ##                try:
 ##                                      
@@ -607,17 +648,29 @@ def physiocap_moyenne_InterParcelles( self):
                                                         
                 # Affichage dans panneau Qgis                           
                 if (INTRA == "YES"):
-                    intra_raster = QgsRasterLayer( raster_dans_poly[ 'OUTPUT'], 
-                        nom_court_raster)
-                    if vignette_group_intra != None:
-                        QgsMapLayerRegistry.instance().addMapLayer( intra_raster, False)
-                        raster_node = vignette_group_intra.addLayer( intra_raster)
-                    else:
-                        QgsMapLayerRegistry.instance().addMapLayer( intra_raster)
+                    if ( nom_raster_final != ""):
+                        intra_raster = QgsRasterLayer( nom_raster_final, 
+                            nom_court_raster)
+                        if ( nom_iso_final != ""):
+                            intra_isoligne = QgsVectorLayer( nom_iso_final, 
+                                nom_court_isoligne, 'ogr')
                     
-                    if ( os.path.exists( le_template_raster_diametre)):
-                        intra_raster.loadNamedStyle( le_template_raster_diametre)
-                        physiocap_log( u"Template INTRA Qgis: OK " )
+                        if vignette_group_intra != None:
+                            QgsMapLayerRegistry.instance().addMapLayer( intra_raster, False)
+                            raster_node = vignette_group_intra.addLayer( intra_raster)
+                            if ( nom_iso_final != ""):
+                                QgsMapLayerRegistry.instance().addMapLayer( intra_isoligne, False)
+                                iso_node = vignette_group_intra.addLayer( intra_isoligne)
+                        else:
+                            QgsMapLayerRegistry.instance().addMapLayer( intra_raster)
+                            if ( nom_iso_final != ""):
+                                QgsMapLayerRegistry.instance().addMapLayer( intra_isoligne)
+                    
+                        if ( os.path.exists( le_template_raster_diametre)):
+                            intra_raster.loadNamedStyle( le_template_raster_diametre)
+                        if (( nom_iso_final != "") and ( os.path.exists( le_template_isoligne_diametre))):
+                            intra_isoligne.loadNamedStyle( le_template_isoligne_diametre)
+                    physiocap_log( u"Apres template INTRA " )
                
         else:
             physiocap_log( u"Aucune point dans votre contour : " + str(un_nom) + 
@@ -650,7 +703,7 @@ def physiocap_moyenne_InterParcelles( self):
         if contour_moyenne.isValid():
             physiocap_log( u"Contour moyenne valide")
           
-        # On se positionne en haut de l'arbre
+        # Todo : On se positionne en haut de l'arbre
         QgsMapLayerRegistry.instance().addMapLayer( contour_moyenne)
         if ( os.path.exists( le_template_moyenne)):
             contour_moyenne.loadNamedStyle( le_template_moyenne)     

@@ -277,7 +277,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         # Todo rechecher min et max du layer
         layer = self.get_layer_by_name( inputLayer )
         if layer is not None:
-            physiocap_log(u"Prochainement : recherche de min et max du layer >" + layer.name())
+            physiocap_log(u"Prochainement : recherche de min et max du layer >")
 
 
     def update_field_poly_list( self ):
@@ -418,10 +418,10 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             physiocap_log( ERREUR_EXCEPTION + ". Consultez le journal Physiocap Erreur",
                 "WARNING")
             physiocap_error( ERREUR_EXCEPTION)
-            physiocap_error(u"Les moyennes InterParcellaires du projet Physiocap " + str( e) + " existent déjà.",
+            physiocap_error(u"Les moyennes InterParcellaires du projet Physiocap " + str( e) + u" existent déjà.",
                 "CRITICAL")
             return physiocap_message_box( self, self.tr( ERREUR_EXCEPTION + "\n" + \
-                u"Les moyennes InterParcellaires du projet Physiocap " + str( e) + " existent déjà."),
+                u"Les moyennes InterParcellaires du projet Physiocap " + str( e) + u" existent déjà."),
                 "information" )
         except physiocap_exception_points_invalid as e:
             physiocap_log( ERREUR_EXCEPTION + ". Consultez le journal Physiocap Erreur",
