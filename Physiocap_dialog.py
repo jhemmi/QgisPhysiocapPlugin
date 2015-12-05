@@ -1011,11 +1011,11 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         dirTemplate = os.path.join( os.path.dirname(__file__), 'modeleQgis')       
         # Affichage des différents shapes dans Qgis
         if (VERBOSE == "YES"):
-            SHAPE_A_AFFICHER = [(nom_shape_sans_0, 'DIAMETRE', 'Diametre 6 Jenks.qml') , 
+            SHAPE_A_AFFICHER = [(nom_shape_sans_0, 'DIAMETRE', 'Diametre 4 Jenks.qml') , 
                         (nom_shape_sans_0, 'SARMENT', 'Sarments 4 Jenks.qml') , 
                         (nom_shape_avec_0, 'VITESSE', 'Vitesse.qml')]
         else:
-            SHAPE_A_AFFICHER = [(nom_shape_sans_0, 'DIAMETRE', 'Diametre 6 Jenks.qml') , 
+            SHAPE_A_AFFICHER = [(nom_shape_sans_0, 'DIAMETRE', 'Diametre 4 Jenks.qml') , 
                         (nom_shape_sans_0, 'SARMENT', 'Sarments 4 Jenks.qml')]
 
         
