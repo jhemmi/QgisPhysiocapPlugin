@@ -306,13 +306,15 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
  
         # Remplissage de la liste de ATTRIBUTS_INTRA 
         self.fieldComboIntra.setCurrentIndex( 0)   
-        # Todo : car de details ATTRIBUTS_INTRA_DETAIL
         if len( ATTRIBUTS_INTRA) == 0:
             self.fieldComboIntra.clear( )
             physiocap_error( u"Pas de liste des attribut pour Intra pré défini")
         else:
             self.fieldComboIntra.clear( )
             self.fieldComboIntra.addItems( ATTRIBUTS_INTRA )
+            # TEST JH : cas de details ATTRIBUTS_INTRA_DETAIL
+            if (self.settings.value("Physiocap/details") == "YES"):
+                self.fieldComboIntra.addItems( ATTRIBUTS_INTRA_DETAILS )
             # Retrouver le format de  settings
             i=0
             leFormat = self.settings.value("Physiocap/attributIntra", "xx") 
@@ -320,7 +322,11 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
                 if ( unFormat == leFormat):
                     self.fieldComboIntra.setCurrentIndex( i)
                 i=i+1
-
+            if (self.settings.value("Physiocap/details") == "YES"):
+                for unFormat in ATTRIBUTS_INTRA:
+                    if ( unFormat == leFormat):
+                        self.fieldComboIntra.setCurrentIndex( i)
+                    i=i+1
 
 
         # Auteurs : Icone
@@ -350,7 +356,11 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         layer = physiocap_get_layer_by_ID( idLayer)
         if layer is not None:
             #physiocap_log(u"Todo : Recherche de min et max de l'attribut >" + str( nom_attribut))
-            index_attribut = layer.fieldNameIndex( nom_attribut)
+            try:
+                index_attribut = layer.fieldNameIndex( nom_attribut)
+            except:
+                # Todo : Attraper cette erreur 
+                return
             valeurs = []
             for un_point in layer.getFeatures():
                  valeurs.append( un_point.attributes()[index_attribut])

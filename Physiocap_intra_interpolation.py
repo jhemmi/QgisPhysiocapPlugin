@@ -108,10 +108,6 @@ def physiocap_interpolation_IntraParcelles( self):
     else:
         physiocap_log ( u"= Version GDAL = " + str( versionGDAL))
 
-
-
-
-
     # Todo : Faire une fonction commune à inter et Intra jusqu'à 162
     repertoire_data = self.lineEditDirectoryPhysiocap.text()
     if ((repertoire_data == "") or ( not os.path.exists( repertoire_data))):
@@ -119,11 +115,8 @@ def physiocap_interpolation_IntraParcelles( self):
         return physiocap_message_box( self, 
             self.tr( u"Pas de répertoire de données brutes spécifié" ),
             "information")
-            
-    details = "NO"
-    if self.checkBoxInfoVignoble.isChecked():
-        details = "YES"
-    
+           
+   
     # Pour polygone de contour   
     nom_complet_poly = self.comboBoxPolygone.currentText().split( SEPARATEUR_NOEUD)
     if ( len( nom_complet_poly) != 2):
@@ -346,16 +339,31 @@ def physiocap_interpolation_IntraParcelles( self):
             
             if ( nom_raster_final != ""):
                 # Isolignes
-                iso_dans_poly = processing.runalg("saga:contourlinesfromgrid",
+##                iso_dans_poly = processing.runalg("saga:contourlinesfromgrid",
+##                    nom_raster_final,
+##                    isoMin, isoMax, isoInterlignes,
+##                    nom_isoligne)
+                iso_dans_poly_brut = processing.runalg("saga:contourlinesfromgrid",
                     nom_raster_final,
                     isoMin, isoMax, isoInterlignes,
-                    nom_isoligne)
+                    None)
+                if ( iso_dans_poly_brut != None):                              
+                    if ( str( list( iso_dans_poly_brut) == "CONTOUR")):
+                        if str( iso_dans_poly_brut[ 'CONTOUR']) != None:
+                            nom_iso_final = str( iso_dans_poly_brut[ 'CONTOUR'])
+                            physiocap_log( u"=~= Isolignes brut SAGA : " + str( iso_dans_poly_brut[ 'CONTOUR']))                                                 
+                    
+                            iso_dans_poly = processing.runalg("qgis:fieldcalculator",
+                                str( iso_dans_poly_brut[ 'CONTOUR']),
+                                "ELEV",0,15,5,True,' "OUTPUTALGSA" ',None)
                 if ( iso_dans_poly != None):                              
-                    if ( str( list( iso_dans_poly) == "CONTOUR")):
-                        if str( iso_dans_poly[ 'CONTOUR']) != None:
-                            nom_iso_final = str( iso_dans_poly[ 'CONTOUR'])
-                            physiocap_log( u"=~= Isolignes SAGA : " + nom_court_isoligne)                                
-                            physiocap_log ( u"=~= =~=~=~=~= <<")
+                    physiocap_log( u"=~= Isolignes SAGA : " + str( list( iso_dans_poly)))
+                    nom_iso_final = str( iso_dans_poly[ 'OUTPUT'])                                
+##                    if ( str( list( iso_dans_poly) == "CONTOUR")):
+##                        if str( iso_dans_poly[ 'CONTOUR']) != None:
+##                            nom_iso_final = str( iso_dans_poly[ 'CONTOUR'])
+##                            physiocap_log( u"=~= Isolignes SAGA : " + nom_court_isoligne)                                
+##                            physiocap_log ( u"=~= =~=~=~=~= <<")
                 else:
                     raise physiocap_exception_interpolation( nom_point)
             else:
@@ -369,10 +377,7 @@ def physiocap_interpolation_IntraParcelles( self):
                 nom_point, le_champ_choisi, powerIntra, 0.0, rayonIntra, rayonIntra, 
                 1000, 5, angle, val_nulle ,float_32, 
                 None)
-##            premier_raster = processing.runalg("gdalogr:gridinvdist",
-##                nom_point, le_champ_choisi, powerIntra, 0.0, rayonIntra, rayonIntra, 
-##                0, 0, angle, val_nulle ,float_32, 
-##                None)
+
             if (  premier_raster != None):
                 if ( str( list( premier_raster) == "Output")):
                     if str( premier_raster[ 'OUTPUT']) != None:
