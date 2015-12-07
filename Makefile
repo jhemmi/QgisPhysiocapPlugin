@@ -40,9 +40,11 @@ SOURCES = \
     __init__.py \
     Physiocap.py \
     Physiocap_tools.py \
-    Physiocap_exception.py \
+    Physiocap_var_exception.py \
     Physiocap_CIVC.py \
+    Physiocap_creer_arbre.py \
     Physiocap_inter.py \
+    Physiocap_intra_interpolation.py \
     Physiocap_dialog.py
 
 PLUGINNAME = PhysiocapAnalyseur
@@ -50,10 +52,12 @@ PLUGINNAME = PhysiocapAnalyseur
 PY_FILES = \
     Physiocap.py \
     Physiocap_dialog.py \
-    Physiocap_exception.py \
+    Physiocap_var_exception.py \
     Physiocap_tools.py \
+    Physiocap_creer_arbre.py \
     Physiocap_CIVC.py \
     Physiocap_inter.py \
+    Physiocap_intra_interpolation.py \
     __init__.py
 
 UI_FILES = Physiocap_dialog_base.ui

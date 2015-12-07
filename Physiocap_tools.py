@@ -35,7 +35,7 @@
  *                                                                         *
 ***************************************************************************/
 """
-from Physiocap_exception import *
+from Physiocap_var_exception import *
 
 from PyQt4 import QtGui, uic  # for Form_class
 from PyQt4.QtCore import *
@@ -102,7 +102,34 @@ def JH_is_int_number(s):
         return True
     except ValueError:
         return False
-    
+ 
+def physiocap_get_layer_by_ID( layerID):
+    """ Retrouve un layer ID dans la map Tree Root"""
+    layer_trouve = None
+    root = QgsProject.instance().layerTreeRoot()
+ 
+    ids = root.findLayerIds()
+    layers = root.findLayers()
+##    physiocap_log( "--- layerids: " + str( ids))
+##    physiocap_log( "- layers : " + str( layers))    
+
+    for id in ids:
+        if id == layerID:
+            #physiocap_log( u"Layer retrouvé : " + str( layerID))
+            layer_trouve = root.findLayer( layerID)
+            le_layer = layer_trouve.layer()
+            break
+    if ( layer_trouve != None):
+        if ( le_layer.isValid()):
+            return le_layer
+        else:
+            physiocap_log( "Layer invalide : " + str( le_layer.name()))
+            return None
+    else:
+        physiocap_log( "Aucun layer retrouvé pour ID : " + str( layerID))
+        return None
+
+   
 def physiocap_quelle_projection_demandee( self):
     """ Selon la valeur cochée dans le radio de projection
     positionne laProjection, EXTENSION_SHP, EXTENSION_PRJ et epsg

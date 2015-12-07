@@ -41,7 +41,7 @@
 """
 from Physiocap_tools import physiocap_message_box, physiocap_question_box,\
         physiocap_log, physiocap_error, physiocap_write_in_synthese
-from Physiocap_exception import *
+from Physiocap_var_exception import *
         
 from PyQt4 import QtGui, uic  # for Form_class
 from PyQt4.QtCore import *

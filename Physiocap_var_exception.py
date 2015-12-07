@@ -41,18 +41,8 @@ import platform
 # dont les fonctions de calcul sont conservé à l'identique
 # Répertoire de base et projet
 PHYSIOCAP_TRACE = "YES"
-# En prod Verbose vaut NO
-VERBOSE = "NO"  # Verbose YES est pour voir dans panneau ou synthèse tout ce qui est crée
-SHAPE_POINTS_PAR_CONTOUR = "YES"   #  "NO" ou "YES"  ou "CREATE_ONLY"
-SHAPE_MOYENNE_PAR_CONTOUR = "YES"   #  "NO" ou "YES"  ou "CREATE_ONLY"
-
-# Todo : INTRA Parametre Intra provient du Dialogue
-INTRA = "NO"
-if (( SHAPE_MOYENNE_PAR_CONTOUR == "YES") or ( SHAPE_MOYENNE_PAR_CONTOUR == "CREATE_ONLY")):
-    INTRA =  "YES"                                    #  "NO" ou "YES"  ou "CREATE_ONLY"
-
-ATTRIBUTS_INTRA = [ "DIAM", "NBSARM", "BIOM"] 
-ATTRIBUTS_INTRA_DETAILS = [ "DIAM", "NBSARM", "BIOM", "BIOMGM2"] 
+# En prod CENTROIDES vaut NO
+CENTROIDES = "NO"  # CENTROIDES YES est pour voir les centroides dans la synthese
 
 REPERTOIRE_DONNEES_BRUTES = "/home/jhemmi/Documents/GIS/SCRIPT/QGIS/PhysiocapAnalyseur/data"
 PHYSIOCAP_NOM = "Physiocap"
@@ -95,6 +85,8 @@ EXTENSION_PRJ = ".prj"
 EXTENSION_RASTER = ".tif"
 EXTENSION_RASTER_SAGA = ".sdat"
 
+EXTENSION_QML = ".qml"
+
 EXTENSION_POUR_ZERO = SEPARATEUR_ + "0"
 
 EPSG_NUMBER_L93 = 2154
@@ -119,10 +111,12 @@ VIGNETTES_INTER = "INTER_PARCELLAIRE"
 NOM_POINTS = SEPARATEUR_ + "POINTS"
 NOM_INTER = SEPARATEUR_ + "INTER"
 
-# Inter PARCELLAIRE
+# Intra PARCELLAIRE
 VIGNETTES_INTRA = "INTRA_PARCELLAIRE"
 NOM_INTRA = SEPARATEUR_ + "INTRA"
 REPERTOIRE_RASTERS = "raster"
+ATTRIBUTS_INTRA = [ "DIAM", "NBSARM", "BIOM"] 
+ATTRIBUTS_INTRA_DETAILS = [ "DIAM", "NBSARM", "BIOM", "BIOMGM2"] 
 
 # Exceptions Physiocap 
 ERREUR_EXCEPTION = u"Physiocap n'a pas correctement terminé son analyse"
