@@ -349,24 +349,24 @@ def physiocap_interpolation_IntraParcelles( self):
                             nom_iso_final = str( iso_dans_poly_brut[ 'CONTOUR'])
                             physiocap_log( u"=~= Isolignes brut SAGA : " + str( iso_dans_poly_brut[ 'CONTOUR']))                                                 
 
-                            intra_iso_modifie = QgsVectorLayer( nom_iso_final, 
-                                nom_court_isoligne, 'ogr')
-                                
-                            fields = intra_iso_modifie.pendingFields()
-                            field_probable = fields[1]
-                            field_name = field_probable.name()
-                            field_formule = ' "' + str( field_name) + ' "'  
-                            physiocap_log( u"=~= Isolignes field : " + str(field_name))                                                 
-                            iso_dans_poly = processing.runalg("qgis:fieldcalculator",
-                                nom_iso_final,
-                                "ELEV", 0, 15, 5, True, field_formule ,None)
-                if ( iso_dans_poly != None):                              
-                    physiocap_log( u"=~= Isolignes SAGA : " + str( list( iso_dans_poly)))
-                    nom_iso_final = str( iso_dans_poly[ 'OUTPUT_LAYER'])                                
-                    if ( str( list( iso_dans_poly) == "OUTPUT_LAYER")):
-                        if str( iso_dans_poly[ 'OUTPUT_LAYER']) != None:
-                            nom_iso_final = str( iso_dans_poly[ 'OUTPUT_LAYER'])
-                            physiocap_log( u"=~= Isolignes SAGA : " + nom_court_isoligne)                                
+##                            intra_iso_modifie = QgsVectorLayer( nom_iso_final, 
+##                                nom_court_isoligne, 'ogr')
+##                                
+##                            fields = intra_iso_modifie.pendingFields()
+##                            field_probable = fields[1]
+##                            field_name = field_probable.name()
+##                            field_formule = ' "' + str( field_name[:10]) + ' "'  
+##                            physiocap_log( u"=~= Isolignes field : " + str(field_name))                                                 
+##                            iso_dans_poly = processing.runalg("qgis:fieldcalculator",
+##                                nom_iso_final,
+##                                "ELEV", 0, 15, 5, True, field_formule ,None)
+##                if ( iso_dans_poly != None):                              
+##                    physiocap_log( u"=~= Isolignes SAGA : " + str( list( iso_dans_poly)))
+##                    nom_iso_final = str( iso_dans_poly[ 'OUTPUT_LAYER'])                                
+##                    if ( str( list( iso_dans_poly) == "OUTPUT_LAYER")):
+##                        if str( iso_dans_poly[ 'OUTPUT_LAYER']) != None:
+##                            nom_iso_final = str( iso_dans_poly[ 'OUTPUT_LAYER'])
+##                            physiocap_log( u"=~= Isolignes SAGA : " + nom_court_isoligne)                                
                             physiocap_log ( u"=~= =~=~=~=~= <<")
                 else:
                     raise physiocap_exception_interpolation( nom_point)
