@@ -339,23 +339,25 @@ def physiocap_interpolation_IntraParcelles( self):
             
             if ( nom_raster_final != ""):
                 # Isolignes
-##                iso_dans_poly = processing.runalg("saga:contourlinesfromgrid",
-##                    nom_raster_final,
-##                    isoMin, isoMax, isoInterlignes,
-##                    nom_isoligne)
                 iso_dans_poly_brut = processing.runalg("saga:contourlinesfromgrid",
                     nom_raster_final,
                     isoMin, isoMax, isoInterlignes,
-                    None)
+                    nom_isoligne)
                 if ( iso_dans_poly_brut != None):                              
                     if ( str( list( iso_dans_poly_brut) == "CONTOUR")):
                         if str( iso_dans_poly_brut[ 'CONTOUR']) != None:
                             nom_iso_final = str( iso_dans_poly_brut[ 'CONTOUR'])
                             physiocap_log( u"=~= Isolignes brut SAGA : " + str( iso_dans_poly_brut[ 'CONTOUR']))                                                 
-                    
+
+                            intra_iso_modifie = QgsVectorLayer( nom_iso_final, 
+                                nom_court_isoligne, 'ogr')
+                            fields = intra_iso_modifie.pendingFields()
+                            field_probable = fields[1]
+                            field_name = field_probable.name()  
+                            physiocap_log( u"=~= Isolignes field : " + str(field_name))                                                 
                             iso_dans_poly = processing.runalg("qgis:fieldcalculator",
-                                str( iso_dans_poly_brut[ 'CONTOUR']),
-                                "ELEV",0,15,5,True,' "OUTPUTALGSA" ',None)
+                                nom_iso_final,
+                                "ELEV",0,15,5,True,' "' + field_name + '" ',None)
                 if ( iso_dans_poly != None):                              
                     physiocap_log( u"=~= Isolignes SAGA : " + str( list( iso_dans_poly)))
                     nom_iso_final = str( iso_dans_poly[ 'OUTPUT'])                                

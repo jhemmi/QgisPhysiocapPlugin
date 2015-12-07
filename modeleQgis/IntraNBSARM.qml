@@ -4,7 +4,7 @@
     <rasterrenderer opacity="1" alphaBand="-1" classificationMax="12" classificationMinMaxOrigin="User" band="1" classificationMin="4" type="singlebandpseudocolor">
       <rasterTransparency/>
       <rastershader>
-        <colorrampshader colorRampType="INTERPOLATED" clip="0">
+        <colorrampshader colorRampType="DISCRETE" clip="0">
           <item alpha="255" value="4" label="4.000000" color="#f7fcf5"/>
           <item alpha="255" value="6" label="6.000000" color="#c9e9c2"/>
           <item alpha="255" value="8" label="8.000000" color="#7ac77b"/>
