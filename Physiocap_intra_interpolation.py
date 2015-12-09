@@ -318,7 +318,7 @@ def physiocap_interpolation_IntraParcelles( self):
                 if ( str( list( premier_raster) == "USER_GRID")):
                     if str( premier_raster[ 'USER_GRID']) != None:
                         #physiocap_log( u"=~= premier fichier SAGA : " + str( premier_raster[ 'USER_GRID']))
-    Physiocap_intra_interpolation.py                    nom_raster_temp =  str( premier_raster[ 'USER_GRID'])
+                        nom_raster_temp =  str( premier_raster[ 'USER_GRID'])
             else:
                 raise physiocap_exception_interpolation( nom_point)
                                             
@@ -349,7 +349,7 @@ def physiocap_interpolation_IntraParcelles( self):
                                 nom_court_isoligne, 'memory')
                             fields = intra_iso_modifie.pendingFields()
                             field_probable = fields[1]
-                            field_name = field_probablPhysiocap_intra_interpolation.pyPhysiocap_intra_interpolation.pyPhysiocap_intra_interpolation.pynom_iso_finale.name()
+                            field_name = field_probable.name()
                             field_formule = 'value = "' + str( field_name) + '"'  
                             physiocap_log( u"=~= Isolignes formule : " + str(field_formule))                                                 
                             # Le remplacer par "Elev"
