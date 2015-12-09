@@ -220,7 +220,7 @@ def physiocap_interpolation_IntraParcelles( self):
     id = 0
     contour_avec_point = 0
 
-    # Todo JHJHHJ on tourne sur les contours qui ont été crée par Inter
+    # On tourne sur les contours qui ont été crée par Inter
 
     for un_contour in vecteur_poly.getFeatures(): #iterate poly features
         id = id + 1
@@ -231,7 +231,7 @@ def physiocap_interpolation_IntraParcelles( self):
             pass
         
         physiocap_log ( u"=~= =~=~=~=~= >>")
-        physiocap_log ( u"=~= Nom Contour : " + un_nom)
+        physiocap_log ( u"=~= Nom Contour : >>" + str( un_nom) + "<<")
 
         # ###################
         # CRÉATION groupe INTRA
@@ -285,7 +285,6 @@ def physiocap_interpolation_IntraParcelles( self):
         # ###################
         # CRÉATION raster
         # ###################
-                        
         # Nom du raster avec le_champ_choisi
         nom_court_raster = nom_noeud_arbre + SEPARATEUR_ + le_champ_choisi + SEPARATEUR_ + \
             un_nom + EXT_CRS_RASTER
@@ -303,13 +302,11 @@ def physiocap_interpolation_IntraParcelles( self):
         nom_raster_temp = ""
         nom_raster_final = ""
         nom_iso_final = ""
-        
         # Récuperer Extent du polygone en cours
         ex = vignette_vector.extent()
         xmin, xmax, ymin, ymax = ex.xMinimum(),ex.xMaximum(), ex.yMinimum(), ex.yMaximum()
         info_extent = str(xmin) + "," + str(xmax) + "," + str(ymin) + "," + str(ymax)
-        #physiocap_log( u"=~= Extent layer >>> " + info_extent + " <<<")
-        
+        #physiocap_log( u"=~= Extent layer >>> " + info_extent + " <<<")  
         if self.radioButtonSAGA.isChecked():
             # Appel SAGA
             physiocap_log( u"=~= Interpolation SAGA " + str( nom_court_raster))
@@ -321,7 +318,7 @@ def physiocap_interpolation_IntraParcelles( self):
                 if ( str( list( premier_raster) == "USER_GRID")):
                     if str( premier_raster[ 'USER_GRID']) != None:
                         #physiocap_log( u"=~= premier fichier SAGA : " + str( premier_raster[ 'USER_GRID']))
-                        nom_raster_temp =  str( premier_raster[ 'USER_GRID'])
+    Physiocap_intra_interpolation.py                    nom_raster_temp =  str( premier_raster[ 'USER_GRID'])
             else:
                 raise physiocap_exception_interpolation( nom_point)
                                             
@@ -347,21 +344,18 @@ def physiocap_interpolation_IntraParcelles( self):
                     if ( str( list( iso_dans_poly_brut) == "CONTOUR")):
                         if str( iso_dans_poly_brut[ 'CONTOUR']) != None:
                             nom_iso_final = str( iso_dans_poly_brut[ 'CONTOUR'])
-                            physiocap_log( u"=~= Isolignes brut SAGA : " + str( iso_dans_poly_brut[ 'CONTOUR']))                                                 
-
+                            # Retrouver le nom de l'atribut créé et 
                             intra_iso_modifie = QgsVectorLayer( nom_iso_final, 
-                                nom_court_isoligne, 'ogr')
-                            #nom_iso_final_nouveau = nom_iso_final_nouveau str( iso_dans_poly_brut[ 'CONTOUR'])
-                                
+                                nom_court_isoligne, 'memory')
                             fields = intra_iso_modifie.pendingFields()
                             field_probable = fields[1]
-                            field_name = field_probable.name()
-                            physiocap_log( u"=~= Isolignes field : " + str(field_name))                                                 
-                            field_formule = '"value = "' + str( field_name) + '""'  
-                            physiocap_log( u"=~= Isolignes field : " + str(field_formule))                                                 
+                            field_name = field_probablPhysiocap_intra_interpolation.pyPhysiocap_intra_interpolation.pyPhysiocap_intra_interpolation.pynom_iso_finale.name()
+                            field_formule = 'value = "' + str( field_name) + '"'  
+                            physiocap_log( u"=~= Isolignes formule : " + str(field_formule))                                                 
+                            # Le remplacer par "Elev"
                             iso_dans_poly = processing.runalg("qgis:advancedpythonfieldcalculator",
                                 nom_iso_final,
-                                "ELEV", 0, 15, 5, True, field_formule ,None)
+                                "ELEV", 1, 15, 5, True, field_formule ,None)
                 if ( iso_dans_poly != None):                              
                     nom_iso_final = str( iso_dans_poly[ 'OUTPUT_LAYER'])                                
                     if ( str( list( iso_dans_poly) == "OUTPUT_LAYER")):
