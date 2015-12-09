@@ -344,18 +344,28 @@ def physiocap_interpolation_IntraParcelles( self):
                     if ( str( list( iso_dans_poly_brut) == "CONTOUR")):
                         if str( iso_dans_poly_brut[ 'CONTOUR']) != None:
                             nom_iso_final = str( iso_dans_poly_brut[ 'CONTOUR'])
-                            # Retrouver le nom de l'atribut créé et 
-                            intra_iso_modifie = QgsVectorLayer( nom_iso_final, 
-                                nom_court_isoligne, 'memory')
-                            fields = intra_iso_modifie.pendingFields()
-                            field_probable = fields[1]
-                            field_name = field_probable.name()
-                            field_formule = 'value = "' + str( field_name) + '"'  
-                            physiocap_log( u"=~= Isolignes formule : " + str(field_formule))                                                 
-                            # Le remplacer par "Elev"
-                            iso_dans_poly = processing.runalg("qgis:advancedpythonfieldcalculator",
+                if ( nom_iso_final != ""):                              
+                    iso_dans_poly_plus = processing.runalg("qgis:addfieldtoattributstable",
                                 nom_iso_final,
-                                "ELEV", 1, 15, 5, True, field_formule ,None)
+                                "ELEV", 1, 15, 2 ,None)
+                
+                if ( iso_dans_poly_plus != None):                              
+                    if ( str( list( iso_dans_poly_plus) == "OUTPUT_LAYER")):
+                        if str( iso_dans_poly_plus[ 'OUTPUT_LAYER']) != None:
+                            nom_iso_final = str( iso_dans_poly_plus[ 'OUTPUT_LAYER'])
+                if ( nom_iso_final != ""):                              
+                    # Retrouver le nom de l'atribut créé et 
+                    intra_iso_modifie = QgsVectorLayer( nom_iso_final, 
+                            nom_court_isoligne, 'ogr')
+                    fields = intra_iso_modifie.pendingFields()
+                    field_probable = fields[1]
+                    field_name = field_probable.name()
+                    field_formule = '""' + str( field_name) + '"\n"'  
+                    physiocap_log( u"=~= Isolignes formule : " + str(field_formule))                                                 
+                    # Le remplacer par "Elev"
+                    iso_dans_poly = processing.runalg("qgis:fieldcalculator",
+                                nom_iso_final,
+                                "ELEV", 0, 15, 2, False, field_formule ,None)
                 if ( iso_dans_poly != None):                              
                     nom_iso_final = str( iso_dans_poly[ 'OUTPUT_LAYER'])                                
                     if ( str( list( iso_dans_poly) == "OUTPUT_LAYER")):
