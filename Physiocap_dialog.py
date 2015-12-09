@@ -323,7 +323,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
                     self.fieldComboIntra.setCurrentIndex( i)
                 i=i+1
             if (self.settings.value("Physiocap/details") == "YES"):
-                for unFormat in ATTRIBUTS_INTRA:
+                for unFormat in ATTRIBUTS_INTRA_DETAILS:
                     if ( unFormat == leFormat):
                         self.fieldComboIntra.setCurrentIndex( i)
                     i=i+1

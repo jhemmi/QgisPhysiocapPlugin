@@ -344,10 +344,11 @@ def physiocap_interpolation_IntraParcelles( self):
                     if ( str( list( iso_dans_poly_brut) == "CONTOUR")):
                         if str( iso_dans_poly_brut[ 'CONTOUR']) != None:
                             nom_iso_final = str( iso_dans_poly_brut[ 'CONTOUR'])
+
                 if ( nom_iso_final != ""):                              
-                    iso_dans_poly_plus = processing.runalg("qgis:addfieldtoattributstable",
-                                nom_iso_final,
-                                "ELEV", 1, 15, 2 ,None)
+                    iso_dans_poly_plus = processing.runalg("qgis:addfieldtoattributestable", \
+                        nom_iso_final, \
+                        "ELEV", 1, 15, 2 ,None)
                 
                 if ( iso_dans_poly_plus != None):                              
                     if ( str( list( iso_dans_poly_plus) == "OUTPUT_LAYER")):
@@ -360,12 +361,12 @@ def physiocap_interpolation_IntraParcelles( self):
                     fields = intra_iso_modifie.pendingFields()
                     field_probable = fields[1]
                     field_name = field_probable.name()
-                    field_formule = '""' + str( field_name) + '"\n"'  
-                    physiocap_log( u"=~= Isolignes formule : " + str(field_formule))                                                 
+                    field_formule = '"' + str( field_name) + '"'  
+##                    physiocap_log( u"=~= Isolignes formule : " + str(field_formule))                                                 
+##                    QgsMessageLog.logMessage( "PHYSIOCAP : Avant calculator ", "Processing", QgsMessageLog.WARNING)
                     # Le remplacer par "Elev"
-                    iso_dans_poly = processing.runalg("qgis:fieldcalculator",
-                                nom_iso_final,
-                                "ELEV", 0, 15, 2, False, field_formule ,None)
+                    iso_dans_poly = processing.runalg("qgis:fieldcalculator", \
+                        nom_iso_final, "ELEV", 0, 15, 2, False, field_formule ,None)
                 if ( iso_dans_poly != None):                              
                     nom_iso_final = str( iso_dans_poly[ 'OUTPUT_LAYER'])                                
                     if ( str( list( iso_dans_poly) == "OUTPUT_LAYER")):
@@ -399,9 +400,11 @@ def physiocap_interpolation_IntraParcelles( self):
             
             # Todo : INTRA Vérifier si GPS pas besoin de cette translation                    
             option_clip_raster = ""
+
             if ( EPSG_NUMBER == EPSG_NUMBER_L93 ):
                 #physiocap_log( u"=xg= Projection à translater vers : " + str( EPSG_NUMBER) )
-                #option_clip_raster = '-s_srs "EPSG:' + str(EPSG_NUMBER_GPS) + '" -t_srs "EPSG:' + str(EPSG_NUMBER_L93) + '"'
+                #option_clip_raster = '-s_2015-12-09T16:17:46	1	PHYSIOCAP : Avant calculator 
+                #srs "EPSG:' + str(EPSG_NUMBER_GPS) + '" -t_srs "EPSG:' + str(EPSG_NUMBER_L93) + '"'
                 option_clip_raster = "-t_srs \"EPSG:" + str(EPSG_NUMBER_L93) + "\""
                 
             if ( nom_raster_temp != ""):
@@ -419,7 +422,7 @@ def physiocap_interpolation_IntraParcelles( self):
                         nom_raster_final = str( raster_dans_poly[ 'OUTPUT'])
             
             QgsMessageLog.logMessage( "PHYSIOCAP : Avant Iso", "Processing", QgsMessageLog.WARNING)
-            
+
             if ( nom_raster_final != ""):
                 # Isolignes
                 iso_dans_poly = processing.runalg("gdalogr:contour",
@@ -428,6 +431,7 @@ def physiocap_interpolation_IntraParcelles( self):
                     "ELEV",
                     "",
                     nom_isoligne)
+                                
                 if (  iso_dans_poly != None):
                     if ( str( list( iso_dans_poly) == "OUTPUT_VECTOR")):
                         if str( iso_dans_poly[ 'OUTPUT_VECTOR']) != None:
