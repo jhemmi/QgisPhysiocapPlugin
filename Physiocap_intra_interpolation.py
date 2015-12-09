@@ -351,18 +351,18 @@ def physiocap_interpolation_IntraParcelles( self):
 
                             intra_iso_modifie = QgsVectorLayer( nom_iso_final, 
                                 nom_court_isoligne, 'ogr')
+                            #nom_iso_final_nouveau = nom_iso_final_nouveau str( iso_dans_poly_brut[ 'CONTOUR'])
                                 
                             fields = intra_iso_modifie.pendingFields()
                             field_probable = fields[1]
                             field_name = field_probable.name()
                             physiocap_log( u"=~= Isolignes field : " + str(field_name))                                                 
-                            field_formule = '"value = "' + str( field_name) + '"'  
+                            field_formule = 'value = "' + str( field_name) + '"'  
                             physiocap_log( u"=~= Isolignes field : " + str(field_formule))                                                 
                             iso_dans_poly = processing.runalg("qgis:advancedpythonfieldcalculator",
                                 nom_iso_final,
                                 "ELEV", 0, 15, 5, True, field_formule ,None)
                 if ( iso_dans_poly != None):                              
-                    physiocap_log( u"=~= Isolignes SAGA : " + str( list( iso_dans_poly)))
                     nom_iso_final = str( iso_dans_poly[ 'OUTPUT_LAYER'])                                
                     if ( str( list( iso_dans_poly) == "OUTPUT_LAYER")):
                         if str( iso_dans_poly[ 'OUTPUT_LAYER']) != None:
