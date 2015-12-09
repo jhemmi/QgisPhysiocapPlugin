@@ -1346,6 +1346,9 @@
       <property name="dragEnabled">
        <bool>true</bool>
       </property>
+      <property name="readOnly">
+       <bool>false</bool>
+      </property>
      </widget>
     </widget>
     <widget class="QPushButton" name="ButtonIntra">
@@ -1415,7 +1418,7 @@
        <x>10</x>
        <y>10</y>
        <width>491</width>
-       <height>361</height>
+       <height>404</height>
       </rect>
      </property>
      <property name="title">
@@ -1434,7 +1437,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Diamètre *</string>
+       <string>Diamètre **</string>
       </property>
       <property name="checked">
        <bool>true</bool>
@@ -1790,7 +1793,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Moyennes de chaque parcelle *</string>
+       <string>Moyennes de chaque parcelle **</string>
       </property>
       <property name="checked">
        <bool>true</bool>
@@ -1839,7 +1842,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Points de chaque parcelle *</string>
+       <string>Points de chaque parcelle **</string>
       </property>
       <property name="checked">
        <bool>true</bool>
@@ -1882,7 +1885,7 @@
       <property name="geometry">
        <rect>
         <x>250</x>
-        <y>310</y>
+        <y>329</y>
         <width>211</width>
         <height>21</height>
        </rect>
@@ -1912,7 +1915,7 @@
       <property name="geometry">
        <rect>
         <x>250</x>
-        <y>290</y>
+        <y>309</y>
         <width>211</width>
         <height>21</height>
        </rect>
@@ -1939,7 +1942,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>310</y>
+        <y>329</y>
         <width>211</width>
         <height>26</height>
        </rect>
@@ -1975,7 +1978,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>288</y>
+        <y>307</y>
         <width>211</width>
         <height>26</height>
        </rect>
@@ -1994,7 +1997,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>340</y>
+        <y>379</y>
         <width>451</width>
         <height>21</height>
        </rect>
@@ -2006,7 +2009,101 @@
        </font>
       </property>
       <property name="text">
-       <string>* Ces 3 affichages sont nécessaires aux modules Inter et Intra</string>
+       <string>** Ces 3 affichages sont nécessaires aux modules Inter et Intra</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBoxUnSeulIntra">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>286</y>
+        <width>221</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Une seule isoligne et image</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEditThematiqueUnSeulIntra">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>286</y>
+        <width>211</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhDialableCharactersOnly</set>
+      </property>
+      <property name="text">
+       <string>Isolignes ou Intra</string>
+      </property>
+      <property name="maxLength">
+       <number>50</number>
+      </property>
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>286</y>
+        <width>21</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>*</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>308</y>
+        <width>21</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>*</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lab_212">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>360</y>
+        <width>451</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+        <italic>true</italic>
+       </font>
+      </property>
+      <property name="text">
+       <string>* Ces 2 thématiques sont suffixées par l'entité interpoolée(DIAM, SARM, BIOM)</string>
       </property>
      </widget>
     </widget>
@@ -2014,7 +2111,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>390</y>
+       <y>421</y>
        <width>471</width>
        <height>141</height>
       </rect>
@@ -2083,7 +2180,7 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>50</y>
+        <y>54</y>
         <width>421</width>
         <height>21</height>
        </rect>
