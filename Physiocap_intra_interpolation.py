@@ -357,7 +357,7 @@ def physiocap_interpolation_IntraParcelles( self):
                             field_probable = fields[1]
                             field_name = field_probable.name()
                             physiocap_log( u"=~= Isolignes field : " + str(field_name))                                                 
-                            field_formule = 'value = "' + str( field_name) + '"'  
+                            field_formule = '"value = "' + str( field_name) + '""'  
                             physiocap_log( u"=~= Isolignes field : " + str(field_formule))                                                 
                             iso_dans_poly = processing.runalg("qgis:advancedpythonfieldcalculator",
                                 nom_iso_final,
