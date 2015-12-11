@@ -70,7 +70,7 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join( os.path.dirname(__file__), 'Physioc
 
 class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
     def __init__(self, parent=None):
-        """Constructor."""
+        """Constructeur."""
         super(PhysiocapAnalyseurDialog, self).__init__(parent)
         # Set up the user interface from Designer.
         # After setupUI you can access any designer object by doing
@@ -340,11 +340,13 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
     
     # ################
     #  Différents SLOT
+    # Todo : V1.5 prefixe Slot à toutes ces fonctions et EXpliciter l'appel et commentaires en FRANCAIS
     # ################
 
     # FIELDS
     def min_max_field_intra_list( self ):
         """ Create a list of fields for the current vector point in fieldCombo Box"""
+        # Todo : V1.5 prefixe Slot et nommage SLOT_Champ_Attibut_Intra     
         nom_attribut = self.fieldComboIntra.currentText()
         #physiocap_log(u"Attribut pour Intra >" + nom_attribut )
         nom_complet_point = self.comboBoxPoints.currentText().split( SEPARATEUR_NOEUD)
@@ -352,15 +354,19 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             return
         nomProjet = nom_complet_point[0] 
         idLayer   = nom_complet_point[1]
-        # Eechecher min et max du layer
+        # Rechecher min et max du layer
         layer = physiocap_get_layer_by_ID( idLayer)
         if layer is not None:
             #physiocap_log(u"Todo : Recherche de min et max de l'attribut >" + str( nom_attribut))
             try:
                 index_attribut = layer.fieldNameIndex( nom_attribut)
             except:
-                # Todo : Attraper cette erreur 
-                return
+                physiocap_log( "Consultez le journal Physiocap Erreur",
+                "WARNING")
+                aText = u"L'attribut " + str( nom_attribut) + " n'existe pas dans les données à disposition."
+                aText = u"L'interpolation n'est pas possible. Relancer un calcul de votre projet Physiocap."
+                physiocap_error( aText, "CRITICAL")
+                return physiocap_message_box( self, self.tr( aText), "information" )
             valeurs = []
             for un_point in layer.getFeatures():
                  valeurs.append( un_point.attributes()[index_attribut])
@@ -368,7 +374,6 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
 ##                str( min(valeurs)) + "==" + str(max(valeurs)))
             self.spinBoxIsoMax.setValue( int( max(valeurs) ))
             self.spinBoxIsoMin.setValue( int( min(valeurs) ))
-        
 
     def update_field_poly_list( self ):
         """ Create a list of fields for the current vector in fieldCombo Box"""
@@ -408,7 +413,6 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             
             chemin_inter = os.path.join( chemin_shapes, VIGNETTES_INTER)
             if (os.path.exists( chemin_inter)):
-                # Todo : 1.5 ? On cherche aussi si le groupe inter existe
                 # On aiguille vers Intra
                 self.groupBoxIntra.setEnabled( True)
                 self.ButtonIntra.setEnabled( True)
@@ -422,10 +426,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
                 self.groupBoxIntra.setEnabled( False)
                 self.ButtonIntra.setEnabled( False)
                 self.ButtonInter.setEnabled( True)
-
-            
-            
-                               
+                              
     def get_layer_by_name( self, layerName ):
         layerMap = QgsMapLayerRegistry.instance().mapLayers()
         layer = None
@@ -724,11 +725,13 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
 
     def reject( self ):
         """Close when bouton is Cancel"""
+        # Todo : V1.5 prefixe Slot et nommage SLOT_Bouton_Cancel      
         #self.textEdit.clear()
         QDialog.reject( self)
                 
     def accept( self ):
         """Verify when bouton is OK"""
+        # Todo : V1.5 prefixe Slot et nommage SLOT_Bouton_OK
         # Vérifier les valeurs saisies
         # QT confiance et initilaisation par Qsettings sert d'assert sur la
         # cohérence des variables saisies
