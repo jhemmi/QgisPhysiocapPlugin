@@ -61,6 +61,8 @@ def physiocap_affiche_raster_iso( nom_raster_final, nom_court_raster, le_templat
                     nom_iso_final, nom_court_isoligne, le_template_isolignes, affiche_iso,
                     vignette_group_intra):
     """ Affichage du raster et Iso"""
+        
+    # Todo : V1.4 ? Faire exception 
     if ( nom_raster_final != ""):
         intra_raster = QgsRasterLayer( nom_raster_final, 
             nom_court_raster)
@@ -110,7 +112,6 @@ def physiocap_creer_raster_iso( self,
         "information")
                 
     # Test SAGA version, sinon annoncer l'utilisation de Gdal
-    # Todo : Traiter cas d'exception
     if self.radioButtonSAGA.isChecked():
         physiocap_log ( u"= Version SAGA = " + str( versionSAGA))
         unite, dixieme, millieme = versionSAGA.split( ".")
@@ -155,7 +156,7 @@ def physiocap_creer_raster_iso( self,
         vignette_vector = QgsVectorLayer( nom_vignette, nom_court_vignette, 'ogr')
         points_vector = QgsVectorLayer( nom_point, nom_court_point, 'ogr')
     except:
-        # Todo : En faire une exception et tester try dans apple
+        # Todo : V1.4 En faire une exception et tester try dans apple
         aText = u"Le polygone ou le fichier de point n'est pas retrouvé. "
         aText = aText + "Une inconsistence entre le projet Physiocap et ses données vous oblige "
         aText = aText + "à relancer la chaine de traitement." 
@@ -178,7 +179,6 @@ def physiocap_creer_raster_iso( self,
         un_nom + EXT_CRS_SHP
     nom_isoligne =  physiocap_rename_existing_file( os.path.join( chemin_raster, nom_court_isoligne)) # utile physiocap_rename_existing_file()        
     
-  
     # Attraper les exceptions processing
     nom_raster_temp = ""
     nom_raster_final = ""
@@ -279,7 +279,6 @@ def physiocap_creer_raster_iso( self,
 
         QgsMessageLog.logMessage( "PHYSIOCAP : Avant clip", "Processing", QgsMessageLog.WARNING)
         
-        # Todo : INTRA Vérifier si GPS pas besoin de cette translation                    
         option_clip_raster = ""
 
         if ( EPSG_NUMBER == EPSG_NUMBER_L93 ):
@@ -345,7 +344,7 @@ def physiocap_interpolation_IntraParcelles( self):
     le_template_isolignes  = os.path.join( dir_template, nom_isolignes_attribut)
 
 
-    # Todo : Faire une fonction commune à inter et Intra jusqu'à 162 param "calcul de Moyenne Intra Parcellaire"
+    # Todo : V 1.4 ? Faire une fonction commune à inter et Intra jusqu'à 162 param "calcul de Moyenne Intra Parcellaire"
     repertoire_data = self.lineEditDirectoryPhysiocap.text()
     if ((repertoire_data == "") or ( not os.path.exists( repertoire_data))):
         physiocap_error( u"Pas de répertoire de donnée spécifié")
@@ -517,7 +516,6 @@ def physiocap_interpolation_IntraParcelles( self):
     self.progressBarIntra.setValue( positionBar)
     positionBarInit = positionBar
  
-    # Todo : à vérifier : on créer les image par parcelle aussi...    
     # On tourne sur les contours qui ont été crée par Inter
     # On passe sur les differents contours de chaque parcelle
     id_contour = 0
@@ -534,7 +532,7 @@ def physiocap_interpolation_IntraParcelles( self):
 
         # Nom du Shape moyenne 
         nom_court_vignette = nom_noeud_arbre + NOM_MOYENNE + un_nom +  EXT_CRS_SHP     
-        # Todo : Attention j'ai enleve physiocap_rename_existing_file(
+        # Attention j'ai enleve physiocap_rename_existing_file(
         nom_vignette = os.path.join( chemin_vignettes, nom_court_vignette)        
                                                
         # Nom point 

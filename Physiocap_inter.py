@@ -89,7 +89,6 @@ def physiocap_fill_combo_poly_or_point( self, isRoot = None, node = None ):
     Remplit deux listes pour le comboxBox des vecteurs "inter Parcellaire"
     Rend aussi le nombre de poly et point retrouvé
     """
-    # Todo : V1.5 ? Memoriser les eventuels choix : les remettre en place en fin de traitement 
     nombre_poly = 0
     nombre_point = 0
     
@@ -122,7 +121,7 @@ def physiocap_fill_combo_poly_or_point( self, isRoot = None, node = None ):
             if ( JH_vector_poly_or_point( child.layer()) == "Point"):
                 if ( child.layerName() == "DIAMETRE"):
                     node_layer = noeud_en_cours + SEPARATEUR_NOEUD + child.layerId()
-                    # Todo : Bug unicode acsii dans certain cas...        
+                    # Todo : WT DATA BUG unicode acsii dans certain cas...        
                     self.comboBoxPoints.addItem( str(node_layer))
                     nombre_point = nombre_point + 1
             elif ( JH_vector_poly_or_point( child.layer()) == "Polygone"):

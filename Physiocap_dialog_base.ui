@@ -51,7 +51,7 @@
     <enum>QTabWidget::North</enum>
    </property>
    <property name="currentIndex">
-    <number>3</number>
+    <number>0</number>
    </property>
    <property name="movable">
     <bool>true</bool>
@@ -997,7 +997,7 @@
        <x>10</x>
        <y>249</y>
        <width>511</width>
-       <height>252</height>
+       <height>268</height>
       </rect>
      </property>
      <property name="autoFillBackground">
@@ -1358,7 +1358,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>515</y>
+       <y>527</y>
        <width>221</width>
        <height>31</height>
       </rect>
@@ -1411,7 +1411,7 @@
      <property name="geometry">
       <rect>
        <x>310</x>
-       <y>514</y>
+       <y>529</y>
        <width>191</width>
        <height>31</height>
       </rect>

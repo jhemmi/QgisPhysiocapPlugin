@@ -117,10 +117,6 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         # Style sheet pour QProgressBar
         self.setStyleSheet( "QProgressBar {color:black; text-align:center; font-weight:bold; padding:2px;}"
            "QProgressBar:chunk {background-color:green; width: 10px; margin-left:1px;}")
-
-        # Style sheet pour QProgressBarIntra
-        self.setStyleSheet( "QProgressBarIntra {color:black; text-align:center; font-weight:bold; padding:2px;}"
-           "QProgressBarIntra:chunk {background-color:orange; width: 10px; margin-left:1px;}")
         
         ###############
         # Récuperation dans les settings (derniers parametres saisies)
@@ -371,13 +367,12 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
     
     # ################
     #  Différents SLOT
-    # Todo : V1.5 prefixe Slot à toutes ces fonctions et EXpliciter l'appel et commentaires en FRANCAIS
     # ################
 
     # FIELDS
     def min_max_field_intra_list( self ):
         """ Create a list of fields for the current vector point in fieldCombo Box"""
-        # Todo : V1.5 prefixe Slot et nommage SLOT_Champ_Attibut_Intra     
+        # Todo : V1.4 prefixe Slot et nommage SLOT_Champ_Attibut_Intra     
         nom_attribut = self.fieldComboIntra.currentText()
         #physiocap_log(u"Attribut pour Intra >" + nom_attribut )
         nom_complet_point = self.comboBoxPoints.currentText().split( SEPARATEUR_NOEUD)
@@ -448,9 +443,6 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
                 self.groupBoxIntra.setEnabled( True)
                 self.ButtonIntra.setEnabled( True)
                 self.ButtonInter.setEnabled( False)
-                # Retrouver le premier shp de point    
-                
-                # Todo : JHJHJH Mettre à jour la liste des attributs possibles
 
             else:
                 # On aiguille vers Inter
@@ -491,7 +483,6 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
  
     def liste_inter_parcelles( self):
         """ Rafraichit les listes avant le calcul inter parcelles"""
-        # Todo : Vx ? refresh auto avec addedChildrenSignal ?
         nombre_poly = 0
         nombre_point = 0
         nombre_poly, nombre_point = physiocap_fill_combo_poly_or_point( self)
@@ -765,13 +756,13 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
 
     def reject( self ):
         """Close when bouton is Cancel"""
-        # Todo : V1.5 prefixe Slot et nommage SLOT_Bouton_Cancel      
+        # Todo : V1.4 prefixe Slot et nommage SLOT_Bouton_Cancel      
         #self.textEdit.clear()
         QDialog.reject( self)
                 
     def accept( self ):
         """Verify when bouton is OK"""
-        # Todo : V1.5 prefixe Slot et nommage SLOT_Bouton_OK
+        # Todo : V1.4 prefixe Slot et nommage SLOT_Bouton_OK
         # Vérifier les valeurs saisies
         # QT confiance et initilaisation par Qsettings sert d'assert sur la
         # cohérence des variables saisies
@@ -924,9 +915,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             raise
         finally:
             pass
-            # Todo : Vx ? Se mettre sur l'onglet synthese ou (histo)
 
-        
         # Fin de capture des erreurs Physiocap
         
         physiocap_log(u"Physiocap a terminé son analyse.")
