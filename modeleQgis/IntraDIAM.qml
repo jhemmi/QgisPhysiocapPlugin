@@ -8,7 +8,7 @@
           <item alpha="255" value="6" label="6" color="#fff5eb"/>
           <item alpha="255" value="8" label="8" color="#fdd1a5"/>
           <item alpha="255" value="10" label="10" color="#fd9243"/>
-          <item alpha="255" value="12" label="14" color="#de4f05"/>
+          <item alpha="255" value="12" label="12" color="#de4f05"/>
           <item alpha="255" value="14" label="14" color="#7f2704"/>
         </colorrampshader>
       </rastershader>

@@ -57,6 +57,37 @@ from PyQt4.QtCore import *
 from qgis.core import *
 from qgis.gui import *
 
+def physiocap_affiche_raster_iso( nom_raster_final, nom_court_raster, le_template_raster, affiche_raster,
+                    nom_iso_final, nom_court_isoligne, le_template_isolignes, affiche_iso,
+                    vignette_group_intra):
+    """ Affichage du raster et Iso"""
+    if ( nom_raster_final != ""):
+        intra_raster = QgsRasterLayer( nom_raster_final, 
+            nom_court_raster)
+        if ( nom_iso_final != ""):
+            intra_isoligne = QgsVectorLayer( nom_iso_final, 
+                nom_court_isoligne, 'ogr')
+    
+        if vignette_group_intra != None:
+            if (( affiche_iso == "YES") and ( nom_iso_final != "")):
+                QgsMapLayerRegistry.instance().addMapLayer( intra_isoligne, False)
+                iso_node = vignette_group_intra.addLayer( intra_isoligne)
+            if ( affiche_raster == "YES"): 
+                QgsMapLayerRegistry.instance().addMapLayer( intra_raster, False)
+                raster_node = vignette_group_intra.addLayer( intra_raster)
+        else:
+            if (( affiche_iso == "YES") and ( nom_iso_final != "")):
+                QgsMapLayerRegistry.instance().addMapLayer( intra_isoligne)
+            if ( affiche_raster == "YES"): 
+                QgsMapLayerRegistry.instance().addMapLayer( intra_raster)
+    
+        if (( affiche_raster == "YES") and 
+            ( os.path.exists( le_template_raster))):
+            intra_raster.loadNamedStyle( le_template_raster)
+            if (( affiche_iso == "YES") and ( nom_iso_final != "") and 
+                ( os.path.exists( le_template_isolignes))):
+                intra_isoligne.loadNamedStyle( le_template_isolignes)
+
 def physiocap_creer_raster_iso( self,
             nom_noeud_arbre, chemin_raster, 
             nom_court_vignette, nom_vignette, nom_court_point, nom_point,
@@ -77,7 +108,7 @@ def physiocap_creer_raster_iso( self,
         return physiocap_message_box( self,
         self.tr( u'Physiocap nécessite Extension "Processing"' ),
         "information")
-            
+                
     # Test SAGA version, sinon annoncer l'utilisation de Gdal
     # Todo : Traiter cas d'exception
     if self.radioButtonSAGA.isChecked():
@@ -95,11 +126,12 @@ def physiocap_creer_raster_iso( self,
             self.spinBoxPower.setEnabled( False)
             self.spinBoxPixel.setEnabled( False)
             physiocap_message_box( self,
-                self.tr( u"= Saga a une version icompatible : on force l'utilisation de Gdal" ),
+                self.tr( u"= Saga a une version incompatible : on force l'utilisation de Gdal" ),
                 "information")
-    else:
-        physiocap_log ( u"= Version GDAL = " + str( versionGDAL))
-
+##    else:
+##            if ( UNE_SEULE_FOIS == "NO"):
+##                UNE_SEULE_FOIS = "YES"
+##                physiocap_log ( u"= Version GDAL = " + str( versionGDAL))
 
     # Récupération des parametres d'Intra
     powerIntra = float ( self.spinBoxPower.value())
@@ -157,10 +189,10 @@ def physiocap_creer_raster_iso( self,
     info_extent = str(xmin) + "," + str(xmax) + "," + str(ymin) + "," + str(ymax)
     #physiocap_log( u"=~= Extent layer >>> " + info_extent + " <<<")  
     if self.radioButtonSAGA.isChecked():
-        # Appel SAGA
+        # Appel SAGA power à 2 fixe
         physiocap_log( u"=~= Interpolation SAGA " + str( nom_court_raster))
         premier_raster = processing.runalg("saga:inversedistanceweighted",
-            nom_point, le_champ_choisi, 1, powerIntra, 1, 0,rayonIntra, 0, 1,
+            nom_point, le_champ_choisi, 1, 2, 1, 0,rayonIntra, 0, 1,
             10, info_extent, pixelIntra,
             None)                        
         if (  premier_raster != None):
@@ -298,10 +330,13 @@ def physiocap_interpolation_IntraParcelles( self):
     """Interpolation des données de points intra parcellaires"""
     physiocap_log( u"=~= Début de l'interpolation des points de chaque parcelle" )
 
+    NOM_PROJET = self.lineEditProjet.text()
+
     # QT Confiance 
     le_champ_choisi = self.fieldComboIntra.currentText()
     # Récupérer des styles pour chaque shape
-    dir_template = os.path.join( os.path.dirname(__file__), 'modeleQgis')       
+    #dir_template = os.path.join( os.path.dirname(__file__), 'modeleQgis')       
+    dir_template = self.fieldComboThematiques.currentText()
     qml_prefix = str( self.lineEditThematiqueIntraImage.text())
     nom_intra_attribut = qml_prefix + str( le_champ_choisi) + EXTENSION_QML
     le_template_raster = os.path.join( dir_template, nom_intra_attribut)
@@ -318,7 +353,6 @@ def physiocap_interpolation_IntraParcelles( self):
             self.tr( u"Pas de répertoire de données brutes spécifié" ),
             "information")
            
-   
     # Pour polygone de contour   
     nom_complet_poly = self.comboBoxPolygone.currentText().split( SEPARATEUR_NOEUD)
     if ( len( nom_complet_poly) != 2):
@@ -332,6 +366,7 @@ def physiocap_interpolation_IntraParcelles( self):
     id_poly = nom_complet_poly[ 1] 
     vecteur_poly = physiocap_get_layer_by_ID( id_poly)
 
+    # Pour attribut en cours d'interpolation
     leChampPoly = self.fieldComboContours.currentText()
         
     # Pour les points
@@ -349,6 +384,9 @@ def physiocap_interpolation_IntraParcelles( self):
     id_point = nom_complet_point[ 1] 
     vecteur_point = physiocap_get_layer_by_ID( id_point)
 
+    # Progress BAR 2%
+    self.progressBarIntra.setValue( 2)
+    
     # Verification de l'arbre
     root = QgsProject.instance().layerTreeRoot( )
     un_groupe = root.findGroup( nom_noeud_arbre)
@@ -364,11 +402,11 @@ def physiocap_interpolation_IntraParcelles( self):
 
     # Vérification 
     if ( vecteur_point == None):
-        physiocap_error( u"Le jeu de données choisi n'est pas valide. " +
+        physiocap_error( u"Le jeu de points choisi n'est pas valide. " +
           "Lancez le traitement initial - bouton OK puis Inter - avant de faire votre " +
           "calcul de Moyenne Intra Parcellaire")
         return physiocap_message_box( self,
-            self.tr( u"Le jeu de données choisi n'est pas valide. " +
+            self.tr( u"Le jeu de points choisi n'est pas valide. " +
                 "Lancez le traitement initial - bouton OK puis Inter - avant de faire votre " +
                 "calcul de Moyenne Intra Parcellaire" ),
             "information")    
@@ -406,43 +444,99 @@ def physiocap_interpolation_IntraParcelles( self):
             os.mkdir( chemin_raster)
         except:
             raise physiocap_exception_rep( REPERTOIRE_RASTERS)
-        
-    # On passe sur les differents contours
-    id = 0
+
+    # Progress BAR 4%
+    self.progressBarIntra.setValue( 4)
+
+    lesFormes = vecteur_poly.getFeatures()
+    iforme = 0
+    for f in lesFormes:
+        iforme = iforme + 1
+    stepBar = int( 60 / iforme)
+    positionBar = 5
+    
+    # On passe sur le contour général
     contour_avec_point = 0
+   
+    # #####################
+    # Cas d'un image seule
+    # #####################
+    if ( self.checkBoxIntraUnSeul.isChecked()):
 
+        # Nom du Shape moyenne 
+        nom_vecteur_contour = vecteur_poly.name()
+        nom_court_du_contour = os.path.basename( nom_vecteur_contour + EXTENSION_SHP)
+        nom_court_vignette = nom_noeud_arbre + NOM_MOYENNE + nom_court_du_contour
+        nom_vignette = os.path.join( chemin_vignettes, nom_court_vignette)        
+                                               
+        # Nom point 
+        nom_court_point = NOM_PROJET + NOM_POINTS + EXT_CRS_SHP     
+        nom_point = os.path.join( chemin_shapes, nom_court_point)                    
+        #physiocap_log( u"=~= Vignette court : " + str( nom_court_vignette) )       
+
+        # Vérifier si le point et la vignette existent
+        if not (os.path.exists( nom_vignette)):
+            physiocap_log( u"=~= Vignette absente : pas d'interpolation")
+        if not (os.path.exists( nom_point)):
+            physiocap_log( u"=~= Points absents : pas d'interpolation")
+        else:
+            contour_avec_point = contour_avec_point + 1
+            #physiocap_log( u"=~= Points - nom court : " + str( nom_court_point) )
+
+            # ###############
+            # Calcul raster et iso
+            # ###############
+            nom_raster_final, nom_court_raster, nom_iso_final, nom_court_isoligne = \
+                physiocap_creer_raster_iso( self,
+                nom_noeud_arbre, chemin_raster, 
+                nom_court_vignette, nom_vignette, nom_court_point, nom_point,
+                le_champ_choisi, nom_vecteur_contour) 
+                        
+        # CRÉATION groupe INTRA
+        if (( contour_avec_point == 1) and (un_groupe != None)):
+            vignette_projet = nom_noeud_arbre + SEPARATEUR_ + le_champ_choisi + \
+                SEPARATEUR_ + VIGNETTES_INTRA 
+            vignette_existante = un_groupe.findGroup( vignette_projet)
+            if ( vignette_existante == None ):
+                vignette_group_intra = un_groupe.addGroup( vignette_projet)
+            else:
+                # Si vignette preexiste, on ne recommence pas
+                raise physiocap_exception_vignette_exists( vignette_projet) 
+
+        if ( contour_avec_point >  0 ):                                            
+            # Affichage dans panneau Qgis                           
+            if ( self.checkBoxIntraUnSeul.isChecked()):
+                physiocap_affiche_raster_iso( \
+                    nom_raster_final, nom_court_raster, le_template_raster, "YES",
+                    nom_iso_final, nom_court_isoligne, le_template_isolignes, "YES",
+                    vignette_group_intra)
+
+
+    # Progress BAR + un stepBar%
+    positionBar = positionBar + stepBar     
+    self.progressBarIntra.setValue( positionBar)
+    positionBarInit = positionBar
+ 
+    # Todo : à vérifier : on créer les image par parcelle aussi...    
     # On tourne sur les contours qui ont été crée par Inter
-
+    # On passe sur les differents contours de chaque parcelle
+    id_contour = 0
     for un_contour in vecteur_poly.getFeatures(): #iterate poly features
-        id = id + 1
+        id_contour = id_contour + 1
         try:
             un_nom = str( un_contour[ leChampPoly]) #get attribute of poly layer
         except:
-            un_nom = "PHY_ID_" + str(id)
+            un_nom = "PHY_ID_" + str(id_contour)
             pass
         
         physiocap_log ( u"=~= =~=~=~=~= >>")
         physiocap_log ( u"=~= Nom Contour : >>" + str( un_nom) + "<<")
 
-        # ###################
-        # CRÉATION groupe INTRA
-        # ###################
-        if ( id == 1):
-            if un_groupe != None:
-                vignette_projet = nom_noeud_arbre + SEPARATEUR_ + le_champ_choisi + SEPARATEUR_ + VIGNETTES_INTRA 
-                vignette_existante = un_groupe.findGroup( vignette_projet)
-                if ( vignette_existante == None ):
-                    vignette_group_intra = un_groupe.addGroup( vignette_projet)
-                else:
-                    # Si vignette preexiste, on ne recommence pas
-                    raise physiocap_exception_vignette_exists( vignette_projet) 
- 
         # Nom du Shape moyenne 
-        nom_court_vignette = nom_noeud_arbre + SEPARATEUR_ + NOM_MOYENNE + SEPARATEUR_ + un_nom +  EXT_CRS_SHP     
+        nom_court_vignette = nom_noeud_arbre + NOM_MOYENNE + un_nom +  EXT_CRS_SHP     
         # Todo : Attention j'ai enleve physiocap_rename_existing_file(
         nom_vignette = os.path.join( chemin_vignettes, nom_court_vignette)        
                                                
-
         # Nom point 
         nom_court_point = nom_noeud_arbre + NOM_POINTS + SEPARATEUR_ + un_nom + EXT_CRS_SHP     
         # JHJHJH Attention j'ai enleve physiocap_rename_existing_file(
@@ -460,6 +554,20 @@ def physiocap_interpolation_IntraParcelles( self):
             contour_avec_point = contour_avec_point + 1
             #physiocap_log( u"=~= Point court : " + str( nom_court_point) )
 
+        # ###################
+        # CRÉATION groupe INTRA
+        # ###################
+        if ( contour_avec_point == 1):
+            if un_groupe != None:
+                vignette_projet = nom_noeud_arbre + SEPARATEUR_ + le_champ_choisi + SEPARATEUR_ + VIGNETTES_INTRA 
+                vignette_existante = un_groupe.findGroup( vignette_projet)
+                if ( vignette_existante == None ):
+                    vignette_group_intra = un_groupe.addGroup( vignette_projet)
+                else:
+                    # Si vignette preexiste, on ne recommence pas
+                    raise physiocap_exception_vignette_exists( vignette_projet) 
+ 
+
         # ###############
         # Calcul raster et iso
         # ###############
@@ -467,40 +575,27 @@ def physiocap_interpolation_IntraParcelles( self):
             nom_noeud_arbre, chemin_raster, 
             nom_court_vignette, nom_vignette, nom_court_point, nom_point,
             le_champ_choisi, un_nom)
-          
-        if ( contour_avec_point >  0 ):                                            
+    
+        # Progress BAR + un stepBar%
+        positionBar = positionBarInit + ( stepBar * id_contour)    
+        self.progressBarIntra.setValue( positionBar)
+        #physiocap_log( u"=~= Barre " + str( positionBar) )                      
+           
+        if ( id_contour >  0 ):                                            
             # Affichage dans panneau Qgis                           
             if (( self.checkBoxIntraIsos.isChecked()) or 
-                ( self.checkBoxIntraImages.isChecked())) :
-                if ( nom_raster_final != ""):
-                    intra_raster = QgsRasterLayer( nom_raster_final, 
-                        nom_court_raster)
-                    if ( nom_iso_final != ""):
-                        intra_isoligne = QgsVectorLayer( nom_iso_final, 
-                            nom_court_isoligne, 'ogr')
-                
-                    if vignette_group_intra != None:
-                        if (( self.checkBoxIntraIsos.isChecked()) and 
-                            ( nom_iso_final != "")):
-                            QgsMapLayerRegistry.instance().addMapLayer( intra_isoligne, False)
-                            iso_node = vignette_group_intra.addLayer( intra_isoligne)
-                        if ( self.checkBoxIntraImages.isChecked()): 
-                            QgsMapLayerRegistry.instance().addMapLayer( intra_raster, False)
-                            raster_node = vignette_group_intra.addLayer( intra_raster)
-                    else:
-                        if (( self.checkBoxIntraIsos.isChecked()) and 
-                            ( nom_iso_final != "")):
-                            QgsMapLayerRegistry.instance().addMapLayer( intra_isoligne)
-                        if ( self.checkBoxIntraImages.isChecked()): 
-                            QgsMapLayerRegistry.instance().addMapLayer( intra_raster)
-                
-                    if (( self.checkBoxIntraImages.isChecked()) and 
-                        ( os.path.exists( le_template_raster))):
-                        intra_raster.loadNamedStyle( le_template_raster)
-                    if (( self.checkBoxIntraImages.isChecked()) and 
-                        ( nom_iso_final != "") and ( os.path.exists( le_template_isolignes))):
-                        intra_isoligne.loadNamedStyle( le_template_isolignes)
-    
+                ( self.checkBoxIntraImages.isChecked())):
+                afficheIso = "NO"
+                if ( self.checkBoxIntraIsos.isChecked()):
+                    afficheIso = "YES"                
+                afficheRaster = "NO"
+                if ( self.checkBoxIntraImages.isChecked()):
+                    afficheRaster = "YES"
+                physiocap_affiche_raster_iso( \
+                    nom_raster_final, nom_court_raster, le_template_raster, afficheRaster,
+                    nom_iso_final, nom_court_isoligne, le_template_isolignes, afficheIso,
+                    vignette_group_intra)
+
     if ( contour_avec_point >  0 ):                                            
         physiocap_log( u"=~= Fin des " + str(contour_avec_point) + u" interpolation(s) intra parcellaire" )                      
     else:
@@ -509,6 +604,8 @@ def physiocap_interpolation_IntraParcelles( self):
         return physiocap_message_box( self, 
                 self.tr( u"Aucune point dans votre contour. Pas d'interpolation intra parcellaire"),
                 "information")
+        
+    self.progressBarIntra.setValue( 100)
 
     return physiocap_message_box( self, 
                     self.tr( u"Fin de l'interpolation intra-parcellaire"),

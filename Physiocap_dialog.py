@@ -79,7 +79,11 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
         self.plugin_dir = os.path.dirname(__file__)  
-
+        self.plugins_dir = os.path.dirname( self.plugin_dir)
+        self.python_dir = os.path.dirname( self.plugins_dir)
+        self.gis2_dir = os.path.dirname( self.python_dir)
+        #physiocap_log( u"Rep .gis2 " + str( self.gis2_dir))
+        
         # Slot for boutons certains sont dans UI
         ##self.buttonBox.button( QDialogButtonBox.Ok ).pressed.connect(self.accept)
         ##self.buttonBox.button( QDialogButtonBox.Cancel ).pressed.connect(self.reject)
@@ -113,7 +117,10 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         # Style sheet pour QProgressBar
         self.setStyleSheet( "QProgressBar {color:black; text-align:center; font-weight:bold; padding:2px;}"
            "QProgressBar:chunk {background-color:green; width: 10px; margin-left:1px;}")
-#            "QProgressBar:chunk {background-color: #0088dd; width: 10px; margin-left:1px;}")
+
+        # Style sheet pour QProgressBarIntra
+        self.setStyleSheet( "QProgressBarIntra {color:black; text-align:center; font-weight:bold; padding:2px;}"
+           "QProgressBarIntra:chunk {background-color:orange; width: 10px; margin-left:1px;}")
         
         ###############
         # Récuperation dans les settings (derniers parametres saisies)
@@ -179,7 +186,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
                 if ( taille == laTaille):
                     self.fieldComboTaille.setCurrentIndex( i)
                 i=i+1
-        
+
         # Remplissage de la liste de FORMAT_VECTEUR 
         self.fieldComboFormats.setCurrentIndex( 0)   
         if len( FORMAT_VECTEUR) == 0:
@@ -193,9 +200,29 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             leFormat = self.settings.value("Physiocap/leFormat", "xx") 
             for unFormat in FORMAT_VECTEUR:
                 if ( unFormat == leFormat):
-                    self.fieldComboTaille.setCurrentIndex( i)
-                i=i+1
-                            
+                    self.fieldComboFormats.setCurrentIndex( i)
+                i=i+1        
+
+        # Remplissage de la liste de CHEMIN_TEMPLATES
+        self.fieldComboThematiques.setCurrentIndex( 0)   
+        if len( CHEMIN_TEMPLATES) == 0:
+            self.fieldComboThematiques.clear( )
+            physiocap_log( u"Pas de répertoire de thematiques pré défini")
+            physiocap_error( u"Pas de répertoire de thematiques pré défini")
+        else:
+            leChoixDeThematiques = int( self.settings.value("Physiocap/leChoixDeThematiques", -1)) 
+            # Cas inital
+            CHEMIN_TEMPLATES_USER = []
+            self.fieldComboFormats.clear( )
+            CHEMIN_TEMPLATES_USER.append( os.path.join( self.plugin_dir, CHEMIN_TEMPLATES[0]))
+            CHEMIN_TEMPLATES_USER.append( os.path.join( self.gis2_dir, CHEMIN_TEMPLATES[1]))
+            self.fieldComboThematiques.addItems( CHEMIN_TEMPLATES_USER )
+            if ( leChoixDeThematiques == -1):
+                self.fieldComboThematiques.setCurrentIndex( 0)                
+            else:
+                # Le combo a déjà été rempli, on retrouve le choix
+                self.fieldComboThematiques.setCurrentIndex( leChoixDeThematiques)
+             
         # Remplissage des autre parametre à partir des settings
         self.spinBoxMinDiametre.setValue( int( self.settings.value("Physiocap/mindiam", 2 )))
         self.spinBoxMaxDiametre.setValue( int( self.settings.value("Physiocap/maxdiam", 28 )))
@@ -286,11 +313,15 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             self.checkBoxInterLibelle.setChecked( Qt.Unchecked)        
 
         # Choix d'affichage Intra
-        if (self.settings.value("Affichage/IntraIsos", "YES") == "YES"):
+        if (self.settings.value("Affichage/IntraUnSeul", "YES") == "YES"):
+            self.checkBoxIntraUnSeul.setChecked( Qt.Checked)
+        else:
+            self.checkBoxIntraUnSeul.setChecked( Qt.Unchecked)
+        if (self.settings.value("Affichage/IntraIsos", "NO") == "YES"):
             self.checkBoxIntraIsos.setChecked( Qt.Checked)
         else:
             self.checkBoxIntraIsos.setChecked( Qt.Unchecked)
-        if (self.settings.value("Affichage/IntraImages", "YES") == "YES"):
+        if (self.settings.value("Affichage/IntraImages", "NO") == "YES"):
             self.checkBoxIntraImages.setChecked( Qt.Checked)
         else:
             self.checkBoxIntraImages.setChecked( Qt.Unchecked)
@@ -528,7 +559,10 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.settings.setValue("Physiocap/isoMin", float( self.spinBoxIsoMin.value()))
         self.settings.setValue("Physiocap/isoMax", float( self.spinBoxIsoMax.value()))
         self.settings.setValue("Physiocap/isoNombres", float( self.spinBoxNombreIso.value()))
-
+        
+        self.settings.setValue("Physiocap/leDirThematiques", self.fieldComboThematiques.currentText())
+        self.settings.setValue("Physiocap/leChoixDeThematiques", self.fieldComboThematiques.currentIndex())
+        
         # Sauver les affichages Inter
         diametre = "NO"
         if self.checkBoxInterDiametre.isChecked():
@@ -552,6 +586,10 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.settings.setValue("Affichage/InterPoints", points )
 
         # Sauver les affichages Intra
+        unSeul = "NO"
+        if self.checkBoxIntraUnSeul.isChecked():
+            unSeul = "YES"
+        self.settings.setValue("Affichage/IntraUnSeul", unSeul )
         isos = "NO"
         if self.checkBoxIntraIsos.isChecked():
             isos = "YES"
@@ -678,10 +716,12 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             physiocap_log( ERREUR_EXCEPTION + ". Consultez le journal Physiocap Erreur",
                 "WARNING")
             physiocap_error( ERREUR_EXCEPTION)
-            physiocap_error(u"Le fichier de points du projet" + str( e) + "ne contient pas les attributs attendus",
+            physiocap_error(u"Le fichier de points " + str( e) + "ne contient pas les attributs attendus",
                 "CRITICAL")
             return physiocap_message_box( self, self.tr( ERREUR_EXCEPTION + "\n" + \
-                u"Le fichier de points du projet" + str( e) + " ne contient pas les attributs attendus"),
+                u"Le fichier de points " + str( e) + " ne contient pas les attributs attendus" +
+                "Lancez le traitement initial - bouton OK - avant de faire votre " +
+                "calcul de Moyenne Inter Parcellaire" ),
                 "information" )
         except:
             raise
@@ -764,11 +804,11 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             physiocap_log(u"La recherche des MID fouille l'arbre de données")
         self.settings.setValue("Physiocap/recursif", recursif )
             
-        laProjection, EXT_SHP, EXT_PRJ, EXT_RASTER, EPSG_NUMBER = physiocap_quelle_projection_demandee( self) 
+        laProjection, EXT_CRS_SHP, EXT_CRS_PRJ, EXT_CRS_RASTER, EPSG_NUMBER = physiocap_quelle_projection_demandee( self) 
         self.settings.setValue("Physiocap/laProjection", laProjection)
         physiocap_log(u"Projection des shapefiles demandée en " + laProjection)
            
-        #self.settings.setValue("Physiocap/dernier_repertoire", self.lineEditDernierProjet.text() )
+        # Trop tot self.settings.setValue("Physiocap/dernier_repertoire", self.lineEditDernierProjet.text() )
         self.settings.setValue("Physiocap/mindiam", float( self.spinBoxMinDiametre.value()))
         self.settings.setValue("Physiocap/maxdiam", float( self.spinBoxMaxDiametre.value()))
 
@@ -808,13 +848,16 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             vitesse = "YES"
         self.settings.setValue("Affichage/vitesse", vitesse )
 
+        self.settings.setValue("Physiocap/leFormat", self.fieldComboFormats.currentText())
+        self.settings.setValue("Physiocap/leDirThematiques", self.fieldComboThematiques.currentText())
+
             
         # ########################################
         # Gestion de capture des erreurs Physiocap
         # ########################################
         try:
             # Création des répertoires et des résultats de synthèse
-            retour = physiocap_creer_donnees_resultats( self, laProjection, EXT_SHP, EXT_PRJ,
+            retour = physiocap_creer_donnees_resultats( self, laProjection, EXT_CRS_SHP, EXT_CRS_PRJ,
                 details, TRACE_HISTO, recursif)
         except physiocap_exception_rep as e:
             physiocap_log( ERREUR_EXCEPTION + ". Consultez le journal Physiocap Erreur",

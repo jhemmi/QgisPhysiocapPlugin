@@ -44,7 +44,7 @@ PHYSIOCAP_TRACE = "YES"
 # En prod CENTROIDES vaut NO
 CENTROIDES = "NO"  # CENTROIDES YES est pour voir les centroides dans la synthese
 
-REPERTOIRE_DONNEES_BRUTES = "/home/jhemmi/Documents/GIS/SCRIPT/QGIS/PhysiocapAnalyseur/data"
+REPERTOIRE_DONNEES_BRUTES = "Votre Chemin à choisir"
 PHYSIOCAP_NOM = "Physiocap"
 SEPARATEUR_ ="_"
 NOM_PROJET = "PHY" + SEPARATEUR_
@@ -104,9 +104,9 @@ SPHEROID["WGS_1984",6378137,298.257223563]],PRIMEM["Greenwich",0], \
 UNIT["Degree",0.017453292519943295]]'
 
 # Inter PARCELLAIRE
-SHAPE_CONTOURS = '/home/jhemmi/Documents/GIS/SCRIPT/QGIS/PhysiocapAnalyseur/data Cap/Contour.shp'
+#SHAPE_CONTOURS = '/home/jhemmi/Documents/GIS/SCRIPT/QGIS/PhysiocapAnalyseur/data Cap/Contour.shp'
 SEPARATEUR_NOEUD = "~~"
-NOM_MOYENNE = "MOYENNE"
+NOM_MOYENNE = SEPARATEUR_ + "MOYENNE" + SEPARATEUR_
 VIGNETTES_INTER = "INTER_PARCELLAIRE"
 NOM_POINTS = SEPARATEUR_ + "POINTS"
 NOM_INTER = SEPARATEUR_ + "INTER"
@@ -114,9 +114,11 @@ NOM_INTER = SEPARATEUR_ + "INTER"
 # Intra PARCELLAIRE
 VIGNETTES_INTRA = "INTRA_PARCELLAIRE"
 NOM_INTRA = SEPARATEUR_ + "INTRA"
-REPERTOIRE_RASTERS = "raster"
+REPERTOIRE_RASTERS = "IntraParcelle"
 ATTRIBUTS_INTRA = [ "DIAM", "NBSARM", "BIOM"] 
 ATTRIBUTS_INTRA_DETAILS = [ "BIOMGM2"] 
+CHEMIN_TEMPLATES = [ "modeleQgis", "project_templates"]
+UNE_SEULE_FOIS = "NO"
 
 # Exceptions Physiocap 
 ERREUR_EXCEPTION = u"Physiocap n'a pas correctement terminé son analyse"

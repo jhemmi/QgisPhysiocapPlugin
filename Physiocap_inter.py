@@ -139,7 +139,7 @@ def physiocap_fill_combo_poly_or_point( self, isRoot = None, node = None ):
 def physiocap_moyenne_vers_vignette( crs, EPSG_NUMBER, nom_vignette, nom_prj,
         geom_poly, un_nom, un_autre_ID, date_debut, heure_fin, 
         moyenne_vitesse, moyenne_sar, moyenne_dia, moyenne_biom,
-        moyenne_biomgm2, details = "NO", NAME_NAME = "NOM_PHY"):
+        moyenne_biomgm2, details = "NO"):
     """ Creation d'une vignette nommé un_nom avec les moyennes
         qui se trouvent moyenne_sar, moyenne_dia 
         moyennes des nombres de sarments / Metre
@@ -150,17 +150,18 @@ def physiocap_moyenne_vers_vignette( crs, EPSG_NUMBER, nom_vignette, nom_prj,
     # Prepare les attributs
     les_champs = QgsFields()
     les_champs.append( QgsField( "GID", QVariant.Int, "integer", 10))
-    les_champs.append( QgsField( NAME_NAME, QVariant.String, "string", 25))
-    les_champs.append( QgsField( "PHY_ID", QVariant.String, "string", 15))
+    #les_champs.append( QgsField( NAME_NAME, QVariant.String, "string", 25))
+    les_champs.append( QgsField( "NOM_PHY", QVariant.String, "string", 25))
+    les_champs.append( QgsField( "ID_PHY", QVariant.String, "string", 15))
     les_champs.append( QgsField( "DEBUT", QVariant.String, "string", 25))
     les_champs.append( QgsField( "FIN", QVariant.String, "string", 12))
     les_champs.append( QgsField("VITESSE", QVariant.Double, "double", 10,2))
-    les_champs.append(QgsField( "NBSARM",  QVariant.Double, "double", 10,2))
-    les_champs.append(QgsField( "DIAM",  QVariant.Double, "double", 10,2))
-    les_champs.append(QgsField("BIOM", QVariant.Double,"double", 10,2)) 
+    les_champs.append( QgsField( "NBSARM",  QVariant.Double, "double", 10,2))
+    les_champs.append( QgsField( "DIAM",  QVariant.Double, "double", 10,2))
+    les_champs.append( QgsField( "BIOM", QVariant.Double,"double", 10,2)) 
     if details == "YES":
         # Niveau de detail demandé
-        les_champs.append(QgsField("BIOMGM2", QVariant.Double,"double", 10,2))
+        les_champs.append( QgsField( "BIOMGM2", QVariant.Double,"double", 10,2))
 
     # Creation du Shape
     writer = QgsVectorFileWriter( nom_vignette, "utf-8", les_champs, 
@@ -242,10 +243,11 @@ def physiocap_moyenne_vers_point( crs, EPSG_NUMBER, nom_point, nom_prj,
     
     #physiocap_log( u"Fin point :")
     return 0
+
 def physiocap_moyenne_vers_contour( crs, EPSG_NUMBER, nom_contour_moyenne, nom_contour_moyenne_prj,
     les_geoms_poly, les_parcelles, les_parcelles_ID, les_dates_parcelle, les_heures_parcelle,
     les_moyennes_vitesse, les_moyennes_sarment, les_moyennes_diametre, les_moyennes_biom,
-    les_moyennes_biomgm2, details = "NO", NAME_NAME = "NOM_PHY"):
+    les_moyennes_biomgm2, details = "NO"):
     """ Creation d'un contour avec les moyennes
        Il s'agit de plusieurs polygones
     """
@@ -322,7 +324,8 @@ def physiocap_moyenne_InterParcelles( self):
         details = "YES"
     
     # Récupérer des styles pour chaque shape dans Affichage
-    dir_template = os.path.join( os.path.dirname(__file__), 'modeleQgis')       
+    #dir_template = os.path.join( os.path.dirname(__file__), 'modeleQgis')       
+    dir_template = self.fieldComboThematiques.currentText()
     qml_is = str( self.lineEditThematiqueInterMoyenne.text()) + EXTENSION_QML
     le_template_moyenne = os.path.join( dir_template, qml_is)
     qml_is = str( self.lineEditThematiqueInterPoints.text()) + EXTENSION_QML
@@ -374,11 +377,11 @@ def physiocap_moyenne_InterParcelles( self):
 
     # Vérification 
     if ( vecteur_point == None):
-        physiocap_error( u"Le jeu de données choisi n'est pas valide. " +
+        physiocap_error( u"Le jeu de points choisi n'est pas valide. " +
           "Lancez le traitement initial - bouton OK - avant de faire votre " +
           "calcul de Moyenne Inter Parcellaire")
         return physiocap_message_box( self,
-            self.tr( u"Le jeu de données choisi n'est pas valide. " +
+            self.tr( u"Le jeu de points choisi n'est pas valide. " +
                 "Lancez le traitement initial - bouton OK - avant de faire votre " +
                 "calcul de Moyenne Inter Parcellaire" ),
             "information")    
@@ -401,7 +404,8 @@ def physiocap_moyenne_InterParcelles( self):
         physiocap_error( mes)
         return physiocap_message_box( self, self.tr( mes),"information")
                 
-    laProjection, EXT_CRS_SHP, EXT_CRS_PRJ, EXT_CRS_RASTER, EPSG_NUMBER = physiocap_quelle_projection_demandee(self)
+    laProjection, EXT_CRS_SHP, EXT_CRS_PRJ, EXT_CRS_RASTER, EPSG_NUMBER = \
+        physiocap_quelle_projection_demandee(self)
     crs = QgsCoordinateReferenceSystem( EPSG_NUMBER, QgsCoordinateReferenceSystem.PostgisCrsId)
 
 
@@ -492,10 +496,13 @@ def physiocap_moyenne_InterParcelles( self):
                     les_diametres.append( un_point["DIAM"])
                     les_biom.append( un_point["BIOM"])
                     if ( details == "YES"):
-                        les_biomgm2.append( un_point["BIOMGM2"])
-                except:
-                    raise
-                    #raise physiocap_exception_points_invalid( un_nom) 
+                        try:
+                            les_biomgm2.append( un_point["BIOMGM2"])
+                        except KeyError:
+                            # Se remettre en détails non
+                            details = "NO"
+                except KeyError:
+                    raise physiocap_exception_points_invalid( un_nom) 
                         
         # en sortie de boucle on attrape la derniere heure
         if i > 10:
@@ -537,16 +544,15 @@ def physiocap_moyenne_InterParcelles( self):
             
             # Création du Shape moyenne et prj
             # vignette - nom_noeud_arbre + SEPARATEUR_
-            nom_court_vignette = nom_noeud_arbre + SEPARATEUR_ + NOM_MOYENNE + \
-                SEPARATEUR_ + un_nom +  EXT_CRS_SHP     
-            nom_court_prj = nom_noeud_arbre + SEPARATEUR_ + NOM_MOYENNE + SEPARATEUR_ + un_nom  + EXT_CRS_PRJ     
+            nom_court_vignette = nom_noeud_arbre + NOM_MOYENNE + un_nom +  EXT_CRS_SHP     
+            nom_court_prj = nom_noeud_arbre + NOM_MOYENNE + un_nom  + EXT_CRS_PRJ     
             #physiocap_log( u"== Vignette court : " + nom_court_vignette )       
             nom_vignette = physiocap_rename_existing_file( os.path.join( chemin_vignettes, nom_court_vignette))        
             nom_prj = physiocap_rename_existing_file( os.path.join( chemin_vignettes, nom_court_prj))        
             physiocap_moyenne_vers_vignette( crs, EPSG_NUMBER, nom_vignette, nom_prj, 
                 geom_poly, un_nom, un_autre_ID, date_debut, heure_fin,
                 moyenne_vitesse, moyenne_sar, moyenne_dia, moyenne_biom, 
-                moyenne_biomgm2, details, leChampPoly)
+                moyenne_biomgm2, details)
                                         
             # Memorisation de la parcelle du contour et des moyennes
             les_geoms_poly.append( geom_poly.asPolygon())
@@ -623,8 +629,7 @@ def physiocap_moyenne_InterParcelles( self):
         # On a des parcelles dans le contour avec des moyennes
         nom_court_du_contour = os.path.basename( vecteur_poly.name() + EXTENSION_SHP)
         # Inserer "MOYENNES"
-        nom_court_du_contour_moyenne = nom_noeud_arbre + SEPARATEUR_ + \
-            NOM_MOYENNE + SEPARATEUR_ + nom_court_du_contour
+        nom_court_du_contour_moyenne = nom_noeud_arbre + NOM_MOYENNE + nom_court_du_contour
         nom_court_du_contour_moyenne_prj = nom_court_du_contour_moyenne [:-4] + EXT_CRS_PRJ[ -4:]     
         nom_contour_moyenne = physiocap_rename_existing_file( 
         os.path.join( chemin_vignettes, nom_court_du_contour_moyenne))        
@@ -634,21 +639,21 @@ def physiocap_moyenne_InterParcelles( self):
         physiocap_moyenne_vers_contour( crs, EPSG_NUMBER, nom_contour_moyenne, nom_contour_moyenne_prj, 
             les_geoms_poly, les_parcelles, les_parcelles_ID, les_dates_parcelle,  les_heures_parcelle,
             les_moyennes_vitesse, les_moyennes_sarment, les_moyennes_diametre, les_moyennes_biom, 
-                les_moyennes_biomgm2, details, leChampPoly) 
+                les_moyennes_biomgm2, details) 
                 
         # Affichage du resultat
-        nom_court_affichage = nom_noeud_arbre + NOM_INTER + SEPARATEUR_
+        nom_court_affichage = nom_noeud_arbre + SEPARATEUR_
         SHAPE_A_AFFICHER = []
         if self.checkBoxInterDiametre.isChecked():
-            nom_affichage = nom_court_affichage + 'DIAMETRE'
+            nom_affichage = nom_court_affichage + 'DIAMETRE' + SEPARATEUR_ + nom_court_du_contour
             qml_is = str( self.lineEditThematiqueInterDiametre.text()) + EXTENSION_QML
             SHAPE_A_AFFICHER.append( (nom_affichage, qml_is))
         if self.checkBoxInterBiomasse.isChecked():
-            nom_affichage = nom_court_affichage + 'BIOMASSE'
+            nom_affichage = nom_court_affichage + 'BIOMASSE' + SEPARATEUR_ + nom_court_du_contour
             qml_is = str( self.lineEditThematiqueInterBiomasse.text()) + EXTENSION_QML
             SHAPE_A_AFFICHER.append( (nom_affichage, qml_is))
         if self.checkBoxInterLibelle.isChecked():
-            nom_affichage = nom_court_affichage + 'LIBELLE'
+            nom_affichage = nom_court_affichage + 'LIBELLE' + SEPARATEUR_ + nom_court_du_contour
             qml_is = str( self.lineEditThematiqueInterLibelle.text()) + EXTENSION_QML
             SHAPE_A_AFFICHER.append( (nom_affichage, qml_is))
 
@@ -656,12 +661,13 @@ def physiocap_moyenne_InterParcelles( self):
         k=0
         for titre, unTemplate in SHAPE_A_AFFICHER:
             vector = QgsVectorLayer( nom_contour_moyenne, titre, 'ogr')
-##            k=k+1
-##            if (( k==1) and (vector.isValid())):
-##                physiocap_log( u"Contour moyenne valide")
-            QgsMapLayerRegistry.instance().addMapLayer( vector)
-            # Todo : On se positionne en haut de l'arbre
-            # vector_node = sous_groupe.addLayer( vector)
+           # On se positionne dans l'arbre
+            if vignette_group_inter != None:
+                QgsMapLayerRegistry.instance().addMapLayer( vector, False)
+                vector_node = vignette_group_inter.addLayer( vector)
+            else:
+                QgsMapLayerRegistry.instance().addMapLayer( vector)
+                
             le_template = os.path.join( dir_template, unTemplate)
             if ( os.path.exists( le_template)):
                 #physiocap_log ( u"Physiocap le template : " + os.path.basename( leTemplate) )

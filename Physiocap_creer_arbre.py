@@ -63,7 +63,7 @@ import shutil
 import time  
    
 # Creation des repertoires source puis resultats puis histo puis shape
-def physiocap_creer_donnees_resultats( self, laProjection, EXT_SHP, EXT_PRJ,
+def physiocap_creer_donnees_resultats( self, laProjection, EXT_CRS_SHP, EXT_CRS_PRJ,
     details = "NO", histogrammes = "NO", recursif = "NO"):
     """ Récupération des paramètres saisies et 
     creation de l'arbre "source" "texte" et du fichier "resultats"
@@ -380,9 +380,9 @@ def physiocap_creer_donnees_resultats( self, laProjection, EXT_SHP, EXT_PRJ,
             raise physiocap_exception_rep( REPERTOIRE_SHAPEFILE)
 
     # Création des shapes sans 0
-    nom_court_shape_sans_0 = NOM_PROJET + NOM_POINTS + EXT_SHP
+    nom_court_shape_sans_0 = NOM_PROJET + NOM_POINTS + EXT_CRS_SHP
     nom_shape_sans_0 = os.path.join(chemin_shapes, nom_court_shape_sans_0)
-    nom_court_prj_sans_0 = NOM_PROJET + NOM_POINTS + EXT_PRJ
+    nom_court_prj_sans_0 = NOM_PROJET + NOM_POINTS + EXT_CRS_PRJ
     nom_prj_sans_0 = os.path.join(chemin_shapes, nom_court_prj_sans_0)
     # Si le shape existe dejà il faut le détruire
     if os.path.isfile( nom_shape_sans_0):
@@ -401,9 +401,9 @@ def physiocap_creer_donnees_resultats( self, laProjection, EXT_SHP, EXT_PRJ,
     self.progressBar.setValue( 65)
             
     # Création des shapes avec 0
-    nom_court_shape_avec_0 = NOM_PROJET + NOM_POINTS + EXTENSION_POUR_ZERO + EXT_SHP
+    nom_court_shape_avec_0 = NOM_PROJET + NOM_POINTS + EXTENSION_POUR_ZERO + EXT_CRS_SHP
     nom_shape_avec_0 = os.path.join(chemin_shapes, nom_court_shape_avec_0)
-    nom_court_prj_avec_0 = NOM_PROJET + NOM_POINTS + EXTENSION_POUR_ZERO + EXT_PRJ
+    nom_court_prj_avec_0 = NOM_PROJET + NOM_POINTS + EXTENSION_POUR_ZERO + EXT_CRS_PRJ
     nom_prj_avec_0 = os.path.join(chemin_shapes, nom_court_prj_avec_0)
     # Si le shape existe dejà il faut le détruire
     if os.path.isfile( nom_shape_avec_0):
@@ -427,7 +427,8 @@ def physiocap_creer_donnees_resultats( self, laProjection, EXT_SHP, EXT_PRJ,
     sous_groupe = root.addGroup( chemin_base_projet)
     
     # Récupérer des styles pour chaque shape
-    dir_template = os.path.join( os.path.dirname(__file__), 'modeleQgis')       
+    #dir_template = os.path.join( os.path.dirname(__file__), 'modeleQgis')       
+    dir_template = self.fieldComboThematiques.currentText()
     # Affichage des différents shapes dans Qgis
     SHAPE_A_AFFICHER = []
     qml_is = ""

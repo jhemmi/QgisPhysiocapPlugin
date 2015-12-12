@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>530</width>
-    <height>694</height>
+    <width>558</width>
+    <height>702</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>640</y>
+     <y>636</y>
      <width>301</width>
      <height>31</height>
     </rect>
@@ -39,8 +39,8 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>10</y>
-     <width>511</width>
+     <y>14</y>
+     <width>541</width>
      <height>611</height>
     </rect>
    </property>
@@ -51,7 +51,7 @@
     <enum>QTabWidget::North</enum>
    </property>
    <property name="currentIndex">
-    <number>4</number>
+    <number>3</number>
    </property>
    <property name="movable">
     <bool>true</bool>
@@ -790,7 +790,7 @@
       <rect>
        <x>10</x>
        <y>70</y>
-       <width>481</width>
+       <width>511</width>
        <height>131</height>
       </rect>
      </property>
@@ -863,7 +863,7 @@
        <rect>
         <x>10</x>
         <y>60</y>
-        <width>281</width>
+        <width>371</width>
         <height>21</height>
        </rect>
       </property>
@@ -892,7 +892,7 @@
        <rect>
         <x>10</x>
         <y>80</y>
-        <width>461</width>
+        <width>481</width>
         <height>21</height>
        </rect>
       </property>
@@ -927,7 +927,7 @@
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>501</width>
+       <width>511</width>
        <height>21</height>
       </rect>
      </property>
@@ -938,8 +938,8 @@
     <widget class="QPushButton" name="ButtonInter">
      <property name="geometry">
       <rect>
-       <x>260</x>
-       <y>200</y>
+       <x>10</x>
+       <y>208</y>
        <width>221</width>
        <height>31</height>
       </rect>
@@ -994,10 +994,10 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>0</x>
-       <y>240</y>
-       <width>481</width>
-       <height>261</height>
+       <x>10</x>
+       <y>249</y>
+       <width>511</width>
+       <height>252</height>
       </rect>
      </property>
      <property name="autoFillBackground">
@@ -1027,7 +1027,7 @@
        <rect>
         <x>310</x>
         <y>110</y>
-        <width>51</width>
+        <width>71</width>
         <height>21</height>
        </rect>
       </property>
@@ -1049,7 +1049,7 @@
        <rect>
         <x>10</x>
         <y>90</y>
-        <width>261</width>
+        <width>281</width>
         <height>21</height>
        </rect>
       </property>
@@ -1116,7 +1116,7 @@
        <rect>
         <x>330</x>
         <y>200</y>
-        <width>71</width>
+        <width>81</width>
         <height>21</height>
        </rect>
       </property>
@@ -1154,7 +1154,7 @@
        <rect>
         <x>10</x>
         <y>40</y>
-        <width>391</width>
+        <width>471</width>
         <height>21</height>
        </rect>
       </property>
@@ -1215,7 +1215,7 @@
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>261</width>
+        <width>301</width>
         <height>21</height>
        </rect>
       </property>
@@ -1228,7 +1228,7 @@
        <rect>
         <x>310</x>
         <y>130</y>
-        <width>61</width>
+        <width>71</width>
         <height>21</height>
        </rect>
       </property>
@@ -1266,7 +1266,7 @@
        <rect>
         <x>40</x>
         <y>200</y>
-        <width>61</width>
+        <width>71</width>
         <height>21</height>
        </rect>
       </property>
@@ -1301,7 +1301,7 @@
        <rect>
         <x>180</x>
         <y>200</y>
-        <width>51</width>
+        <width>71</width>
         <height>21</height>
        </rect>
       </property>
@@ -1326,7 +1326,7 @@
        <rect>
         <x>290</x>
         <y>230</y>
-        <width>91</width>
+        <width>101</width>
         <height>28</height>
        </rect>
       </property>
@@ -1357,8 +1357,8 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>260</x>
-       <y>510</y>
+       <x>10</x>
+       <y>515</y>
        <width>221</width>
        <height>31</height>
       </rect>
@@ -1407,6 +1407,19 @@
       <string>Images Intra Parcellaire</string>
      </property>
     </widget>
+    <widget class="QProgressBar" name="progressBarIntra">
+     <property name="geometry">
+      <rect>
+       <x>310</x>
+       <y>514</y>
+       <width>191</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="value">
+      <number>0</number>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="tabAffichages">
     <attribute name="title">
@@ -1417,7 +1430,7 @@
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>491</width>
+       <width>521</width>
        <height>404</height>
       </rect>
      </property>
@@ -1448,7 +1461,7 @@
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>231</width>
+        <width>241</width>
         <height>21</height>
        </rect>
       </property>
@@ -1469,8 +1482,8 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>250</x>
-        <y>30</y>
+        <x>280</x>
+        <y>33</y>
         <width>211</width>
         <height>21</height>
        </rect>
@@ -1525,9 +1538,9 @@
      <widget class="QLabel" name="label_201">
       <property name="geometry">
        <rect>
-        <x>250</x>
-        <y>10</y>
-        <width>231</width>
+        <x>280</x>
+        <y>13</y>
+        <width>241</width>
         <height>21</height>
        </rect>
       </property>
@@ -1548,8 +1561,8 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>250</x>
-        <y>50</y>
+        <x>280</x>
+        <y>53</y>
         <width>211</width>
         <height>21</height>
        </rect>
@@ -1578,8 +1591,8 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>250</x>
-        <y>70</y>
+        <x>280</x>
+        <y>73</y>
         <width>211</width>
         <height>21</height>
        </rect>
@@ -1608,8 +1621,8 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>250</x>
-        <y>160</y>
+        <x>280</x>
+        <y>163</y>
         <width>211</width>
         <height>21</height>
        </rect>
@@ -1638,8 +1651,8 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>250</x>
-        <y>140</y>
+        <x>280</x>
+        <y>143</y>
         <width>211</width>
         <height>21</height>
        </rect>
@@ -1736,8 +1749,8 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>250</x>
-        <y>180</y>
+        <x>280</x>
+        <y>183</y>
         <width>211</width>
         <height>21</height>
        </rect>
@@ -1751,7 +1764,7 @@
        <set>Qt::ImhDialableCharactersOnly</set>
       </property>
       <property name="text">
-       <string>Contour</string>
+       <string>Moyenne Inter</string>
       </property>
       <property name="maxLength">
        <number>50</number>
@@ -1805,8 +1818,8 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>250</x>
-        <y>210</y>
+        <x>280</x>
+        <y>213</y>
         <width>211</width>
         <height>21</height>
        </rect>
@@ -1854,8 +1867,8 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>250</x>
-        <y>240</y>
+        <x>280</x>
+        <y>243</y>
         <width>211</width>
         <height>21</height>
        </rect>
@@ -1884,8 +1897,8 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>250</x>
-        <y>329</y>
+        <x>280</x>
+        <y>332</y>
         <width>211</width>
         <height>21</height>
        </rect>
@@ -1914,8 +1927,8 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>250</x>
-        <y>309</y>
+        <x>280</x>
+        <y>312</y>
         <width>211</width>
         <height>21</height>
        </rect>
@@ -1998,7 +2011,7 @@
        <rect>
         <x>0</x>
         <y>379</y>
-        <width>451</width>
+        <width>471</width>
         <height>21</height>
        </rect>
       </property>
@@ -2012,12 +2025,12 @@
        <string>** Ces 3 affichages sont nécessaires aux modules Inter et Intra</string>
       </property>
      </widget>
-     <widget class="QCheckBox" name="checkBoxUnSeulIntra">
+     <widget class="QCheckBox" name="checkBoxIntraUnSeul">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>286</y>
-        <width>221</width>
+        <width>241</width>
         <height>26</height>
        </rect>
       </property>
@@ -2028,41 +2041,11 @@
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEditThematiqueUnSeulIntra">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>250</x>
-        <y>286</y>
-        <width>211</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-       </font>
-      </property>
-      <property name="inputMethodHints">
-       <set>Qt::ImhDialableCharactersOnly</set>
-      </property>
-      <property name="text">
-       <string>Isolignes ou Intra</string>
-      </property>
-      <property name="maxLength">
-       <number>50</number>
-      </property>
-      <property name="dragEnabled">
-       <bool>true</bool>
-      </property>
-     </widget>
      <widget class="QLabel" name="label">
       <property name="geometry">
        <rect>
-        <x>460</x>
-        <y>286</y>
+        <x>490</x>
+        <y>311</y>
         <width>21</width>
         <height>21</height>
        </rect>
@@ -2074,8 +2057,8 @@
      <widget class="QLabel" name="label_2">
       <property name="geometry">
        <rect>
-        <x>460</x>
-        <y>308</y>
+        <x>490</x>
+        <y>332</y>
         <width>21</width>
         <height>21</height>
        </rect>
@@ -2092,7 +2075,7 @@
        <rect>
         <x>0</x>
         <y>360</y>
-        <width>451</width>
+        <width>461</width>
         <height>21</height>
        </rect>
       </property>
@@ -2103,7 +2086,7 @@
        </font>
       </property>
       <property name="text">
-       <string>* Ces 2 thématiques sont suffixées par l'entité interpoolée(DIAM, SARM, BIOM)</string>
+       <string>* Ces 2 thématiques sont suffixées par l'entité interpolée (DIAM, SARM, BIOM)</string>
       </property>
      </widget>
     </widget>
@@ -2121,7 +2104,7 @@
      </property>
      <widget class="QLabel" name="lab_190">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="geometry">
        <rect>
@@ -2132,12 +2115,12 @@
        </rect>
       </property>
       <property name="text">
-       <string>Sélectionez le répertoire des thématiques (non disponible en 1.3.0)</string>
+       <string>Sélectionez votre répertoire des thématiques</string>
       </property>
      </widget>
-     <widget class="QComboBox" name="fieldComboThematique">
+     <widget class="QComboBox" name="fieldComboThematiques">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="geometry">
        <rect>
@@ -2159,7 +2142,7 @@
      </widget>
      <widget class="QLabel" name="lab_192">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="geometry">
        <rect>
@@ -2175,7 +2158,7 @@
      </widget>
      <widget class="QLabel" name="lab_191">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="geometry">
        <rect>
@@ -2191,7 +2174,7 @@
      </widget>
      <widget class="QLabel" name="lab_194">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="geometry">
        <rect>
@@ -2202,12 +2185,12 @@
        </rect>
       </property>
       <property name="text">
-       <string>* pourrez les modifier à votre choix sans en modifier les noms</string>
+       <string>- pourrez les modifier à votre choix, sans en modifier les noms</string>
       </property>
      </widget>
      <widget class="QLabel" name="lab_193">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="geometry">
        <rect>
@@ -2218,7 +2201,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>* devez copier les modèles vers ce répertoire</string>
+       <string>- devez copier les modèles vers ce répertoire</string>
       </property>
      </widget>
     </widget>
@@ -2245,7 +2228,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Version 1.3.0 Beta</string>
+      <string>Version 1.3.0</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_100">
@@ -2417,10 +2400,10 @@ p, li { white-space: pre-wrap; }
      </property>
      <property name="geometry">
       <rect>
-       <x>80</x>
-       <y>550</y>
-       <width>61</width>
-       <height>21</height>
+       <x>440</x>
+       <y>536</y>
+       <width>91</width>
+       <height>35</height>
       </rect>
      </property>
      <property name="decimals">
@@ -2437,22 +2420,6 @@ p, li { white-space: pre-wrap; }
      </property>
      <property name="value">
       <double>2.000000000000000</double>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lab_78">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>550</y>
-       <width>71</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Power</string>
      </property>
     </widget>
    </widget>

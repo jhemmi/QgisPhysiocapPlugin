@@ -202,8 +202,8 @@ class PhysiocapAnalyseur:
         if result:
             # Do something useful here - delete the line containing pass and
             # substitute with your code.
-            physiocap_message_box( self.dlg, "Fin d'analyse Physiocap : <" +
-                               str(result ) + ">",
-                               "information" ) 
+##            physiocap_message_box( self.dlg, "Fin d'analyse Physiocap : <" +
+##                               str(result ) + ">",
+##                               "information" ) 
                             
             pass
