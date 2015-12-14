@@ -148,7 +148,7 @@ deploy: compile doc transcompile
 	@cp -vf $(DATA_FILES) $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)/$(DATA)
 	@cp -vf $(TEMPLATE)/*.qml $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)/$(TEMPLATE)
 	@cp -vf $(TEMPLATE)/*.qml $(HOME)/$(QGISDIR)/project_templates
-	# Todo copy du processing Physiocap
+	# Fin copy Physiocap
 
 # The dclean target removes compiled python files from plugin directory
 # also deletes any .git entry
