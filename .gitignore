@@ -51,11 +51,6 @@ i18n/
 .noseids
 pylintrc
 .gitignore~
-<<<<<<< HEAD
-#resources.qrc
-
-=======
->>>>>>> 1b9e2af1a257705652f2767e6161aa961308e963
 
 Physiocap_dialog_base-save.ui
 # PyInstaller
