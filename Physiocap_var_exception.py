@@ -44,7 +44,7 @@ PHYSIOCAP_TRACE = "YES"
 # En prod CENTROIDES vaut NO
 CENTROIDES = "NO"  # CENTROIDES YES est pour voir les centroides dans la synthese
 
-REPERTOIRE_DONNEES_BRUTES = "Votre Chemin à choisir"
+REPERTOIRE_DONNEES_BRUTES = "Choisissez votre chemin"
 PHYSIOCAP_NOM = "Physiocap"
 SEPARATEUR_ ="_"
 NOM_PROJET = "PHY" + SEPARATEUR_
