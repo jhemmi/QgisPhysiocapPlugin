@@ -34,7 +34,7 @@ about= Physiocap est un capteur qui géolocalise des mesures de
   une interprétation agronomique des résultats. Nous conseillons 
   l'appui d'un agronome ou d'un technicien vigne averti.
   Physiocap est breveté par le CIVC.
-version=1.2.3
+version=1.3.0
 author=jhemmi.eu
 email=jean@jhemmi.eu
 
@@ -46,7 +46,8 @@ email=jean@jhemmi.eu
 # changelog= la liste des version de l'extension :
    1.0 : Premier version pour utilisateur
    1.2.2 Inter : calcul des moyennes inter parcellaire
-   1.2.3 Inter : un shapefile de moyennes pour chaque parcelle n'est plus créé. Ce choix sera optionel avec 1.3.x
+   1.2.3 Inter : un shapefile de moyennes pour chaque parcelle n'est plus créé. Ce choix sera optionel avec 1.3.0
+   1.3.0 Intra : une interpolation des points pour chaque parcelle ainsi qu'une isolign sont créées.
 
 # Tags are comma separated with spaces allowed
 tags=Physiocap, CIVC, E.re.c.a, jhemmi.eu, Hemmi, sarment, diametre, biomasse
