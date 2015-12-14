@@ -95,8 +95,8 @@
       <property name="geometry">
        <rect>
         <x>300</x>
-        <y>0</y>
-        <width>51</width>
+        <y>-1</y>
+        <width>81</width>
         <height>21</height>
        </rect>
       </property>
@@ -130,8 +130,8 @@
       <property name="geometry">
        <rect>
         <x>300</x>
-        <y>20</y>
-        <width>51</width>
+        <y>21</y>
+        <width>81</width>
         <height>21</height>
        </rect>
       </property>
@@ -165,8 +165,8 @@
       <property name="geometry">
        <rect>
         <x>300</x>
-        <y>50</y>
-        <width>51</width>
+        <y>53</y>
+        <width>81</width>
         <height>21</height>
        </rect>
       </property>
@@ -200,8 +200,8 @@
       <property name="geometry">
        <rect>
         <x>300</x>
-        <y>70</y>
-        <width>61</width>
+        <y>76</y>
+        <width>81</width>
         <height>21</height>
        </rect>
       </property>
@@ -270,8 +270,8 @@
      <widget class="QLabel" name="lab_38">
       <property name="geometry">
        <rect>
-        <x>370</x>
-        <y>0</y>
+        <x>400</x>
+        <y>-2</y>
         <width>121</width>
         <height>21</height>
        </rect>
@@ -286,7 +286,7 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>370</x>
+        <x>400</x>
         <y>20</y>
         <width>91</width>
         <height>28</height>
@@ -359,7 +359,7 @@
        <rect>
         <x>300</x>
         <y>40</y>
-        <width>51</width>
+        <width>81</width>
         <height>21</height>
        </rect>
       </property>
@@ -381,7 +381,7 @@
        <rect>
         <x>0</x>
         <y>90</y>
-        <width>51</width>
+        <width>91</width>
         <height>21</height>
        </rect>
       </property>
@@ -414,8 +414,8 @@
      <widget class="QLabel" name="lab_31">
       <property name="geometry">
        <rect>
-        <x>60</x>
-        <y>90</y>
+        <x>120</x>
+        <y>93</y>
         <width>241</width>
         <height>21</height>
        </rect>
@@ -427,9 +427,9 @@
      <widget class="QSpinBox" name="spinBoxMaxDiametre">
       <property name="geometry">
        <rect>
-        <x>300</x>
-        <y>90</y>
-        <width>51</width>
+        <x>380</x>
+        <y>93</y>
+        <width>81</width>
         <height>21</height>
        </rect>
       </property>
@@ -489,9 +489,9 @@
       <property name="geometry">
        <rect>
         <x>430</x>
-        <y>20</y>
-        <width>31</width>
-        <height>31</height>
+        <y>18</y>
+        <width>41</width>
+        <height>37</height>
        </rect>
       </property>
       <property name="text">
