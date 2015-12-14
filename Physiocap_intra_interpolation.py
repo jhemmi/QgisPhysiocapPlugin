@@ -116,7 +116,7 @@ def physiocap_creer_raster_iso( self,
         physiocap_log ( u"= Version SAGA = " + str( versionSAGA))
         unite, dixieme, millieme = versionSAGA.split( ".")
         versionNum = float(unite) + float(dixieme)/10 + float(millieme)/100
-        if ( versionNum >= 2.10) and :( versionNum <= 2.12):
+        if ( versionNum >= 2.10) and ( versionNum <= 2.12):
             physiocap_log ( u"= Version SAGA OK " + str( versionSAGA))
         else:
             physiocap_log ( u"= Version SAGA inférieure à 2.1.0 : " + str( versionSAGA))
