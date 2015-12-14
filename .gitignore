@@ -51,7 +51,7 @@ i18n/
 .noseids
 pylintrc
 .gitignore~
-resources.qrc
+#resources.qrc
 
 
 Physiocap_dialog_base-save.ui
