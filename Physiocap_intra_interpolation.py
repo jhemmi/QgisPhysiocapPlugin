@@ -226,15 +226,16 @@ def physiocap_creer_raster_iso( self,
                     if str( iso_dans_poly_brut[ 'CONTOUR']) != None:
                         nom_iso_final = str( iso_dans_poly_brut[ 'CONTOUR'])
 
-            if ( nom_iso_final != ""):                              
-                iso_dans_poly_plus = processing.runalg("qgis:addfieldtoattributestable", \
-                    nom_iso_final, \
-                    "ELEV", 1, 15, 2 ,None)
-            
-            if ( iso_dans_poly_plus != None):                              
-                if ( str( list( iso_dans_poly_plus) == "OUTPUT_LAYER")):
-                    if str( iso_dans_poly_plus[ 'OUTPUT_LAYER']) != None:
-                        nom_iso_final = str( iso_dans_poly_plus[ 'OUTPUT_LAYER'])
+                if ( nom_iso_final != ""):                              
+                    iso_dans_poly_plus = processing.runalg("qgis:addfieldtoattributestable", \
+                        nom_iso_final, \
+                        "ELEV", 1, 15, 2 ,None)
+                
+                if ( iso_dans_poly_plus != None):                              
+                    if ( str( list( iso_dans_poly_plus) == "OUTPUT_LAYER")):
+                        if str( iso_dans_poly_plus[ 'OUTPUT_LAYER']) != None:
+                            nom_iso_final = str( iso_dans_poly_plus[ 'OUTPUT_LAYER'])
+                            
             if ( nom_iso_final != ""):                              
                 # Retrouver le nom de l'atribut créé et 
                 intra_iso_modifie = QgsVectorLayer( nom_iso_final, 
