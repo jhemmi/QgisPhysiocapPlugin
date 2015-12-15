@@ -116,11 +116,12 @@ def physiocap_creer_raster_iso( self,
         physiocap_log ( u"= Version SAGA = " + str( versionSAGA))
         unite, dixieme, millieme = versionSAGA.split( ".")
         versionNum = float(unite) + float(dixieme)/10 + float(millieme)/100
-        if ( versionNum >= 2.10):
+        if ( versionNum >= 2.10) and ( versionNum <= 2.12):
             physiocap_log ( u"= Version SAGA OK " + str( versionSAGA))
         else:
             physiocap_log ( u"= Version SAGA inférieure à 2.1.0 : " + str( versionSAGA))
-            physiocap_log ( u"= On force l'utilisation de Gdal : " + str( versionGDAL))
+            physiocap_log ( u"= ou supérieure à 2.1.2 : ")
+            physiocap_log ( u"= On force l'utilisation de Gdal : ")
             self.radioButtonSAGA.setEnabled( False)
             self.radioButtonGDAL.setChecked(  Qt.Checked)
             self.radioButtonSAGA.setChecked(  Qt.Unchecked)
