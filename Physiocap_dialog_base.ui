@@ -51,7 +51,7 @@
     <enum>QTabWidget::North</enum>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>5</number>
    </property>
    <property name="movable">
     <bool>true</bool>
@@ -94,9 +94,9 @@
      <widget class="QSpinBox" name="spinBoxInterrangs">
       <property name="geometry">
        <rect>
-        <x>300</x>
+        <x>280</x>
         <y>-1</y>
-        <width>81</width>
+        <width>101</width>
         <height>21</height>
        </rect>
       </property>
@@ -129,9 +129,9 @@
      <widget class="QSpinBox" name="spinBoxInterceps">
       <property name="geometry">
        <rect>
-        <x>300</x>
+        <x>280</x>
         <y>21</y>
-        <width>81</width>
+        <width>101</width>
         <height>21</height>
        </rect>
       </property>
@@ -164,9 +164,9 @@
      <widget class="QSpinBox" name="spinBoxHauteur">
       <property name="geometry">
        <rect>
-        <x>300</x>
+        <x>280</x>
         <y>53</y>
-        <width>81</width>
+        <width>101</width>
         <height>21</height>
        </rect>
       </property>
@@ -199,9 +199,9 @@
      <widget class="QDoubleSpinBox" name="doubleSpinBoxDensite">
       <property name="geometry">
        <rect>
-        <x>300</x>
+        <x>280</x>
         <y>76</y>
-        <width>81</width>
+        <width>101</width>
         <height>21</height>
        </rect>
       </property>
@@ -271,13 +271,13 @@
       <property name="geometry">
        <rect>
         <x>400</x>
-        <y>-2</y>
+        <y>2</y>
         <width>121</width>
         <height>21</height>
        </rect>
       </property>
       <property name="text">
-       <string>Densité (pied/ha)</string>
+       <string>Densité :</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="lineEditDensite">
@@ -286,9 +286,9 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>400</x>
+        <x>390</x>
         <y>20</y>
-        <width>91</width>
+        <width>101</width>
         <height>28</height>
        </rect>
       </property>
@@ -300,6 +300,19 @@
       </property>
       <property name="dragEnabled">
        <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lab_39">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>46</y>
+        <width>121</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>en pied/ha</string>
       </property>
      </widget>
     </widget>
@@ -1027,7 +1040,7 @@
        <rect>
         <x>310</x>
         <y>110</y>
-        <width>71</width>
+        <width>91</width>
         <height>21</height>
        </rect>
       </property>
@@ -1114,9 +1127,9 @@
      <widget class="QSpinBox" name="spinBoxIsoMax">
       <property name="geometry">
        <rect>
-        <x>330</x>
+        <x>310</x>
         <y>200</y>
-        <width>81</width>
+        <width>101</width>
         <height>21</height>
        </rect>
       </property>
@@ -1228,7 +1241,7 @@
        <rect>
         <x>310</x>
         <y>130</y>
-        <width>71</width>
+        <width>91</width>
         <height>21</height>
        </rect>
       </property>
@@ -1264,9 +1277,9 @@
      <widget class="QSpinBox" name="spinBoxIsoMin">
       <property name="geometry">
        <rect>
-        <x>40</x>
+        <x>10</x>
         <y>200</y>
-        <width>71</width>
+        <width>101</width>
         <height>21</height>
        </rect>
       </property>
@@ -1326,7 +1339,7 @@
        <rect>
         <x>290</x>
         <y>230</y>
-        <width>101</width>
+        <width>111</width>
         <height>28</height>
        </rect>
       </property>
