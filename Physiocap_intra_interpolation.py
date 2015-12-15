@@ -154,10 +154,11 @@ def physiocap_creer_raster_iso( self,
     # Lire vector vignette_vector
            
     try:
+        # Todo : Attrapper l'existance du fichier pour monter erreur (cas BIOMGM2)
         vignette_vector = QgsVectorLayer( nom_vignette, nom_court_vignette, 'ogr')
         points_vector = QgsVectorLayer( nom_point, nom_court_point, 'ogr')
     except:
-        # Todo : V1.4 En faire une exception et tester try dans apple
+        # Todo : V1.4 En faire une exception et tester dans try
         aText = u"Le polygone ou le fichier de point n'est pas retrouvé. "
         aText = aText + "Une inconsistence entre le projet Physiocap et ses données vous oblige "
         aText = aText + "à relancer la chaine de traitement." 
