@@ -39,7 +39,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>14</y>
+     <y>13</y>
      <width>541</width>
      <height>611</height>
     </rect>
@@ -51,7 +51,7 @@
     <enum>QTabWidget::North</enum>
    </property>
    <property name="currentIndex">
-    <number>5</number>
+    <number>0</number>
    </property>
    <property name="movable">
     <bool>true</bool>
@@ -66,10 +66,10 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>410</y>
+       <x>20</x>
+       <y>395</y>
        <width>491</width>
-       <height>161</height>
+       <height>171</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -81,8 +81,8 @@
      <widget class="QLabel" name="lab_32">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>0</y>
+        <x>0</x>
+        <y>9</y>
         <width>281</width>
         <height>21</height>
        </rect>
@@ -94,8 +94,8 @@
      <widget class="QSpinBox" name="spinBoxInterrangs">
       <property name="geometry">
        <rect>
-        <x>280</x>
-        <y>-1</y>
+        <x>270</x>
+        <y>13</y>
         <width>101</width>
         <height>21</height>
        </rect>
@@ -116,8 +116,8 @@
      <widget class="QLabel" name="lab_33">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>20</y>
+        <x>0</x>
+        <y>29</y>
         <width>291</width>
         <height>21</height>
        </rect>
@@ -129,8 +129,8 @@
      <widget class="QSpinBox" name="spinBoxInterceps">
       <property name="geometry">
        <rect>
-        <x>280</x>
-        <y>21</y>
+        <x>270</x>
+        <y>30</y>
         <width>101</width>
         <height>21</height>
        </rect>
@@ -151,8 +151,8 @@
      <widget class="QLabel" name="lab_34">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>50</y>
+        <x>0</x>
+        <y>59</y>
         <width>291</width>
         <height>21</height>
        </rect>
@@ -164,8 +164,8 @@
      <widget class="QSpinBox" name="spinBoxHauteur">
       <property name="geometry">
        <rect>
-        <x>280</x>
-        <y>53</y>
+        <x>270</x>
+        <y>62</y>
         <width>101</width>
         <height>21</height>
        </rect>
@@ -186,8 +186,8 @@
      <widget class="QLabel" name="lab_35">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>70</y>
+        <x>0</x>
+        <y>79</y>
         <width>221</width>
         <height>21</height>
        </rect>
@@ -199,8 +199,8 @@
      <widget class="QDoubleSpinBox" name="doubleSpinBoxDensite">
       <property name="geometry">
        <rect>
-        <x>280</x>
-        <y>76</y>
+        <x>270</x>
+        <y>85</y>
         <width>101</width>
         <height>21</height>
        </rect>
@@ -224,8 +224,8 @@
      <widget class="QLabel" name="lab_36">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>100</y>
+        <x>0</x>
+        <y>109</y>
         <width>81</width>
         <height>21</height>
        </rect>
@@ -237,8 +237,8 @@
      <widget class="QComboBox" name="fieldComboCepage">
       <property name="geometry">
        <rect>
-        <x>70</x>
-        <y>100</y>
+        <x>60</x>
+        <y>109</y>
         <width>291</width>
         <height>20</height>
        </rect>
@@ -247,8 +247,8 @@
      <widget class="QComboBox" name="fieldComboTaille">
       <property name="geometry">
        <rect>
-        <x>70</x>
-        <y>130</y>
+        <x>60</x>
+        <y>139</y>
         <width>291</width>
         <height>20</height>
        </rect>
@@ -257,8 +257,8 @@
      <widget class="QLabel" name="lab_37">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>130</y>
+        <x>0</x>
+        <y>139</y>
         <width>81</width>
         <height>21</height>
        </rect>
@@ -270,9 +270,9 @@
      <widget class="QLabel" name="lab_38">
       <property name="geometry">
        <rect>
-        <x>400</x>
-        <y>2</y>
-        <width>121</width>
+        <x>390</x>
+        <y>11</y>
+        <width>71</width>
         <height>21</height>
        </rect>
       </property>
@@ -286,8 +286,8 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>390</x>
-        <y>20</y>
+        <x>380</x>
+        <y>29</y>
         <width>101</width>
         <height>28</height>
        </rect>
@@ -305,9 +305,9 @@
      <widget class="QLabel" name="lab_39">
       <property name="geometry">
        <rect>
-        <x>400</x>
-        <y>46</y>
-        <width>121</width>
+        <x>390</x>
+        <y>55</y>
+        <width>81</width>
         <height>21</height>
        </rect>
       </property>
@@ -321,7 +321,7 @@
       <rect>
        <x>10</x>
        <y>250</y>
-       <width>481</width>
+       <width>491</width>
        <height>121</height>
       </rect>
      </property>
@@ -465,7 +465,7 @@
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>481</width>
+       <width>491</width>
        <height>221</height>
       </rect>
      </property>
@@ -664,7 +664,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>370</y>
+       <y>373</y>
        <width>491</width>
        <height>21</height>
       </rect>
