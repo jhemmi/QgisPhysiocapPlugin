@@ -57,6 +57,7 @@ from PyQt4.QtCore import *
 from qgis.core import *
 from qgis.gui import *
 
+
 def physiocap_affiche_raster_iso( nom_raster_final, nom_court_raster, le_template_raster, affiche_raster,
                     nom_iso_final, nom_court_isoligne, le_template_isolignes, affiche_iso,
                     vignette_group_intra):
