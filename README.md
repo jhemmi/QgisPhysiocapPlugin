@@ -4,16 +4,18 @@ This version is in French only._
 
 L'extension Physiocap pour Qgis permet d'analyser les résultats bruts de Physiocap. Il s'agit de mesures directes de la vigueur et de l'expression végétative de la vigne.
 Trois métriques sont calculés à partir des données brutes :
-	nombre de bois au mètre
-	le diamètre moyen et
-	l'indice de biomasse (kg de bois par m2)
+* nombre de bois au mètre
+* le diamètre moyen et
+* l'indice de biomasse (kg de bois par m2)
 	
-L'extension permet de choisir plusieurs paramètres pour filtrer les données qui ont un intérêt. Elle réalise une série de calcul aboutissant à :
-	une synthèse des métriques moyens des données retenues,
-	deux shapefiles qui permettent de visualiser les données mesurées et les données retenues (après filtration),
-	trois histogrammes qui décrivent la population des données mesurées (sarment et diamètre).
+L'extension permet de choisir plusieurs paramètres pour filtrer les données qui ont un intérêt. Elle réalise une série de calculs aboutissant à :
+* une synthèse des métriques moyens des données retenues,
+* deux shapefiles qui permettent de visualiser les données mesurées et les données retenues (après filtration),
+* trois histogrammes qui décrivent la population des données mesurées (sarment et diamètre).
 
-L'extension "version 1.2.3 Inter" réalise une extraction des données filtrés à partir de votre contour de parcelles. Vous obtenez les moyennes Inter parcellaires pour faire un premier diagnostic de chaque entité agronomique.
+A partir de sa version 1.2.3 Inter, l'extension réalise une extraction des données filtrés à partir de votre contour de parcelles. Vous obtenez les moyennes Inter parcellaires pour faire un premier diagnostic de chaque entité agronomique.
+
+Avec la 1.3.1, l'extension permet des interpolations et calcul d'isoligne Intra parcellaire pour affiner l'analyse agronomique.
 
 *"Physiocap" est déposé par le CIVC.*
 
@@ -23,8 +25,8 @@ La documentation se trouve dans le Wiki
 https://github.com/jhemmi/QgisPhysiocapPlugin/wiki/Qgis-Physiocap-Plugin-usage-&-installation
 
 La 1.2.3 est publiée dans le dépot standard de Qgis et donc accessible directement depsui Qgis "Extension Physiocap".
-La 1.3.0 a été soumis dans le dépot standard de Qgis.
+La 1.3.1 a été proposé au dépot standard de Qgis.
 
-**Attention, ce dépot contient la version 1.3.0 (version stable https://github.com/jhemmi/QgisPhysiocapPlugin/releases) et la version 1.3.1beta en cours de construction - Décembre 2015**
+**Attention, ce dépot contient la version 1.3.1 (version stable https://github.com/jhemmi/QgisPhysiocapPlugin/releases) et la version 1.3.2 en cours de construction - Décembre 2015**
 
-**Warning, this repo is version 1.3.3 (stable https://github.com/jhemmi/QgisPhysiocapPlugin/releases) and version 1.3.1beta under construction - Décembre 2015**
+**Warning, this repo is version 1.3.1 (stable https://github.com/jhemmi/QgisPhysiocapPlugin/releases) and version 1.3.2 under construction - Décembre 2015**
