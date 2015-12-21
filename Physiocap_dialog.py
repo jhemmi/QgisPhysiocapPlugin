@@ -38,9 +38,10 @@
  *                                                                         *
 ***************************************************************************/
 """
-from Physiocap_tools import physiocap_message_box, physiocap_question_box,\
+from Physiocap_tools import physiocap_message_box, physiocap_question_box, \
         physiocap_log, physiocap_error, \
-        physiocap_quelle_projection_demandee, physiocap_get_layer_by_ID
+        physiocap_quelle_projection_demandee, physiocap_get_layer_by_ID, \
+        physiocap_get_uri_by_layer
         
 ##from Physiocap_CIVC import physiocap_csv_vers_shapefile, physiocap_assert_csv, 
 ##        physiocap_fichier_histo, physiocap_tracer_histo, physiocap_filtrer   
@@ -61,9 +62,6 @@ from qgis.core import *
 from qgis.gui import *
 
 import glob
-#import shutil
-import time  
-
 import os
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join( os.path.dirname(__file__), 'Physiocap_dialog_base.ui'))
@@ -190,9 +188,16 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             physiocap_error( u"Pas de liste des formats de vecteurs pré défini")
         else:
             self.fieldComboFormats.clear( )
-            self.fieldComboFormats.addItems( FORMAT_VECTEUR )
-            # Retrouver le format de  settings
+            uri = physiocap_get_uri_by_layer( self)
+            if uri != None:
+                self.fieldComboFormats.addItems( FORMAT_VECTEUR )
+            else:
+                self.fieldComboFormats.addItem( FORMAT_VECTEUR[ 0] )
+                self.fieldComboFormats.setEnabled( False)
+
+             # Retrouver le format de  settings
             i=0
+            self.fieldComboFormats.setCurrentIndex( 1)
             leFormat = self.settings.value("Physiocap/leFormat", "xx") 
             for unFormat in FORMAT_VECTEUR:
                 if ( unFormat == leFormat):
@@ -209,7 +214,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             leChoixDeThematiques = int( self.settings.value("Physiocap/leChoixDeThematiques", -1)) 
             # Cas inital
             CHEMIN_TEMPLATES_USER = []
-            self.fieldComboFormats.clear( )
+            self.fieldComboThematiques.clear( )
             CHEMIN_TEMPLATES_USER.append( os.path.join( self.plugin_dir, CHEMIN_TEMPLATES[0]))
             CHEMIN_TEMPLATES_USER.append( os.path.join( self.gis2_dir, CHEMIN_TEMPLATES[1]))
             self.fieldComboThematiques.addItems( CHEMIN_TEMPLATES_USER )
@@ -433,23 +438,28 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         layer = physiocap_get_layer_by_ID( diametre)
         if layer is not None:
             # Avec le diametre, on trouve le repertoire
-            chemin_shapes = os.path.dirname( unicode( layer.dataProvider().dataSourceUri() ) ) ;
-            if ( not os.path.exists( chemin_shapes)):
-                raise physiocap_exception_rep( chemin_shapes)
+            pro = layer.dataProvider()
+            chemin_shapes = "chemin vers shapeFile"
+            if pro.name() != JHPOST:
+                chemin_shapes = os.path.dirname( unicode( layer.dataProvider().dataSourceUri() ) ) ;
+                if ( not os.path.exists( chemin_shapes)):
+                    raise physiocap_exception_rep( "chemin vers shapeFile")
             
-            chemin_inter = os.path.join( chemin_shapes, VIGNETTES_INTER)
-            if (os.path.exists( chemin_inter)):
-                # On aiguille vers Intra
-                self.groupBoxIntra.setEnabled( True)
-                self.ButtonIntra.setEnabled( True)
-                self.ButtonInter.setEnabled( False)
+                chemin_inter = os.path.join( chemin_shapes, VIGNETTES_INTER)
+                if (os.path.exists( chemin_inter)):
+                    # On aiguille vers Intra
+                    self.groupBoxIntra.setEnabled( True)
+                    self.ButtonIntra.setEnabled( True)
+                    self.ButtonInter.setEnabled( False)
 
-            else:
-                # On aiguille vers Inter
-                self.groupBoxIntra.setEnabled( False)
-                self.ButtonIntra.setEnabled( False)
-                self.ButtonInter.setEnabled( True)
+                else:
+                    # On aiguille vers Inter
+                    self.groupBoxIntra.setEnabled( False)
+                    self.ButtonIntra.setEnabled( False)
+                    self.ButtonInter.setEnabled( True)
                               
+
+
     def get_layer_by_name( self, layerName ):
         layerMap = QgsMapLayerRegistry.instance().mapLayers()
         layer = None
@@ -464,6 +474,8 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
                 return None
         else:
             return None
+
+
 
     # Repertoire données brutes :
     def lecture_repertoire_donnees_brutes( self):

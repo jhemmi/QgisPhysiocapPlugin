@@ -384,6 +384,8 @@ def physiocap_creer_donnees_resultats( self, laProjection, EXT_CRS_SHP, EXT_CRS_
     nom_shape_sans_0 = os.path.join(chemin_shapes, nom_court_shape_sans_0)
     nom_court_prj_sans_0 = NOM_PROJET + NOM_POINTS + EXT_CRS_PRJ
     nom_prj_sans_0 = os.path.join(chemin_shapes, nom_court_prj_sans_0)
+
+        
     # Si le shape existe dejà il faut le détruire
     if os.path.isfile( nom_shape_sans_0):
         physiocap_log ( u"Le shape file existant déjà, il est détruit.")
@@ -444,6 +446,23 @@ def physiocap_creer_donnees_resultats( self, laProjection, EXT_CRS_SHP, EXT_CRS_
     
     for shapename, titre, unTemplate in SHAPE_A_AFFICHER:
         vector = QgsVectorLayer( shapename, titre, 'ogr')
+        #cas Postgres non testé
+        if (self.fieldComboFormats.currentText() == "ESRI Shapefile" ):
+            vector = QgsVectorLayer( shapename, titre, 'ogr')
+        elif (self.fieldComboFormats.currentText() == "postgres" ):
+            # Cas Postgres
+            nom_court_shp = os.path.basename( shapename)
+            #TABLES = "public." + nom_court_shp
+            uri = "dbname='testpostgis' host=localhost port=5432" + \
+              " user='postgres' password='postgres'" + \
+              " key=gid type=POINTS table=" + nom_court_shp[ :-4] + " (geom) sql="            
+            physiocap_log ( "Affichage POSTGRES : >>" + uri + "<<")
+            vector = QgsVectorLayer( uri, titre, 'postgres')
+        else:
+            physiocap_log ( u"Physiocap est étrange. C'est bizarre")            
+            physiocap_error ( u"Physiocap est étrange. C'est bizarre")            
+            continue
+            
         QgsMapLayerRegistry.instance().addMapLayer( vector, False)
         # Ajouter le vecteur dans un groupe
         vector_node = sous_groupe.addLayer( vector)

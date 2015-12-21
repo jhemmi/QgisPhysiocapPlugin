@@ -39,10 +39,12 @@
  *                                                                         *
 ***************************************************************************/
 """
-from Physiocap_tools import physiocap_message_box, physiocap_question_box,\
-        physiocap_log, physiocap_error, physiocap_write_in_synthese
+from Physiocap_tools import physiocap_message_box, physiocap_question_box, \
+        physiocap_log, physiocap_error, physiocap_write_in_synthese, \
+        physiocap_quel_uriname, physiocap_tester_uri, \
+        physiocap_existe_table_uri, physiocap_get_uri_by_layer 
 from Physiocap_var_exception import *
-        
+
 from PyQt4 import QtGui, uic  # for Form_class
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -152,6 +154,21 @@ def physiocap_csv_vers_shapefile( self, progress_barre, csv_name, shape_name, pr
     # Prepare les attributs
     les_champs = QgsFields()
     # V1.0 Ajout du GID
+##    les_champs.append( QgsField("gid", QVariant.Int, "integer", 10))
+##    les_champs.append( QgsField("date", QVariant.String, "string", 25))
+##    les_champs.append( QgsField("vitesse", QVariant.Double, "double", 10,2))
+##    les_champs.append(QgsField("nbsarm",  QVariant.Double, "double", 10,2))
+##    les_champs.append(QgsField("diam",  QVariant.Double, "double", 10,2))
+##    les_champs.append(QgsField("biom", QVariant.Double,"double", 10,2)) 
+##    if details == "YES":
+##        # Niveau de detail demandé
+##        les_champs.append(QgsField("nbsarmm2", QVariant.Double,"double", 10,2))
+##        les_champs.append(QgsField("nbsarmcep", QVariant.Double,"double", 10,2))
+##        les_champs.append(QgsField("biomm2", QVariant.Double,"double", 10,2))
+##        les_champs.append(QgsField("biomgm2", QVariant.Double,"double", 10,2))
+##        les_champs.append(QgsField("biomgcep", QVariant.Double,"double", 10,2))
+## 
+    # V1.0 Ajout du GID
     les_champs.append( QgsField("GID", QVariant.Int, "integer", 10))
     les_champs.append( QgsField("DATE", QVariant.String, "string", 25))
     les_champs.append( QgsField("VITESSE", QVariant.Double, "double", 10,2))
@@ -165,10 +182,12 @@ def physiocap_csv_vers_shapefile( self, progress_barre, csv_name, shape_name, pr
         les_champs.append(QgsField("BIOMM2", QVariant.Double,"double", 10,2))
         les_champs.append(QgsField("BIOMGM2", QVariant.Double,"double", 10,2))
         les_champs.append(QgsField("BIOMGCEP", QVariant.Double,"double", 10,2))
-    # Creation du Shape
-    writer = QgsVectorFileWriter( shape_name, "utf-8", les_champs, 
-        QGis.WKBPoint, crs , "ESRI Shapefile")
 
+    # Creation du Shape
+        
+    writer = QgsVectorFileWriter( shape_name, "utf-8", les_champs, 
+            QGis.WKBPoint, crs , "ESRI Shapefile")
+            
     #Ecriture du shp
     for j,k in enumerate(x):
         feat = QgsFeature()
@@ -186,19 +205,64 @@ def physiocap_csv_vers_shapefile( self, progress_barre, csv_name, shape_name, pr
         # Ecrit le feature
         writer.addFeature( feat)
 
-    # Create the PRJ file
-    prj = open(prj_name, "w")
-    epsg = 'inconnu'
-    if ( laProjection == PROJECTION_L93):
-        # Todo: V1.x ? Faire aussi un fichier de metadata 
-        epsg = EPSG_TEXT_L93
-    if ( laProjection == PROJECTION_GPS):
-        #  prj pour GPS 4326
-        epsg = EPSG_TEXT_GPS
-        
-    prj.write(epsg)
-    prj.close()    
+    # Flush vector
+    del writer
     
+    # Cas Postgres
+    if (self.fieldComboFormats.currentText() == "postgres" ):
+        # Vérifier si une connexion Physiocap existe
+        uri_nom = physiocap_quel_uriname( self)
+        physiocap_log( u"URI nom : " + str( uri_nom))
+        # Todo : Enlever ce forcage
+        uri_nom = "testpostgis"
+        uri_modele = physiocap_get_uri_by_layer( self, uri_nom )
+        if uri_modele != None:
+            uri_connect, uri_deb, uri_fin = physiocap_tester_uri( self, uri_modele)
+            if uri_deb != None:
+                nom_court_shp = os.path.basename( shape_name)
+                #TABLES = "public." + nom_court_shp
+                laTable = '"public"."' + nom_court_shp[ :-4] + '"'
+                physiocap_log( u"La Table " + str( laTable))
+                if physiocap_existe_table_uri( self, uri_deb, laTable):
+                    physiocap_log( u"Table existe déjà : " + str( laTable))
+                else:
+                    # Creer la table
+                    vector = QgsVectorLayer( shape_name, "INUTILE", 'ogr')
+                    uri = uri_deb + \
+                        " key=gid type=POINTS table=" + laTable + uri_fin
+##        uri = "dbname='testpostgis' host=localhost port=5432" + \
+##              " user='postgres' password='postgres'" + \
+##              " key=gid type=POINTS table=" + nom_court_shp[ :-4] + " (geom) sql="
+                # Todo : Cette table existe déjà ou mise à jour
+                    error = QgsVectorLayerImport.importLayer( vector, uri, "postgres", crs, False, False)
+                    if error[0] != 0:
+                        physiocap_error( "Probleme Postgres : " + str(error[0]) + " => " + str(error[0]))
+                        #iface.messageBar().pushMessage(u'Phyqiocap Error', error[1], QgsMessageBar.CRITICAL, 5)    
+                    else:
+                        # Sans erreur on détruit le shape file
+                        if os.path.isfile( shape_name):
+                            os.remove( shape_name)
+            else:
+                physiocap_log( u"Pas de connection possible à Postgres : " + str( uri_nom))
+                physiocap_error( u"Pas de connection possible à Postgres : " + str( uri_nom))
+        else:
+            physiocap_log( u"Pas de connecteur vers Postgres : " + str( uri_nom))
+            physiocap_error( u"Pas de connecteur vers Postgres : " + str( uri_nom))
+            
+    else:
+        # Create the PRJ file
+        prj = open(prj_name, "w")
+        epsg = 'inconnu'
+        if ( laProjection == PROJECTION_L93):
+            # Todo: V1.x ? Faire aussi un fichier de metadata 
+            epsg = EPSG_TEXT_L93
+        if ( laProjection == PROJECTION_GPS):
+            #  prj pour GPS 4326
+            epsg = EPSG_TEXT_GPS
+            
+        prj.write(epsg)
+        prj.close()    
+        
     # Création de la synthese
     if nom_fichier_synthese != "NO":
         # ASSERT Le fichier de synthese existe

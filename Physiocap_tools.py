@@ -39,13 +39,16 @@ from Physiocap_var_exception import *
 
 from PyQt4 import QtGui, uic  # for Form_class
 from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+#from PyQt4.QtSql import *
+import psycopg2
+#from PyQt4.QtGui import *
 from qgis.core import *
 from qgis.gui import *
 
 # Imports system & os
 #import os.path
 import sys, string
+import time  
 
 if platform.system() == 'Windows':
     import win32api
@@ -157,6 +160,128 @@ def physiocap_quelle_projection_demandee( self):
 
     return laProjection, EXTENSION_SHP_COMPLET, EXTENSION_PRJ_COMPLET, EXTENSION_RASTER_COMPLET, EPSG_NUMBER
 
+def physiocap_quel_uriname( self):
+    """ Retourne l'uriName attendu """
+    a_time = time.strftime( "%d/%m/%y %H:%M\n",time.localtime())
+    maRef = self.settings.value("Physiocap/nomJhemmi", "xx").split( SEPARATEUR_NOEUD) 
+    if (len( maRef) == 2):
+        monMo = a_time.split("/") 
+        uriName = maRef[0]  + SEPARATEUR_ + monMo[1] + SEPARATEUR_ + maRef[1]
+        return uriName
+    else:
+        return None
+ 
+def physiocap_existe_table_uri( self, uri_deb, laTable):
+    """ Retourne true si la table existe dans uri """
+        
+    try:
+        conn = psycopg2.connect( uri_deb)
+    except:
+        physiocap_log( u"Impossible de se connecter à la base de données " + str( uri_deb))
+        physiocap_error( u"Impossible de se connecter à la base de données " + str( uri_deb))
+        return False
+    
+    # Ouvre une curseur
+    cur = conn.cursor()
+    # Execute a command: this creates a new table
+    commande = "select '" + laTable + "'::regclass;"
+    physiocap_log( u"La commande " + str( commande))
+    cur.execute( commande)
+    rows = cur.fetchall()
+    for row in rows:
+        physiocap_log( u"Existe ? : " + str(row))
+    return True
+
+def physiocap_tester_uri( self, uriSource):
+    """ Retourne uri_connect et uri_deb et uri_fin retrouvés dans uriSource """
+    # Tester si la source est bien une base
+    if (str( type( uriSource)) != "<class 'qgis._core.QgsDataSourceURI'>"):
+        physiocap_log( u"Incohérence trop flag")
+        return None, None, None
+##    try:
+##        physiocap_log( u"xxx Uri source dir : " + str( dir( uriSource)))
+##        #physiocap_log( u"xxx Uri source key : " + str( uriSource.keyColumn()))
+##        #physiocap_log( u"xxx Uri source wkbtype : " + str( uriSource.wkbType()))
+##    except:
+##        pass
+        
+    # Tester la connection à la base
+    uri_deb = "dbname='" + uriSource.database() + "'" + \
+              " host='" + uriSource.host() + "'" + \
+              " port=" + uriSource.port() + \
+              " user='" + uriSource.username() + "'" + \
+              " password='" + uriSource.password() + "'" # Fin
+    uneDatabase = uriSource.database()
+    try:
+        #conn = psycopg2.connect("dbname='testpostgis' user='postgres' host='localhost' password='postgres'")
+        conn = psycopg2.connect( uri_deb)
+    except:
+        physiocap_log( u"Impossible de se connecter à la base de données " + str( uneDatabase))
+        physiocap_error( u"Impossible de se connecter à la base de données " + str( uneDatabase))
+        return None, None, None
+    
+    physiocap_log( u"PG == Ouverture de la base de données " + str( uneDatabase) + \
+        " == " + str( conn.status))
+
+    # Ouvre une curseur
+    cur = conn.cursor()
+    # Execute a command: this creates a new table
+    cur.execute( "select version();")
+    rows = cur.fetchall()
+    physiocap_log( u"PG == Version de la base : " + str(rows[ 0]))
+##    cur.execute( "select 'public.\"DIAMETRE\"'::regclass;")
+##    rows = cur.fetchall()
+##    physiocap_log( u"Version de la base : " + str(rows[ 0]))
+
+    # conn.commit()
+    # Close communication with the database
+    cur.close()
+    conn.close()    
+    physiocap_log( u"PG == Fermeture de la base de données " + str( uneDatabase) + \
+        " == " + str( conn.status))
+    # Tout est OK
+    uri_connect = uriSource.connectionInfo()   ## de bd à ssl
+##    physiocap_log( u"xxx Uri connection : " + str( uri_connect) )
+
+    uri_deb = uri_connect + \
+              " srid=" + uriSource.srid()
+    uri_fin = " (geom) sql="
+##    physiocap_log( u"xxx Uri debut : " + uri_deb )
+##    physiocap_log( u"xxx Uri fin : " + uri_fin )
+    return uri_connect, uri_deb, uri_fin
+    
+def physiocap_get_uri_by_layer( self, uriName = "INIT" ):
+    """ Retourne une uri correspondans au premier layer qui est dans
+        une base postgres
+        Rend uriname pour le ca "init"
+    """
+    if (uriName == "INIT"):
+        # Vérification que l'on a un URI Physiocap
+        uriName = physiocap_quel_uriname( self)
+        return uriName
+    else:
+        # uriName est recherché
+        layerMap = QgsMapLayerRegistry.instance().mapLayers()
+        layerOK = None
+        for name, layer in layerMap.iteritems():
+            pro = layer.dataProvider() 
+            if (( layer.type() == QgsMapLayer.VectorLayer) and ( pro.name() == JHPOST)):
+                #physiocap_log( u"URI BY LAYER Couche trouvée est : " + str( name))
+                layerOK = layer
+               # The layer is found
+                break
+        
+        if ( layerOK != None):
+            if layerOK.isValid():
+                physiocap_log( u"URI BY LAYER Db trouvée : "  + QgsDataSourceURI(pro.dataSourceUri()).database())
+                if (QgsDataSourceURI(pro.dataSourceUri()).database() == uriName):
+                    return QgsDataSourceURI(pro.dataSourceUri()) #.uri())
+                else:
+                    return None
+            else:
+                return None
+    return None
+        
 def JH_rename_existing( chemin):
     """ Retourne le nom qu'il est possible de creer
         si chemin existe deja, on creer un "chemin + (1)"
