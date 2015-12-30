@@ -11,7 +11,7 @@ description=This plugin helps analysing raw data from
   
   This version is available in French only.
   
-  Cette extension aide à l'analyse des données brutes 
+  Cette extension aide à l'analyse des données brutes
   de Physiocap sans quitter Qgis. Il est dédié aux 
   utilisateurs de Physiocap "Agronome de la vigne"
 about= Physiocap est un capteur qui géolocalise des mesures de
@@ -27,7 +27,7 @@ about= Physiocap est un capteur qui géolocalise des mesures de
   Pour l'interprétation agronomique des résultats. Nous conseillons 
   l'appui d'un agronome ou d'un technicien vigne averti.
   Physiocap est breveté par le CIVC.
-version=1.3.1
+version=1.3.2
 author=jhemmi.eu
 email=jean@jhemmi.eu
 
@@ -41,9 +41,10 @@ email=jean@jhemmi.eu
    1.2.2 Inter : calcul des moyennes inter parcellaire
    1.2.3 Inter : un shapefile de moyennes pour chaque parcelle n'est plus créé. Ce choix sera optionel avec 1.3.x
    1.3.1 Intra : une interpolation des points pour chaque parcelle ainsi qu'une isoligne sont créées.
+   1.3.2 Intra : quelques corrections
 
 # Tags are comma separated with spaces allowed
-tags=Physiocap, CIVC, E.re.c.a, jhemmi.eu, Hemmi, sarment, diametre, biomasse
+tags=Physiocap,jhemmi.eu, Hemmi, sarment, diametre, biomasse, CIVC, E.re.c.a, 
 
 homepage=https://github.com/jhemmi/QgisPhysiocapPlugin/wiki
 tracker=https://github.com/jhemmi/QgisPhysiocapPlugin/issues

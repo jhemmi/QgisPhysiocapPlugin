@@ -42,7 +42,8 @@
 from Physiocap_tools import physiocap_message_box, physiocap_question_box,\
         physiocap_log, physiocap_error, physiocap_write_in_synthese, \
         physiocap_rename_existing_file, physiocap_rename_create_dir, physiocap_open_file, \
-        physiocap_look_for_MID, physiocap_list_MID
+        physiocap_look_for_MID, physiocap_list_MID, physiocap_quel_uriname, \
+        physiocap_get_uri_by_layer, physiocap_tester_uri
 
 from Physiocap_CIVC import physiocap_csv_vers_shapefile, physiocap_assert_csv, \
         physiocap_fichier_histo, physiocap_tracer_histo, physiocap_filtrer   
@@ -446,20 +447,32 @@ def physiocap_creer_donnees_resultats( self, laProjection, EXT_CRS_SHP, EXT_CRS_
     
     for shapename, titre, unTemplate in SHAPE_A_AFFICHER:
         vector = QgsVectorLayer( shapename, titre, 'ogr')
-        #cas Postgres non testé
         if (self.fieldComboFormats.currentText() == "ESRI Shapefile" ):
             vector = QgsVectorLayer( shapename, titre, 'ogr')
-        elif (self.fieldComboFormats.currentText() == "postgres" ):
-            # Cas Postgres
-            nom_court_shp = os.path.basename( shapename)
-            #TABLES = "public." + nom_court_shp
-            uri = "dbname='testpostgis' host=localhost port=5432" + \
-              " user='postgres' password='postgres'" + \
-              " key=gid type=POINTS table=" + nom_court_shp[ :-4] + " (geom) sql="            
-            physiocap_log ( "Affichage POSTGRES : >>" + uri + "<<")
-            vector = QgsVectorLayer( uri, titre, 'postgres')
+        elif (self.fieldComboFormats.currentText() == POSTGRES_NOM ):
+            uri_nom = physiocap_quel_uriname( self)
+            #physiocap_log( u"URI nom : " + str( uri_nom))
+            uri_modele = physiocap_get_uri_by_layer( self, uri_nom )
+            if uri_modele != None:
+                uri_connect, uri_deb, uri_srid, uri_fin = physiocap_tester_uri( self, uri_modele, "YES")            
+                nom_court_shp = os.path.basename( shapename)
+                #TABLES = "public." + nom_court_shp
+                uri = uri_deb +  uri_srid + \
+                   " key='gid' type='POINTS' table=" + nom_court_shp[ :-4] + " (geom) sql="            
+##              "dbname='testpostgis' host='localhost' port='5432'" + \
+##              " user='postgres' password='postgres' SRID='2154'" + \
+##              " key='gid' type='POINTS' table=" + nom_court_shp[ :-4] + " (geom) sql="
+                #physiocap_log ( "Affichage POSTGRES : >>" + uri + "<<")
+                vector = QgsVectorLayer( uri, titre, POSTGRES_NOM)
+            else:
+                aText = u"Pas de connecteur vers Postgres : " + \
+                        str( uri_nom) + \
+                        u". On continue avec des shapefiles"
+                physiocap_log( aText)
+                vector = QgsVectorLayer( shapename, titre, 'ogr')
+                # Remettre le choix vers ESRI shape file
+                self.fieldComboFormats.setCurrentIndex( 0)  
         else:
-            physiocap_log ( u"Physiocap est étrange. C'est bizarre")            
             physiocap_error ( u"Physiocap est étrange. C'est bizarre")            
             continue
             

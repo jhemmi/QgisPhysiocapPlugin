@@ -43,8 +43,6 @@ from Physiocap_tools import physiocap_message_box, physiocap_question_box, \
         physiocap_quelle_projection_demandee, physiocap_get_layer_by_ID, \
         physiocap_get_uri_by_layer
         
-##from Physiocap_CIVC import physiocap_csv_vers_shapefile, physiocap_assert_csv, 
-##        physiocap_fichier_histo, physiocap_tracer_histo, physiocap_filtrer   
 
 from Physiocap_inter import physiocap_fill_combo_poly_or_point, physiocap_moyenne_InterParcelles
 
@@ -440,7 +438,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             # Avec le diametre, on trouve le repertoire
             pro = layer.dataProvider()
             chemin_shapes = "chemin vers shapeFile"
-            if pro.name() != JHPOST:
+            if pro.name() != POSTGRES_NOM:
                 chemin_shapes = os.path.dirname( unicode( layer.dataProvider().dataSourceUri() ) ) ;
                 if ( not os.path.exists( chemin_shapes)):
                     raise physiocap_exception_rep( "chemin vers shapeFile")
@@ -929,6 +927,9 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             pass
 
         # Fin de capture des erreurs Physiocap
+        # Pour le cas où postgres n'est pas accessible
+        self.settings.setValue("Physiocap/leFormat", self.fieldComboFormats.currentText())
+
         
         physiocap_log(u"Physiocap a terminé son analyse.")
         

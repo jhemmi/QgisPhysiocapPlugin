@@ -42,7 +42,8 @@
 from Physiocap_tools import physiocap_message_box, physiocap_question_box, \
         physiocap_log, physiocap_error, physiocap_write_in_synthese, \
         physiocap_quel_uriname, physiocap_tester_uri, \
-        physiocap_existe_table_uri, physiocap_get_uri_by_layer 
+        physiocap_detruit_table_uri, physiocap_existe_table_uri, \
+        physiocap_get_uri_by_layer 
 from Physiocap_var_exception import *
 
 from PyQt4 import QtGui, uic  # for Form_class
@@ -209,46 +210,73 @@ def physiocap_csv_vers_shapefile( self, progress_barre, csv_name, shape_name, pr
     del writer
     
     # Cas Postgres
-    if (self.fieldComboFormats.currentText() == "postgres" ):
+    if (self.fieldComboFormats.currentText() == POSTGRES_NOM ):
+        # Todo ; fonction physiocap_creer_PG_par_copie_vecteur( uri_nom, shape_modele)
         # Vérifier si une connexion Physiocap existe
         uri_nom = physiocap_quel_uriname( self)
-        physiocap_log( u"URI nom : " + str( uri_nom))
-        # Todo : Enlever ce forcage
-        uri_nom = "testpostgis"
         uri_modele = physiocap_get_uri_by_layer( self, uri_nom )
         if uri_modele != None:
-            uri_connect, uri_deb, uri_fin = physiocap_tester_uri( self, uri_modele)
+            uri_connect, uri_deb, uri_srid, uri_fin = physiocap_tester_uri( self, uri_modele, "YES")
             if uri_deb != None:
                 nom_court_shp = os.path.basename( shape_name)
-                #TABLES = "public." + nom_court_shp
-                laTable = '"public"."' + nom_court_shp[ :-4] + '"'
-                physiocap_log( u"La Table " + str( laTable))
-                if physiocap_existe_table_uri( self, uri_deb, laTable):
-                    physiocap_log( u"Table existe déjà : " + str( laTable))
-                else:
+                #laTable = "'public.\"" + nom_court_shp[ :-4] + "\"'"
+                laTable = "'\"" + nom_court_shp[ :-4] + "\"'"
+                reponse = physiocap_existe_table_uri( self, uri_deb, laTable)
+                if reponse != None:
+                    if reponse == True:
+                        laTable = "\"" + nom_court_shp[ :-4] + "\""
+                        #physiocap_log( u"Table existe déjà : " + str( laTable))
+                        # Cette table existe déjà = > drop 
+                        reponse_drop = physiocap_detruit_table_uri( self, uri_deb, laTable)
+                        if reponse_drop == None:
+                            aText = u"Problème lors de la destruction de la table : " + str( laTable)
+                            physiocap_log( aText)
+                            physiocap_error( aText)  
+                            # Todo : gérer par exception physiocap_exception_pg
+                            return physiocap_message_box( self, 
+                                self.tr( aText),
+                                "warning")                   
                     # Creer la table
+                    laTable = nom_court_shp[ :-4] 
                     vector = QgsVectorLayer( shape_name, "INUTILE", 'ogr')
-                    uri = uri_deb + \
+                    uri = uri_deb + uri_srid + \
                         " key=gid type=POINTS table=" + laTable + uri_fin
 ##        uri = "dbname='testpostgis' host=localhost port=5432" + \
 ##              " user='postgres' password='postgres'" + \
 ##              " key=gid type=POINTS table=" + nom_court_shp[ :-4] + " (geom) sql="
-                # Todo : Cette table existe déjà ou mise à jour
-                    error = QgsVectorLayerImport.importLayer( vector, uri, "postgres", crs, False, False)
+                    error = QgsVectorLayerImport.importLayer( vector, uri, POSTGRES_NOM, crs, False, False)
                     if error[0] != 0:
-                        physiocap_error( "Probleme Postgres : " + str(error[0]) + " => " + str(error[0]))
+                        physiocap_error( u"Problème Postgres : " + str(error[0]) + " => " + str(error[1]))
                         #iface.messageBar().pushMessage(u'Phyqiocap Error', error[1], QgsMessageBar.CRITICAL, 5)    
                     else:
                         # Sans erreur on détruit le shape file
                         if os.path.isfile( shape_name):
                             os.remove( shape_name)
+                else:
+                    aText = u"Vérification problématique pour la table : " + \
+                        str( laTable) + \
+                        u". On continue avec des shapefiles"
+                    physiocap_log( aText)
+                    piocap_error( aText)
+                    # Remettre le choix vers ESRI shape file
+                    self.fieldComboFormats.setCurrentIndex( 0)   
             else:
-                physiocap_log( u"Pas de connection possible à Postgres : " + str( uri_nom))
-                physiocap_error( u"Pas de connection possible à Postgres : " + str( uri_nom))
+                aText = u"Pas de connection possible à Postgres : " + \
+                    str( uri_nom) + \
+                    u". On continue avec des shapefiles"
+                physiocap_log( aText)
+                physiocap_error( aText)
+                # Remettre le choix vers ESRI shape file
+                self.fieldComboFormats.setCurrentIndex( 0)   
+                
         else:
-            physiocap_log( u"Pas de connecteur vers Postgres : " + str( uri_nom))
-            physiocap_error( u"Pas de connecteur vers Postgres : " + str( uri_nom))
-            
+            aText = u"Pas de connecteur vers Postgres : " + \
+                        str( uri_nom) + \
+                        u". On continue avec des shapefiles"
+            physiocap_log( aText)
+            physiocap_error( aText)
+            # Remettre le choix vers ESRI shape file
+            self.fieldComboFormats.setCurrentIndex( 0)   
     else:
         # Create the PRJ file
         prj = open(prj_name, "w")

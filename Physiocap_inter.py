@@ -166,6 +166,10 @@ def physiocap_moyenne_vers_vignette( crs, EPSG_NUMBER, nom_vignette, nom_prj,
     writer = QgsVectorFileWriter( nom_vignette, "utf-8", les_champs, 
         QGis.WKBPolygon, crs , "ESRI Shapefile")
 
+    # Todo : ICICI
+    physiocap_log(u" Type de geom_poly :" + str( type(geom_poly)))
+    physiocap_log(u" Type de geom_poly.asPolygon :" + str( type(geom_poly.asPolygon)))
+
     feat = QgsFeature()
     feat.setGeometry( QgsGeometry.fromPolygon(geom_poly.asPolygon())) #écrit la géométrie tel que lu dans shape contour
     if details == "YES":
@@ -312,6 +316,7 @@ def physiocap_moyenne_InterParcelles( self):
 
     # QT Confiance
     repertoire_data = self.lineEditDirectoryPhysiocap.text()
+    # Attention peut être non renseigné repertoire_projet = self.lineEditDernierProjet.text()
     if ((repertoire_data == "") or ( not os.path.exists( repertoire_data))):
         physiocap_error( u"Pas de répertoire de donnée spécifié")
         return physiocap_message_box( self, 
@@ -407,11 +412,19 @@ def physiocap_moyenne_InterParcelles( self):
         physiocap_quelle_projection_demandee(self)
     crs = QgsCoordinateReferenceSystem( EPSG_NUMBER, QgsCoordinateReferenceSystem.PostgisCrsId)
 
-
-    # Assert repertoire shapfile : c'est le repertoire qui contient le vecteur point
-    chemin_shapes = os.path.dirname( unicode( vecteur_point.dataProvider().dataSourceUri() ) ) ;
+    # Verification du repertoire shape
+    pro = vecteur_point.dataProvider() 
+    if ( pro.name() == POSTGRES_NOM):
+        # On construit le chemin depuis data/projet...
+        chemin_projet = os.path.join( repertoire_data, nom_noeud_arbre)
+        chemin_shapes = os.path.join( chemin_projet, REPERTOIRE_SHAPEFILE)
+    else:
+        # Assert repertoire shapfile : c'est le repertoire qui contient le vecteur point
+        chemin_shapes = os.path.dirname( unicode( vecteur_point.dataProvider().dataSourceUri() ) ) ;
     if ( not os.path.exists( chemin_shapes)):
         raise physiocap_exception_rep( chemin_shapes)
+    
+    physiocap_log ( u"======= là c'est OK >> ")
         
     # On passe sur les differents contours
     id = 0

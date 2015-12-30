@@ -41,7 +41,7 @@ import platform
 # dont les fonctions de calcul sont conservé à l'identique
 # Répertoire de base et projet
 PHYSIOCAP_TRACE = "YES"
-JHPOST = "postgres"
+POSTGRES_NOM = "postgres"
 # En prod CENTROIDES vaut NO
 CENTROIDES = "NO"  # CENTROIDES YES est pour voir les centroides dans la synthese
 
@@ -53,7 +53,7 @@ NOM_PROJET = "PHY" + SEPARATEUR_
 # Listes de valeurs
 CEPAGES = [ "INCONNU", "CHARDONNAY", "MERLOT", "NEGRETTE", "PINOT NOIR", "PINOT MEUNIER"]
 TAILLES = [ "Inconnue", "Chablis", "Guyot simple", "Guyot double", "Cordon de Royat", "Cordon libre" ]
-FORMAT_VECTEUR = [ "ESRI Shapefile", JHPOST] # "memory"]
+FORMAT_VECTEUR = [ "ESRI Shapefile", POSTGRES_NOM] # "memory"]
 
 # Répertoires des sources et de concaténation en fichiers texte
 FICHIER_RESULTAT = "resultat.txt"
@@ -155,5 +155,7 @@ class physiocap_exception_vignette_exists( physiocap_exception):
 class physiocap_exception_points_invalid( physiocap_exception):
     pass
 class physiocap_exception_interpolation( physiocap_exception):
+    pass
+class physiocap_exception_pg( physiocap_exception):
     pass
 

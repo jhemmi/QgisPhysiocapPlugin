@@ -48,6 +48,7 @@ testdata/
 modeleQgis/*.txt
 print/
 i18n/
+ssl/
 #.noseids
 pylintrc
 .gitignore~
