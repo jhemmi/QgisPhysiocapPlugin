@@ -1,1 +1,0 @@
-jhemmi.eu & CIVC - Novembre 2015 - V1.2.3 Inter - Voir la [licence ](https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/LICENSE)
