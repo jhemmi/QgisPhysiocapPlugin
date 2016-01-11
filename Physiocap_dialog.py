@@ -249,7 +249,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.doubleSpinBoxDensite.setValue( float( self.settings.value("Physiocap/densite", 0.9 )))
 
 
-        # BUG 22 : Pour appel de imaging pour verifier si affichage histo sont possibles
+        # Issue 29 : Pour appel de imaging pour comprendre si affichage histo est possible
         try :
             import PIL
             physiocap_log( u"OK après l'import PIL ")
