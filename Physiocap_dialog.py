@@ -79,6 +79,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.python_dir = os.path.dirname( self.plugins_dir)
         self.gis2_dir = os.path.dirname( self.python_dir)
         #physiocap_log( u"Rep .gis2 " + str( self.gis2_dir))
+
         
         # Slot for boutons certains sont dans UI
         ##self.buttonBox.button( QDialogButtonBox.Ok ).pressed.connect(self.accept)
@@ -247,6 +248,33 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.spinBoxHauteur.setValue( int( self.settings.value("Physiocap/hauteur", 90 )))
         self.doubleSpinBoxDensite.setValue( float( self.settings.value("Physiocap/densite", 0.9 )))
 
+
+        # BUG 22 : Pour appel de imaging pour verifier si affichage histo sont possibles
+        try :
+            import PIL
+            physiocap_log( u"OK après l'import PIL ")
+            physiocap_log( u"PIL Path : " + str( PIL.__path__))
+            physiocap_log( u"PIL Version " + str(PIL.VERSION))
+            physiocap_log( u"PILLOW Version " + str(PIL.PILLOW_VERSION))
+            physiocap_log( u"PIL imaging " + str(PIL._imaging))
+            from PIL import Image
+            physiocap_log( u"OK après l'import Image ")
+            from PIL import _imaging
+            physiocap_log( u"OK après l'import imaging ")
+        except ImportError:
+            import sys
+            lePath = sys.path
+            aText = "Le module image n'est pas accessible. "
+            aText = aText + "Vous ne pouvez pas visualiser les histogrammes "
+            physiocap_log( aText)
+            physiocap_error( aText)
+            physiocap_error( str(lePath))
+            self.settings.setValue("Physiocap/histogrammes", "NO")
+            physiocap_message_box( self,
+                self.tr( u'Physiocap : Pas du visualisation des histogrammes' ),
+            "information")
+
+        physiocap_log( u"Affichage des histogrammes possible")
         if (self.settings.value("Physiocap/histogrammes") == "YES"):
             self.checkBoxHistogramme.setChecked( Qt.Checked)
         else:

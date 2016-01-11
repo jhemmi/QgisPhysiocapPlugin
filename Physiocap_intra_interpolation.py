@@ -462,7 +462,7 @@ def physiocap_interpolation_IntraParcelles( self):
     contour_avec_point = 0
    
     # #####################
-    # Cas d'un image seule
+    # Cas d'une image seule
     # #####################
     if ( self.checkBoxIntraUnSeul.isChecked()):
 
