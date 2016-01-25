@@ -185,7 +185,6 @@ def physiocap_csv_vers_shapefile( self, progress_barre, csv_name, shape_name, pr
         les_champs.append(QgsField("BIOMGCEP", QVariant.Double,"double", 10,2))
 
     # Creation du Shape
-        
     writer = QgsVectorFileWriter( shape_name, "utf-8", les_champs, 
             QGis.WKBPoint, crs , "ESRI Shapefile")
             
@@ -216,7 +215,7 @@ def physiocap_csv_vers_shapefile( self, progress_barre, csv_name, shape_name, pr
         uri_nom = physiocap_quel_uriname( self)
         uri_modele = physiocap_get_uri_by_layer( self, uri_nom )
         if uri_modele != None:
-            uri_connect, uri_deb, uri_srid, uri_fin = physiocap_tester_uri( self, uri_modele, "YES")
+            uri_connect, uri_deb, uri_srid, uri_fin = physiocap_tester_uri( self, uri_modele)
             if uri_deb != None:
                 nom_court_shp = os.path.basename( shape_name)
                 #laTable = "'public.\"" + nom_court_shp[ :-4] + "\"'"
@@ -248,10 +247,10 @@ def physiocap_csv_vers_shapefile( self, progress_barre, csv_name, shape_name, pr
                     if error[0] != 0:
                         physiocap_error( u"Problème Postgres : " + str(error[0]) + " => " + str(error[1]))
                         #iface.messageBar().pushMessage(u'Phyqiocap Error', error[1], QgsMessageBar.CRITICAL, 5)    
-                    else:
-                        # Sans erreur on détruit le shape file
-                        if os.path.isfile( shape_name):
-                            os.remove( shape_name)
+##                    else:
+##                        # Sans erreur on détruit le shape file
+##                        if os.path.isfile( shape_name):
+##                            os.remove( shape_name)
                 else:
                     aText = u"Vérification problématique pour la table : " + \
                         str( laTable) + \
@@ -310,7 +309,7 @@ def physiocap_csv_vers_shapefile( self, progress_barre, csv_name, shape_name, pr
             if details == "YES":
                 fichier_synthese.write("Nombre de sarments au m² \n	mean : %0.1f	std : %0.1f\n" %(np.mean(nbsarmm2), np.std(nbsarmm2)))
                 fichier_synthese.write("Nombre de sarments par cep \n	mean : %0.1f	std : %0.1f\n" %(np.mean(nbsarcep), np.std(nbsarcep)))
-                fichier_synthese.write("Biommasse en mm²/m² \n	mean : %0.1f	std : %0.1f\n" %(np.mean(biommm2), np.std(biommm2)))
+                fichier_synthese.write("Biomasse en mm²/m² \n	mean : %0.1f	std : %0.1f\n" %(np.mean(biommm2), np.std(biommm2)))
                 fichier_synthese.write("Biomasse en gramme/m² \n	mean : %0.1f	std : %0.1f\n" %(np.mean(biomgm2), np.std(biomgm2)))
                 fichier_synthese.write("Biomasse en gramme/cep \n	mean : %0.1f	std : %0.1f\n" %(np.mean(biomgcep), np.std(biomgcep))) 
         except:

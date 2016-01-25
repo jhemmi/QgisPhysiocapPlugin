@@ -100,7 +100,7 @@ def physiocap_write_in_synthese( self, aText):
     uText = unicode( aText, 'utf-8')
     self.textEditSynthese.insertPlainText( uText)   
     
-def JH_is_int_number(s):
+def physiocap_is_int_number(s):
     try:
         int(s)
         return True
@@ -165,7 +165,7 @@ def physiocap_quel_uriname( self):
     """ Retourne l'uriName attendu """
     a_time = time.strftime( "%d/%m/%y %H:%M\n",time.localtime())
     maRef = self.settings.value("Physiocap/nomJhemmi", "xx").split( SEPARATEUR_NOEUD) 
-    if (len( maRef) == 2):
+    if ( len( maRef) == 2):
         monMo = a_time.split("/") 
         uriName = maRef[0]  + SEPARATEUR_ + monMo[1] + SEPARATEUR_ + maRef[1]
         return uriName
@@ -210,7 +210,7 @@ def physiocap_detruit_table_uri( self, uri_deb, laTable):
         conn.commit()
         cur.close()
         conn.close()  
-        physiocap_log( "PG DROP == commit OK ")
+        #physiocap_log( "PG DROP == commit OK ")
     except psycopg2.Error as e:
         aText = u"PG DROP == Probleme lors du commit pour Drop "
         physiocap_log( aText)
@@ -299,7 +299,7 @@ def physiocap_tester_uri( self, uriSource, verbose = "NO"):
     # Tester si la source est bien une base
     if (str( type( uriSource)) != "<class 'qgis._core.QgsDataSourceURI'>"):
         physiocap_log( u"Incohérence trop flag")
-        return None, None, None
+        return None, None, None, None
         
     # Tester la connection à la base
     uri_deb = "dbname='" + uriSource.database() + "'" + \
@@ -319,7 +319,7 @@ def physiocap_tester_uri( self, uriSource, verbose = "NO"):
         physiocap_error( errorPG)
         # Erreur texte
         physiocap_error( e.pgerror)
-        return None, None, None
+        return None, None, None, None
     
 ##    if ( verbose == "YES"):
 ##        physiocap_log( u"PG == Ouverture de la base de données " + str( uneDatabase) + \
@@ -378,9 +378,9 @@ def physiocap_tester_uri( self, uriSource, verbose = "NO"):
     return uri_connect, uri_deb, uri_srid, uri_fin
     
 def physiocap_get_uri_by_layer( self, uriName = "INIT" ):
-    """ Retourne une uri correspondans au premier layer qui est dans
-        une base postgres
-        Rend uriname pour le ca "init"
+    """ Retourne une uri correspondant au premier layer stocké
+        dans une base Postgres
+        Rend uriname pour le cas "init"
     """
     if (uriName == "INIT"):
         # Vérification que l'on a un URI Physiocap
@@ -395,7 +395,7 @@ def physiocap_get_uri_by_layer( self, uriName = "INIT" ):
             if (( layer.type() == QgsMapLayer.VectorLayer) and ( pro.name() == POSTGRES_NOM)):
                 #physiocap_log( u"URI BY LAYER Couche trouvée est : " + str( name))
                 layerOK = layer
-               # The layer is found
+                # The layer is found
                 break
         
         if ( layerOK != None):
@@ -409,7 +409,7 @@ def physiocap_get_uri_by_layer( self, uriName = "INIT" ):
                 return None
     return None
         
-def JH_rename_existing( chemin):
+def physiocap_rename_existing( chemin):
     """ Retourne le nom qu'il est possible de creer
         si chemin existe deja, on creer un "chemin + (1)"
         si "chemin_projet + (1)" existe déjà, on crée un "chemin_projet + (2)" etc         
@@ -439,7 +439,7 @@ def JH_rename_existing( chemin):
             un_num_parenthese = chemin[ pos+1:]
             un_num = un_num_parenthese[ :-1]
             nouveau_numero = 1
-            if JH_is_int_number( un_num):
+            if physiocap_is_int_number( un_num):
                 nouveau_numero = int(un_num) + 1
                 nouveau_chemin = chemin[:pos] + "(" +str(nouveau_numero) +")"
             else:
@@ -465,7 +465,7 @@ def physiocap_rename_existing_file ( chemin):
         si "chemin_projet + (1)" existe déjà, on crée un "chemin_projet + (2)" etc         
     """
     if ( os.path.exists( chemin)):
-        nouveau_chemin = JH_rename_existing( chemin)
+        nouveau_chemin = physiocap_rename_existing( chemin)
         return physiocap_rename_existing_file( nouveau_chemin) 
     else:
         #physiocap_log( "chemin pour creation du fichier ==" + chemin)
@@ -478,7 +478,7 @@ def physiocap_rename_create_dir( chemin):
     """
     #physiocap_log( "Dans create rename DIR DEBUT ==" + chemin)
     if ( os.path.exists( chemin)):
-        nouveau_chemin = JH_rename_existing( chemin)
+        nouveau_chemin = physiocap_rename_existing( chemin)
         return physiocap_rename_create_dir( nouveau_chemin) 
     else:
         try:

@@ -39,7 +39,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>13</y>
+     <y>9</y>
      <width>541</width>
      <height>611</height>
     </rect>
@@ -51,7 +51,7 @@
     <enum>QTabWidget::North</enum>
    </property>
    <property name="currentIndex">
-    <number>4</number>
+    <number>0</number>
    </property>
    <property name="movable">
     <bool>true</bool>
@@ -66,9 +66,9 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>395</y>
-       <width>491</width>
+       <x>10</x>
+       <y>394</y>
+       <width>501</width>
        <height>171</height>
       </rect>
      </property>
@@ -81,8 +81,8 @@
      <widget class="QLabel" name="lab_32">
       <property name="geometry">
        <rect>
-        <x>0</x>
-        <y>9</y>
+        <x>10</x>
+        <y>10</y>
         <width>281</width>
         <height>21</height>
        </rect>
@@ -94,7 +94,7 @@
      <widget class="QSpinBox" name="spinBoxInterrangs">
       <property name="geometry">
        <rect>
-        <x>270</x>
+        <x>280</x>
         <y>13</y>
         <width>101</width>
         <height>21</height>
@@ -116,7 +116,7 @@
      <widget class="QLabel" name="lab_33">
       <property name="geometry">
        <rect>
-        <x>0</x>
+        <x>10</x>
         <y>29</y>
         <width>291</width>
         <height>21</height>
@@ -129,7 +129,7 @@
      <widget class="QSpinBox" name="spinBoxInterceps">
       <property name="geometry">
        <rect>
-        <x>270</x>
+        <x>280</x>
         <y>30</y>
         <width>101</width>
         <height>21</height>
@@ -151,7 +151,7 @@
      <widget class="QLabel" name="lab_34">
       <property name="geometry">
        <rect>
-        <x>0</x>
+        <x>10</x>
         <y>59</y>
         <width>291</width>
         <height>21</height>
@@ -164,7 +164,7 @@
      <widget class="QSpinBox" name="spinBoxHauteur">
       <property name="geometry">
        <rect>
-        <x>270</x>
+        <x>280</x>
         <y>62</y>
         <width>101</width>
         <height>21</height>
@@ -186,7 +186,7 @@
      <widget class="QLabel" name="lab_35">
       <property name="geometry">
        <rect>
-        <x>0</x>
+        <x>10</x>
         <y>79</y>
         <width>221</width>
         <height>21</height>
@@ -199,7 +199,7 @@
      <widget class="QDoubleSpinBox" name="doubleSpinBoxDensite">
       <property name="geometry">
        <rect>
-        <x>270</x>
+        <x>280</x>
         <y>85</y>
         <width>101</width>
         <height>21</height>
@@ -224,9 +224,9 @@
      <widget class="QLabel" name="lab_36">
       <property name="geometry">
        <rect>
-        <x>0</x>
+        <x>10</x>
         <y>109</y>
-        <width>81</width>
+        <width>161</width>
         <height>21</height>
        </rect>
       </property>
@@ -237,9 +237,9 @@
      <widget class="QComboBox" name="fieldComboCepage">
       <property name="geometry">
        <rect>
-        <x>60</x>
-        <y>109</y>
-        <width>291</width>
+        <x>190</x>
+        <y>115</y>
+        <width>241</width>
         <height>20</height>
        </rect>
       </property>
@@ -247,9 +247,9 @@
      <widget class="QComboBox" name="fieldComboTaille">
       <property name="geometry">
        <rect>
-        <x>60</x>
+        <x>190</x>
         <y>139</y>
-        <width>291</width>
+        <width>241</width>
         <height>20</height>
        </rect>
       </property>
@@ -257,21 +257,21 @@
      <widget class="QLabel" name="lab_37">
       <property name="geometry">
        <rect>
-        <x>0</x>
+        <x>10</x>
         <y>139</y>
-        <width>81</width>
+        <width>151</width>
         <height>21</height>
        </rect>
       </property>
       <property name="text">
-       <string>Taille</string>
+       <string>Mode de taille</string>
       </property>
      </widget>
      <widget class="QLabel" name="lab_38">
       <property name="geometry">
        <rect>
-        <x>390</x>
-        <y>11</y>
+        <x>410</x>
+        <y>9</y>
         <width>71</width>
         <height>21</height>
        </rect>
@@ -286,8 +286,8 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>380</x>
-        <y>29</y>
+        <x>400</x>
+        <y>27</y>
         <width>101</width>
         <height>28</height>
        </rect>
@@ -305,8 +305,8 @@
      <widget class="QLabel" name="lab_39">
       <property name="geometry">
        <rect>
-        <x>390</x>
-        <y>55</y>
+        <x>410</x>
+        <y>53</y>
         <width>81</width>
         <height>21</height>
        </rect>
@@ -337,8 +337,8 @@
      <widget class="QLabel" name="lab_29">
       <property name="geometry">
        <rect>
-        <x>0</x>
-        <y>10</y>
+        <x>10</x>
+        <y>11</y>
         <width>451</width>
         <height>21</height>
        </rect>
@@ -392,8 +392,8 @@
      <widget class="QSpinBox" name="spinBoxMinDiametre">
       <property name="geometry">
        <rect>
-        <x>0</x>
-        <y>90</y>
+        <x>10</x>
+        <y>93</y>
         <width>91</width>
         <height>21</height>
        </rect>
@@ -427,7 +427,7 @@
      <widget class="QLabel" name="lab_31">
       <property name="geometry">
        <rect>
-        <x>120</x>
+        <x>110</x>
         <y>93</y>
         <width>241</width>
         <height>21</height>
@@ -440,8 +440,8 @@
      <widget class="QSpinBox" name="spinBoxMaxDiametre">
       <property name="geometry">
        <rect>
-        <x>380</x>
-        <y>93</y>
+        <x>350</x>
+        <y>92</y>
         <width>81</width>
         <height>21</height>
        </rect>
@@ -466,7 +466,7 @@
        <x>10</x>
        <y>10</y>
        <width>491</width>
-       <height>221</height>
+       <height>232</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -562,7 +562,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Préférence de systeme de coordonées</string>
+       <string>Préférence de système de coordonées</string>
       </property>
      </widget>
      <widget class="QRadioButton" name="radioButtonL93">
@@ -602,7 +602,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Format des cartes de points générés</string>
+       <string>Format des couches générées</string>
       </property>
      </widget>
      <widget class="QComboBox" name="fieldComboFormats">
@@ -612,7 +612,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>200</y>
+        <y>203</y>
         <width>291</width>
         <height>20</height>
        </rect>
@@ -709,7 +709,7 @@
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>191</width>
+       <width>221</width>
        <height>21</height>
       </rect>
      </property>
@@ -720,8 +720,8 @@
     <widget class="QLineEdit" name="lineEditDernierProjet">
      <property name="geometry">
       <rect>
-       <x>180</x>
-       <y>10</y>
+       <x>240</x>
+       <y>11</y>
        <width>271</width>
        <height>21</height>
       </rect>
@@ -1008,7 +1008,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>249</y>
+       <y>246</y>
        <width>511</width>
        <height>268</height>
       </rect>
@@ -1095,8 +1095,8 @@
      <widget class="QLabel" name="lab_83">
       <property name="geometry">
        <rect>
-        <x>310</x>
-        <y>180</y>
+        <x>290</x>
+        <y>179</y>
         <width>161</width>
         <height>21</height>
        </rect>
@@ -1127,7 +1127,7 @@
      <widget class="QSpinBox" name="spinBoxIsoMax">
       <property name="geometry">
        <rect>
-        <x>310</x>
+        <x>290</x>
         <y>200</y>
         <width>101</width>
         <height>21</height>
@@ -1312,7 +1312,7 @@
      <widget class="QSpinBox" name="spinBoxNombreIso">
       <property name="geometry">
        <rect>
-        <x>180</x>
+        <x>170</x>
         <y>200</y>
         <width>71</width>
         <height>21</height>
@@ -1338,7 +1338,7 @@
       <property name="geometry">
        <rect>
         <x>290</x>
-        <y>230</y>
+        <y>228</y>
         <width>111</width>
         <height>28</height>
        </rect>
@@ -1510,7 +1510,7 @@
        <set>Qt::ImhDialableCharactersOnly</set>
       </property>
       <property name="text">
-       <string>Diametre 4 Jenks</string>
+       <string>&quot;Diametre 4 Jenks&quot;</string>
       </property>
       <property name="maxLength">
        <number>50</number>
@@ -1589,7 +1589,7 @@
        <set>Qt::ImhDialableCharactersOnly</set>
       </property>
       <property name="text">
-       <string>Sarments 4 Jenks</string>
+       <string>&quot;Sarments 4 Jenks&quot;</string>
       </property>
       <property name="maxLength">
        <number>50</number>
@@ -1619,7 +1619,7 @@
        <set>Qt::ImhDialableCharactersOnly</set>
       </property>
       <property name="text">
-       <string>Vitesse</string>
+       <string>&quot;Vitesse&quot;</string>
       </property>
       <property name="maxLength">
        <number>50</number>
@@ -1649,7 +1649,7 @@
        <set>Qt::ImhDialableCharactersOnly</set>
       </property>
       <property name="text">
-       <string>Biomasse</string>
+       <string>&quot;Biomasse&quot;</string>
       </property>
       <property name="maxLength">
        <number>50</number>
@@ -1679,7 +1679,7 @@
        <set>Qt::ImhDialableCharactersOnly</set>
       </property>
       <property name="text">
-       <string>Diametre</string>
+       <string>&quot;Diametre&quot;</string>
       </property>
       <property name="maxLength">
        <number>50</number>
@@ -1777,7 +1777,7 @@
        <set>Qt::ImhDialableCharactersOnly</set>
       </property>
       <property name="text">
-       <string>Moyenne Inter</string>
+       <string>&quot;Moyenne Inter&quot;</string>
       </property>
       <property name="maxLength">
        <number>50</number>
@@ -1846,7 +1846,7 @@
        <set>Qt::ImhDialableCharactersOnly</set>
       </property>
       <property name="text">
-       <string>Moyenne Inter</string>
+       <string>&quot;Moyenne Inter&quot;</string>
       </property>
       <property name="maxLength">
        <number>50</number>
@@ -1895,7 +1895,7 @@
        <set>Qt::ImhDialableCharactersOnly</set>
       </property>
       <property name="text">
-       <string>Diametre 4 Jenks</string>
+       <string>&quot;Diametre 4 Jenks&quot;</string>
       </property>
       <property name="maxLength">
        <number>50</number>
@@ -1925,7 +1925,7 @@
        <set>Qt::ImhDialableCharactersOnly</set>
       </property>
       <property name="text">
-       <string>Intra</string>
+       <string>&quot;Intra&quot;</string>
       </property>
       <property name="maxLength">
        <number>50</number>
@@ -1955,7 +1955,7 @@
        <set>Qt::ImhDialableCharactersOnly</set>
       </property>
       <property name="text">
-       <string>Isolignes</string>
+       <string>&quot;Isolignes&quot;</string>
       </property>
       <property name="maxLength">
        <number>50</number>
@@ -2254,7 +2254,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Plugin Physiocap pour Qgis</string>
+      <string>Extension Physiocap pour Qgis</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_102">
@@ -2273,8 +2273,8 @@
     <widget class="QTextBrowser" name="textBrowser">
      <property name="geometry">
       <rect>
-       <x>40</x>
-       <y>50</y>
+       <x>20</x>
+       <y>307</y>
        <width>451</width>
        <height>101</height>
       </rect>
@@ -2284,7 +2284,7 @@
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Cantarell'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Utilisez le bouton &lt;span style=&quot; font-weight:600;&quot;&gt;Aide&lt;/span&gt; pour accéder aux documentations, à la licence et au suivi des évolutions sous gitHub.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Utilisez le bouton &lt;span style=&quot; font-weight:600;&quot;&gt;Aide&lt;/span&gt; pour accéder aux documentations, à la license et au suivi des évolutions sous gitHub.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;N'hésitez pas à poster vos questions, proposition d'évolutions et retour de bugs.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
@@ -2292,7 +2292,7 @@ p, li { white-space: pre-wrap; }
      <property name="geometry">
       <rect>
        <x>110</x>
-       <y>190</y>
+       <y>61</y>
        <width>128</width>
        <height>128</height>
       </rect>
@@ -2307,8 +2307,8 @@ p, li { white-space: pre-wrap; }
     <widget class="QLabel" name="label_CIVC">
      <property name="geometry">
       <rect>
-       <x>260</x>
-       <y>190</y>
+       <x>250</x>
+       <y>61</y>
        <width>128</width>
        <height>128</height>
       </rect>
@@ -2324,7 +2324,7 @@ p, li { white-space: pre-wrap; }
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>160</y>
+       <y>46</y>
        <width>201</width>
        <height>21</height>
       </rect>
@@ -2338,74 +2338,6 @@ p, li { white-space: pre-wrap; }
      <property name="text">
       <string>Auteurs :</string>
      </property>
-    </widget>
-    <widget class="QGroupBox" name="groupBox">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>340</y>
-       <width>471</width>
-       <height>111</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QLineEdit { margin: 10px }</string>
-     </property>
-     <property name="title">
-      <string/>
-     </property>
-     <widget class="QPushButton" name="buttonContribuer">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>70</y>
-        <width>191</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Contribuez maintenant !</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_104">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>351</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Contributions pour jhemmi.eu</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_105">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>40</y>
-        <width>351</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <weight>75</weight>
-        <italic>true</italic>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Le plugin Physiocap pour Qgis est utile pour vous ?</string>
-      </property>
-     </widget>
     </widget>
     <widget class="QDoubleSpinBox" name="spinBoxPower">
      <property name="enabled">
@@ -2433,6 +2365,76 @@ p, li { white-space: pre-wrap; }
      </property>
      <property name="value">
       <double>2.000000000000000</double>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_104">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>198</y>
+       <width>351</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Contributions pour jhemmi.eu</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_105">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>229</y>
+       <width>351</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <italic>true</italic>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>L'extension Physiocap pour Qgis est utile pour vous ?</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="buttonContribuer">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>257</y>
+       <width>191</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Contribuez maintenant !</string>
+     </property>
+    </widget>
+    <widget class="QTextBrowser" name="textBrowser_2">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>418</y>
+       <width>451</width>
+       <height>101</height>
+      </rect>
+     </property>
+     <property name="html">
+      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Cantarell'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Use the &lt;span style=&quot; font-weight:600;&quot;&gt;Help&lt;/span&gt; bouton to access to documentations, licence and issues that are avaible on gitHub.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Do no hesitate to post your questions, enhancement proposal and to return your issues.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
    </widget>

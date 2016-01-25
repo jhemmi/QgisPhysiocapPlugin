@@ -79,8 +79,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.python_dir = os.path.dirname( self.plugins_dir)
         self.gis2_dir = os.path.dirname( self.python_dir)
         #physiocap_log( u"Rep .gis2 " + str( self.gis2_dir))
-
-        
+       
         # Slot for boutons certains sont dans UI
         ##self.buttonBox.button( QDialogButtonBox.Ok ).pressed.connect(self.accept)
         ##self.buttonBox.button( QDialogButtonBox.Cancel ).pressed.connect(self.reject)
@@ -252,29 +251,28 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         # Issue 29 : Pour appel de imaging pour comprendre si affichage histo est possible
         try :
             import PIL
-            physiocap_log( u"OK après l'import PIL ")
-            physiocap_log( u"PIL Path : " + str( PIL.__path__))
-            physiocap_log( u"PIL Version " + str(PIL.VERSION))
-            physiocap_log( u"PILLOW Version " + str(PIL.PILLOW_VERSION))
-            physiocap_log( u"PIL imaging " + str(PIL._imaging))
+            #physiocap_log( u"PIL Path : " + str( PIL.__path__))
+            # version PIL n'est pas toujours dispo physiocap_log( u"PIL Version " + str(PIL.VERSION))
+            #physiocap_log( u"PILLOW Version " + str(PIL.PILLOW_VERSION))
+            #physiocap_log( u"PIL imaging " + str(PIL._imaging))
             from PIL import Image
-            physiocap_log( u"OK après l'import Image ")
+            #physiocap_log( u"OK après l'import Image ")
             from PIL import _imaging
-            physiocap_log( u"OK après l'import imaging ")
+            #physiocap_log( u"OK après l'import imaging ")
         except ImportError:
-            import sys
-            lePath = sys.path
+            #import sys
+            #lePath = sys.path
             aText = "Le module image n'est pas accessible. "
             aText = aText + "Vous ne pouvez pas visualiser les histogrammes "
             physiocap_log( aText)
             physiocap_error( aText)
-            physiocap_error( str(lePath))
             self.settings.setValue("Physiocap/histogrammes", "NO")
+            self.checkBoxHistogramme.setChecked( Qt.Unchecked)
+            self.checkBoxHistogramme.setEnabled( False)
             physiocap_message_box( self,
-                self.tr( u'Physiocap : Pas du visualisation des histogrammes' ),
+                self.tr( u'Physiocap : Votre installation QGIS ne permet pas du visualisation des histogrammes' ),
             "information")
 
-        physiocap_log( u"Affichage des histogrammes possible")
         if (self.settings.value("Physiocap/histogrammes") == "YES"):
             self.checkBoxHistogramme.setChecked( Qt.Checked)
         else:
@@ -395,6 +393,8 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         
         # Init fin 
         return
+
+
     
     # ################
     #  Différents SLOT

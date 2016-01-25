@@ -57,15 +57,18 @@ from qgis.core import *
 from qgis.gui import *
 
 
-def JH_vector_poly_or_point( vector):
+def physiocap_vector_poly_or_point( vector):
     """Vérifie le type de forme du vector : s'appuie sur la premiere valeur"""
 
     try:
         # geom = vector.getFeatures().next().geometry()
         # Todo : tester avec QGis.WKBPolygon
-        # et vifier multi forme ou singleType    
+        # et vérifier multi forme ou singleType
+        # et Postgres    
         for uneForme in vector.getFeatures():
-            #physiocap_log( "- dans boucle")        
+##            physiocap_log( "- Vector feature format:" + str( uneForme.__format__))        
+##            physiocap_log( "- Vector feature attirbutes :" + str( uneForme.attributes()))        
+##            physiocap_log( "- Vector feature geo interface :" + str( uneForme.__geo_interface__))        
             geom = uneForme.geometry()
             if geom.type() == QGis.Point:
                 return "Point"
@@ -76,7 +79,7 @@ def JH_vector_poly_or_point( vector):
             else:
                 return "Inconnu"
     except:
-        #physiocap_log( "Warning Layer ni point, ni polygone : " + vector.id())
+        physiocap_errot( "Warning : Layer ni point, ni polygone : " + vector.id())
         pass
         # on evite les cas imprévus
         return "Inconnu"
@@ -118,20 +121,18 @@ def physiocap_fill_combo_poly_or_point( self, isRoot = None, node = None ):
             #physiocap_log( "- in tree layer: ")
             #physiocap_log( "- layer: " + child.layerName() + "  ID: " + child.layerId()) 
             # Tester si poly ou point
-            if ( JH_vector_poly_or_point( child.layer()) == "Point"):
-                if ( child.layerName() == "DIAMETRE"):
+            if ( physiocap_vector_poly_or_point( child.layer()) == "Point"):
+                if ( child.layerName() == "DIAMETRE mm"):
                     node_layer = noeud_en_cours + SEPARATEUR_NOEUD + child.layerId()
                     # Todo : WT DATA BUG unicode acsii dans certain cas...        
                     self.comboBoxPoints.addItem( str(node_layer))
                     nombre_point = nombre_point + 1
-            elif ( JH_vector_poly_or_point( child.layer()) == "Polygone"):
+            elif ( physiocap_vector_poly_or_point( child.layer()) == "Polygone"):
                 node_layer = child.layerName() + SEPARATEUR_NOEUD + child.layerId()        
                 self.comboBoxPolygone.addItem( str(node_layer) )
                 nombre_poly = nombre_poly + 1
             #else:
                 #physiocap_log( "- layer rejeté : " + child.layerName() + "  ID: " + child.layerId()) 
-                
-            
     return nombre_poly, nombre_point
 
               
@@ -157,7 +158,7 @@ def physiocap_moyenne_vers_vignette( crs, EPSG_NUMBER, nom_vignette, nom_prj,
     les_champs.append( QgsField("VITESSE", QVariant.Double, "double", 10,2))
     les_champs.append( QgsField( "NBSARM",  QVariant.Double, "double", 10,2))
     les_champs.append( QgsField( "DIAM",  QVariant.Double, "double", 10,2))
-    les_champs.append( QgsField( "BIOM", QVariant.Double,"double", 10,2)) 
+    les_champs.append( QgsField( "BIOM", QVariant.Double,"double", 10,2))
     if details == "YES":
         # Niveau de detail demandé
         les_champs.append( QgsField( "BIOMGM2", QVariant.Double,"double", 10,2))
@@ -166,9 +167,9 @@ def physiocap_moyenne_vers_vignette( crs, EPSG_NUMBER, nom_vignette, nom_prj,
     writer = QgsVectorFileWriter( nom_vignette, "utf-8", les_champs, 
         QGis.WKBPolygon, crs , "ESRI Shapefile")
 
-    # Todo : ICICI
-    physiocap_log(u" Type de geom_poly :" + str( type(geom_poly)))
-    physiocap_log(u" Type de geom_poly.asPolygon :" + str( type(geom_poly.asPolygon)))
+    # Cas PG à tester
+    #physiocap_log(u" Type de geom_poly :" + str( type(geom_poly)))
+    #physiocap_log(u" Type de geom_poly.asPolygon :" + str( type(geom_poly.asPolygon)))
 
     feat = QgsFeature()
     feat.setGeometry( QgsGeometry.fromPolygon(geom_poly.asPolygon())) #écrit la géométrie tel que lu dans shape contour
@@ -330,20 +331,18 @@ def physiocap_moyenne_InterParcelles( self):
     # Récupérer des styles pour chaque shape dans Affichage
     #dir_template = os.path.join( os.path.dirname(__file__), 'modeleQgis')       
     dir_template = self.fieldComboThematiques.currentText()
-    qml_is = str( self.lineEditThematiqueInterMoyenne.text()) + EXTENSION_QML
+    qml_is = str( self.lineEditThematiqueInterMoyenne.text().strip('"')) + EXTENSION_QML
     le_template_moyenne = os.path.join( dir_template, qml_is)
-    qml_is = str( self.lineEditThematiqueInterPoints.text()) + EXTENSION_QML
+    qml_is = str( self.lineEditThematiqueInterPoints.text().strip('"')) + EXTENSION_QML
     le_template_point = os.path.join( dir_template, qml_is)
    
     # Pour polygone de contour   
     nom_complet_poly = self.comboBoxPolygone.currentText().split( SEPARATEUR_NOEUD)
     if ( len( nom_complet_poly) != 2):
-        physiocap_error( u"Le polygone de contour n'est pas choisi. " +
+        aText = self.tr( "Le polygone de contour n'est pas choisi. " +
           "Avez-vous ouvert votre shapefile de contour ?")
-        return physiocap_message_box( self,
-            self.tr( u"Le polygone de contour n'est pas choisi. " +
-                "Avez-vous ouvert votre shapefile de contour ?" ),
-            "information")            
+        physiocap_error( aText)
+        return physiocap_message_box( self, aText)           
     nom_poly = nom_complet_poly[ 0] 
     id_poly = nom_complet_poly[ 1] 
     vecteur_poly = physiocap_get_layer_by_ID( id_poly)
@@ -424,7 +423,7 @@ def physiocap_moyenne_InterParcelles( self):
     if ( not os.path.exists( chemin_shapes)):
         raise physiocap_exception_rep( chemin_shapes)
     
-    physiocap_log ( u"======= là c'est OK >> ")
+    #physiocap_log ( u"======= là c'est OK >> ")
         
     # On passe sur les differents contours
     id = 0
@@ -469,7 +468,7 @@ def physiocap_moyenne_InterParcelles( self):
             physiocap_message_box( self,
                 self.tr( aText),
                 "information")
-            continue
+            continuephysiocap_tester_uri
         
         # on initialise pour ce contour
         les_geom_point_feat = []
@@ -658,15 +657,15 @@ def physiocap_moyenne_InterParcelles( self):
         SHAPE_A_AFFICHER = []
         if self.checkBoxInterDiametre.isChecked():
             nom_affichage = nom_court_affichage + 'DIAMETRE' + SEPARATEUR_ + nom_court_du_contour
-            qml_is = str( self.lineEditThematiqueInterDiametre.text()) + EXTENSION_QML
+            qml_is = str( self.lineEditThematiqueInterDiametre.text().strip('"')) + EXTENSION_QML
             SHAPE_A_AFFICHER.append( (nom_affichage, qml_is))
         if self.checkBoxInterBiomasse.isChecked():
             nom_affichage = nom_court_affichage + 'BIOMASSE' + SEPARATEUR_ + nom_court_du_contour
-            qml_is = str( self.lineEditThematiqueInterBiomasse.text()) + EXTENSION_QML
+            qml_is = str( self.lineEditThematiqueInterBiomasse.text().strip('"')) + EXTENSION_QML
             SHAPE_A_AFFICHER.append( (nom_affichage, qml_is))
         if self.checkBoxInterLibelle.isChecked():
             nom_affichage = nom_court_affichage + 'LIBELLE' + SEPARATEUR_ + nom_court_du_contour
-            qml_is = str( self.lineEditThematiqueInterLibelle.text()) + EXTENSION_QML
+            qml_is = str( self.lineEditThematiqueInterLibelle.text().strip('"')) + EXTENSION_QML
             SHAPE_A_AFFICHER.append( (nom_affichage, qml_is))
 
         # Afficher ce contour_moyennes dans arbre "projet"

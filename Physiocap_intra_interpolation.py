@@ -103,13 +103,22 @@ def physiocap_creer_raster_iso( self,
     try :
         import processing
         versionGDAL = processing.tools.raster.gdal.__version__
+        # Todo : Vérifier syntaxe en Win 32 bits et attraper cette erreur
         versionSAGA = processing.algs.saga.SagaUtils.getSagaInstalledVersion()
     except ImportError:
         aText = "Le module processing n'est pas accessible. "
         aText = aText + "Pour réaliser du calcul intra parellaire, vous devez installer "
         aText = aText + "l'extension Processing (menu Extension => Installer une extension)" 
+        physiocap_error( aText)
         return physiocap_message_box( self,
         self.tr( u'Physiocap nécessite Extension "Processing"' ),
+        "information")
+    except AttributeError:
+        aText = "SAGA n'est pas accessible. "
+        aText = aText + "Pour réaliser du calcul intra parellaire, vous devez installer SAGA."
+        physiocap_error( aText)
+        return physiocap_message_box( self,
+        self.tr( u'Physiocap utilise SAGA 2.1.0 à 2.1.2' ),
         "information")
                 
     # Test SAGA version, sinon annoncer l'utilisation de Gdal
@@ -132,9 +141,7 @@ def physiocap_creer_raster_iso( self,
                 self.tr( u"= Saga a une version incompatible : on force l'utilisation de Gdal" ),
                 "information")
 ##    else:
-##            if ( UNE_SEULE_FOIS == "NO"):
-##                UNE_SEULE_FOIS = "YES"
-##                physiocap_log ( u"= Version GDAL = " + str( versionGDAL))
+##           physiocap_log ( u"= Version GDAL = " + str( versionGDAL))
 
     # Récupération des parametres d'Intra
     powerIntra = float ( self.spinBoxPower.value())
@@ -191,11 +198,12 @@ def physiocap_creer_raster_iso( self,
     xmin, xmax, ymin, ymax = ex.xMinimum(),ex.xMaximum(), ex.yMinimum(), ex.yMaximum()
     info_extent = str(xmin) + "," + str(xmax) + "," + str(ymin) + "," + str(ymax)
     #physiocap_log( u"=~= Extent layer >>> " + info_extent + " <<<")  
+    
     if self.radioButtonSAGA.isChecked():
         # Appel SAGA power à 2 fixe
         physiocap_log( u"=~= Interpolation SAGA " + str( nom_court_raster))
         premier_raster = processing.runalg("saga:inversedistanceweighted",
-            nom_point, le_champ_choisi, 1, 2, 1, 0,rayonIntra, 0, 1,
+            str( nom_point), le_champ_choisi, 1, 2, 1, 0,rayonIntra, 0, 1,
             10, info_extent, pixelIntra,
             None)                        
         if (  premier_raster != None):
@@ -269,14 +277,14 @@ def physiocap_creer_raster_iso( self,
         #QgsMessageLog.logMessage( "PHYSIOCAP : Avant invdist", "Processing", QgsMessageLog.WARNING)
 
         premier_raster = processing.runalg("gdalogr:gridinvdist",
-            nom_point, le_champ_choisi, powerIntra, 0.0, rayonIntra, rayonIntra, 
+            str( '"' + nom_point + '"'), le_champ_choisi, powerIntra, 0.0, rayonIntra, rayonIntra, 
             1000, 5, angle, val_nulle ,float_32, 
             None)
 
         if (  premier_raster != None):
             if ( str( list( premier_raster) == "Output")):
                 if str( premier_raster[ 'OUTPUT']) != None:
-                    #physiocap_log( u"=xg= premier fichier GDAL : " + str( premier_raster[ 'OUTPUT']))
+                    physiocap_log( u"=xg= premier fichier GDAL : " + str( premier_raster[ 'OUTPUT']))
                     nom_raster_temp =  str( premier_raster[ 'OUTPUT'])
         else:
             raise physiocap_exception_interpolation( nom_point)
@@ -323,8 +331,10 @@ def physiocap_creer_raster_iso( self,
                         physiocap_log( u"=xg= Isolignes GDAL : " + nom_court_isoligne)                                
                         physiocap_log ( u"=~= =~=~=~=~= <<")
             else:
+                physiocap_log( u"=xg= Problème avec iso_dans_poly : ")
                 raise physiocap_exception_interpolation( nom_point)
         else:
+            physiocap_log( u"=xg= Problème fin clip : ")
             raise physiocap_exception_interpolation( nom_point)
         
     return nom_raster_final, nom_court_raster, nom_iso_final, nom_court_isoligne            
@@ -340,10 +350,10 @@ def physiocap_interpolation_IntraParcelles( self):
     # Récupérer des styles pour chaque shape
     #dir_template = os.path.join( os.path.dirname(__file__), 'modeleQgis')       
     dir_template = self.fieldComboThematiques.currentText()
-    qml_prefix = str( self.lineEditThematiqueIntraImage.text())
+    qml_prefix = str( self.lineEditThematiqueIntraImage.text().strip('"'))
     nom_intra_attribut = qml_prefix + str( le_champ_choisi) + EXTENSION_QML
     le_template_raster = os.path.join( dir_template, nom_intra_attribut)
-    qml_prefix = str( self.lineEditThematiqueIntraIso.text())
+    qml_prefix = str( self.lineEditThematiqueIntraIso.text().strip('"'))
     nom_isolignes_attribut = qml_prefix + str( le_champ_choisi) + EXTENSION_QML
     le_template_isolignes  = os.path.join( dir_template, nom_isolignes_attribut)
 
@@ -484,7 +494,8 @@ def physiocap_interpolation_IntraParcelles( self):
             physiocap_log( u"=~= Points absents : pas d'interpolation")
         else:
             contour_avec_point = contour_avec_point + 1
-            #physiocap_log( u"=~= Points - nom court : " + str( nom_court_point) )
+            physiocap_log( u"=~= Points - nom court : " + str( nom_court_point) )
+            physiocap_log( u"=~= Points - nom  : " + str( nom_point) )
 
             # ###############
             # Calcul raster et iso
@@ -554,7 +565,8 @@ def physiocap_interpolation_IntraParcelles( self):
             continue
         else:
             contour_avec_point = contour_avec_point + 1
-            #physiocap_log( u"=~= Point court : " + str( nom_court_point) )
+            physiocap_log( u"=~= Points - nom court : " + str( nom_court_point) )
+            physiocap_log( u"=~= Points - nom  : " + str( nom_point) )
 
         # ###################
         # CRÉATION groupe INTRA
@@ -581,7 +593,7 @@ def physiocap_interpolation_IntraParcelles( self):
         # Progress BAR + un stepBar%
         positionBar = positionBarInit + ( stepBar * id_contour)    
         self.progressBarIntra.setValue( positionBar)
-        #physiocap_log( u"=~= Barre " + str( positionBar) )                      
+        physiocap_log( u"=~= Barre " + str( positionBar) )                      
            
         if ( id_contour >  0 ):                                            
             # Affichage dans panneau Qgis                           

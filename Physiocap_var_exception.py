@@ -30,6 +30,18 @@
  *                                                                         *
 ***************************************************************************/
 """
+# ###########################
+# Preparation Python 3 pour QGIS 3
+# ###########################
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+# Suppression des u''
+from __future__ import unicode_literals
+
+##from builtins import open
+##from builtins import str
+
 import os 
 import platform
 

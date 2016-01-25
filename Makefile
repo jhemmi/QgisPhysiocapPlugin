@@ -26,13 +26,13 @@
 #Add iso code for any locales you want to support here (space separated)
 # default is no locales
 # LOCALES = af
-LOCALES = 
+LOCALES = Physiocap_en
 
 # If locales are enabled, set the name of the lrelease binary on your system. If
 # you have trouble compiling the translations, you may have to specify the full path to
 # lrelease
 #LRELEASE = lrelease
-#LRELEASE = lrelease-qt4
+LRELEASE = lrelease-qt4
 
 
 # translation
@@ -143,7 +143,7 @@ deploy: compile doc transcompile
 	@cp -vf $(UI_FILES) $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
 	@cp -vf $(COMPILED_RESOURCE_FILES) $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
 	cp -vf $(EXTRAS) $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
-	#@cp -vfr i18n $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
+	@cp -vfr i18n $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)
 	@cp -vf $(HELP_FILES)  $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)/$(HELP)
 	@cp -vf $(DATA_FILES) $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)/$(DATA)
 	@cp -vf $(TEMPLATE)/*.qml $(HOME)/$(QGISDIR)/python/plugins/$(PLUGINNAME)/$(TEMPLATE)

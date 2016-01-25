@@ -430,31 +430,28 @@ def physiocap_creer_donnees_resultats( self, laProjection, EXT_CRS_SHP, EXT_CRS_
     sous_groupe = root.addGroup( chemin_base_projet)
     
     # Récupérer des styles pour chaque shape
-    #dir_template = os.path.join( os.path.dirname(__file__), 'modeleQgis')       
     dir_template = self.fieldComboThematiques.currentText()
     # Affichage des différents shapes dans Qgis
     SHAPE_A_AFFICHER = []
     qml_is = ""
     if self.checkBoxDiametre.isChecked():
-        qml_is = str( self.lineEditThematiqueDiametre.text()) + EXTENSION_QML
-        SHAPE_A_AFFICHER.append( (nom_shape_sans_0, 'DIAMETRE', qml_is))
+        qml_is = str( self.lineEditThematiqueDiametre.text().strip('"')) + EXTENSION_QML
+        SHAPE_A_AFFICHER.append( (nom_shape_sans_0, 'DIAMETRE mm', qml_is))
     if self.checkBoxSarment.isChecked():
-        qml_is = str( self.lineEditThematiqueSarment.text()) + EXTENSION_QML
-        SHAPE_A_AFFICHER.append( (nom_shape_sans_0, 'SARMENT', qml_is))
+        qml_is = str( self.lineEditThematiqueSarment.text().strip('"')) + EXTENSION_QML
+        SHAPE_A_AFFICHER.append( (nom_shape_sans_0, 'SARMENT par m', qml_is))
     if self.checkBoxVitesse.isChecked():
-        qml_is = str( self.lineEditThematiqueVitesse.text()) + EXTENSION_QML
-        SHAPE_A_AFFICHER.append( (nom_shape_avec_0, 'VITESSE', qml_is))
+        qml_is = str( self.lineEditThematiqueVitesse.text().strip('"')) + EXTENSION_QML
+        SHAPE_A_AFFICHER.append(( nom_shape_avec_0, 'VITESSE km/h', qml_is))
     
-    for shapename, titre, unTemplate in SHAPE_A_AFFICHER:
-        vector = QgsVectorLayer( shapename, titre, 'ogr')
-        if (self.fieldComboFormats.currentText() == "ESRI Shapefile" ):
-            vector = QgsVectorLayer( shapename, titre, 'ogr')
-        elif (self.fieldComboFormats.currentText() == POSTGRES_NOM ):
+    for shapename, titre, un_template in SHAPE_A_AFFICHER:
+        # Cas Postgres
+        if ( self.fieldComboFormats.currentText() == POSTGRES_NOM ):
             uri_nom = physiocap_quel_uriname( self)
             #physiocap_log( u"URI nom : " + str( uri_nom))
             uri_modele = physiocap_get_uri_by_layer( self, uri_nom )
             if uri_modele != None:
-                uri_connect, uri_deb, uri_srid, uri_fin = physiocap_tester_uri( self, uri_modele, "YES")            
+                uri_connect, uri_deb, uri_srid, uri_fin = physiocap_tester_uri( self, uri_modele)            
                 nom_court_shp = os.path.basename( shapename)
                 #TABLES = "public." + nom_court_shp
                 uri = uri_deb +  uri_srid + \
@@ -462,26 +459,24 @@ def physiocap_creer_donnees_resultats( self, laProjection, EXT_CRS_SHP, EXT_CRS_
 ##              "dbname='testpostgis' host='localhost' port='5432'" + \
 ##              " user='postgres' password='postgres' SRID='2154'" + \
 ##              " key='gid' type='POINTS' table=" + nom_court_shp[ :-4] + " (geom) sql="
-                #physiocap_log ( "Affichage POSTGRES : >>" + uri + "<<")
-                vector = QgsVectorLayer( uri, titre, POSTGRES_NOM)
+##                physiocap_log ( "Création dans POSTGRES : >>" + uri + "<<")
+##                vectorPG = QgsVectorLayer( uri, titre, POSTGRES_NOM)
             else:
                 aText = u"Pas de connecteur vers Postgres : " + \
                         str( uri_nom) + \
                         u". On continue avec des shapefiles"
                 physiocap_log( aText)
-                vector = QgsVectorLayer( shapename, titre, 'ogr')
                 # Remettre le choix vers ESRI shape file
-                self.fieldComboFormats.setCurrentIndex( 0)  
-        else:
-            physiocap_error ( u"Physiocap est étrange. C'est bizarre")            
-            continue
-            
+                self.fieldComboFormats.setCurrentIndex( 0)
+
+        #physiocap_log( u"Physiocap : Afficher layer ")
+        vector = QgsVectorLayer( shapename, titre, 'ogr')
         QgsMapLayerRegistry.instance().addMapLayer( vector, False)
         # Ajouter le vecteur dans un groupe
         vector_node = sous_groupe.addLayer( vector)
-        le_template = os.path.join( dir_template, unTemplate)
+        le_template = os.path.join( dir_template, un_template)
         if ( os.path.exists( le_template)):
-            #physiocap_log ( u"Physiocap le template : " + os.path.basename( leTemplate) )
+            #physiocap_log( u"Physiocap le template : " + os.path.basename( le_template))
             vector.loadNamedStyle( le_template)
     
     # Fichier de synthese dans la fenetre resultats   
@@ -516,6 +511,6 @@ def physiocap_creer_donnees_resultats( self, laProjection, EXT_CRS_SHP, EXT_CRS_
     
     physiocap_log ( u"Fin de la synthèse Physiocap : sans erreur")
     physiocap_fill_combo_poly_or_point( self)
-    physiocap_log ( u"Mise à jour des poly et points")
+    #physiocap_log ( u"Mise à jour des poly et points")
     return 0 
 

@@ -47,13 +47,12 @@ data/test*
 testdata/
 modeleQgis/*.txt
 print/
-i18n/
 ssl/
 #.noseids
 pylintrc
 .gitignore~
 
-Physiocap_dialog_base-save.ui
+*.uibak*
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
