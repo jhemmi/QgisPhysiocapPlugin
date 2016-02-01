@@ -1,87 +1,253 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="en_US" sourcelanguage="fr_FR">
+<TS version="2.0" language="en" sourcelanguage="fr">
 <context>
     <name></name>
     <message>
-        <location filename="Physiocap_intra_interpolation.py" line="113"/>
-        <source>Physiocap nÃ©cessite Extension &quot;Processing&quot;</source>
-        <translation>Physiocap need &quot;Processing plugin&quot;</translation>
+        <location filename="Physiocap_intra_interpolation.py" line="109"/>
+        <source>L&apos;extension Traitement (Processing) n&apos;est pas accessible. </source>
+        <translation>Plugin Processing is not available.</translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_intra_interpolation.py" line="110"/>
+        <source>Pour réaliser du calcul intra parellaire, vous devez installer </source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="Physiocap_intra_interpolation.py" line="111"/>
+        <source>l&apos;extension Traitement (menu Extension =&gt; Installer une extension)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_intra_interpolation.py" line="113"/>
+        <source>Physiocap nécessite l&apos;extension Traitement (Processing)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Physiocap_intra_interpolation.py" line="117"/>
+        <source>SAGA n&apos;est pas accessible. </source>
+        <translation>SAGA is not available.</translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_intra_interpolation.py" line="118"/>
+        <source>Pour réaliser du calcul intra parellaire, vous devez installer SAGA.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
         <location filename="Physiocap_intra_interpolation.py" line="120"/>
-        <source>Physiocap utilise SAGA 2.1.0 Ã  2.1.2</source>
-        <translation>Physiocap needs SAGA 2.1.0 to 2.1.2</translation>
+        <source>Physiocap nécessite SAGA version 2.1.0 à 2.1.2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Physiocap_intra_interpolation.py" line="126"/>
+        <source>= Version SAGA = %s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Physiocap_intra_interpolation.py" line="130"/>
+        <source>= Version SAGA OK : %s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_intra_interpolation.py" line="132"/>
+        <source>= Version SAGA %s est inférieure à 2.1.0 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_intra_interpolation.py" line="133"/>
+        <source>= ou supérieure à 2.1.2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Physiocap_intra_interpolation.py" line="134"/>
+        <source>= On force l&apos;utilisation de Gdal : </source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Physiocap_intra_interpolation.py" line="140"/>
         <source>= Saga a une version incompatible : on force l&apos;utilisation de Gdal</source>
-        <translation>= SAGA has an incompatible version : using GDAL is forced</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_intra_interpolation.py" line="169"/>
+        <source>Le polygone ou le fichier de point n&apos;est pas retrouvé. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_intra_interpolation.py" line="170"/>
+        <source>Une inconsistence entre le projet Physiocap et ses données vous oblige </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_intra_interpolation.py" line="171"/>
+        <source>à relancer la chaine de traitement.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="Physiocap_intra_interpolation.py" line="265"/>
+        <source>=~= Isolignes SAGA : %s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Physiocap_intra_interpolation.py" line="314"/>
+        <source>Traitement</source>
+        <translation>Processing</translation>
+    </message>
+    <message utf8="true">
         <location filename="Physiocap_inter.py" line="322"/>
-        <source>Pas de rÃ©pertoire de donnÃ©es brutes spÃ©cifiÃ©</source>
-        <translation>No raw data directory given</translation>
+        <source>Pas de répertoire de données brutes spécifié</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Physiocap_inter.py" line="343"/>
+        <location filename="Physiocap_inter.py" line="341"/>
         <source>Le polygone de contour n&apos;est pas choisi. Avez-vous ouvert votre shapefile de contour ?</source>
-        <translation>Edges polygon layer is not choosen. Have you opened an edges layer ?</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Physiocap_intra_interpolation.py" line="390"/>
+        <location filename="Physiocap_intra_interpolation.py" line="389"/>
         <source>Le shape de points n&apos;est pas choisi. Lancez le traitement initial - bouton OK puis Inter - avant de faire votre calcul de Moyenne Intra Parcellaire</source>
-        <translation>Points layer is not choosen. Run initial traitment of row data - Bouton OK Then &quot;Average Inter&quot; - before calculating Average Intra Parcels</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Physiocap_inter.py" line="376"/>
+        <location filename="Physiocap_inter.py" line="374"/>
         <source>Le projet </source>
-        <translation>The project</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Physiocap_intra_interpolation.py" line="420"/>
+        <location filename="Physiocap_intra_interpolation.py" line="419"/>
         <source>Le jeu de points choisi n&apos;est pas valide. Lancez le traitement initial - bouton OK puis Inter - avant de faire votre calcul de Moyenne Intra Parcellaire</source>
-        <translation>Shapefile of points is not chosen. Run initial traitment ( bouton OK) before calculating Average between parcelles</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Physiocap_intra_interpolation.py" line="430"/>
+        <location filename="Physiocap_intra_interpolation.py" line="429"/>
         <source>Le contour choisi n&apos;est pas valide. Lancez le traitement initial - bouton OK puis Inter - avant de faire votre calcul de Moyenne Intra Parcellaire</source>
-        <translation>Edges choosen is not valid. Run initial traitment of row data - Bouton OK Then &quot;Average Inter&quot; - before calculating Average Intra Parcels</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Physiocap_intra_interpolation.py" line="615"/>
+        <location filename="Physiocap_intra_interpolation.py" line="616"/>
         <source>Aucune point dans votre contour. Pas d&apos;interpolation intra parcellaire</source>
-        <translation>No point inside your edges. No interpolation Intra Parcels</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Physiocap_intra_interpolation.py" line="621"/>
+        <location filename="Physiocap_intra_interpolation.py" line="622"/>
         <source>Fin de l&apos;interpolation intra-parcellaire</source>
-        <translation>End of interpolation Intra Parcels</translation>
+        <translation>Ending interpolation Intra parcels</translation>
     </message>
     <message>
-        <location filename="Physiocap_inter.py" line="360"/>
+        <location filename="Physiocap_tools.py" line="82"/>
+        <source>. Consultez le journal u03D5 Erreur</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Physiocap_tools.py" line="139"/>
+        <source>Couche invalide : %s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_tools.py" line="142"/>
+        <source>Aucune couche retrouvée pour ID : %s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_tools.py" line="191"/>
+        <source>PG DROP == Impossible de se connecter à la base de données </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Physiocap_tools.py" line="227"/>
+        <source>Erreur PG DROP == %s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_tools.py" line="209"/>
+        <source>PG DROP == Problème lors de la recherche d&apos;une table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Physiocap_tools.py" line="224"/>
+        <source>PG DROP == Probleme lors du commit pour Drop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_tools.py" line="242"/>
+        <source>PG == Impossible de se connecter à la base de données</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Physiocap_tools.py" line="245"/>
+        <source>Erreur PG recheche == %s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Physiocap_tools.py" line="264"/>
+        <source>PG == Probleme lors de la recherche d&apos;une table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Physiocap_tools.py" line="281"/>
+        <source>Erreur PG == %s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Physiocap_inter.py" line="358"/>
         <source>Le shape de points n&apos;est pas choisi. Lancez le traitement initial - bouton OK - avant de faire votre calcul de Moyenne Inter Parcellaire</source>
-        <translation>Shapefile of points is not chosen. Run initial traitment ( bouton OK) before calculating Average between parcelles</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Physiocap_inter.py" line="387"/>
+        <location filename="Physiocap_inter.py" line="385"/>
         <source>Le jeu de points choisi n&apos;est pas valide. Lancez le traitement initial - bouton OK - avant de faire votre calcul de Moyenne Inter Parcellaire</source>
-        <translation>Points layer is not choosen. Run initial traitment of row data - Bouton OK - before calculating &quot;Average Inter Parcels&quot;</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Physiocap_inter.py" line="397"/>
+        <location filename="Physiocap_inter.py" line="395"/>
         <source>Le contour choisi n&apos;est pas valide. Lancez le traitement initial - bouton OK - avant de faire votre calcul de Moyenne Inter Parcellaire</source>
-        <translation>Edges choosen is not valid. Run initial traitment of row data - Bouton OK - before calculating Average Intra Parcels</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Physiocap_inter.py" line="636"/>
-        <source>== Aucune point dans vos contours : pas de comparaison inter parcellaire</source>
-        <translation>== No points in your edges : nothing to compare between your parcels</translation>
+        <location filename="Physiocap_inter.py" line="464"/>
+        <source>== Cette forme n&apos;est pas un polygone : %s</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Physiocap_inter.py" line="688"/>
+        <location filename="Physiocap_inter.py" line="527"/>
+        <source>== Moyenne des sarments : %s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_inter.py" line="528"/>
+        <source>== Moyenne des diamètres : %s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Physiocap_inter.py" line="628"/>
+        <source>== Aucune point dans %s. Pas de comparaison 
+                inter parcellaire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Physiocap_inter.py" line="684"/>
         <source>Fin du traitement inter-parcellaire</source>
-        <translation>Endind Inter Parcels traitment</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Physiocap_tools.py" line="81"/>
+        <source>u03D5 n&apos;a pas correctement fini son analyse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Physiocap_inter.py" line="451"/>
+        <source>== Contour : %s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Physiocap_inter.py" line="526"/>
+        <source>== Date : %s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Physiocap_inter.py" line="632"/>
+        <source>== Aucun point dans vos contours : pas de comparaison inter parcellaire</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -89,7 +255,7 @@
     <message>
         <location filename="Physiocap.py" line="185"/>
         <source>&amp;Physiocap</source>
-        <translation>&amp;Physiocap</translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="Physiocap.py" line="175"/>
@@ -100,39 +266,281 @@
 <context>
     <name>PhysiocapAnalyseurDialog</name>
     <message>
-        <location filename="Physiocap_dialog.py" line="272"/>
+        <location filename="Physiocap_dialog.py" line="131"/>
+        <source>Votre machine tourne sous {0} </source>
+        <translation>Your machine runs with {0} </translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="175"/>
+        <source>Pas de liste de cépage pré défini</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="191"/>
+        <source>Pas de liste de mode de taille pré défini</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="207"/>
+        <source>Pas de liste des formats de vecteurs pré défini</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="230"/>
+        <source>Pas de répertoire de thématiques pré défini</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Physiocap_dialog.py" line="285"/>
+        <source>Le module image n&apos;est pas accessible. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Physiocap_dialog.py" line="286"/>
+        <source>Vous ne pouvez pas visualiser les histogrammes </source>
+        <translation>You cannot visualize histograms</translation>
+    </message>
+    <message>
+        <location filename="Physiocap_dialog.py" line="292"/>
         <source>Physiocap : Votre installation QGIS ne permet pas du visualisation des histogrammes</source>
-        <translation>Physiocap : Your QGIS installation does not autorize histograms visualization</translation>
+        <translation>Physiocap : Your QGIS installation does not autorize to visualize the histograms</translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="388"/>
+        <source>Pas de liste des attributs pour Intra pré défini</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="442"/>
+        <source>L&apos;attribut %s n&apos;existe pas dans les données à disposition.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="548"/>
-        <source>Votre minimum ne doit pas Ãªtre plus grand que votre maximum</source>
-        <translation>Minimum choice cannot be great then maximum choice</translation>
+        <location filename="Physiocap_dialog.py" line="445"/>
+        <source>L&apos;interpolation n&apos;est pas possible. Relancer un calcul de votre projet Physiocap.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="568"/>
+        <source>Votre minimum ne doit pas être plus grand que votre maximum</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="647"/>
-        <source>Le shape de points n&apos;est pas choisi.Lancez le traitement initial - bouton OK - avant de faire votrecalcul de Moyenne Inter Parcellaire</source>
-        <translation>Shapefile of points is not chosen. Run initial traitment ( bouton OK) before calculating Average between parcelles</translation>
+        <location filename="Physiocap_dialog.py" line="662"/>
+        <source>Le shape de points n&apos;est pas choisi. 
+Lancez le traitement initial - bouton OK - avant de faire votre 
+calcul de Moyenne Inter Parcellaire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="1345"/>
+        <source>Erreur bloquante lors de la création du répertoire : %s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="683"/>
+        <source>Des moyennes IntraParcellaires dans %s existent déjà. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="744"/>
+        <source>Vous ne pouvez pas redemander ce calcul : vous devez détruire le groupe </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="745"/>
+        <source>ou mieux créer un nouveau projet Physiocap</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="713"/>
-        <source>Le shape de points n&apos;est pas choisi. Lancez le traitement initial - bouton OK - avant de faire votre calcul de Moyenne Inter Parcellaire</source>
-        <translation>Shapefile of points is not chosen. Run initial traitment ( bouton OK) before calculating Average between parcelles</translation>
+        <location filename="Physiocap_dialog.py" line="751"/>
+        <source>Le fichier de points du projet %s ne contient pas les attributs attendus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="701"/>
+        <source>L&apos;interpolation de : %s n&apos;a pu s&apos;exécuter entièrement. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="703"/>
+        <source>Avez-vous installé et activé la librairie d&apos;interpolation (SAGA ou GDAL) ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="712"/>
+        <source>Physiocap a terminé les interpolations intra parcelaire.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="740"/>
-        <source>Les moyennes InterParcellaires du projet Physiocap </source>
-        <translation>Average between parcels of this Physiocap project </translation>
+        <location filename="Physiocap_dialog.py" line="720"/>
+        <source>Le shape de points n&apos;est pas choisi. 
+                    Lancez le traitement initial - bouton OK - avant de faire votre 
+                    calcul de Moyenne Inter Parcellaire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="741"/>
+        <source>Les moyennes InterParcellaires dans %s existent déjà. </source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="811"/>
-        <source>Pas de rÃ©pertoire de donnÃ©es brutes spÃ©cifiÃ©</source>
-        <translation>No raw data directory given</translation>
+        <location filename="Physiocap_dialog.py" line="752"/>
+        <source>Lancez le traitement initial - bouton OK - avant de faire votre </source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="816"/>
-        <source>Pas de nom de projet spÃ©cifiÃ©</source>
+        <location filename="Physiocap_dialog.py" line="753"/>
+        <source>calcul de Moyenne Inter Parcellaire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="764"/>
+        <source>Physiocap a terminé les moyennes inter parcelaire.</source>
+        <translation>Physiocap has calculated Inter parcels average.</translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="1264"/>
+        <source>Pas de répertoire de données brutes spécifié</source>
+        <translation>No folder choosen for your raw data (MID)</translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="1268"/>
+        <source>Pas de nom de projet spécifié</source>
         <translation>No project name given</translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="1284"/>
+        <source>La recherche des MID fouille l&apos;arbre de données</source>
+        <translation>Looking for MID through all your data tree</translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="1289"/>
+        <source>Projection des shapefiles demandée en %s</source>
+        <translation>CRS for layers : %s</translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="1301"/>
+        <source>Les détails du vignoble sont précisées</source>
+        <translation>Vineyard details are defined</translation>
+    </message>
+    <message>
+        <location filename="Physiocap_dialog.py" line="1315"/>
+        <source>Les histogrammes sont attendus</source>
+        <translation>Histograms are requested</translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="1352"/>
+        <source>Trop d&apos;erreurs %s dans les données brutes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="1359"/>
+        <source>Erreur bloquante lors de la création du fichier : %s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="1366"/>
+        <source>Erreur bloquante lors de la création du fichier csv : %s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Physiocap_dialog.py" line="1373"/>
+        <source>Erreur bloquante lors de la copie du fichier MID : %s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="1380"/>
+        <source>Erreur bloquante : aucun fichier MID à traiter</source>
+        <translation>
+Major error : no MID found</translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="1385"/>
+        <source>Arrêt de Physiocap à la demande de l&apos;utilisateur</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="1398"/>
+        <source>%s a terminé son analyse.</source>
+        <translation>%s has finished primary analysis.</translation>
+    </message>
+    <message>
+        <location filename="Physiocap_dialog.py" line="833"/>
+        <source>Erreur dans fonction creer_donnees_resultats 
+                    == %s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Physiocap_dialog.py" line="979"/>
+        <source>Le fichier %s a une taille nulle !</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="938"/>
+        <source>Fin de la création csv et début de synthèse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="1023"/>
+        <source>Fin de la création des histogrammes bruts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="1025"/>
+        <source>Pas de création des histogrammes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="1069"/>
+        <source>Erreur bloquante : problème lors du filtrage 
+                des données de %s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="1146"/>
+        <source>Le shape file existant déjà, il est détruit.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Physiocap_dialog.py" line="1198"/>
+        <source>Pas de connecteur vers Postgres : %s. On continue avec des shapefiles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="1229"/>
+        <source>Physiocap histogramme sarment chargé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="1231"/>
+        <source>Physiocap histogramme diamètre chargé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="1233"/>
+        <source>Physiocap histogramme diamètre filtré chargé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="1238"/>
+        <source>Physiocap pas d&apos;histogramme calculé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="1244"/>
+        <source>Fin de la synthèse Physiocap : sans erreur</source>
+        <translation>Ending Physiocap synthesis with no error</translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="810"/>
+        <source>Paramètres pour filtrer les diamètres min : {0} max : {1}</source>
+        <translation>Diameters filtered between min : {0} and max : {1} </translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="881"/>
+        <source>Plus de 15 fichier MIDs sont à analyser. Temps de traitement &gt; à 1 minute. Voulez-vous continuer ?</source>
+        <translation>More than 15 MIDs found. Time for traitment will be more than 1 minute. You want to continue ?</translation>
     </message>
 </context>
 <context>

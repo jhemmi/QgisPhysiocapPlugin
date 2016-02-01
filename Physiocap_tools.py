@@ -9,7 +9,7 @@
  crée une synthese d'une campagne de mesures Physiocap
  
  Le module tools contient les utilitaires
- Les fonctions sont nommées en Anglais
+ Les fonctions sont nommées en Anglais 
                              -------------------
         begin                : 2015-07-31
         git sha              : $Format:%H$
@@ -54,7 +54,7 @@ if platform.system() == 'Windows':
     import win32api
 
 # MESSAGES & LOG
-def physiocap_message_box( self, text, level ="warning", title="Physiocap"):
+def physiocap_message_box( self, text, level="warning", title = u"\u03D5 Physiocap"):
     """Send a message box by default Warning"""
     if level == "about":
         QMessageBox.about( self, title, text)
@@ -66,7 +66,7 @@ def physiocap_message_box( self, text, level ="warning", title="Physiocap"):
         #QMessageBox.warning( self, title, text)
         QMessageBox.information( self, title, text)
 
-def physiocap_question_box( self, text="Etes-vous sûr(e) ?" , title = "Physiocap"):
+def physiocap_question_box( self, text= u"Etes-vous sûr(e) ?" , title = u"\u03D5 Physiocap"):
     """Send a question box """
     reply = QMessageBox.question(self, title, text,
             QMessageBox.Yes|QMessageBox.Cancel)
@@ -76,20 +76,29 @@ def physiocap_question_box( self, text="Etes-vous sûr(e) ?" , title = "Physioca
         return True
     return False
 
+def physiocap_log_for_error( self):
+    """ Renvoi un message dans la log pour pointer l'utilisateur vers la liste des erreurs"""
+    message_log_court = self.trUtf8( u"\u03D5 n'a pas correctement fini son analyse")
+    message_log = message_log_court + self.trUtf8( u". Consultez le journal \u03D5 Erreur")
+    physiocap_log( message_log, "WARNING")
+    physiocap_error( message_log_court)
+    
 def physiocap_log( aText, level ="INFO"):
     """Send a text to the Physiocap log"""
+    journal_nom = u"\u03D5 Informations"
     if PHYSIOCAP_TRACE == "YES":
         if level == "WARNING":
-            QgsMessageLog.logMessage( aText, "Physiocap informations", QgsMessageLog.WARNING)
+            QgsMessageLog.logMessage( aText, journal_nom, QgsMessageLog.WARNING)
         else:
-            QgsMessageLog.logMessage( aText, "Physiocap informations", QgsMessageLog.INFO)
+            QgsMessageLog.logMessage( aText, journal_nom, QgsMessageLog.INFO)
            
 def physiocap_error( aText, level ="WARNING"):
     """Send a text to the Physiocap error"""
+    journal_nom = u"\u03D5 Erreurs"
     if level == "WARNING":
-        QgsMessageLog.logMessage( aText, "Physiocap erreurs", QgsMessageLog.WARNING)
+        QgsMessageLog.logMessage( aText, journal_nom, QgsMessageLog.WARNING)
     else:
-        QgsMessageLog.logMessage( aText, "Physiocap erreurs", QgsMessageLog.CRITICAL)
+        QgsMessageLog.logMessage( aText, journal_nom, QgsMessageLog.CRITICAL)
 
     # Todo 1.5 ? Rajouter la trace d'erreur au fichier ?
 
@@ -127,10 +136,10 @@ def physiocap_get_layer_by_ID( layerID):
         if ( le_layer.isValid()):
             return le_layer
         else:
-            physiocap_log( "Layer invalide : " + str( le_layer.name()))
+            physiocap_log( self.trUtf8( "Couche invalide : %s" % ( str( le_layer.name()))))
             return None
     else:
-        physiocap_log( "Aucun layer retrouvé pour ID : " + str( layerID))
+        physiocap_log( self.trUtf8( "Aucune couche retrouvée pour ID : %s" % ( str( layerID))))
         return None
 
    
@@ -179,10 +188,10 @@ def physiocap_detruit_table_uri( self, uri_deb, laTable):
         #conn = psycopg2.connect("dbname='testpostgis' user='postgres' host='localhost' password='postgres'")
         conn = psycopg2.connect( uri_deb)
     except psycopg2.Error as e:
-        aText = u"PG DROP == Impossible de se connecter à la base de données "
+        aText = self.trUtf8( "PG DROP == Impossible de se connecter à la base de données ")
         physiocap_log( aText)
         physiocap_error( aText)
-        errorPG = "Erreur PG DROP == " + str( e.pgcode)
+        errorPG = self.trUtf8( "Erreur PG DROP == %s" % (str( e.pgcode)))
         physiocap_error( errorPG)
         # Erreur texte
         physiocap_error( e.pgerror)
@@ -197,10 +206,10 @@ def physiocap_detruit_table_uri( self, uri_deb, laTable):
         #physiocap_log( u"La commande DROP >>>" + str( commande))
         cur.execute( commande)
     except psycopg2.Error as e:
-        aText = u"PG DROP == Probleme lors de la recherche d'une table "
+        aText = self.trUtf8( "PG DROP == Problème lors de la recherche d'une table")
         physiocap_log( aText)
         physiocap_error( aText)
-        errorPG = "Erreur PG DROP == " + str( e.pgcode)
+        errorPG = self.trUtf8( "Erreur PG DROP == %s" % (str( e.pgcode)))
         physiocap_error( errorPG)
         # Erreur texte
         physiocap_error( e.pgerror)
@@ -212,10 +221,10 @@ def physiocap_detruit_table_uri( self, uri_deb, laTable):
         conn.close()  
         #physiocap_log( "PG DROP == commit OK ")
     except psycopg2.Error as e:
-        aText = u"PG DROP == Probleme lors du commit pour Drop "
+        aText = self.trUtf8( "PG DROP == Probleme lors du commit pour Drop")
         physiocap_log( aText)
         physiocap_error( aText)
-        errorPG = "Erreur PG DROP == " + str( e.pgcode)
+        errorPG = self.trUtf8( "Erreur PG DROP == %s" % (str( e.pgcode)))
         physiocap_error( errorPG)
         # Erreur texte
         physiocap_error( e.pgerror)
@@ -230,10 +239,10 @@ def physiocap_existe_table_uri( self, uri_deb, laTable):
         #conn = psycopg2.connect("dbname='testpostgis' user='postgres' host='localhost' password='postgres'")
         conn = psycopg2.connect( uri_deb)
     except psycopg2.Error as e:
-        aText = u"PG == Impossible de se connecter à la base de données "
+        aText = self.trUtf8( "PG == Impossible de se connecter à la base de données")
         physiocap_log( aText)
         physiocap_error( aText)
-        errorPG = "Erreur PG == " + str( e.pgcode)
+        errorPG = self.trUtf8( "Erreur PG recheche == %s" % (str( e.pgcode)))
         physiocap_error( errorPG)
         # Erreur texte
         physiocap_error( e.pgerror)
@@ -252,10 +261,10 @@ def physiocap_existe_table_uri( self, uri_deb, laTable):
             #physiocap_log( "OK PG == Tu peux creer")
             return False
         else:
-            aText = u"PG == Probleme lors de la recherche d'une table "
+            aText = self.trUtf8( "PG == Probleme lors de la recherche d'une table")
             physiocap_log( aText)
             physiocap_error( aText)
-            errorPG = "Erreur PG == " + str( e.pgcode)
+            errorPG = self.trUtf8( "Erreur PG == %s" % (str( e.pgcode)))
             physiocap_error( errorPG)
             # Erreur texte
             physiocap_error( e.pgerror)
@@ -269,7 +278,7 @@ def physiocap_existe_table_uri( self, uri_deb, laTable):
         aText = u"PG == Probleme lors de la recherche d'une table "
         physiocap_log( aText)
         physiocap_error( aText)
-        errorPG = "Erreur PG == " + str( e.pgcode)
+        errorPG = self.trUtf8( "Erreur PG == %s" % (str( e.pgcode)))
         physiocap_error( errorPG)
         # Erreur texte
         physiocap_error( e.pgerror)

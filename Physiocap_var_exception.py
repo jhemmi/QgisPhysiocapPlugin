@@ -59,6 +59,8 @@ CENTROIDES = "NO"  # CENTROIDES YES est pour voir les centroides dans la synthes
 
 REPERTOIRE_DONNEES_BRUTES = "Choisissez votre chemin"
 PHYSIOCAP_NOM = "Physiocap"
+PHYSIOCAP_UNI = "\u03D5"
+
 SEPARATEUR_ ="_"
 NOM_PROJET = "PHY" + SEPARATEUR_
 
@@ -134,7 +136,6 @@ CHEMIN_TEMPLATES = [ "modeleQgis", "project_templates"]
 UNE_SEULE_FOIS = "NO"
 
 # Exceptions Physiocap 
-ERREUR_EXCEPTION = u"Physiocap n'a pas correctement terminé son analyse"
 TAUX_LIGNES_ERREUR= 30
 
 # ###########################

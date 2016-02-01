@@ -46,6 +46,8 @@ data/*erreur
 data/test*
 testdata/
 modeleQgis/*.txt
+i18n/bak*
+i18nOKJH/
 print/
 ssl/
 #.noseids

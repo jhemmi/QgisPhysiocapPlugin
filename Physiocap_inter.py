@@ -10,7 +10,7 @@
  
  Le module Inter gère la création des moyennes inter parcellaire
  à partir d'un shapefile de contour de parcelles et l'extration des points de
- chaque parcelle
+ chaque parcelle 
 
  Les variables et fonctions sont nommées dans la même langue
   en Anglais pour les utilitaires
@@ -79,7 +79,7 @@ def physiocap_vector_poly_or_point( vector):
             else:
                 return "Inconnu"
     except:
-        physiocap_errot( "Warning : Layer ni point, ni polygone : " + vector.id())
+        physiocap_error( "Warning : Layer ni point, ni polygone : " + vector.id())
         pass
         # on evite les cas imprévus
         return "Inconnu"
@@ -275,7 +275,7 @@ def physiocap_moyenne_vers_contour( crs, EPSG_NUMBER, nom_contour_moyenne, nom_c
     writer = QgsVectorFileWriter( nom_contour_moyenne, "utf-8", les_champs, 
         QGis.WKBPolygon, crs , "ESRI Shapefile")
     
-    physiocap_log(u" Nombre contours contenant des données moyennes :" + str( len(les_parcelles)))
+    physiocap_log( u"Nombre contours contenant des données moyennes : %s" + str( len(les_parcelles)))
 
     for i in range( 0, len( les_parcelles)) :
         
@@ -319,10 +319,9 @@ def physiocap_moyenne_InterParcelles( self):
     repertoire_data = self.lineEditDirectoryPhysiocap.text()
     # Attention peut être non renseigné repertoire_projet = self.lineEditDernierProjet.text()
     if ((repertoire_data == "") or ( not os.path.exists( repertoire_data))):
-        physiocap_error( u"Pas de répertoire de donnée spécifié")
-        return physiocap_message_box( self, 
-            self.tr( u"Pas de répertoire de données brutes spécifié" ),
-            "information")
+        aText = self.trUtf8( "Pas de répertoire de données brutes spécifié" )
+        physiocap_error( aText)
+        return physiocap_message_box( self, aText, "information")
             
     details = "NO"
     if self.checkBoxInfoVignoble.isChecked():
@@ -339,7 +338,7 @@ def physiocap_moyenne_InterParcelles( self):
     # Pour polygone de contour   
     nom_complet_poly = self.comboBoxPolygone.currentText().split( SEPARATEUR_NOEUD)
     if ( len( nom_complet_poly) != 2):
-        aText = self.tr( "Le polygone de contour n'est pas choisi. " +
+        aText = self.trUtf8( "Le polygone de contour n'est pas choisi. " +
           "Avez-vous ouvert votre shapefile de contour ?")
         physiocap_error( aText)
         return physiocap_message_box( self, aText)           
@@ -357,7 +356,7 @@ def physiocap_moyenne_InterParcelles( self):
           "Lancez le traitement initial - bouton OK - avant de faire votre"  +
           "calcul de Moyenne Inter Parcellaire")
         return physiocap_message_box( self,
-            self.tr( u"Le shape de points n'est pas choisi. " +
+            self.trUtf8( "Le shape de points n'est pas choisi. " +
                 "Lancez le traitement initial - bouton OK - avant de faire votre " +
                 "calcul de Moyenne Inter Parcellaire" ),
             "information")
@@ -373,7 +372,7 @@ def physiocap_moyenne_InterParcelles( self):
             "Lancez le traitement initial - bouton OK - avant de faire votre" +
             "calcul de Moyenne Inter Parcellaire" )
         return physiocap_message_box( self,
-            self.tr( u"Le projet " + nom_noeud_arbre + " n'existe pas " +
+            self.trUtf8( "Le projet " + nom_noeud_arbre + " n'existe pas " +
             "Lancez le traitement initial - bouton OK - avant de faire votre" +
             "calcul de Moyenne Inter Parcellaire" ),
             "information")            
@@ -384,7 +383,7 @@ def physiocap_moyenne_InterParcelles( self):
           "Lancez le traitement initial - bouton OK - avant de faire votre " +
           "calcul de Moyenne Inter Parcellaire")
         return physiocap_message_box( self,
-            self.tr( u"Le jeu de points choisi n'est pas valide. " +
+            self.trUtf8( "Le jeu de points choisi n'est pas valide. " +
                 "Lancez le traitement initial - bouton OK - avant de faire votre " +
                 "calcul de Moyenne Inter Parcellaire" ),
             "information")    
@@ -394,7 +393,7 @@ def physiocap_moyenne_InterParcelles( self):
           "Lancez le traitement initial - bouton OK - avant de faire votre " +
           "calcul de Moyenne Inter Parcellaire")
         return physiocap_message_box( self,
-            self.tr( u"Le contour choisi n'est pas valide. " +
+            self.trUtf8( "Le contour choisi n'est pas valide. " +
                 "Lancez le traitement initial - bouton OK - avant de faire votre " +
                 "calcul de Moyenne Inter Parcellaire" ),
             "information")
@@ -405,7 +404,7 @@ def physiocap_moyenne_InterParcelles( self):
     if ( crs_poly != crs_point):
         mes = "Les projections (Crs) des coutours et mesures brutes sont différentes !"
         physiocap_error( mes)
-        return physiocap_message_box( self, self.tr( mes),"information")
+        return physiocap_message_box( self, self.trUtf8( mes),"information")
                 
     laProjection, EXT_CRS_SHP, EXT_CRS_PRJ, EXT_CRS_RASTER, EPSG_NUMBER = \
         physiocap_quelle_projection_demandee(self)
@@ -449,7 +448,7 @@ def physiocap_moyenne_InterParcelles( self):
             pass
         
         physiocap_log ( u"======= Inter >> ")
-        physiocap_log ( u"== Nom Contour : " + un_nom)
+        physiocap_log ( self.trUtf8( "== Contour : %s" % ( str( un_nom))))
         
         un_autre_ID = "PHY_ID" + str(id)
         geom_poly = un_contour.geometry() #get geometry of poly layer
@@ -462,13 +461,11 @@ def physiocap_moyenne_InterParcelles( self):
         elif geom_poly.wkbType() == QGis.WKBMultiPolygon:
             physiocap_log ( "== Polygone multiple: " + un_nom)
         else:
-            aText = u"== Cette forme n'est pas un polygone : " + str(un_nom)
+            aText = self.trUtf8( "== Cette forme n'est pas un polygone : %s" % ( str(un_nom)))
             physiocap_log ( aText)
             physiocap_error ( aText)
-            physiocap_message_box( self,
-                self.tr( aText),
-                "information")
-            continuephysiocap_tester_uri
+            physiocap_message_box( self, aText, "information")
+            continue
         
         # on initialise pour ce contour
         les_geom_point_feat = []
@@ -526,9 +523,9 @@ def physiocap_moyenne_InterParcelles( self):
             moyenne_dia = sum(les_diametres) / nb_dia
             moyenne_biom = sum(les_biom) / len( les_biom)
             moyenne_biomgm2 = sum(les_biomgm2) / len( les_biom)
-            physiocap_log ( u"== Date début : " + str(date_debut)) 
-            physiocap_log ( u"== Moyenne des sarments : " + str(moyenne_sar))
-            physiocap_log ( u"== Moyenne des diamètres : " + str(moyenne_dia))
+            physiocap_log ( self.trUtf8( "== Date : %s" % (str(date_debut)))) 
+            physiocap_log ( self.trUtf8( "== Moyenne des sarments : %s" % (str(moyenne_sar))))
+            physiocap_log ( self.trUtf8( "== Moyenne des diamètres : %s" % (str(moyenne_dia))))
             physiocap_log ( u"======= Inter << ")
             #physiocap_log( u"Fin du calcul des moyennes à partir de vos contours" )
 
@@ -628,12 +625,12 @@ def physiocap_moyenne_InterParcelles( self):
                     points_vector.loadNamedStyle( le_template_point)
                
         else:
-            physiocap_log( u"== Aucune point dans " + str(un_nom) + 
-                ". Pas de comparaison inter parcellaire" )       
+            physiocap_log( self.trUtf8( "== Aucune point dans %s. Pas de comparaison \
+                inter parcellaire" % ( str(un_nom))))       
     
     if ( contour_avec_point == 0):
         return physiocap_message_box( self, 
-                self.tr( u"== Aucune point dans vos contours : pas de comparaison inter parcellaire"),
+                self.trUtf8( "== Aucun point dans vos contours : pas de comparaison inter parcellaire"),
                 "information")
     else:
         
@@ -685,6 +682,6 @@ def physiocap_moyenne_InterParcelles( self):
                 vector.loadNamedStyle( le_template)  
 
     return physiocap_message_box( self, 
-                    self.tr( u"Fin du traitement inter-parcellaire"),
+                    self.trUtf8( "Fin du traitement inter-parcellaire"),
                     "information")
       

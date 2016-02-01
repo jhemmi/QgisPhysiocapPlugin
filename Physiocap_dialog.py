@@ -38,17 +38,23 @@
  *                                                                         *
 ***************************************************************************/
 """
+
+from Physiocap_CIVC import physiocap_csv_vers_shapefile, physiocap_assert_csv, \
+        physiocap_fichier_histo, physiocap_tracer_histo, physiocap_filtrer   
+
 from Physiocap_tools import physiocap_message_box, physiocap_question_box, \
-        physiocap_log, physiocap_error, \
-        physiocap_quelle_projection_demandee, physiocap_get_layer_by_ID, \
-        physiocap_get_uri_by_layer
-        
+        physiocap_log_for_error, physiocap_log, physiocap_error, \
+        physiocap_write_in_synthese, \
+        physiocap_rename_existing_file, physiocap_rename_create_dir, physiocap_open_file, \
+        physiocap_look_for_MID, physiocap_list_MID, physiocap_quel_uriname, \
+        physiocap_get_uri_by_layer, physiocap_tester_uri, \
+        physiocap_quelle_projection_demandee, physiocap_get_layer_by_ID
 
 from Physiocap_inter import physiocap_fill_combo_poly_or_point, physiocap_moyenne_InterParcelles
 
 from Physiocap_intra_interpolation import physiocap_interpolation_IntraParcelles
 
-from Physiocap_creer_arbre import physiocap_creer_donnees_resultats
+#from Physiocap_creer_arbre import physiocap_creer_donnees_resultats
 
 from Physiocap_var_exception import *
 
@@ -61,6 +67,19 @@ from qgis.gui import *
 
 import glob
 import os
+import shutil
+import time
+
+# TODO : simplification comme cet example
+## from PyQt4 import QtCore, QtGui
+##from ui_attributepainter import Ui_AttributePainterForm
+##
+##
+##class attributePainterDialog(QtGui.QWidget, Ui_AttributePainterForm):
+##    def __init__(self, iface):
+##        QtGui.QWidget.__init__(self)
+##        self.setupUi(self)
+
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join( os.path.dirname(__file__), 'Physiocap_dialog_base.ui'))
 
@@ -78,9 +97,9 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.plugins_dir = os.path.dirname( self.plugin_dir)
         self.python_dir = os.path.dirname( self.plugins_dir)
         self.gis2_dir = os.path.dirname( self.python_dir)
-        #physiocap_log( u"Rep .gis2 " + str( self.gis2_dir))
+        ## physiocap_log( u"Rep .gis2 " + str( self.gis2_dir))
        
-        # Slot for boutons certains sont dans UI
+        # Slot for boutons : certains sont dans UI
         ##self.buttonBox.button( QDialogButtonBox.Ok ).pressed.connect(self.accept)
         ##self.buttonBox.button( QDialogButtonBox.Cancel ).pressed.connect(self.reject)
         self.buttonBox.button( QDialogButtonBox.Help ).pressed.connect(self.demander_aide)
@@ -108,7 +127,9 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         # self.toolButtonContours.pressed.connect( self.lecture_shape_contours )   
               
         machine = platform.system()
-        physiocap_log( u"Votre machine tourne sous " + machine)
+        #physiocap_log( self.trUtf8( "Votre machine tourne sous ") + machine)
+        physiocap_log( self.trUtf8( "Votre machine tourne sous {0} ").\
+            format( str( machine)))
         
         # Style sheet pour QProgressBar
         self.setStyleSheet( "QProgressBar {color:black; text-align:center; font-weight:bold; padding:2px;}"
@@ -151,7 +172,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.fieldComboCepage.setCurrentIndex( 0)
         if len( CEPAGES) == 0:
             self.fieldComboCepage.clear( )
-            physiocap_error( u"Pas de liste de cépage pré défini")
+            physiocap_error( self.trUtf8( "Pas de liste de cépage pré défini"))
         else:
             self.fieldComboCepage.clear( )
             self.fieldComboCepage.addItems( CEPAGES )
@@ -167,7 +188,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.fieldComboTaille.setCurrentIndex( 0)        
         if len( TAILLES) == 0:
             self.fieldComboTaille.clear( )
-            physiocap_error( u"Pas de liste de mode de taille pré défini")
+            physiocap_error( self.trUtf8( "Pas de liste de mode de taille pré défini"))
         else:
             self.fieldComboTaille.clear( )
             self.fieldComboTaille.addItems( TAILLES )
@@ -183,7 +204,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.fieldComboFormats.setCurrentIndex( 0)   
         if len( FORMAT_VECTEUR) == 0:
             self.fieldComboFormats.clear( )
-            physiocap_error( u"Pas de liste des formats de vecteurs pré défini")
+            physiocap_error( self.trUtf8( "Pas de liste des formats de vecteurs pré défini"))
         else:
             self.fieldComboFormats.clear( )
             uri = physiocap_get_uri_by_layer( self)
@@ -206,8 +227,9 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.fieldComboThematiques.setCurrentIndex( 0)   
         if len( CHEMIN_TEMPLATES) == 0:
             self.fieldComboThematiques.clear( )
-            physiocap_log( u"Pas de répertoire de thematiques pré défini")
-            physiocap_error( u"Pas de répertoire de thematiques pré défini")
+            aText = self.trUtf8( "Pas de répertoire de thématiques pré défini")
+            physiocap_log( aText)
+            physiocap_error( aText)
         else:
             leChoixDeThematiques = int( self.settings.value("Physiocap/leChoixDeThematiques", -1)) 
             # Cas inital
@@ -256,22 +278,21 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             #physiocap_log( u"PILLOW Version " + str(PIL.PILLOW_VERSION))
             #physiocap_log( u"PIL imaging " + str(PIL._imaging))
             from PIL import Image
-            #physiocap_log( u"OK après l'import Image ")
             from PIL import _imaging
-            #physiocap_log( u"OK après l'import imaging ")
         except ImportError:
             #import sys
             #lePath = sys.path
-            aText = "Le module image n'est pas accessible. "
-            aText = aText + "Vous ne pouvez pas visualiser les histogrammes "
+            aText = self.trUtf8( "Le module image n'est pas accessible. ")
+            aText = aText + self.trUtf8( "Vous ne pouvez pas visualiser les histogrammes ")
             physiocap_log( aText)
             physiocap_error( aText)
             self.settings.setValue("Physiocap/histogrammes", "NO")
             self.checkBoxHistogramme.setChecked( Qt.Unchecked)
             self.checkBoxHistogramme.setEnabled( False)
-            physiocap_message_box( self,
-                self.tr( u'Physiocap : Votre installation QGIS ne permet pas du visualisation des histogrammes' ),
-            "information")
+            aText = self.trUtf8( u'Physiocap : Votre installation QGIS ne permet pas du visualisation des histogrammes'\
+                )
+            physiocap_log( aText)
+            physiocap_message_box( self, aText, "information")
 
         if (self.settings.value("Physiocap/histogrammes") == "YES"):
             self.checkBoxHistogramme.setChecked( Qt.Checked)
@@ -364,7 +385,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.fieldComboIntra.setCurrentIndex( 0)   
         if len( ATTRIBUTS_INTRA) == 0:
             self.fieldComboIntra.clear( )
-            physiocap_error( u"Pas de liste des attribut pour Intra pré défini")
+            physiocap_error( self.trUtf8( "Pas de liste des attributs pour Intra pré défini"))
         else:
             self.fieldComboIntra.clear( )
             self.fieldComboIntra.addItems( ATTRIBUTS_INTRA )
@@ -414,16 +435,17 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         # Rechecher min et max du layer
         layer = physiocap_get_layer_by_ID( idLayer)
         if layer is not None:
-            #physiocap_log(u"Todo : Recherche de min et max de l'attribut >" + str( nom_attribut))
             try:
                 index_attribut = layer.fieldNameIndex( nom_attribut)
             except:
-                physiocap_log( "Consultez le journal Physiocap Erreur",
-                "WARNING")
-                aText = u"L'attribut " + str( nom_attribut) + " n'existe pas dans les données à disposition."
-                aText = u"L'interpolation n'est pas possible. Relancer un calcul de votre projet Physiocap."
+                physiocap_log_for_error( self)
+                aText = self.trUtf8( "L'attribut %s n'existe pas dans les données à disposition." %\
+                     ( str( nom_attribut)))
+                aText = aText + \
+                    self.trUtf8( \
+                    "L'interpolation n'est pas possible. Relancer un calcul de votre projet Physiocap.")
                 physiocap_error( aText, "CRITICAL")
-                return physiocap_message_box( self, self.tr( aText), "information" )
+                return physiocap_message_box( self, aText, "information")
             valeurs = []
             for un_point in layer.getFeatures():
                  valeurs.append( un_point.attributes()[index_attribut])
@@ -441,7 +463,6 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.fieldComboContours.addItem( "NOM_PHY")
         self.fieldComboContours.setCurrentIndex( 0)
         if layer is not None:
-            #physiocap_log(u"Look for fields of layer >" + layer.name())
             # On exclut les layer qui ne sont pas de type 0 (exemple 1 raster)
             if ( layer.type() == 0):
                 i = 1 # Demarre à 1 car NOM_PHY est dejà ajouté
@@ -544,11 +565,8 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         max_entier = round( le_max)
 
         if (min_entier >= max_entier):
-            physiocap_log( u"Votre minimum ne doit pas être plus grand que votre maximum")
-            return physiocap_message_box( self,
-                self.tr( u"Votre minimum ne doit pas être plus grand que votre maximum"),
-                "information")              
-        
+            aText = self.trUtf8( "Votre minimum ne doit pas être plus grand que votre maximum")
+            return physiocap_message_box( self, aText, "information")              
         
         if (max_entier < le_max):
             max_entier = max_entier +1
@@ -641,14 +659,11 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
        
         nom_complet_point = self.comboBoxPoints.currentText().split( SEPARATEUR_NOEUD)
         if ( len( nom_complet_point) != 2):
-            physiocap_error( u"Le shape de points n'est pas choisi." +
-              "Lancez le traitement initial - bouton OK - avant de faire votre" +
-              "calcul de Moyenne Inter Parcellaire")
-            return physiocap_message_box( self,
-                self.tr( u"Le shape de points n'est pas choisi." +
-                    "Lancez le traitement initial - bouton OK - avant de faire votre" +
-                    "calcul de Moyenne Inter Parcellaire" ),
-                "information")        
+            aText = self.trUtf8( "Le shape de points n'est pas choisi. \
+Lancez le traitement initial - bouton OK - avant de faire votre \
+calcul de Moyenne Inter Parcellaire")   
+            physiocap_error( aText, "CRITICAL")
+            return physiocap_message_box( self, aText, "information" )
 
         # Memorisation des saisies
         self.memoriser_saisies_inter_intra_parcelles()
@@ -658,48 +673,36 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             physiocap_interpolation_IntraParcelles(self)
             
         except physiocap_exception_rep as e:
-            physiocap_log( ERREUR_EXCEPTION + ". Consultez le journal Physiocap Erreur",
-                "WARNING")
-            physiocap_error( ERREUR_EXCEPTION)
-            physiocap_error(u"Erreur bloquante lors de la création du répertoire : " + str( e),
-                "CRITICAL")
-            return physiocap_message_box( self, self.tr( ERREUR_EXCEPTION + "\n" + \
-                u"Erreur bloquante lors de la création du répertoire : " + str( e)),
-                "information" )
+            physiocap_log_for_error( self)
+            aText = self.trUtf8( "Erreur bloquante lors de la création du répertoire : %s" % ( str( e)))
+            physiocap_error( aText, "CRITICAL")
+            return physiocap_message_box( self, aText, "information" )
         except physiocap_exception_vignette_exists as e:
-            physiocap_log( ERREUR_EXCEPTION + ". Consultez le journal Physiocap Erreur",
-                "WARNING")
-            physiocap_error( ERREUR_EXCEPTION)
-            physiocap_error(u"Les moyennes IntraParcellaires " + str( e) + u" existent déjà.",
-                "CRITICAL")
-            return physiocap_message_box( self, self.tr( ERREUR_EXCEPTION + "\n" + \
-                u"Les moyennes IntraParcellaires du projet Physiocap " + str( e) + u" existent déjà. " + \
-                u"Vous ne pouvez pas redemander ce calcul : vous devez détruire le groupe ou créer un nouveau projet Physiocap"),
-                "information" )
+            physiocap_log_for_error( self)
+            aText = self.trUtf8( "Des moyennes IntraParcellaires dans %s existent déjà. " % ( str( e)))
+            aText = aText + self.trUtf8( "Vous ne pouvez pas redemander ce calcul : vous devez détruire le groupe ") 
+            aText = aText + self.trUtf8( "ou mieux créer un nouveau projet Physiocap")
+            physiocap_error( aText, "CRITICAL")
+            return physiocap_message_box( self, aText, "information" )
         except physiocap_exception_points_invalid as e:
-            physiocap_log( ERREUR_EXCEPTION + ". Consultez le journal Physiocap Erreur",
-                "WARNING")
-            physiocap_error( ERREUR_EXCEPTION)
-            physiocap_error(u"Le fichier de points du projet" + str( e) + "ne contient pas les attributs attendus",
-                "CRITICAL")
-            return physiocap_message_box( self, self.tr( ERREUR_EXCEPTION + "\n" + \
-                u"Le fichier de points du projet" + str( e) + " ne contient pas les attributs attendus"),
-                "information" )
+            physiocap_log_for_error( self)
+            aText = self.trUtf8( "Le fichier de points du projet %s ne contient pas les attributs attendus" % ( str( e)))
+            physiocap_error( aText, "CRITICAL")
+            return physiocap_message_box( self, aText, "information" )
         except physiocap_exception_interpolation as e:
-            physiocap_log( ERREUR_EXCEPTION + ". Consultez le journal Physiocap Erreur",
-                "WARNING")
-            physiocap_error( ERREUR_EXCEPTION)
-            physiocap_error(u"L'interpolation du fichier : " + str( e) + u" n'a pu s'exécuter",
-                "CRITICAL")
-            return physiocap_message_box( self, self.tr( ERREUR_EXCEPTION + "\n" + \
-                u"L'interpolation du fichier : " + str( e) + u" n'a pu s'exécuter"),
-                "information" )
+            physiocap_log_for_error( self)
+            allFile = str(e)
+            finFile = '"...' + allFile[-60:-1] + '"'            
+            aText = self.trUtf8( "L'interpolation de : %s n'a pu s'exécuter entièrement. " % ( finFile))
+            aText = aText + self.trUtf8( "Avez-vous installé et activé la librairie d'interpolation (SAGA ou GDAL) ?")
+            physiocap_error( aText, "CRITICAL")
+            return physiocap_message_box( self, aText, "information" )
         except:
             raise
         finally:
             pass
         # Fin de capture des erreurs Physiocap        
-        physiocap_log(u"Physiocap a terminé les interpolations intra parcelaire.")
+        physiocap_log( self.trUtf8( "Physiocap a terminé les interpolations intra parcelaire."))
 
                    
     def moyenne_inter_parcelles(self):
@@ -707,15 +710,12 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
        
         nom_complet_point = self.comboBoxPoints.currentText().split( SEPARATEUR_NOEUD)
         if ( len( nom_complet_point) != 2):
-            physiocap_error( u"Le shape de points n'est pas choisi. " +
-              "Lancez le traitement initial - bouton OK - avant de faire votre " +
-              "calcul de Moyenne Inter Parcellaire")
-            return physiocap_message_box( self,
-                self.tr( u"Le shape de points n'est pas choisi. " +
-                    "Lancez le traitement initial - bouton OK - avant de faire votre " +
-                    "calcul de Moyenne Inter Parcellaire" ),
-                "information")        
-
+            aText = self.trUtf8( "Le shape de points n'est pas choisi. \
+                    Lancez le traitement initial - bouton OK - avant de faire votre \
+                    calcul de Moyenne Inter Parcellaire")   
+            physiocap_error( aText, "CRITICAL")
+            return physiocap_message_box( self, aText, "information" )
+        
         # Eviter les appels multiples
         self.ButtonInter.setEnabled( False)
         # Memorisation des saisies
@@ -726,32 +726,26 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             physiocap_moyenne_InterParcelles(self)
             
         except physiocap_exception_rep as e:
-            physiocap_log( ERREUR_EXCEPTION + ". Consultez le journal Physiocap Erreur",
-                "WARNING")
-            physiocap_error( ERREUR_EXCEPTION)
-            physiocap_error(u"Erreur bloquante lors de la création du répertoire : " + str( e),
-                "CRITICAL")
-            return physiocap_message_box( self, self.tr( ERREUR_EXCEPTION + "\n" + \
-                u"Erreur bloquante lors de la création du répertoire : " + str( e)),
-                "information" )
+            physiocap_log_for_error( self)
+            aText = self.trUtf8( "Erreur bloquante lors de la création du répertoire : %s" % ( str( e)))
+            physiocap_error( aText, "CRITICAL")
+            return physiocap_message_box( self, aText, "information" )
         except physiocap_exception_vignette_exists as e:
-            physiocap_log(u"Les moyennes InterParcellaires du projet Physiocap " + str( e) + u" existent déjà.",
-                "information")
-            return physiocap_message_box( self, self.tr( \
-                u"Les moyennes InterParcellaires du projet Physiocap " + str( e) + u" existent déjà." + \
-                u"Vous ne pouvez pas redemander ce calcul : vous pouvez acceder au calcul Intra Parcellaire"),
-                "information" )
+            aText1 = self.trUtf8( "Les moyennes InterParcellaires dans %s existent déjà. " % ( str( e)))
+            physiocap_log(aText1, "information")
+            physiocap_log_for_error( self)
+            aText = aText1 + self.trUtf8( "Vous ne pouvez pas redemander ce calcul : vous devez détruire le groupe ") 
+            aText = aText + self.trUtf8( "ou mieux créer un nouveau projet Physiocap")
+            physiocap_error( aText, "CRITICAL")
+            return physiocap_message_box( self, aText, "information" )
         except physiocap_exception_points_invalid as e:
-            physiocap_log( ERREUR_EXCEPTION + ". Consultez le journal Physiocap Erreur",
-                "WARNING")
-            physiocap_error( ERREUR_EXCEPTION)
-            physiocap_error(u"Le fichier de points " + str( e) + "ne contient pas les attributs attendus",
-                "CRITICAL")
-            return physiocap_message_box( self, self.tr( ERREUR_EXCEPTION + "\n" + \
-                u"Le fichier de points " + str( e) + " ne contient pas les attributs attendus" +
-                "Lancez le traitement initial - bouton OK - avant de faire votre " +
-                "calcul de Moyenne Inter Parcellaire" ),
-                "information" )
+            physiocap_log_for_error( self)
+            physiocap_log_for_error( self)
+            aText = self.trUtf8( "Le fichier de points du projet %s ne contient pas les attributs attendus" % ( str( e)))
+            aText = aText + self.trUtf8( "Lancez le traitement initial - bouton OK - avant de faire votre ")
+            aText = aText + self.trUtf8( "calcul de Moyenne Inter Parcellaire" )
+            physiocap_error( aText, "CRITICAL")
+            return physiocap_message_box( self, aText, "information" )
         except:
             raise
         finally:
@@ -760,7 +754,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         
         self.groupBoxIntra.setEnabled( True)
         self.ButtonIntra.setEnabled( True)
-        physiocap_log(u"Physiocap a terminé les moyennes inter parcelaire.")
+        physiocap_log(self.trUtf8( "Physiocap a terminé les moyennes inter parcelaire."))
 
     def bascule_details_vignoble(self):
         """ Changement de demande pour les details vignoble : 
@@ -792,6 +786,459 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         help_url = QUrl("file:///%s/help/index.html" % self.plugin_dir)
         QDesktopServices.openUrl(help_url)
 
+
+    def physiocap_creer_donnees_resultats( self, laProjection, EXT_CRS_SHP, EXT_CRS_PRJ,
+        details = "NO", histogrammes = "NO", recursif = "NO"):
+        """ Récupération des paramètres saisies et 
+        creation de l'arbre "source" "texte" et du fichier "resultats"
+        Ce sont les résultats de l'analyse filtration des données brutes"""
+                    
+        # Récupérer les paramètres saisies
+        REPERTOIRE_DONNEES_BRUTES = self.lineEditDirectoryPhysiocap.text()
+        NOM_PROJET = self.lineEditProjet.text()
+        mindiam = float( self.spinBoxMinDiametre.value())
+        maxdiam = float( self.spinBoxMaxDiametre.value())
+        max_sarments_metre = float( self.spinBoxMaxSarmentsParMetre.value())
+
+        physiocap_log( self.trUtf8( "Paramètres pour filtrer les diamètres min : {0} max : {1}").\
+            format( str(mindiam), str(maxdiam)))
+        if details == "YES":
+            interrangs = float( self.spinBoxInterrangs.value())
+            interceps = float( self.spinBoxInterceps.value())
+            hauteur = float( self.spinBoxHauteur.value())
+            densite = float( self.doubleSpinBoxDensite.value())
+            leCepage = self.fieldComboCepage.currentText()
+            laTaille = self.fieldComboTaille.currentText()
+            
+        # Vérification de l'existance ou création du répertoire projet
+        chemin_projet = os.path.join(REPERTOIRE_DONNEES_BRUTES, NOM_PROJET)
+        #physiocap_log(u"Repertoire projet : " + str(chemin_projet))
+        if not (os.path.exists( chemin_projet)):
+            try:
+                os.mkdir( chemin_projet)
+            except:
+                raise physiocap_exception_rep( NOM_PROJET)
+        else:
+            # Le répertoire existant est renommé en (+1)
+            try: 
+                chemin_projet = physiocap_rename_create_dir( chemin_projet)
+            except:
+                physiocap_log( self.trUtf8( "Erreur dans fonction creer_donnees_resultats \
+                    == %s" % ( str(chemin_projet))))
+                raise physiocap_exception_rep( chemin_projet)
+        
+        
+        # Stocker dans la fenetre de synthese le nom du projet
+        chemin_base_projet = os.path.basename( chemin_projet)
+        self.lineEditDernierProjet.setText( chemin_base_projet)
+        self.settings= QSettings( PHYSIOCAP_NOM, PHYSIOCAP_NOM)
+        self.settings.value("Physiocap/dernier_repertoire", chemin_base_projet) 
+        
+        # Progress BAR 2 %
+        self.progressBar.setValue( 2)
+        
+            
+        # Verification de l'existance ou création du répertoire des sources MID et fichier csv
+        chemin_sources = os.path.join(chemin_projet, REPERTOIRE_SOURCES)
+        if not (os.path.exists( chemin_sources)):
+            try:
+                os.mkdir( chemin_sources)
+            except:
+                raise physiocap_exception_rep( REPERTOIRE_SOURCES)
+                    
+        # Fichier de concaténations CSV des résultats bruts        
+        nom_court_csv_concat = NOM_PROJET + SUFFIXE_BRUT_CSV
+        try:
+            nom_csv_concat, csv_concat = physiocap_open_file( nom_court_csv_concat, chemin_sources, "w")
+        except physiocap_exception_fic as e:
+            raise physiocap_exception_csv( nom_court_csv_concat)
+            
+        # Création du fichier concaténé
+        nom_fichiers_recherches = os.path.join(REPERTOIRE_DONNEES_BRUTES, EXTENSION_MID)
+        
+        # Assert le nombre de MID > 0
+        # le Tri pour retomber dans l'ordre de Physiocap_V8
+        if ( recursif == "YES"):
+            # On appelle la fonction de recherche récursive
+            listeTriee = physiocap_look_for_MID( REPERTOIRE_DONNEES_BRUTES, "YES", REPERTOIRE_SOURCES)
+        else:
+            # Non recursif
+            listeTriee = sorted(glob.glob( nom_fichiers_recherches))
+
+        if len( listeTriee) == 0:
+            raise physiocap_exception_no_mid()
+        
+        # Verification si plus de 10 MIDs
+        if len( listeTriee) >= 15:
+            # Beaucoup de MIDs Poser une question si cancel, on stoppe
+            uMsg =self.trUtf8( "Plus de 15 fichier MIDs sont à analyser. Temps de traitement > à 1 minute. Voulez-vous continuer ?")
+            if ( physiocap_question_box( self, uMsg)):
+                pass
+            else:
+                # Arret demandé
+                raise physiocap_exception_stop_user()
+            
+        for mid in listeTriee:
+            try:
+                shutil.copyfileobj(open(mid, "r"), csv_concat)
+                # et copie des MID
+                nom_cible = os.path.join( chemin_sources, os.path.basename(mid))
+                if os.path.exists( nom_cible):
+                    nouveau_long = physiocap_rename_existing_file( nom_cible)
+                    shutil.copyfile( mid, nouveau_long)
+                else:
+                    shutil.copy( mid, chemin_sources)
+            except:
+                raise physiocap_exception_mid( mid)
+        csv_concat.close()
+
+        # Assert le fichier de données n'est pas vide
+        if os.path.getsize( nom_csv_concat ) == 0 :
+            uMsg = self.trUtf8( "Le fichier %s a une taille nulle !" % ( str(nom_court_csv_concat))) 
+            physiocap_message_box( self, uMsg)
+            return physiocap_error( uMsg)
+        
+        # Création la première partie du fichier de synthèse
+        fichier_resultat_analyse = chemin_base_projet + SEPARATEUR_ + FICHIER_RESULTAT
+        nom_fichier_synthese, fichier_synthese = physiocap_open_file( fichier_resultat_analyse, chemin_projet , "w")
+        fichier_synthese.write( "SYNTHESE PHYSIOCAP\n\n")
+        fichier_synthese.write( "Générée le : ")
+        a_time = time.strftime( "%d/%m/%y %H:%M\n",time.localtime())
+        fichier_synthese.write( a_time)
+        fichier_synthese.write( "Répertoire de base ")
+        fichier_synthese.write( chemin_base_projet + "\n")
+        fichier_synthese.write( "Nom des MID \t\t Date et heures\n=>Nb. Valeurs brutes\tVitesse km/h")
+        if (CENTROIDES == "YES"):
+            fichier_synthese.write("\nCentroïdes")
+        fichier_synthese.write("\n")
+        info_mid = physiocap_list_MID( REPERTOIRE_DONNEES_BRUTES, listeTriee)
+        for all_info in info_mid:
+            info = all_info.split(";")
+            fichier_synthese.write( str(info[0]) + "\t" + str(info[1]) + "->" + str(info[2])+ "\n")
+            fichier_synthese.write( "=>\t" +str(info[3]) + "\t" + str(info[4]))
+            if (CENTROIDES == "YES"):
+                # Centroides
+                fichier_synthese.write( "\n" + str(info[5]) + "--" + str(info[6]))
+            fichier_synthese.write("\n")
+    ##        nom_mid = ""
+    ##        for fichier_mid in listeTriee:
+    ##            nom_mid = nom_mid + os.path.basename( fichier_mid) + " & "
+    ##        fichier_synthese.write("Liste des fichiers MID : " + nom_mid[:-3] + "\n")
+    ##        physiocap_log( "Liste des MID : " + nom_mid[:-3])
+       
+        # Progress BAR 5 %
+        self.progressBar.setValue( 5)
+        physiocap_log ( self.trUtf8( "Fin de la création csv et début de synthèse"))
+       
+        # Verification de l'existance ou création du répertoire textes
+        chemin_textes = os.path.join(chemin_projet, REPERTOIRE_TEXTES)
+        if not (os.path.exists( chemin_textes)):
+            try :
+                os.mkdir( chemin_textes)
+            except :
+                raise physiocap_exception_rep( REPERTOIRE_TEXTES)
+                       
+        # Ouverture du fichier des diamètres     
+        nom_court_fichier_diametre = "diam" + SUFFIXE_BRUT_CSV
+        nom_data_histo_diametre, data_histo_diametre = physiocap_open_file( nom_court_fichier_diametre, 
+            chemin_textes)
+        
+        # Appel fonction de creation de fichier
+        nom_court_fichier_sarment = "nbsarm" + SUFFIXE_BRUT_CSV
+        nom_data_histo_sarment, data_histo_sarment = physiocap_open_file( nom_court_fichier_sarment, 
+            chemin_textes)
+
+        # Todo: V1.5 ? Supprimer le fichier erreur
+        nom_fichier_erreur, erreur = physiocap_open_file( "erreurs.csv" , chemin_textes)
+
+        # ouverture du fichier source
+        csv_concat = open(nom_csv_concat, "r")
+        # Appeler la fonction de vérification du format du fichier csv
+        # Si plus de 20 % d'erreur exception est monté
+        try:
+            pourcentage_erreurs = physiocap_assert_csv( csv_concat, erreur)
+            if ( pourcentage_erreurs > TAUX_LIGNES_ERREUR):
+                fichier_synthese.write("\nTrop d'erreurs dans les données brutes")
+                # Todo : question selon le taux de lignes en erreur autorisées
+                #raise physiocap_exception_err_csv( pourcentage_erreurs)
+        except:
+            raise
+
+        # Progress BAR 10 %
+        self.progressBar.setValue( 10)        
+        fichier_synthese.write("\n\nPARAMETRES SAISIS ")
+        
+        if os.path.getsize( nom_csv_concat ) == 0 :
+            uMsg = self.trUtf8( "Le fichier %s a une taille nulle !" % ( str(nom_court_csv_concat)))
+            physiocap_message_box( self, uMsg)
+            return physiocap_error( uMsg)
+
+        # ouverture du fichier source
+        csv_concat = open(nom_csv_concat, "r")
+
+        # Appeler la fonction de traitement
+        if histogrammes == "YES":
+            #################
+            physiocap_fichier_histo( csv_concat, data_histo_diametre,    
+                        data_histo_sarment, erreur)
+            #################
+            # Fermerture des fichiers
+            data_histo_diametre.close()
+            data_histo_sarment.close()
+        csv_concat.close()
+        erreur.close()
+        
+        # Progress BAR 12 %
+        self.progressBar.setValue( 12)
+        
+        # Verification de l'existance 
+        chemin_histos = os.path.join(chemin_projet, REPERTOIRE_HISTOS)
+        if not (os.path.exists( chemin_histos)):
+            try:
+                os.mkdir( chemin_histos)
+            except:
+                raise physiocap_exception_rep( REPERTOIRE_HISTOS)
+
+        if histogrammes == "YES":
+            # creation d'un histo
+            nom_data_histo_sarment, data_histo_sarment = physiocap_open_file( nom_court_fichier_sarment, chemin_textes, 'r')
+            nom_histo_sarment, histo_sarment = physiocap_open_file( FICHIER_HISTO_SARMENT, chemin_histos)
+            name = nom_histo_sarment
+            physiocap_tracer_histo( data_histo_sarment, name, 0, 50, "SARMENT au m", "FREQUENCE en %", "HISTOGRAMME NBSARM AVANT TRAITEMENT")
+            histo_sarment.close()
+            
+            nom_data_histo_diametre, data_histo_diametre = physiocap_open_file( nom_court_fichier_diametre, chemin_textes, 'r')
+            nom_histo_diametre, histo_diametre = physiocap_open_file( FICHIER_HISTO_DIAMETRE, chemin_histos)
+            name = nom_histo_diametre
+            physiocap_tracer_histo( data_histo_diametre, name, 0, 30, "DIAMETRE en mm", "FREQUENCE en %", "HISTOGRAMME DIAMETRE AVANT TRAITEMENT")
+            histo_diametre.close()        
+            
+            physiocap_log ( self.trUtf8( "Fin de la création des histogrammes bruts"))
+        else:
+            physiocap_log ( self.trUtf8( "Pas de création des histogrammes"))
+
+        # Progress BAR 15 %
+        self.progressBar.setValue( 15) 
+                  
+        # Création des csv
+        nom_court_csv_sans_0 = NOM_PROJET + SEPARATEUR_ + "OUT.csv"
+        nom_csv_sans_0, csv_sans_0 = physiocap_open_file( 
+            nom_court_csv_sans_0, chemin_textes)
+
+        nom_court_csv_avec_0 = NOM_PROJET + SEPARATEUR_ + "OUT0.csv"
+        nom_csv_avec_0, csv_avec_0 = physiocap_open_file( 
+            nom_court_csv_avec_0, chemin_textes)
+       
+        nom_court_fichier_diametre_filtre = "diam_FILTERED.csv"
+        nom_fichier_diametre_filtre, diametre_filtre = physiocap_open_file( 
+            nom_court_fichier_diametre_filtre, chemin_textes )
+
+        # Ouverture du fichier source et re ouverture du ficheir erreur
+        csv_concat = open(nom_csv_concat, "r")       
+        erreur = open(nom_fichier_erreur,"a")
+
+        # Filtrage des données Physiocap
+        #################
+        if details == "NO":
+            interrangs = 1
+            interceps = 1 
+            densite = 1
+            hauteur = 1        
+        retour_filtre = physiocap_filtrer( self, csv_concat, csv_sans_0, csv_avec_0, \
+                    diametre_filtre, nom_fichier_synthese, erreur, \
+                    mindiam, maxdiam, max_sarments_metre, details,
+                    interrangs, interceps, densite, hauteur)
+        #################
+        # Fermeture du fichier destination
+        csv_sans_0.close()
+        csv_avec_0.close()
+        diametre_filtre.close()
+        erreur.close()
+        # Fermerture du fichier source
+        csv_concat.close()  
+
+        # Todo : V1.5 ? Gerer cette erreur par exception
+        if retour_filtre != 0:
+            uMsg = self.trUtf8( "Erreur bloquante : problème lors du filtrage \
+                des données de %s" % ( str(nom_court_csv_concat)))
+            return physiocap_error(uMsg)  
+
+        # Progress BAR 60 %
+        self.progressBar.setValue( 41)
+
+        if histogrammes == "YES":
+            # Histo apres filtatration
+            nom_fichier_diametre_filtre, diametre_filtre = physiocap_open_file( 
+                nom_court_fichier_diametre_filtre, chemin_textes , "r")
+            nom_histo_diametre_filtre, histo_diametre = physiocap_open_file( FICHIER_HISTO_DIAMETRE_FILTRE, chemin_histos)
+
+            physiocap_tracer_histo( diametre_filtre, nom_histo_diametre_filtre, 0, 30, "DIAMETRE en mm", "FREQUENCE en %", "HISTOGRAMME DIAMETRE APRES TRAITEMENT")
+            diametre_filtre.close()        
+                                              
+        # On écrit dans le fichiers résultats les paramètres du modéle
+        fichier_synthese = open(nom_fichier_synthese, "a")
+        if details == "NO":
+            fichier_synthese.write("\nAucune information parcellaire saisie\n")
+        else:
+            fichier_synthese.write("\n")
+            msg = "Cépage : " + str( leCepage) + "\n"
+            fichier_synthese.write( msg)
+            fichier_synthese.write("Type de taille : %s\n" %laTaille)        
+            fichier_synthese.write("Hauteur de végétation : %s cm\n" %hauteur)
+            fichier_synthese.write("Densité des bois de taille : %s \n" %densite)
+            fichier_synthese.write("Ecartement entre rangs : %s cm\n" %interrangs)
+            fichier_synthese.write("Ecartement entre ceps : %s cm\n" %interceps)        
+
+        fichier_synthese.write("\n")
+        fichier_synthese.write("Nombre de sarments max au mètre linéaire: %s \n" %max_sarments_metre)
+        fichier_synthese.write("Diamètre minimal : %s mm\n" %mindiam)
+        fichier_synthese.write("Diamètre maximal : %s mm\n" %maxdiam)
+        fichier_synthese.close()
+
+        # Progress BAR 42%
+        self.progressBar.setValue( 42)
+        
+        # Verification de l'existance ou création du répertoire des sources MID et fichier csv
+        chemin_shapes = os.path.join(chemin_projet, REPERTOIRE_SHAPEFILE)
+        if not (os.path.exists( chemin_shapes)):
+            try :
+                os.mkdir( chemin_shapes)
+            except :
+                raise physiocap_exception_rep( REPERTOIRE_SHAPEFILE)
+
+        # Création des shapes sans 0
+        nom_court_shape_sans_0 = NOM_PROJET + NOM_POINTS + EXT_CRS_SHP
+        nom_shape_sans_0 = os.path.join(chemin_shapes, nom_court_shape_sans_0)
+        nom_court_prj_sans_0 = NOM_PROJET + NOM_POINTS + EXT_CRS_PRJ
+        nom_prj_sans_0 = os.path.join(chemin_shapes, nom_court_prj_sans_0)
+
+            
+        # Si le shape existe dejà il faut le détruire
+        if os.path.isfile( nom_shape_sans_0):
+            physiocap_log ( self.trUtf8( "Le shape file existant déjà, il est détruit."))
+            os.remove( nom_shape_sans_0)            
+
+        # cas sans 0, on demande la synthese en passant le nom du fichier
+        retour = physiocap_csv_vers_shapefile( self, 45, nom_csv_sans_0, nom_shape_sans_0, nom_prj_sans_0, 
+                laProjection,
+                nom_fichier_synthese, details)
+        if retour != 0:
+            return physiocap_error(u"Erreur bloquante : problème lors de la création du shapefile : " + 
+                nom_court_shape_sans_0)                
+
+        # Progress BAR 65 %
+        self.progressBar.setValue( 65)
+                
+        # Création des shapes avec 0
+        nom_court_shape_avec_0 = NOM_PROJET + NOM_POINTS + EXTENSION_POUR_ZERO + EXT_CRS_SHP
+        nom_shape_avec_0 = os.path.join(chemin_shapes, nom_court_shape_avec_0)
+        nom_court_prj_avec_0 = NOM_PROJET + NOM_POINTS + EXTENSION_POUR_ZERO + EXT_CRS_PRJ
+        nom_prj_avec_0 = os.path.join(chemin_shapes, nom_court_prj_avec_0)
+        # Si le shape existe dejà il faut le détruire
+        if os.path.isfile( nom_shape_avec_0):
+            physiocap_log ( self.trUtf8( "Le shape file existant déjà, il est détruit."))
+            os.remove( nom_shape_avec_0) 
+            
+        # cas avec 0, pas de demande de synthese
+        retour = physiocap_csv_vers_shapefile( self, 65, nom_csv_avec_0, nom_shape_avec_0, nom_prj_avec_0, laProjection,
+            "NO", details)
+        if retour != 0:
+            return physiocap_error(u"Erreur bloquante : problème lors de la création du shapefile : " + 
+                    nom_court_shape_avec_0) 
+                              
+        # Progress BAR 95%
+        self.progressBar.setValue( 95)
+        
+        # Creer un groupe pour cette analyse
+        # Attention il faut qgis > 2.4 metadata demande V2.4 mini
+        root = QgsProject.instance().layerTreeRoot( )
+        # Nommmer le groupe chemin_base_projet
+        sous_groupe = root.addGroup( chemin_base_projet)
+        
+        # Récupérer des styles pour chaque shape
+        dir_template = self.fieldComboThematiques.currentText()
+        # Affichage des différents shapes dans Qgis
+        SHAPE_A_AFFICHER = []
+        qml_is = ""
+        if self.checkBoxDiametre.isChecked():
+            qml_is = str( self.lineEditThematiqueDiametre.text().strip('"')) + EXTENSION_QML
+            SHAPE_A_AFFICHER.append( (nom_shape_sans_0, 'DIAMETRE mm', qml_is))
+        if self.checkBoxSarment.isChecked():
+            qml_is = str( self.lineEditThematiqueSarment.text().strip('"')) + EXTENSION_QML
+            SHAPE_A_AFFICHER.append( (nom_shape_sans_0, 'SARMENT par m', qml_is))
+        if self.checkBoxVitesse.isChecked():
+            qml_is = str( self.lineEditThematiqueVitesse.text().strip('"')) + EXTENSION_QML
+            SHAPE_A_AFFICHER.append(( nom_shape_avec_0, 'VITESSE km/h', qml_is))
+        
+        for shapename, titre, un_template in SHAPE_A_AFFICHER:
+            # Cas Postgres
+            if ( self.fieldComboFormats.currentText() == POSTGRES_NOM ):
+                uri_nom = physiocap_quel_uriname( self)
+                #physiocap_log( u"URI nom : " + str( uri_nom))
+                uri_modele = physiocap_get_uri_by_layer( self, uri_nom )
+                if uri_modele != None:
+                    uri_connect, uri_deb, uri_srid, uri_fin = physiocap_tester_uri( self, uri_modele)            
+                    nom_court_shp = os.path.basename( shapename)
+                    #TABLES = "public." + nom_court_shp
+                    uri = uri_deb +  uri_srid + \
+                       " key='gid' type='POINTS' table=" + nom_court_shp[ :-4] + " (geom) sql="            
+    ##              "dbname='testpostgis' host='localhost' port='5432'" + \
+    ##              " user='postgres' password='postgres' SRID='2154'" + \
+    ##              " key='gid' type='POINTS' table=" + nom_court_shp[ :-4] + " (geom) sql="
+    ##                physiocap_log ( "Création dans POSTGRES : >>" + uri + "<<")
+    ##                vectorPG = QgsVectorLayer( uri, titre, POSTGRES_NOM)
+                else:
+                    aText = self.trUtf8( "Pas de connecteur vers Postgres : %s. On continue avec des shapefiles"\
+                         % (str( uri_nom)))
+                    physiocap_log( aText)
+                    # Remettre le choix vers ESRI shape file
+                    self.fieldComboFormats.setCurrentIndex( 0)
+
+            #physiocap_log( u"Physiocap : Afficher layer ")
+            vector = QgsVectorLayer( shapename, titre, 'ogr')
+            QgsMapLayerRegistry.instance().addMapLayer( vector, False)
+            # Ajouter le vecteur dans un groupe
+            vector_node = sous_groupe.addLayer( vector)
+            le_template = os.path.join( dir_template, un_template)
+            if ( os.path.exists( le_template)):
+                #physiocap_log( u"Physiocap le template : " + os.path.basename( le_template))
+                vector.loadNamedStyle( le_template)
+        
+        # Fichier de synthese dans la fenetre resultats   
+        fichier_synthese = open(nom_fichier_synthese, "r")
+        while True :
+            ligne = fichier_synthese.readline() # lit les lignes 1 à 1
+            physiocap_write_in_synthese( self, ligne)
+            if not ligne: 
+                fichier_synthese.close
+                break     
+
+        # Progress BAR 95 %
+        self.progressBar.setValue( 95)
+                    
+        # Mettre à jour les histogrammes dans fenetre resultat
+        if histogrammes == "YES":
+            if ( self.label_histo_sarment.setPixmap( QPixmap( nom_histo_sarment))):
+                physiocap_log( self.trUtf8( "Physiocap histogramme sarment chargé"))
+            if ( self.label_histo_diametre_avant.setPixmap( QPixmap( nom_histo_diametre))):
+                physiocap_log ( self.trUtf8( "Physiocap histogramme diamètre chargé"))                
+            if ( self.label_histo_diametre_apres.setPixmap( QPixmap( nom_histo_diametre_filtre))):
+                physiocap_log ( self.trUtf8( "Physiocap histogramme diamètre filtré chargé"))    
+        else:
+            self.label_histo_sarment.setPixmap( QPixmap( FICHIER_HISTO_NON_CALCULE))
+            self.label_histo_diametre_avant.setPixmap( QPixmap( FICHIER_HISTO_NON_CALCULE))
+            self.label_histo_diametre_apres.setPixmap( QPixmap( FICHIER_HISTO_NON_CALCULE))
+            physiocap_log ( self.trUtf8( "Physiocap pas d'histogramme calculé"))    
+                           
+        # Progress BAR 100 %
+        self.progressBar.setValue( 100)
+        # Fin 
+        
+        physiocap_log ( self.trUtf8( "Fin de la synthèse Physiocap : sans erreur"))
+        physiocap_fill_combo_poly_or_point( self)
+        #physiocap_log ( u"Mise à jour des poly et points")
+        return 0 
+
     def reject( self ):
         """Close when bouton is Cancel"""
         # Todo : V1.4 prefixe Slot et nommage SLOT_Bouton_Cancel      
@@ -802,21 +1249,18 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         """Verify when bouton is OK"""
         # Todo : V1.4 prefixe Slot et nommage SLOT_Bouton_OK
         # Vérifier les valeurs saisies
-        # QT confiance et initilaisation par Qsettings sert d'assert sur la
+        # QT confiance et initialisation par Qsettings sert d'assert sur la
         # cohérence des variables saisies
 
         repertoire_data = self.lineEditDirectoryPhysiocap.text()
         if ((repertoire_data == "") or ( not os.path.exists( repertoire_data))):
-            physiocap_error( u"Pas de répertoire de donnée spécifié")
-            return physiocap_message_box( self, 
-                self.tr( u"Pas de répertoire de données brutes spécifié" ),
-                "information")
+            aText = self.trUtf8( "Pas de répertoire de données brutes spécifié")
+            physiocap_error( aText)
+            return physiocap_message_box( self, aText)
         if self.lineEditProjet.text() == "":
-            physiocap_error( u"Pas de nom de projet spécifié")
-            return physiocap_message_box( self,
-                self.tr( u"Pas de nom de projet spécifié" ),
-                "information")
-                 
+            aText = self.trUtf8( "Pas de nom de projet spécifié")
+            physiocap_error( aText)
+            return physiocap_message_box( self, aText)                 
         # Remettre vide le textEditSynthese
         self.textEditSynthese.clear()
 
@@ -830,12 +1274,13 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         recursif = "NO"
         if self.checkBoxRecursif.isChecked():
             recursif = "YES"
-            physiocap_log(u"La recherche des MID fouille l'arbre de données")
+            physiocap_log( self.trUtf8( "La recherche des MID fouille l'arbre de données"))
         self.settings.setValue("Physiocap/recursif", recursif )
             
         laProjection, EXT_CRS_SHP, EXT_CRS_PRJ, EXT_CRS_RASTER, EPSG_NUMBER = physiocap_quelle_projection_demandee( self) 
         self.settings.setValue("Physiocap/laProjection", laProjection)
-        physiocap_log(u"Projection des shapefiles demandée en " + laProjection)
+        physiocap_log(self.trUtf8( "Projection des shapefiles demandée en %s"\
+            ) % (str( laProjection)))
            
         # Trop tot self.settings.setValue("Physiocap/dernier_repertoire", self.lineEditDernierProjet.text() )
         self.settings.setValue("Physiocap/mindiam", float( self.spinBoxMinDiametre.value()))
@@ -846,7 +1291,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         details = "NO"
         if self.checkBoxInfoVignoble.isChecked():
             details = "YES"
-            physiocap_log(u"Les détails du vignoble sont précisées")
+            physiocap_log( self.trUtf8( "Les détails du vignoble sont précisées"))
         self.settings.setValue("Physiocap/details", details)
         self.settings.setValue("Physiocap/max_sarments_metre", float( self.spinBoxMaxSarmentsParMetre.value()))
         self.settings.setValue("Physiocap/interrangs", float( self.spinBoxInterrangs.value()))
@@ -860,7 +1305,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         TRACE_HISTO = "NO"
         if self.checkBoxHistogramme.isChecked():
             TRACE_HISTO = "YES"
-            physiocap_log(u"Les histogrammes sont attendus")
+            physiocap_log( self.trUtf8( "Les histogrammes sont attendus"))
         self.settings.setValue("Physiocap/histogrammes", TRACE_HISTO)
 
         # Sauver les affichages cas généraux
@@ -886,67 +1331,52 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         # ########################################
         try:
             # Création des répertoires et des résultats de synthèse
-            retour = physiocap_creer_donnees_resultats( self, laProjection, EXT_CRS_SHP, EXT_CRS_PRJ,
+            retour = self.physiocap_creer_donnees_resultats( laProjection, EXT_CRS_SHP, EXT_CRS_PRJ,
                 details, TRACE_HISTO, recursif)
         except physiocap_exception_rep as e:
-            physiocap_log( ERREUR_EXCEPTION + ". Consultez le journal Physiocap Erreur",
-                "WARNING")
-            physiocap_error( ERREUR_EXCEPTION)
-            physiocap_error(u"Erreur bloquante lors de la création du répertoire : " + str( e),
-                "CRITICAL")
-            return physiocap_message_box( self, self.tr( ERREUR_EXCEPTION + "\n" + \
-                u"Erreur bloquante lors de la création du répertoire : " + str( e)),
-                "information" )
+            physiocap_log_for_error( self)
+            aText = self.trUtf8( "Erreur bloquante lors de la création du répertoire : %s"\
+                 % ( str( e)))
+            physiocap_error( aText, "CRITICAL")
+            return physiocap_message_box( self, aText, "information" )
         
         except physiocap_exception_err_csv as e:
-            physiocap_log( ERREUR_EXCEPTION + ". Consultez le journal Physiocap Erreur",
-                "WARNING")
-            physiocap_error( ERREUR_EXCEPTION)
-            physiocap_error(u"Trop d'erreurs " + str( e) + u" dans les données brutes",
-                "CRITICAL")
-            return physiocap_message_box( self, self.tr( ERREUR_EXCEPTION + "\n" + \
-                u"Trop d'erreurs " + str( e) + u" dans les données brutes"),
-                "information" )
+            physiocap_log_for_error( self)
+            aText = self.trUtf8( "Trop d'erreurs %s dans les données brutes"\
+                 % ( str( e)))
+            physiocap_error( aText, "CRITICAL")
+            return physiocap_message_box( self, aText, "information" )
         
         except physiocap_exception_fic as e:
-            physiocap_log( ERREUR_EXCEPTION + ". Consultez le journal Physiocap Erreur",
-                "WARNING")
-            physiocap_error( ERREUR_EXCEPTION)
-            physiocap_error(u"Erreur bloquante lors de la création du fichier : " + str( e),
-                "CRITICAL")
-            return physiocap_message_box( self, self.tr( ERREUR_EXCEPTION + "\n" + \
-                u"Erreur bloquante lors de la création du fichier : " + str( e)),
-                "information" )
+            physiocap_log_for_error( self)
+            aText = self.trUtf8( "Erreur bloquante lors de la création du fichier : %s"\
+                 % ( str( e)))
+            physiocap_error( aText, "CRITICAL")
+            return physiocap_message_box( self, aText, "information" )
+
         except physiocap_exception_csv as e:
-            physiocap_log( ERREUR_EXCEPTION + ". Consultez le journal Physiocap Erreur",
-                "WARNING")
-            physiocap_error( ERREUR_EXCEPTION)
-            physiocap_error(u"Erreur bloquante lors de la création du fichier csv : " + str( e),
-                "CRITICAL")
-            return physiocap_message_box( self, self.tr( ERREUR_EXCEPTION + "\n" + \
-                u"Erreur bloquante lors de la création du fichier cvs : " + str( e)),
-                "information" )
+            physiocap_log_for_error( self)
+            aText = self.trUtf8( "Erreur bloquante lors de la création du fichier csv : %s"\
+                 % ( str( e)))
+            physiocap_error( aText, "CRITICAL")
+            return physiocap_message_box( self, aText, "information" )
 
         except physiocap_exception_mid as e:
-            physiocap_log( ERREUR_EXCEPTION + ". Consultez le journal Physiocap Erreur",
-                "WARNING")
-            physiocap_error( ERREUR_EXCEPTION)
-            physiocap_error(u"Erreur bloquante lors de la copie du fichier mid : " + str( e),
-                "CRITICAL")
-            return physiocap_message_box( self, self.tr( ERREUR_EXCEPTION + "\n" + \
-                u"Erreur bloquante lors de la copie du fichier mid : " + str( e)),
-                "information" )
+            physiocap_log_for_error( self)
+            aText = self.trUtf8( "Erreur bloquante lors de la copie du fichier MID : %s"\
+                 % ( str( e)))
+            physiocap_error( aText, "CRITICAL")
+            return physiocap_message_box( self, aText, "information" )
+
         except physiocap_exception_no_mid:
-            physiocap_log( ERREUR_EXCEPTION + ". Consultez le journal Physiocap Erreur",
-                "WARNING")
-            physiocap_error( ERREUR_EXCEPTION)
-            physiocap_error(u"Erreur bloquante : aucun fichier mid à traiter",
-                "CRITICAL")
-            return physiocap_message_box( self, self.tr( ERREUR_EXCEPTION + "\n" + \
-                u"Erreur bloquante : aucun fichier mid à traiter"),
-                "information" )
+            physiocap_log_for_error( self)
+            aText = self.trUtf8( "Erreur bloquante : aucun fichier MID à traiter")
+            physiocap_error( aText, "CRITICAL")
+            return physiocap_message_box( self, aText, "information" )
+        
         except physiocap_exception_stop_user:
-            return physiocap_log( u"Arrêt de Physiocap à la demande de l'utilisateur",
+            return physiocap_log( \
+                self.trUtf8( "Arrêt de Physiocap à la demande de l'utilisateur"),
                 "WARNING")
          # On remonte les autres exceptions
         except:
@@ -957,9 +1387,8 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         # Fin de capture des erreurs Physiocap
         # Pour le cas où postgres n'est pas accessible
         self.settings.setValue("Physiocap/leFormat", self.fieldComboFormats.currentText())
+        
+        physiocap_log( self.trUtf8( "%s a terminé son analyse.") % PHYSIOCAP_UNI)
+        
 
-        
-        physiocap_log(u"Physiocap a terminé son analyse.")
-        
-    
 
