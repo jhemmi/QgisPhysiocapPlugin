@@ -136,10 +136,11 @@ def physiocap_get_layer_by_ID( layerID):
         if ( le_layer.isValid()):
             return le_layer
         else:
-            physiocap_log( self.trUtf8( "Couche invalide : %s" % ( str( le_layer.name()))))
+            physiocap_log( "Layer(Couche) invalid(e) : {0}".format ( str( le_layer.name())))
             return None
     else:
-        physiocap_log( self.trUtf8( "Aucune couche retrouvée pour ID : %s" % ( str( layerID))))
+        physiocap_log( self.trUtf8( "No layer (Aucune couche) find for (retrouvée pour) ID : {0}").\
+            format( ( str( layerID))))
         return None
 
    
@@ -191,7 +192,7 @@ def physiocap_detruit_table_uri( self, uri_deb, laTable):
         aText = self.trUtf8( "PG DROP == Impossible de se connecter à la base de données ")
         physiocap_log( aText)
         physiocap_error( aText)
-        errorPG = self.trUtf8( "Erreur PG DROP == %s" % (str( e.pgcode)))
+        errorPG = self.trUtf8( "Erreur PG DROP == {0}").format (str( e.pgcode))
         physiocap_error( errorPG)
         # Erreur texte
         physiocap_error( e.pgerror)
@@ -209,7 +210,7 @@ def physiocap_detruit_table_uri( self, uri_deb, laTable):
         aText = self.trUtf8( "PG DROP == Problème lors de la recherche d'une table")
         physiocap_log( aText)
         physiocap_error( aText)
-        errorPG = self.trUtf8( "Erreur PG DROP == %s" % (str( e.pgcode)))
+        errorPG = self.trUtf8( "Erreur PG DROP == {0}").format (str( e.pgcode))
         physiocap_error( errorPG)
         # Erreur texte
         physiocap_error( e.pgerror)
@@ -224,7 +225,7 @@ def physiocap_detruit_table_uri( self, uri_deb, laTable):
         aText = self.trUtf8( "PG DROP == Probleme lors du commit pour Drop")
         physiocap_log( aText)
         physiocap_error( aText)
-        errorPG = self.trUtf8( "Erreur PG DROP == %s" % (str( e.pgcode)))
+        errorPG = self.trUtf8( "Erreur PG DROP == {0}").format (str( e.pgcode))
         physiocap_error( errorPG)
         # Erreur texte
         physiocap_error( e.pgerror)
@@ -242,7 +243,7 @@ def physiocap_existe_table_uri( self, uri_deb, laTable):
         aText = self.trUtf8( "PG == Impossible de se connecter à la base de données")
         physiocap_log( aText)
         physiocap_error( aText)
-        errorPG = self.trUtf8( "Erreur PG recheche == %s" % (str( e.pgcode)))
+        errorPG = self.trUtf8( "Erreur PG recherche == {0}").format (str( e.pgcode))
         physiocap_error( errorPG)
         # Erreur texte
         physiocap_error( e.pgerror)
@@ -264,7 +265,7 @@ def physiocap_existe_table_uri( self, uri_deb, laTable):
             aText = self.trUtf8( "PG == Probleme lors de la recherche d'une table")
             physiocap_log( aText)
             physiocap_error( aText)
-            errorPG = self.trUtf8( "Erreur PG == %s" % (str( e.pgcode)))
+            errorPG = self.trUtf8( "Erreur PG recherche == {0}").format (str( e.pgcode))
             physiocap_error( errorPG)
             # Erreur texte
             physiocap_error( e.pgerror)
@@ -278,7 +279,7 @@ def physiocap_existe_table_uri( self, uri_deb, laTable):
         aText = u"PG == Probleme lors de la recherche d'une table "
         physiocap_log( aText)
         physiocap_error( aText)
-        errorPG = self.trUtf8( "Erreur PG == %s" % (str( e.pgcode)))
+        errorPG = self.trUtf8( "Erreur PG recherche == {0}").format (str( e.pgcode))
         physiocap_error( errorPG)
         # Erreur texte
         physiocap_error( e.pgerror)
@@ -293,7 +294,7 @@ def physiocap_existe_table_uri( self, uri_deb, laTable):
         aText = u"PG == Probleme dans la fermeture " + str( uneDatabase)
         physiocap_log( aText)
         physiocap_error( aText)
-        errorPG = "Erreur PG == " + str( e.pgcode)
+        errorPG = self.trUtf8( "Erreur PG == {0}").format (str( e.pgcode))
         physiocap_error( errorPG)
         # Erreur texte
         physiocap_error( e.pgerror)

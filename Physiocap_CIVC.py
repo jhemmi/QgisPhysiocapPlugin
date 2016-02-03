@@ -110,7 +110,7 @@ def physiocap_csv_vers_shapefile( self, progress_barre, csv_name, shape_name, pr
             r = csv.reader(csvfile, delimiter=";")
         except NameError:
             uText = u"Erreur bloquante : module csv n'est pas accessible."
-            physiocap_erreur( uText)
+            physiocap_error( uText)
             QgsMessageLog.logMessage( uText, "Physiocap erreurs", QgsMessageLog.WARNING)
             return -1
 
@@ -313,7 +313,7 @@ def physiocap_csv_vers_shapefile( self, progress_barre, csv_name, shape_name, pr
                 fichier_synthese.write("Biomasse en gramme/m² \n	mean : %0.1f	std : %0.1f\n" %(np.mean(biomgm2), np.std(biomgm2)))
                 fichier_synthese.write("Biomasse en gramme/cep \n	mean : %0.1f	std : %0.1f\n" %(np.mean(biomgcep), np.std(biomgcep))) 
         except:
-            msg = "%s\n" %("Erreur bloquante durant les calculs de moyennes")
+            msg = "Erreur bloquante durant les calculs de moyennes\n"
             physiocap_error( msg )
             return -1
                     
@@ -382,7 +382,7 @@ def physiocap_assert_csv(src, err):
 
     # Au bilan
     if (numero_ligne != 0):
-        physiocap_log( u"Assert CVS a lu %d lignes et trouvé %d erreurs" % (numero_ligne, nombre_erreurs ))
+        #physiocap_log( u"Assert CVS a lu %d lignes et trouvé %d erreurs" % (numero_ligne, nombre_erreurs ))
         pourcentage_erreurs = float( nombre_erreurs * 100 / numero_ligne)
         return pourcentage_erreurs
     else:
@@ -572,7 +572,7 @@ def physiocap_filtrer(self, src, csv_sans_0, csv_avec_0, diametre_filtre,
             physiocap_error( uMsg )
             err.write( aMsg) # on écrit la ligne dans le fichier ERREUR.csv
             return -1
-    physiocap_log( u"Fin filtrage OK des "+ str(nombre_ligne - 1) + " lignes.")
+    #physiocap_log( u"Fin filtrage OK des "+ str(nombre_ligne - 1) + " lignes.")
     return 0
 
 

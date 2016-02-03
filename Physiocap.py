@@ -35,6 +35,7 @@ from PyQt4.QtGui import QAction, QIcon
 import resources_rc
 # Import the code for the dialog
 from Physiocap_dialog import PhysiocapAnalyseurDialog
+from Physiocap_creer_arbre import PhysiocapFiltrer
 from Physiocap_tools import physiocap_log, physiocap_message_box
 
 import os.path
@@ -72,8 +73,11 @@ class PhysiocapAnalyseur:
                 QCoreApplication.installTranslator(self.translator)
 
         # Create the dialog (after translation) and keep reference
-        self.dlg = PhysiocapAnalyseurDialog()
-
+        mon_dialogue = PhysiocapAnalyseurDialog()
+        self.dlg = mon_dialogue
+##        filtreur = PhysiocapFiltrer( mon_dialogue)
+##        self.filtrer = filtreur
+        
         # Declare instance attributes
         self.actions = []
         self.menu = self.tr(u'&Physiocap')

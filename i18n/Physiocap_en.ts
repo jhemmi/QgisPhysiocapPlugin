@@ -96,7 +96,7 @@
     <message utf8="true">
         <location filename="Physiocap_inter.py" line="322"/>
         <source>Pas de répertoire de données brutes spécifié</source>
-        <translation type="unfinished"></translation>
+        <translation>No folder choosen for your raw data (MID)</translation>
     </message>
     <message>
         <location filename="Physiocap_inter.py" line="341"/>
@@ -138,54 +138,29 @@
         <source>. Consultez le journal u03D5 Erreur</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="Physiocap_tools.py" line="139"/>
-        <source>Couche invalide : %s</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message utf8="true">
-        <location filename="Physiocap_tools.py" line="142"/>
-        <source>Aucune couche retrouvée pour ID : %s</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <location filename="Physiocap_tools.py" line="191"/>
+        <location filename="Physiocap_tools.py" line="192"/>
         <source>PG DROP == Impossible de se connecter à la base de données </source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="Physiocap_tools.py" line="227"/>
-        <source>Erreur PG DROP == %s</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message utf8="true">
-        <location filename="Physiocap_tools.py" line="209"/>
+        <location filename="Physiocap_tools.py" line="210"/>
         <source>PG DROP == Problème lors de la recherche d&apos;une table</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Physiocap_tools.py" line="224"/>
+        <location filename="Physiocap_tools.py" line="225"/>
         <source>PG DROP == Probleme lors du commit pour Drop</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_tools.py" line="242"/>
+        <location filename="Physiocap_tools.py" line="243"/>
         <source>PG == Impossible de se connecter à la base de données</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Physiocap_tools.py" line="245"/>
-        <source>Erreur PG recheche == %s</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Physiocap_tools.py" line="264"/>
+        <location filename="Physiocap_tools.py" line="265"/>
         <source>PG == Probleme lors de la recherche d&apos;une table</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Physiocap_tools.py" line="281"/>
-        <source>Erreur PG == %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -249,16 +224,36 @@
         <source>== Aucun point dans vos contours : pas de comparaison inter parcellaire</source>
         <translation type="unfinished"></translation>
     </message>
+    <message utf8="true">
+        <location filename="Physiocap_tools.py" line="142"/>
+        <source>No layer (Aucune couche) find for (retrouvée pour) ID : {0}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Physiocap_tools.py" line="228"/>
+        <source>Erreur PG DROP == {0}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Physiocap_tools.py" line="282"/>
+        <source>Erreur PG recherche == {0}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Physiocap_tools.py" line="297"/>
+        <source>Erreur PG == {0}</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PhysiocapAnalyseur</name>
     <message>
-        <location filename="Physiocap.py" line="185"/>
+        <location filename="Physiocap.py" line="189"/>
         <source>&amp;Physiocap</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="Physiocap.py" line="175"/>
+        <location filename="Physiocap.py" line="179"/>
         <source>Physiocap analyseur</source>
         <translation>Physiocap analysor</translation>
     </message>
@@ -266,281 +261,204 @@
 <context>
     <name>PhysiocapAnalyseurDialog</name>
     <message>
-        <location filename="Physiocap_dialog.py" line="131"/>
+        <location filename="Physiocap_dialog.py" line="127"/>
         <source>Votre machine tourne sous {0} </source>
         <translation>Your machine runs with {0} </translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="175"/>
+        <location filename="Physiocap_dialog.py" line="171"/>
         <source>Pas de liste de cépage pré défini</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="191"/>
+        <location filename="Physiocap_dialog.py" line="187"/>
         <source>Pas de liste de mode de taille pré défini</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="207"/>
+        <location filename="Physiocap_dialog.py" line="203"/>
         <source>Pas de liste des formats de vecteurs pré défini</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="230"/>
+        <location filename="Physiocap_dialog.py" line="226"/>
         <source>Pas de répertoire de thématiques pré défini</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="285"/>
+        <location filename="Physiocap_dialog.py" line="281"/>
         <source>Le module image n&apos;est pas accessible. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="286"/>
+        <location filename="Physiocap_dialog.py" line="282"/>
         <source>Vous ne pouvez pas visualiser les histogrammes </source>
         <translation>You cannot visualize histograms</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="292"/>
+        <location filename="Physiocap_dialog.py" line="288"/>
         <source>Physiocap : Votre installation QGIS ne permet pas du visualisation des histogrammes</source>
         <translation>Physiocap : Your QGIS installation does not autorize to visualize the histograms</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="388"/>
+        <location filename="Physiocap_dialog.py" line="384"/>
         <source>Pas de liste des attributs pour Intra pré défini</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="442"/>
-        <source>L&apos;attribut %s n&apos;existe pas dans les données à disposition.</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="445"/>
+        <location filename="Physiocap_dialog.py" line="441"/>
         <source>L&apos;interpolation n&apos;est pas possible. Relancer un calcul de votre projet Physiocap.</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="568"/>
+        <location filename="Physiocap_dialog.py" line="564"/>
         <source>Votre minimum ne doit pas être plus grand que votre maximum</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="662"/>
+        <location filename="Physiocap_dialog.py" line="658"/>
         <source>Le shape de points n&apos;est pas choisi. 
 Lancez le traitement initial - bouton OK - avant de faire votre 
 calcul de Moyenne Inter Parcellaire</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1345"/>
-        <source>Erreur bloquante lors de la création du répertoire : %s</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="683"/>
-        <source>Des moyennes IntraParcellaires dans %s existent déjà. </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="744"/>
+        <location filename="Physiocap_dialog.py" line="739"/>
         <source>Vous ne pouvez pas redemander ce calcul : vous devez détruire le groupe </source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="745"/>
+        <location filename="Physiocap_dialog.py" line="740"/>
         <source>ou mieux créer un nouveau projet Physiocap</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="Physiocap_dialog.py" line="751"/>
-        <source>Le fichier de points du projet %s ne contient pas les attributs attendus</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="701"/>
-        <source>L&apos;interpolation de : %s n&apos;a pu s&apos;exécuter entièrement. </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="703"/>
+        <location filename="Physiocap_dialog.py" line="697"/>
         <source>Avez-vous installé et activé la librairie d&apos;interpolation (SAGA ou GDAL) ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="712"/>
+        <location filename="Physiocap_dialog.py" line="705"/>
         <source>Physiocap a terminé les interpolations intra parcelaire.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="720"/>
+        <location filename="Physiocap_dialog.py" line="713"/>
         <source>Le shape de points n&apos;est pas choisi. 
                     Lancez le traitement initial - bouton OK - avant de faire votre 
                     calcul de Moyenne Inter Parcellaire</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="741"/>
-        <source>Les moyennes InterParcellaires dans %s existent déjà. </source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="752"/>
+        <location filename="Physiocap_dialog.py" line="748"/>
         <source>Lancez le traitement initial - bouton OK - avant de faire votre </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="753"/>
+        <location filename="Physiocap_dialog.py" line="749"/>
         <source>calcul de Moyenne Inter Parcellaire</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="764"/>
+        <location filename="Physiocap_dialog.py" line="760"/>
         <source>Physiocap a terminé les moyennes inter parcelaire.</source>
         <translation>Physiocap has calculated Inter parcels average.</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1264"/>
+        <location filename="Physiocap_dialog.py" line="808"/>
         <source>Pas de répertoire de données brutes spécifié</source>
         <translation>No folder choosen for your raw data (MID)</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1268"/>
+        <location filename="Physiocap_dialog.py" line="812"/>
         <source>Pas de nom de projet spécifié</source>
         <translation>No project name given</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1284"/>
+        <location filename="Physiocap_dialog.py" line="828"/>
         <source>La recherche des MID fouille l&apos;arbre de données</source>
         <translation>Looking for MID through all your data tree</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1289"/>
-        <source>Projection des shapefiles demandée en %s</source>
-        <translation>CRS for layers : %s</translation>
-    </message>
-    <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1301"/>
+        <location filename="Physiocap_dialog.py" line="845"/>
         <source>Les détails du vignoble sont précisées</source>
         <translation>Vineyard details are defined</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="1315"/>
+        <location filename="Physiocap_dialog.py" line="859"/>
         <source>Les histogrammes sont attendus</source>
         <translation>Histograms are requested</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1352"/>
-        <source>Trop d&apos;erreurs %s dans les données brutes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1359"/>
-        <source>Erreur bloquante lors de la création du fichier : %s</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1366"/>
-        <source>Erreur bloquante lors de la création du fichier csv : %s</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Physiocap_dialog.py" line="1373"/>
-        <source>Erreur bloquante lors de la copie du fichier MID : %s</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1380"/>
+        <location filename="Physiocap_dialog.py" line="927"/>
         <source>Erreur bloquante : aucun fichier MID à traiter</source>
         <translation>
 Major error : no MID found</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1385"/>
+        <location filename="Physiocap_dialog.py" line="932"/>
         <source>Arrêt de Physiocap à la demande de l&apos;utilisateur</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1398"/>
+        <location filename="Physiocap_dialog.py" line="945"/>
         <source>%s a terminé son analyse.</source>
         <translation>%s has finished primary analysis.</translation>
     </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="438"/>
+        <source>L&apos;attribut {0} n&apos;existe pas dans les données à disposition.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="892"/>
+        <source>Erreur bloquante lors de la création du répertoire : {0}</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message>
+        <location filename="Physiocap_dialog.py" line="746"/>
+        <source>Le fichier de points du projet {0} ne contient pas les attributs attendus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="695"/>
+        <source>L&apos;interpolation de : {0} n&apos;a pu s&apos;exécuter entièrement. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="735"/>
+        <source>Les moyennes InterParcellaires dans {0} existent déjà. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
         <location filename="Physiocap_dialog.py" line="833"/>
-        <source>Erreur dans fonction creer_donnees_resultats 
-                    == %s</source>
+        <source>Projection des shapefiles demandée en {0}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="899"/>
+        <source>Trop d&apos;erreurs {0} dans les données brutes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="906"/>
+        <source>Erreur bloquante lors de la création du fichier : {0}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog.py" line="913"/>
+        <source>Erreur bloquante lors de la création du fichier csv : {0}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="979"/>
-        <source>Le fichier %s a une taille nulle !</source>
+        <location filename="Physiocap_dialog.py" line="920"/>
+        <source>Erreur bloquante lors de la copie du fichier MID : {0}</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="938"/>
-        <source>Fin de la création csv et début de synthèse</source>
+        <location filename="Physiocap_dialog.py" line="679"/>
+        <source>Des moyennes IntraParcellaires dans {0} existent déjà. </source>
         <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1023"/>
-        <source>Fin de la création des histogrammes bruts</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1025"/>
-        <source>Pas de création des histogrammes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1069"/>
-        <source>Erreur bloquante : problème lors du filtrage 
-                des données de %s</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1146"/>
-        <source>Le shape file existant déjà, il est détruit.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Physiocap_dialog.py" line="1198"/>
-        <source>Pas de connecteur vers Postgres : %s. On continue avec des shapefiles</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1229"/>
-        <source>Physiocap histogramme sarment chargé</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1231"/>
-        <source>Physiocap histogramme diamètre chargé</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1233"/>
-        <source>Physiocap histogramme diamètre filtré chargé</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1238"/>
-        <source>Physiocap pas d&apos;histogramme calculé</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1244"/>
-        <source>Fin de la synthèse Physiocap : sans erreur</source>
-        <translation>Ending Physiocap synthesis with no error</translation>
-    </message>
-    <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="810"/>
-        <source>Paramètres pour filtrer les diamètres min : {0} max : {1}</source>
-        <translation>Diameters filtered between min : {0} and max : {1} </translation>
-    </message>
-    <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="881"/>
-        <source>Plus de 15 fichier MIDs sont à analyser. Temps de traitement &gt; à 1 minute. Voulez-vous continuer ?</source>
-        <translation>More than 15 MIDs found. Time for traitment will be more than 1 minute. You want to continue ?</translation>
     </message>
 </context>
 <context>
@@ -1029,6 +947,85 @@ p, li { white-space: pre-wrap; }
         <location filename="Physiocap_dialog_base.ui" line="2244"/>
         <source>Version 1.3.2</source>
         <translation></translation>
+    </message>
+</context>
+<context>
+    <name>PhysiocapFiltrer</name>
+    <message utf8="true">
+        <location filename="Physiocap_creer_arbre.py" line="89"/>
+        <source>Paramètres pour filtrer les diamètres min : {0} max : {1}</source>
+        <translation>Diameters filtered between min : {0} and max : {1} </translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_creer_arbre.py" line="158"/>
+        <source>Plus de 15 fichier MIDs sont à analyser. Temps de traitement &gt; à 1 minute. Voulez-vous continuer ?</source>
+        <translation>More than 15 MIDs found. Time for traitment will be more than 1 minute. You want to continue ?</translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_creer_arbre.py" line="216"/>
+        <source>Fin de la création csv et début de synthèse</source>
+        <translation>Ending CSV creation &amp; starting synthesis</translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_creer_arbre.py" line="302"/>
+        <source>Fin de la création des histogrammes bruts</source>
+        <translation>Ending histograms creation</translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_creer_arbre.py" line="304"/>
+        <source>Pas de création des histogrammes</source>
+        <translation>No histogram to create</translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_creer_arbre.py" line="426"/>
+        <source>Le shape file existant déjà, il est détruit.</source>
+        <translation>Shafile already exists, it is deleted.</translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_creer_arbre.py" line="509"/>
+        <source>Physiocap histogramme sarment chargé</source>
+        <translation>Shoots histogram loaded</translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_creer_arbre.py" line="511"/>
+        <source>Physiocap histogramme diamètre chargé</source>
+        <translation>Diameter histogram loaded</translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_creer_arbre.py" line="513"/>
+        <source>Physiocap histogramme diamètre filtré chargé</source>
+        <translation>Filtered diameter histogram loaded</translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_creer_arbre.py" line="518"/>
+        <source>Physiocap pas d&apos;histogramme calculé</source>
+        <translation>No histogram created</translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_creer_arbre.py" line="524"/>
+        <source>Fin de la synthèse Physiocap : sans erreur</source>
+        <translation>Ending Physiocap synthesis with no error</translation>
+    </message>
+    <message>
+        <location filename="Physiocap_creer_arbre.py" line="257"/>
+        <source>Le fichier {0} a une taille nulle !</source>
+        <translation>File {0} is empty !</translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_creer_arbre.py" line="348"/>
+        <source>Erreur bloquante : problème lors du filtrage 
+                des données de {0}</source>
+        <translation>Major error when filtering data from file {0}</translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_creer_arbre.py" line="433"/>
+        <source>Erreur bloquante : problème lors de la création du shapefile {0}</source>
+        <translation>Major error when creating shapefile {0}</translation>
+    </message>
+    <message>
+        <location filename="Physiocap_creer_arbre.py" line="478"/>
+        <source>Pas de connecteur vers Postgres : {0}. On continue avec des shapefiles</source>
+        <translation>No Pastgres connector : {0}. Continuing with shapefiles</translation>
     </message>
 </context>
 </TS>
