@@ -42,8 +42,10 @@
 from Physiocap_tools import physiocap_message_box, physiocap_question_box,\
         physiocap_log, physiocap_error, physiocap_write_in_synthese, \
         physiocap_rename_existing_file, physiocap_rename_create_dir, physiocap_open_file, \
-        physiocap_look_for_MID, physiocap_list_MID, physiocap_quel_uriname, \
-        physiocap_get_uri_by_layer, physiocap_tester_uri
+        physiocap_look_for_MID, physiocap_list_MID
+        
+##        , physiocap_quel_uriname, \
+##        physiocap_get_uri_by_layer, physiocap_tester_uri
 
 from Physiocap_CIVC import physiocap_csv_vers_shapefile, physiocap_assert_csv, \
         physiocap_fichier_histo, physiocap_tracer_histo, physiocap_filtrer   
@@ -52,19 +54,16 @@ from Physiocap_inter import physiocap_fill_combo_poly_or_point
 
 from Physiocap_var_exception import *
 
-from PyQt4 import QtGui, uic
-from PyQt4.QtCore import QSettings
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-from qgis.core import *
-from qgis.gui import *
+from PyQt4 import QtCore, QtGui
+from PyQt4.QtCore import QSettings, Qt 
+from PyQt4.QtGui import QPixmap
+from qgis.core import QgsProject, QgsVectorLayer , QgsMapLayerRegistry, QgsMapLayer
 
 import glob
 import shutil
 import time  
    
 # Creation des repertoires source puis resultats puis histo puis shape
-# Todo : creer une classe heritant de iface pour permettre la traduction
 
 class PhysiocapFiltrer( QtGui.QDialog):
     """QGIS Pour voir les messages traduits."""
@@ -86,8 +85,6 @@ class PhysiocapFiltrer( QtGui.QDialog):
         maxdiam = float( dialogue.spinBoxMaxDiametre.value())
         max_sarments_metre = float( dialogue.spinBoxMaxSarmentsParMetre.value())
 
-        physiocap_log( self.trUtf8( "Paramètres pour filtrer les diamètres min : {0} max : {1}").\
-            format( str(mindiam), str(maxdiam)))
         if details == "YES":
             interrangs = float( dialogue.spinBoxInterrangs.value())
             interceps = float( dialogue.spinBoxInterceps.value())
@@ -116,8 +113,13 @@ class PhysiocapFiltrer( QtGui.QDialog):
         chemin_base_projet = os.path.basename( chemin_projet)
         dialogue.lineEditDernierProjet.setText( chemin_base_projet)
         dialogue.settings= QSettings( PHYSIOCAP_NOM, PHYSIOCAP_NOM)
-        dialogue.settings.value("Physiocap/dernier_repertoire", chemin_base_projet) 
+        dialogue.settings.setValue("Physiocap/dernier_repertoire", chemin_base_projet) 
         
+        physiocap_log( self.trUtf8( "** {0} Début du traitement pour le projet Physiocap {1}").\
+            format( PHYSIOCAP_UNI, chemin_base_projet))
+        physiocap_log( self.trUtf8( "Paramètres pour filtrer les diamètres min : {0} max : {1}").\
+            format( str( mindiam), str( maxdiam)))
+                    
         # Progress BAR 2 %
         dialogue.progressBar.setValue( 2)
         
@@ -345,8 +347,7 @@ class PhysiocapFiltrer( QtGui.QDialog):
 
         # Todo : V1.5 ? Gerer cette erreur par exception
         if retour_filtre != 0:
-            uMsg = self.trUtf8( "Erreur bloquante : problème lors du filtrage \
-                des données de {0}").\
+            uMsg = self.trUtf8( "Erreur bloquante : problème lors du filtrage des données de {0}").\
                 format( str( nom_court_csv_concat))
             return physiocap_error(uMsg)  
 
@@ -354,13 +355,15 @@ class PhysiocapFiltrer( QtGui.QDialog):
         dialogue.progressBar.setValue( 41)
 
         if histogrammes == "YES":
-            # Histo apres filtatration
+            # Histo apres filtration
             nom_fichier_diametre_filtre, diametre_filtre = physiocap_open_file( 
                 nom_court_fichier_diametre_filtre, chemin_textes , "r")
             nom_histo_diametre_filtre, histo_diametre = physiocap_open_file( FICHIER_HISTO_DIAMETRE_FILTRE, chemin_histos)
 
-            physiocap_tracer_histo( diametre_filtre, nom_histo_diametre_filtre, 0, 30, "DIAMETRE en mm", "FREQUENCE en %", "HISTOGRAMME DIAMETRE APRES TRAITEMENT")
+            physiocap_tracer_histo( diametre_filtre, nom_histo_diametre_filtre, 0, 30, \
+                "DIAMETRE en mm", "FREQUENCE en %", "HISTOGRAMME DIAMETRE APRES TRAITEMENT")
             diametre_filtre.close()        
+            physiocap_log ( self.trUtf8( "Fin de la création de l'histogramme filtré"))
                                               
         # On écrit dans le fichiers résultats les paramètres du modéle
         fichier_synthese = open(nom_fichier_synthese, "a")
@@ -410,7 +413,8 @@ class PhysiocapFiltrer( QtGui.QDialog):
                 laProjection,
                 nom_fichier_synthese, details)
         if retour != 0:
-            return physiocap_error( self.trUtf8( "Erreur bloquante : problème lors de la création du shapefile {0}").\
+            return physiocap_error( self.trUtf8( \
+                "Erreur bloquante : problème lors de la création du shapefile {0}").\
                 format( str ( nom_court_shape_sans_0))) 
 
         # Progress BAR 65 %
@@ -430,7 +434,8 @@ class PhysiocapFiltrer( QtGui.QDialog):
         retour = physiocap_csv_vers_shapefile( dialogue, 65, nom_csv_avec_0, nom_shape_avec_0, nom_prj_avec_0, laProjection,
             "NO", details)
         if retour != 0:
-            return physiocap_error( self.trUtf8( "Erreur bloquante : problème lors de la création du shapefile {0}").\
+            return physiocap_error( self.trUtf8( \
+                "Erreur bloquante : problème lors de la création du shapefile {0}").\
                 format( str ( nom_court_shape_avec_0))) 
                               
         # Progress BAR 95%
@@ -458,28 +463,27 @@ class PhysiocapFiltrer( QtGui.QDialog):
             SHAPE_A_AFFICHER.append(( nom_shape_avec_0, 'VITESSE km/h', qml_is))
         
         for shapename, titre, un_template in SHAPE_A_AFFICHER:
-            # Cas Postgres
-            if ( dialogue.fieldComboFormats.currentText() == POSTGRES_NOM ):
-                uri_nom = physiocap_quel_uriname( dialogue)
-                #physiocap_log( u"URI nom : " + str( uri_nom))
-                uri_modele = physiocap_get_uri_by_layer( dialogue, uri_nom )
-                if uri_modele != None:
-                    uri_connect, uri_deb, uri_srid, uri_fin = physiocap_tester_uri( dialogue, uri_modele)            
-                    nom_court_shp = os.path.basename( shapename)
-                    #TABLES = "public." + nom_court_shp
-                    uri = uri_deb +  uri_srid + \
-                       " key='gid' type='POINTS' table=" + nom_court_shp[ :-4] + " (geom) sql="            
-    ##              "dbname='testpostgis' host='localhost' port='5432'" + \
-    ##              " user='postgres' password='postgres' SRID='2154'" + \
-    ##              " key='gid' type='POINTS' table=" + nom_court_shp[ :-4] + " (geom) sql="
-    ##                physiocap_log ( "Création dans POSTGRES : >>" + uri + "<<")
-    ##                vectorPG = QgsVectorLayer( uri, titre, POSTGRES_NOM)
-                else:
-                    aText = self.trUtf8( "Pas de connecteur vers Postgres : {0}. On continue avec des shapefiles").\
-                         format ((str( uri_nom)))
-                    physiocap_log( aText)
-                    # Remettre le choix vers ESRI shape file
-                    dialogue.fieldComboFormats.setCurrentIndex( 0)
+##            if ( dialogue.fieldComboFormats.currentText() == POSTGRES_NOM ):
+##                uri_nom = physiocap_quel_uriname( dialogue)
+##                #physiocap_log( u"URI nom : " + str( uri_nom))
+##                uri_modele = physiocap_get_uri_by_layer( dialogue, uri_nom )
+##                if uri_modele != None:
+##                    uri_connect, uri_deb, uri_srid, uri_fin = physiocap_tester_uri( dialogue, uri_modele)            
+##                    nom_court_shp = os.path.basename( shapename)
+##                    #TABLES = "public." + nom_court_shp
+##                    uri = uri_deb +  uri_srid + \
+##                       " key='gid' type='POINTS' table=" + nom_court_shp[ :-4] + " (geom) sql="            
+##    ##              "dbname='testpostgis' host='localhost' port='5432'" + \
+##    ##              " user='postgres' password='postgres' SRID='2154'" + \
+##    ##              " key='gid' type='POINTS' table=" + nom_court_shp[ :-4] + " (geom) sql="
+##    ##                physiocap_log ( "Création dans POSTGRES : >>" + uri + "<<")
+##    ##                vectorPG = QgsVectorLayer( uri, titre, POSTGRES_NOM)
+##                else:
+##                    aText = self.trUtf8( "Pas de connecteur vers Postgres : {0}. On continue avec des shapefiles").\
+##                         format ((str( uri_nom)))
+##                    physiocap_log( aText)
+##                    # Remettre le choix vers ESRI shape file
+##                    dialogue.fieldComboFormats.setCurrentIndex( 0)
 
             #physiocap_log( u"Physiocap : Afficher layer ")
             vector = QgsVectorLayer( shapename, titre, 'ogr')
@@ -520,8 +524,9 @@ class PhysiocapFiltrer( QtGui.QDialog):
         # Progress BAR 100 %
         dialogue.progressBar.setValue( 100)
         # Fin 
-        
-        physiocap_log ( self.trUtf8( "Fin de la synthèse Physiocap : sans erreur"))
+        physiocap_log ( self.trUtf8( "** {0} a affiché des couches dans le groupe {1}").\
+            format( PHYSIOCAP_UNI, str( chemin_base_projet)))
         physiocap_fill_combo_poly_or_point( dialogue)
+        # TODO : rafraichir si besoin 
         #physiocap_log ( u"Mise à jour des poly et points")
         return 0 

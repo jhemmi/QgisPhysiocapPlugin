@@ -25,7 +25,6 @@
 
 #Add iso code for any locales you want to support here (space separated)
 # default is no locales
-# LOCALES = af
 LOCALES = Physiocap_en
 
 # If locales are enabled, set the name of the lrelease binary on your system. If

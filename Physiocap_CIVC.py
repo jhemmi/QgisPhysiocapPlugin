@@ -40,20 +40,19 @@
 ***************************************************************************/
 """
 from Physiocap_tools import physiocap_message_box, physiocap_question_box, \
-        physiocap_log, physiocap_error, physiocap_write_in_synthese, \
-        physiocap_quel_uriname, physiocap_tester_uri, \
-        physiocap_detruit_table_uri, physiocap_existe_table_uri, \
-        physiocap_get_uri_by_layer 
+        physiocap_log, physiocap_error, physiocap_write_in_synthese
+        
+##        physiocap_quel_uriname, physiocap_tester_uri, \
+##        physiocap_detruit_table_uri, physiocap_existe_table_uri, \
+##        physiocap_get_uri_by_layer 
 from Physiocap_var_exception import *
 
-from PyQt4 import QtGui, uic  # for Form_class
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-from qgis.core import *
-from qgis.gui import *
+from PyQt4 import QtCore, QtGui
+from PyQt4.QtCore import QSettings, Qt, QVariant
+from qgis.core import *  # * necessaire à cause QGis.WKPoint de QgsGeometry !
+## Suffisants seraient QgsCoordinateReferenceSystem, QgsFields, QgsField, \
+##        QgsVectorFileWriter, ? QgsGeometry !
 
-# Imports system & os
-#import os.path
 import sys, string
 if platform.system() == 'Windows':
     import win32api
@@ -62,13 +61,13 @@ try :
     import csv
 except ImportError:
     aText = "Erreur bloquante : module csv n'est pas accessible." 
-    QgsMessageLog.logMessage( aText, "Physiocap erreurs", QgsMessageLog.WARNING)
-    
+    QgsMessageLog.logMessage( aText, u"\u03D5 Erreurs", QgsMessageLog.WARNING)
+
 try :
     from osgeo import osr
 except ImportError:
     aText = "Erreur bloquante : module GDAL osr n'est pas accessible." 
-    QgsMessageLog.logMessage( aText, "Physiocap erreurs", QgsMessageLog.WARNING)
+    QgsMessageLog.logMessage( aText, u"\u03D5 Erreurs", QgsMessageLog.WARNING)
     
 try :
     ##    from matplotlib.figure import Figure
@@ -77,13 +76,13 @@ try :
 except ImportError:
     aText ="Erreur bloquante : module matplotlib.pyplot n'est pas accessible\n" 
     aText = aText + "Sous Fedora : installez python-matplotlib-qt4" 
-    QgsMessageLog.logMessage( aText, "Physiocap erreurs", QgsMessageLog.WARNING)
+    QgsMessageLog.logMessage( aText, u"\u03D5 Erreurs", QgsMessageLog.WARNING)
     
 try :
     import numpy as np
 except ImportError:
     aText ="Erreur bloquante : module numpy n'est pas accessible" 
-    QgsMessageLog.logMessage( aText, "Physiocap erreurs", QgsMessageLog.WARNING)
+    QgsMessageLog.logMessage( aText, u"\u03D5 Erreurs", QgsMessageLog.WARNING)
 
 def physiocap_csv_vers_shapefile( self, progress_barre, csv_name, shape_name, prj_name, laProjection, 
     nom_fichier_synthese = "NO", details = "NO"):
@@ -111,7 +110,7 @@ def physiocap_csv_vers_shapefile( self, progress_barre, csv_name, shape_name, pr
         except NameError:
             uText = u"Erreur bloquante : module csv n'est pas accessible."
             physiocap_error( uText)
-            QgsMessageLog.logMessage( uText, "Physiocap erreurs", QgsMessageLog.WARNING)
+            QgsMessageLog.logMessage( uText, u"\u03D5 Erreurs", QgsMessageLog.WARNING)
             return -1
 
         for jj, row in enumerate( r):
@@ -209,86 +208,86 @@ def physiocap_csv_vers_shapefile( self, progress_barre, csv_name, shape_name, pr
     del writer
     
     # Cas Postgres
-    if (self.fieldComboFormats.currentText() == POSTGRES_NOM ):
-        # Todo ; fonction physiocap_creer_PG_par_copie_vecteur( uri_nom, shape_modele)
-        # Vérifier si une connexion Physiocap existe
-        uri_nom = physiocap_quel_uriname( self)
-        uri_modele = physiocap_get_uri_by_layer( self, uri_nom )
-        if uri_modele != None:
-            uri_connect, uri_deb, uri_srid, uri_fin = physiocap_tester_uri( self, uri_modele)
-            if uri_deb != None:
-                nom_court_shp = os.path.basename( shape_name)
-                #laTable = "'public.\"" + nom_court_shp[ :-4] + "\"'"
-                laTable = "'\"" + nom_court_shp[ :-4] + "\"'"
-                reponse = physiocap_existe_table_uri( self, uri_deb, laTable)
-                if reponse != None:
-                    if reponse == True:
-                        laTable = "\"" + nom_court_shp[ :-4] + "\""
-                        #physiocap_log( u"Table existe déjà : " + str( laTable))
-                        # Cette table existe déjà = > drop 
-                        reponse_drop = physiocap_detruit_table_uri( self, uri_deb, laTable)
-                        if reponse_drop == None:
-                            aText = u"Problème lors de la destruction de la table : " + str( laTable)
-                            physiocap_log( aText)
-                            physiocap_error( aText)  
-                            # Todo : gérer par exception physiocap_exception_pg
-                            return physiocap_message_box( self, 
-                                self.tr( aText),
-                                "warning")                   
-                    # Creer la table
-                    laTable = nom_court_shp[ :-4] 
-                    vector = QgsVectorLayer( shape_name, "INUTILE", 'ogr')
-                    uri = uri_deb + uri_srid + \
-                        " key=gid type=POINTS table=" + laTable + uri_fin
-##        uri = "dbname='testpostgis' host=localhost port=5432" + \
-##              " user='postgres' password='postgres'" + \
-##              " key=gid type=POINTS table=" + nom_court_shp[ :-4] + " (geom) sql="
-                    error = QgsVectorLayerImport.importLayer( vector, uri, POSTGRES_NOM, crs, False, False)
-                    if error[0] != 0:
-                        physiocap_error( u"Problème Postgres : " + str(error[0]) + " => " + str(error[1]))
-                        #iface.messageBar().pushMessage(u'Phyqiocap Error', error[1], QgsMessageBar.CRITICAL, 5)    
-##                    else:
-##                        # Sans erreur on détruit le shape file
-##                        if os.path.isfile( shape_name):
-##                            os.remove( shape_name)
-                else:
-                    aText = u"Vérification problématique pour la table : " + \
-                        str( laTable) + \
-                        u". On continue avec des shapefiles"
-                    physiocap_log( aText)
-                    piocap_error( aText)
-                    # Remettre le choix vers ESRI shape file
-                    self.fieldComboFormats.setCurrentIndex( 0)   
-            else:
-                aText = u"Pas de connection possible à Postgres : " + \
-                    str( uri_nom) + \
-                    u". On continue avec des shapefiles"
-                physiocap_log( aText)
-                physiocap_error( aText)
-                # Remettre le choix vers ESRI shape file
-                self.fieldComboFormats.setCurrentIndex( 0)   
-                
-        else:
-            aText = u"Pas de connecteur vers Postgres : " + \
-                        str( uri_nom) + \
-                        u". On continue avec des shapefiles"
-            physiocap_log( aText)
-            physiocap_error( aText)
-            # Remettre le choix vers ESRI shape file
-            self.fieldComboFormats.setCurrentIndex( 0)   
-    else:
-        # Create the PRJ file
-        prj = open(prj_name, "w")
-        epsg = 'inconnu'
-        if ( laProjection == PROJECTION_L93):
-            # Todo: V1.x ? Faire aussi un fichier de metadata 
-            epsg = EPSG_TEXT_L93
-        if ( laProjection == PROJECTION_GPS):
-            #  prj pour GPS 4326
-            epsg = EPSG_TEXT_GPS
-            
-        prj.write(epsg)
-        prj.close()    
+##    if (self.fieldComboFormats.currentText() == POSTGRES_NOM ):
+##        # Todo ; fonction physiocap_creer_PG_par_copie_vecteur( uri_nom, shape_modele)
+##        # Vérifier si une connexion Physiocap existe
+##        uri_nom = physiocap_quel_uriname( self)
+##        uri_modele = physiocap_get_uri_by_layer( self, uri_nom )
+##        if uri_modele != None:
+##            uri_connect, uri_deb, uri_srid, uri_fin = physiocap_tester_uri( self, uri_modele)
+##            if uri_deb != None:
+##                nom_court_shp = os.path.basename( shape_name)
+##                #laTable = "'public.\"" + nom_court_shp[ :-4] + "\"'"
+##                laTable = "'\"" + nom_court_shp[ :-4] + "\"'"
+##                reponse = physiocap_existe_table_uri( self, uri_deb, laTable)
+##                if reponse != None:
+##                    if reponse == True:
+##                        laTable = "\"" + nom_court_shp[ :-4] + "\""
+##                        #physiocap_log( u"Table existe déjà : " + str( laTable))
+##                        # Cette table existe déjà = > drop 
+##                        reponse_drop = physiocap_detruit_table_uri( self, uri_deb, laTable)
+##                        if reponse_drop == None:
+##                            aText = u"Problème lors de la destruction de la table : " + str( laTable)
+##                            physiocap_log( aText)
+##                            physiocap_error( aText)  
+##                            # Todo : gérer par exception physiocap_exception_pg
+##                            return physiocap_message_box( self, 
+##                                self.tr( aText),
+##                                "warning")                   
+##                    # Creer la table
+##                    laTable = nom_court_shp[ :-4] 
+##                    vector = QgsVectorLayer( shape_name, "INUTILE", 'ogr')
+##                    uri = uri_deb + uri_srid + \
+##                        " key=gid type=POINTS table=" + laTable + uri_fin
+## #       uri = "dbname='testpostgis' host=localhost port=5432" + \
+## #             " user='postgres' password='postgres'" + \
+## #              " key=gid type=POINTS table=" + nom_court_shp[ :-4] + " (geom) sql="
+##                    error = QgsVectorLayerImport.importLayer( vector, uri, POSTGRES_NOM, crs, False, False)
+##                    if error[0] != 0:
+##                        physiocap_error( u"Problème Postgres : " + str(error[0]) + " => " + str(error[1]))
+##                        #iface.messageBar().pushMessage(u'Phyqiocap Error', error[1], QgsMessageBar.CRITICAL, 5)    
+## #                    else:
+## #                        # Sans erreur on détruit le shape file
+## #                        if os.path.isfile( shape_name):
+## #                            os.remove( shape_name)
+##                else:
+##                    aText = u"Vérification problématique pour la table : " + \
+##                        str( laTable) + \
+##                        u". On continue avec des shapefiles"
+##                    physiocap_log( aText)
+##                    piocap_error( aText)
+##                    # Remettre le choix vers ESRI shape file
+##                    self.fieldComboFormats.setCurrentIndex( 0)   
+##            else:
+##                aText = u"Pas de connection possible à Postgres : " + \
+##                    str( uri_nom) + \
+##                    u". On continue avec des shapefiles"
+##                physiocap_log( aText)
+##                physiocap_error( aText)
+##                # Remettre le choix vers ESRI shape file
+##                self.fieldComboFormats.setCurrentIndex( 0)   
+##                
+##        else:
+##            aText = u"Pas de connecteur vers Postgres : " + \
+##                        str( uri_nom) + \
+##                        u". On continue avec des shapefiles"
+##            physiocap_log( aText)
+##            physiocap_error( aText)
+##            # Remettre le choix vers ESRI shape file
+##            self.fieldComboFormats.setCurrentIndex( 0)   
+##    else:
+    # Create the PRJ file
+    prj = open(prj_name, "w")
+    epsg = 'inconnu'
+    if ( laProjection == PROJECTION_L93):
+        # Todo: V1.x ? Faire aussi un fichier de metadata 
+        epsg = EPSG_TEXT_L93
+    if ( laProjection == PROJECTION_GPS):
+        #  prj pour GPS 4326
+        epsg = EPSG_TEXT_GPS
+        
+    prj.write(epsg)
+    prj.close()    
         
     # Création de la synthese
     if nom_fichier_synthese != "NO":

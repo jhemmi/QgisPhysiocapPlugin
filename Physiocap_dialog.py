@@ -10,6 +10,9 @@
  
  Le module dialog gère la dynamique des dialogues, initialisation 
  et recupération des variables, sauvegarde des parametres.
+ Les slots sont définis et activés.
+ La gestion des assert avant traitement et des retours d'exception se trouve 
+ dans ce module 
 
  Les variables et fonctions sont nommées en Francais
  
@@ -44,44 +47,31 @@ from Physiocap_CIVC import physiocap_csv_vers_shapefile, physiocap_assert_csv, \
 
 from Physiocap_tools import physiocap_message_box, \
         physiocap_log_for_error, physiocap_log, physiocap_error, \
-        physiocap_get_uri_by_layer, \
         physiocap_quelle_projection_demandee, physiocap_get_layer_by_ID
-
-from Physiocap_inter import physiocap_fill_combo_poly_or_point, physiocap_moyenne_InterParcelles
-
-from Physiocap_intra_interpolation import physiocap_interpolation_IntraParcelles
+#        physiocap_get_uri_by_layer, \
 
 from Physiocap_creer_arbre import PhysiocapFiltrer
+from Physiocap_inter import PhysiocapInter, physiocap_fill_combo_poly_or_point
+from Physiocap_intra_interpolation import PhysiocapIntra #, physiocap_fill_combo_poly_or_point
 
 from Physiocap_var_exception import *
 
 from PyQt4 import QtGui, uic
-from PyQt4.QtCore import QSettings
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-from qgis.core import *
-from qgis.gui import *
+from PyQt4.QtCore import QSettings, Qt, QUrl
+from PyQt4.QtGui import QDialogButtonBox, QDialog, QPixmap, QFileDialog
+from qgis.core import QgsProject, QgsMapLayerRegistry, QgsMapLayer
 
-import glob
-import os
-import time
-
-# TODO : simplification comme cet example
-## from PyQt4 import QtCore, QtGui
-##from ui_attributepainter import Ui_AttributePainterForm
-##
-##
-##class attributePainterDialog(QtGui.QWidget, Ui_AttributePainterForm):
-##    def __init__(self, iface):
-##        QtGui.QWidget.__init__(self)
-##        self.setupUi(self)
-
-
+if platform.system() == 'Windows':
+    import win32api
+    
 FORM_CLASS, _ = uic.loadUiType(os.path.join( os.path.dirname(__file__), 'Physiocap_dialog_base.ui'))
 
 class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
     def __init__(self, parent=None):
-        """Constructeur du dialogue Physiocap"""
+        """Constructeur du dialogue Physiocap 
+        Initialisation et recupération des variables, sauvegarde des parametres.
+        Les slots sont définis et activés.
+        """
         super(PhysiocapAnalyseurDialog, self).__init__(parent)
         # Set up the user interface from Designer.
         # After setupUI you can access any designer object by doing
@@ -95,27 +85,27 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.gis2_dir = os.path.dirname( self.python_dir)
         ## physiocap_log( u"Rep .gis2 " + str( self.gis2_dir))
        
-        # Slot for boutons : certains sont dans UI
+        # Slot for boutons : ces deux sont déjà sont dans UI
         ##self.buttonBox.button( QDialogButtonBox.Ok ).pressed.connect(self.accept)
         ##self.buttonBox.button( QDialogButtonBox.Cancel ).pressed.connect(self.reject)
-        self.buttonBox.button( QDialogButtonBox.Help ).pressed.connect(self.demander_aide)
-        self.buttonContribuer.pressed.connect(self.demander_contribution)
+        self.buttonBox.button( QDialogButtonBox.Help ).pressed.connect(self.slot_demander_aide)
+        self.buttonContribuer.pressed.connect(self.slot_demander_contribution)
         # Slot pour données brutes
-        self.toolButtonDirectoryPhysiocap.pressed.connect( self.lecture_repertoire_donnees_brutes )  
+        self.toolButtonDirectoryPhysiocap.pressed.connect( self.slot_lecture_repertoire_donnees_brutes )  
         # Slot pour le groupe vignoble
-        self.checkBoxInfoVignoble.stateChanged.connect( self.bascule_details_vignoble)
+        self.checkBoxInfoVignoble.stateChanged.connect( self.slot_bascule_details_vignoble)
 
        
         # Inter
-        self.comboBoxPolygone.currentIndexChanged[int].connect( self.update_field_poly_list )
-        self.ButtonInter.pressed.connect(self.moyenne_inter_parcelles)
-        self.ButtonInterRefresh.pressed.connect(self.liste_inter_parcelles)
+        self.comboBoxPolygone.currentIndexChanged[int].connect( self.slot_maj_champ_poly_liste )
+        self.ButtonInter.pressed.connect(self.slot_moyenne_inter_parcelles)
+        self.ButtonInterRefresh.pressed.connect(self.slot_liste_inter_parcelles)
         self.groupBoxInter.setEnabled( False)
         
         # Intra        
-        self.comboBoxPoints.currentIndexChanged[int].connect( self.update_points_choose_inter_intra )
-        self.fieldComboIntra.currentIndexChanged[int].connect( self.min_max_field_intra_list )
-        self.ButtonIntra.pressed.connect(self.interpolation_intra_parcelles)
+        self.comboBoxPoints.currentIndexChanged[int].connect( self.slot_maj_points_choix_inter_intra )
+        self.fieldComboIntra.currentIndexChanged[int].connect( self.slot_min_max_champ_intra )
+        self.ButtonIntra.pressed.connect(self.slot_interpolation_intra_parcelles)
         self.groupBoxIntra.setEnabled( False)
         self.ButtonIntra.setEnabled( False)
         
@@ -203,7 +193,8 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             physiocap_error( self.trUtf8( "Pas de liste des formats de vecteurs pré défini"))
         else:
             self.fieldComboFormats.clear( )
-            uri = physiocap_get_uri_by_layer( self)
+            #uri = physiocap_get_uri_by_layer( self)
+            uri = None
             if uri != None:
                 self.fieldComboFormats.addItems( FORMAT_VECTEUR )
             else:
@@ -256,7 +247,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.spinBoxInterrangs.setValue( int( interrang))
         self.spinBoxInterceps.setValue( int( intercep))
         # Densité pied /ha
-        self.calcul_densite()
+        self.slot_calcul_densite()
 ##        densite = ""
 ##        if (interrang !=0) and ( intercep != 0):
 ##            densite = int (10000 / ((interrang/100) * (intercep/100)))
@@ -307,7 +298,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         self.spinBoxIsoMax.setValue( int( self.settings.value("Physiocap/isoMax", 1000 )))
         self.spinBoxNombreIso.setValue( int( self.settings.value("Physiocap/isoNombres", 5 )))
         # On initalise le nombre de distance Iso
-        self.physiocap_iso_distance()
+        self.slot_iso_distance()
          
         if (self.settings.value("Physiocap/library") == "SAGA"):
             self.radioButtonSAGA.setChecked(  Qt.Checked)
@@ -369,13 +360,13 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             self.checkBoxIntraImages.setChecked( Qt.Unchecked)
 
         # Calcul dynamique de la densité
-        self.spinBoxInterrangs.valueChanged.connect( self.calcul_densite)
-        self.spinBoxInterceps.valueChanged.connect( self.calcul_densite)
+        self.spinBoxInterrangs.valueChanged.connect( self.slot_calcul_densite)
+        self.spinBoxInterceps.valueChanged.connect( self.slot_calcul_densite)
  
         # Calcul dynamique du intervale Isolignes
-        self.spinBoxIsoMin.valueChanged.connect( self.physiocap_iso_distance)
-        self.spinBoxIsoMax.valueChanged.connect( self.physiocap_iso_distance)
-        self.spinBoxNombreIso.valueChanged.connect( self.physiocap_iso_distance)
+        self.spinBoxIsoMin.valueChanged.connect( self.slot_iso_distance)
+        self.spinBoxIsoMax.valueChanged.connect( self.slot_iso_distance)
+        self.spinBoxNombreIso.valueChanged.connect( self.slot_iso_distance)
  
         # Remplissage de la liste de ATTRIBUTS_INTRA 
         self.fieldComboIntra.setCurrentIndex( 0)   
@@ -418,9 +409,8 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
     # ################
 
     # FIELDS
-    def min_max_field_intra_list( self ):
+    def slot_min_max_champ_intra( self ):
         """ Create a list of fields for the current vector point in fieldCombo Box"""
-        # Todo : V1.4 prefixe Slot et nommage SLOT_Champ_Attibut_Intra     
         nom_attribut = self.fieldComboIntra.currentText()
         #physiocap_log(u"Attribut pour Intra >" + nom_attribut )
         nom_complet_point = self.comboBoxPoints.currentText().split( SEPARATEUR_NOEUD)
@@ -438,8 +428,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
                 aText = self.trUtf8( "L'attribut {0} n'existe pas dans les données à disposition.").\
                 format( str( nom_attribut))
                 aText = aText + \
-                    self.trUtf8( \
-                    "L'interpolation n'est pas possible. Relancer un calcul de votre projet Physiocap.")
+                    self.trUtf8( "L'interpolation n'est pas possible. Recréer un nouveau projet Physiocap.")
                 physiocap_error( aText, "CRITICAL")
                 return physiocap_message_box( self, aText, "information")
             valeurs = []
@@ -450,12 +439,12 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             self.spinBoxIsoMax.setValue( int( max(valeurs) ))
             self.spinBoxIsoMin.setValue( int( min(valeurs) ))
 
-    def update_field_poly_list( self ):
+    def slot_maj_champ_poly_liste( self ):
         """ Create a list of fields for the current vector in fieldCombo Box"""
         nom_complet_poly = self.comboBoxPolygone.currentText().split( SEPARATEUR_NOEUD)
         inputLayer = nom_complet_poly[0] #str(self.comboBoxPolygone.itemText(self.comboBoxPolygone.currentIndex()))
         self.fieldComboContours.clear()
-        layer = self.get_layer_by_name( inputLayer )
+        layer = self.lister_nom_couches( inputLayer)
         self.fieldComboContours.addItem( "NOM_PHY")
         self.fieldComboContours.setCurrentIndex( 0)
         if layer is not None:
@@ -469,7 +458,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
                         self.fieldComboContours.setCurrentIndex( i)
                     i=i+1
                     
-    def update_points_choose_inter_intra( self ):
+    def slot_maj_points_choix_inter_intra( self ):
         """ Verify whether the value autorize Inter or Intra"""
         nom_complet_point = self.comboBoxPoints.currentText().split( SEPARATEUR_NOEUD)
         if ( len( nom_complet_point) != 2):
@@ -503,7 +492,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
                               
 
 
-    def get_layer_by_name( self, layerName ):
+    def lister_nom_couches( self, layerName ):
         layerMap = QgsMapLayerRegistry.instance().mapLayers()
         layer = None
         for name, layer in layerMap.iteritems():
@@ -521,14 +510,13 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
 
 
     # Repertoire données brutes :
-    def lecture_repertoire_donnees_brutes( self):
+    def slot_lecture_repertoire_donnees_brutes( self):
         """Catch directory for raw data"""
-        # TODO: Vx ? Faire traduction du titre self.?iface.tr("Répertoire des données brutes")
         # Récuperer dans setting le nom du dernier ou sinon REPERTOIRE_DONNEES_BRUTES
         self.settings= QSettings(PHYSIOCAP_NOM, PHYSIOCAP_NOM)
         exampleDirName =  self.settings.value("Physiocap/repertoire", REPERTOIRE_DONNEES_BRUTES)
         
-        dirName = QFileDialog.getExistingDirectory( self, u"Répertoire des données brutes",
+        dirName = QFileDialog.getExistingDirectory( self, self.trUtf8 ("Choisir le répertoire de vos données Physiocap brutes (MID)"),
                                                  exampleDirName,
                                                  QFileDialog.ShowDirsOnly
                                                  | QFileDialog.DontResolveSymlinks);
@@ -536,7 +524,7 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
           return
         self.lineEditDirectoryPhysiocap.setText( dirName )
  
-    def liste_inter_parcelles( self):
+    def slot_liste_inter_parcelles( self):
         """ Rafraichit les listes avant le calcul inter parcelles"""
         nombre_poly = 0
         nombre_point = 0
@@ -545,12 +533,12 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
         if (( nombre_poly > 0) and ( nombre_point > 0)):
             # Liberer le bouton "moyenne"
             self.groupBoxInter.setEnabled( True)
-            self.update_field_poly_list()
-            self.min_max_field_intra_list()
+            self.slot_maj_champ_poly_liste()
+            self.slot_min_max_champ_intra()
         else:
             self.groupBoxInter.setEnabled( False)
             
-    def physiocap_iso_distance( self):
+    def slot_iso_distance( self):
         """ 
         Recherche du la distance optimale tenant compte de min et max et du nombre d'intervalle
         si erreur rend 3 
@@ -650,14 +638,14 @@ class PhysiocapAnalyseurDialog(QtGui.QDialog, FORM_CLASS):
             LIB = "GDAL"
         self.settings.setValue("Physiocap/library", LIB)
         
-    def interpolation_intra_parcelles(self):
+    def slot_interpolation_intra_parcelles(self):
         """ Slot qui fait appel au interpolation Intra Parcelles et traite exceptions """
        
         nom_complet_point = self.comboBoxPoints.currentText().split( SEPARATEUR_NOEUD)
         if ( len( nom_complet_point) != 2):
-            aText = self.trUtf8( "Le shape de points n'est pas choisi. \
-Lancez le traitement initial - bouton OK - avant de faire votre \
-calcul de Moyenne Inter Parcellaire")   
+            aText = self.trUtf8( "Le shape de points n'est pas choisi. ")
+            aText = aText + self.trUtf8( "Créer une nouvelle instance de projet - bouton OK - ")
+            aText = aText + self.trUtf8( "avant de faire votre calcul de Moyenne Inter puis Intra Parcellaire")   
             physiocap_error( aText, "CRITICAL")
             return physiocap_message_box( self, aText, "information" )
 
@@ -666,7 +654,8 @@ calcul de Moyenne Inter Parcellaire")
             
         try:
             # Création des répertoires et des résultats de synthèse
-            physiocap_interpolation_IntraParcelles(self)
+            intra = PhysiocapIntra( self)
+            intra.physiocap_interpolation_IntraParcelles( self)
             
         except physiocap_exception_rep as e:
             physiocap_log_for_error( self)
@@ -702,17 +691,18 @@ calcul de Moyenne Inter Parcellaire")
         finally:
             pass
         # Fin de capture des erreurs Physiocap        
-        physiocap_log( self.trUtf8( "Physiocap a terminé les interpolations intra parcelaire."))
+        physiocap_log( self.trUtf8( "=~= {0} a terminé les interpolations intra parcelaire.").\
+            format( PHYSIOCAP_UNI))
 
                    
-    def moyenne_inter_parcelles(self):
+    def slot_moyenne_inter_parcelles(self):
         """ Slot qui fait appel au traitement Inter Parcelles et traite exceptions """
        
         nom_complet_point = self.comboBoxPoints.currentText().split( SEPARATEUR_NOEUD)
         if ( len( nom_complet_point) != 2):
-            aText = self.trUtf8( "Le shape de points n'est pas choisi. \
-                    Lancez le traitement initial - bouton OK - avant de faire votre \
-                    calcul de Moyenne Inter Parcellaire")   
+            aText = self.trUtf8( "Le shape de points n'est pas choisi. ")
+            aText = aText + self.trUtf8( "Créer une nouvelle instance de projet - bouton OK - ")
+            aText = aText + self.trUtf8( "avant de faire votre calcul de Moyenne Inter Parcellaire")
             physiocap_error( aText, "CRITICAL")
             return physiocap_message_box( self, aText, "information" )
         
@@ -722,9 +712,9 @@ calcul de Moyenne Inter Parcellaire")
         self.memoriser_saisies_inter_intra_parcelles()
             
         try:
-            # Création des répertoires et des résultats de synthèse
-            physiocap_moyenne_InterParcelles(self)
-            
+            #physiocap_moyenne_InterParcelles(self)
+            inter = PhysiocapInter( self)
+            retour = inter.physiocap_moyenne_InterParcelles( self)        
         except physiocap_exception_rep as e:
             physiocap_log_for_error( self)
             aText = self.trUtf8( "Erreur bloquante lors de la création du répertoire : {0}").\
@@ -757,9 +747,10 @@ calcul de Moyenne Inter Parcellaire")
         
         self.groupBoxIntra.setEnabled( True)
         self.ButtonIntra.setEnabled( True)
-        physiocap_log(self.trUtf8( "Physiocap a terminé les moyennes inter parcelaire."))
+        physiocap_log( self.trUtf8( "== {0} a terminé les moyennes inter parcelaire.").\
+            format( PHYSIOCAP_UNI))
 
-    def bascule_details_vignoble(self):
+    def slot_bascule_details_vignoble(self):
         """ Changement de demande pour les details vignoble : 
         on grise le groupe Vignoble
         """ 
@@ -769,7 +760,7 @@ calcul de Moyenne Inter Parcellaire")
         else:
             self.Vignoble.setEnabled( False)         
 
-    def calcul_densite( self):
+    def slot_calcul_densite( self):
         # Densité pied /ha
 
         interrang  = float( self.spinBoxInterrangs.value())
@@ -779,12 +770,12 @@ calcul de Moyenne Inter Parcellaire")
             densite = int (10000 / ((interrang/100) * (intercep/100)))
         self.lineEditDensite.setText( str( densite))
         
-    def demander_contribution( self):
+    def slot_demander_contribution( self):
         """ Pointer vers payname """ 
         help_url = QUrl("http://plus.payname.fr/jhemmi/?type=9xwqt")
         QDesktopServices.openUrl(help_url)
     
-    def demander_aide(self):
+    def slot_demander_aide(self):
         """ Help html qui pointe vers gitHub""" 
         help_url = QUrl("file:///%s/help/index.html" % self.plugin_dir)
         QDesktopServices.openUrl(help_url)
@@ -820,6 +811,7 @@ calcul de Moyenne Inter Parcellaire")
         self.settings.setValue("Physiocap/projet", self.lineEditProjet.text() )
         self.settings.setValue("Physiocap/repertoire", self.lineEditDirectoryPhysiocap.text() )
         #self.settings.setValue("Physiocap/contours", self.lineEditContours.text() )
+
 
         # Cas recursif
         recursif = "NO"
@@ -881,9 +873,7 @@ calcul de Moyenne Inter Parcellaire")
         # Gestion de capture des erreurs Physiocap
         # ########################################
         try:
-            # Todo : Reprendre ICI
             filtreur = PhysiocapFiltrer( self)
-            # self.filtrer = filtreur
             # Création des répertoires et des résultats de synthèse
             retour = filtreur.physiocap_creer_donnees_resultats( self, laProjection, EXT_CRS_SHP, EXT_CRS_PRJ,
                 details, TRACE_HISTO, recursif)
@@ -930,19 +920,17 @@ calcul de Moyenne Inter Parcellaire")
         
         except physiocap_exception_stop_user:
             return physiocap_log( \
-                self.trUtf8( "Arrêt de Physiocap à la demande de l'utilisateur"),
+                self.trUtf8( "Arrêt de {0} à la demande de l'utilisateur").format( PHYSIOCAP_UNI),
                 "WARNING")
          # On remonte les autres exceptions
         except:
             raise
         finally:
             pass
-
         # Fin de capture des erreurs Physiocap
-        # Pour le cas où postgres n'est pas accessible
         self.settings.setValue("Physiocap/leFormat", self.fieldComboFormats.currentText())
-        
-        physiocap_log( self.trUtf8( "%s a terminé son analyse.") % PHYSIOCAP_UNI)
-        
-
+        if ( retour == 0 ):
+            physiocap_log( self.trUtf8( "** {0} est prêt pour calcul Inter parcellaire - Onglet Parcelles").\
+                format( PHYSIOCAP_UNI))
+        return retour
 

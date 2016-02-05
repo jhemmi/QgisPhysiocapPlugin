@@ -35,7 +35,6 @@ from PyQt4.QtGui import QAction, QIcon
 import resources_rc
 # Import the code for the dialog
 from Physiocap_dialog import PhysiocapAnalyseurDialog
-from Physiocap_creer_arbre import PhysiocapFiltrer
 from Physiocap_tools import physiocap_log, physiocap_message_box
 
 import os.path

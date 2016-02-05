@@ -37,14 +37,12 @@
 """
 from Physiocap_var_exception import *
 
-from PyQt4 import QtGui, uic  # for Form_class
+from PyQt4 import QtGui
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from qgis.core import *
 from qgis.gui import *
 
-# Import pour postgres
-import psycopg2
 # Imports system & os
 #import os.path
 import sys, string
@@ -79,7 +77,7 @@ def physiocap_question_box( self, text= u"Etes-vous sûr(e) ?" , title = u"\u03D
 def physiocap_log_for_error( self):
     """ Renvoi un message dans la log pour pointer l'utilisateur vers la liste des erreurs"""
     message_log_court = self.trUtf8( u"\u03D5 n'a pas correctement fini son analyse")
-    message_log = message_log_court + self.trUtf8( u". Consultez le journal \u03D5 Erreur")
+    message_log = message_log_court + self.trUtf8( u". Consultez le journal \u03D5 Erreurs")
     physiocap_log( message_log, "WARNING")
     physiocap_error( message_log_court)
     
@@ -171,254 +169,22 @@ def physiocap_quelle_projection_demandee( self):
 
     return laProjection, EXTENSION_SHP_COMPLET, EXTENSION_PRJ_COMPLET, EXTENSION_RASTER_COMPLET, EPSG_NUMBER
 
-def physiocap_quel_uriname( self):
-    """ Retourne l'uriName attendu """
-    a_time = time.strftime( "%d/%m/%y %H:%M\n",time.localtime())
-    maRef = self.settings.value("Physiocap/nomJhemmi", "xx").split( SEPARATEUR_NOEUD) 
-    if ( len( maRef) == 2):
-        monMo = a_time.split("/") 
-        uriName = maRef[0]  + SEPARATEUR_ + monMo[1] + SEPARATEUR_ + maRef[1]
-        return uriName
-    else:
-        return None
- 
-def physiocap_detruit_table_uri( self, uri_deb, laTable):
-    """ Detruit la table  dans uri """
-    try:
-        #physiocap_log( "PG DROP == uri : " + str( uri_deb))
-        #conn = psycopg2.connect("dbname='testpostgis' user='postgres' host='localhost' password='postgres'")
-        conn = psycopg2.connect( uri_deb)
-    except psycopg2.Error as e:
-        aText = self.trUtf8( "PG DROP == Impossible de se connecter à la base de données ")
-        physiocap_log( aText)
-        physiocap_error( aText)
-        errorPG = self.trUtf8( "Erreur PG DROP == {0}").format (str( e.pgcode))
-        physiocap_error( errorPG)
-        # Erreur texte
-        physiocap_error( e.pgerror)
-        return None
- 
-    try:
-        #physiocap_log( "PG DROP == table : " + str( laTable))
-        # Ouvre une curseur
-        cur = conn.cursor()
-        # Execute a command: this creates a new table
-        commande = "drop table " + laTable +";"
-        #physiocap_log( u"La commande DROP >>>" + str( commande))
-        cur.execute( commande)
-    except psycopg2.Error as e:
-        aText = self.trUtf8( "PG DROP == Problème lors de la recherche d'une table")
-        physiocap_log( aText)
-        physiocap_error( aText)
-        errorPG = self.trUtf8( "Erreur PG DROP == {0}").format (str( e.pgcode))
-        physiocap_error( errorPG)
-        # Erreur texte
-        physiocap_error( e.pgerror)
-        return None
-
-    try:
-        conn.commit()
-        cur.close()
-        conn.close()  
-        #physiocap_log( "PG DROP == commit OK ")
-    except psycopg2.Error as e:
-        aText = self.trUtf8( "PG DROP == Probleme lors du commit pour Drop")
-        physiocap_log( aText)
-        physiocap_error( aText)
-        errorPG = self.trUtf8( "Erreur PG DROP == {0}").format (str( e.pgcode))
-        physiocap_error( errorPG)
-        # Erreur texte
-        physiocap_error( e.pgerror)
-        return None            
-   
-    return True
-
-def physiocap_existe_table_uri( self, uri_deb, laTable):
-    """ Retourne true si la table existe dans uri """
-    try:
-        # physiocap_log( "PG == uri : " + str( uri_deb))
-        #conn = psycopg2.connect("dbname='testpostgis' user='postgres' host='localhost' password='postgres'")
-        conn = psycopg2.connect( uri_deb)
-    except psycopg2.Error as e:
-        aText = self.trUtf8( "PG == Impossible de se connecter à la base de données")
-        physiocap_log( aText)
-        physiocap_error( aText)
-        errorPG = self.trUtf8( "Erreur PG recherche == {0}").format (str( e.pgcode))
-        physiocap_error( errorPG)
-        # Erreur texte
-        physiocap_error( e.pgerror)
-        return None
- 
-    try:
-        # physiocap_log( "PG == table : " + str( laTable))
-        # Ouvre une curseur
-        cur = conn.cursor()
-        # Execute a command: this creates a new table
-        commande = "select " + laTable + "::regclass;"
-        #physiocap_log( u"La commande " + str( commande))
-        cur.execute( commande)
-    except psycopg2.Error as e:
-        if e.pgcode == "42P01":
-            #physiocap_log( "OK PG == Tu peux creer")
-            return False
-        else:
-            aText = self.trUtf8( "PG == Probleme lors de la recherche d'une table")
-            physiocap_log( aText)
-            physiocap_error( aText)
-            errorPG = self.trUtf8( "Erreur PG recherche == {0}").format (str( e.pgcode))
-            physiocap_error( errorPG)
-            # Erreur texte
-            physiocap_error( e.pgerror)
-            return None
-            
-    rows = []   
-    try:
-        #physiocap_log( u"Dans Fetch")
-        rows = cur.fetchall()
-    except psycopg2.Error as e:
-        aText = u"PG == Probleme lors de la recherche d'une table "
-        physiocap_log( aText)
-        physiocap_error( aText)
-        errorPG = self.trUtf8( "Erreur PG recherche == {0}").format (str( e.pgcode))
-        physiocap_error( errorPG)
-        # Erreur texte
-        physiocap_error( e.pgerror)
-        return None
-
-    # Close communication with the database
-    try:
-        conn.commit()
-        cur.close()
-        conn.close()  
-    except psycopg2.Error as e:
-        aText = u"PG == Probleme dans la fermeture " + str( uneDatabase)
-        physiocap_log( aText)
-        physiocap_error( aText)
-        errorPG = self.trUtf8( "Erreur PG == {0}").format (str( e.pgcode))
-        physiocap_error( errorPG)
-        # Erreur texte
-        physiocap_error( e.pgerror)
-
-##    physiocap_log( u"Rows : " + str(rows))
-##    for row in rows:
-##        physiocap_log( u"Existe ? : " + str(row))
-    return True
-
-def physiocap_tester_uri( self, uriSource, verbose = "NO"):
-    """ Retourne uri_connect et uri_deb et uri_fin retrouvés dans uriSource """
-    # Tester si la source est bien une base
-    if (str( type( uriSource)) != "<class 'qgis._core.QgsDataSourceURI'>"):
-        physiocap_log( u"Incohérence trop flag")
-        return None, None, None, None
-        
-    # Tester la connection à la base
-    uri_deb = "dbname='" + uriSource.database() + "'" + \
-              " host='" + uriSource.host() + "'" + \
-              " port=" + uriSource.port() + \
-              " user='" + uriSource.username() + "'" + \
-              " password='" + uriSource.password() + "'" # Fin
-    uneDatabase = uriSource.database()
-    try:
-        #conn = psycopg2.connect("dbname='testpostgis' user='postgres' host='localhost' password='postgres'")
-        conn = psycopg2.connect( uri_deb)
-    except psycopg2.Error as e:
-        aText = u"PG == Impossible de se connecter à la base de données " + str( uneDatabase)
-        physiocap_log( aText)
-        physiocap_error( aText)
-        errorPG = "Erreur PG == " + str( e.pgcode)
-        physiocap_error( errorPG)
-        # Erreur texte
-        physiocap_error( e.pgerror)
-        return None, None, None, None
-    
-##    if ( verbose == "YES"):
-##        physiocap_log( u"PG == Ouverture de la base de données " + str( uneDatabase) + \
-##            " == " + str( conn.status))
-    # Ouvre une curseur
-    try:
-        cur = conn.cursor()
-        # Execute une recherceh de version
-        cur.execute( "select version();")
-        rows = cur.fetchall()
-    except psycopg2.Error as e:
-        aText = u"PG == Probleme dans recherche de version " + str( uneDatabase)
-        physiocap_log( aText)
-        physiocap_error( aText)
-        errorPG = "Erreur PG == " + str( e.pgcode)
-        physiocap_error( errorPG)
-        # Erreur texte
-        physiocap_error( e.pgerror)
-
-    if ( verbose == "YES"):
-        physiocap_log( u"PG == Version de la base : " + str(rows[ 0]))
-
-    # Close communication with the database
-    try:
-        conn.commit()
-        cur.close()
-        conn.close()  
-    except psycopg2.Error as e:
-        aText = u"PG == Probleme dans la fermeture " + str( uneDatabase)
-        physiocap_log( aText)
-        physiocap_error( aText)
-        errorPG = "Erreur PG == " + str( e.pgcode)
-        physiocap_error( errorPG)
-        # Erreur texte
-        physiocap_error( e.pgerror)
-  
-##    physiocap_log( u"PG == Fermeture de la base de données " + str( uneDatabase) + \
-##        " == " + str( conn.status))
-
-    # Tout est OK
-    uri_connect = uriSource.connectionInfo()   ## de bd à ssl
-##    if ( verbose == "YES"):
-##        physiocap_log( u"PG ==  Uri connection : " + str( uri_connect) )
-
-    # On cherche le SRID dans Uri puis dans le projet Physiocap
-    uri_deb = uri_connect
-    leSrid = uriSource.srid()
-    if (( leSrid == "") or ( leSrid == None) or ( leSrid == 0)):
-        laProjection, EXT_CRS_SHP, EXT_CRS_PRJ, EXT_CRS_RASTER, leSrid = \
-            physiocap_quelle_projection_demandee(self)
-    uri_srid = " srid=" + str( leSrid)
-    uri_fin = " (geom) sql="
-##    physiocap_log( u"xxx Uri debut : " + uri_deb )
-##    physiocap_log( u"xxx Uri SRID : " + uri_srid )
-##    physiocap_log( u"xxx Uri fin : " + uri_fin )
-    return uri_connect, uri_deb, uri_srid, uri_fin
-    
-def physiocap_get_uri_by_layer( self, uriName = "INIT" ):
-    """ Retourne une uri correspondant au premier layer stocké
-        dans une base Postgres
-        Rend uriname pour le cas "init"
-    """
-    if (uriName == "INIT"):
-        # Vérification que l'on a un URI Physiocap
-        uriName = physiocap_quel_uriname( self)
-        return uriName
-    else:
-        # uriName est recherché
-        layerMap = QgsMapLayerRegistry.instance().mapLayers()
-        layerOK = None
-        for name, layer in layerMap.iteritems():
-            pro = layer.dataProvider() 
-            if (( layer.type() == QgsMapLayer.VectorLayer) and ( pro.name() == POSTGRES_NOM)):
-                #physiocap_log( u"URI BY LAYER Couche trouvée est : " + str( name))
-                layerOK = layer
-                # The layer is found
-                break
-        
-        if ( layerOK != None):
-            if layerOK.isValid():
-                #physiocap_log( u"URI BY LAYER Db trouvée : "  + QgsDataSourceURI(pro.dataSourceUri()).database())
-                if (QgsDataSourceURI(pro.dataSourceUri()).database() == uriName):
-                    return QgsDataSourceURI(pro.dataSourceUri()) #.uri())
-                else:
-                    return None
-            else:
-                return None
-    return None
-        
+##def physiocap_quel_uriname( self):
+##    """ Retourne l'uriName attendu """
+##    return None
+##
+##def physiocap_detruit_table_uri( self, uri_deb, laTable):
+##    return None
+##
+##def physiocap_existe_table_uri( self, uri_deb, laTable):
+##    return None
+##
+##def physiocap_tester_uri( self, uriSource, verbose = "NO"):
+##    return None
+##
+##def physiocap_get_uri_by_layer( self, uriName = "INIT" ):
+##    return None
+##        
 def physiocap_rename_existing( chemin):
     """ Retourne le nom qu'il est possible de creer
         si chemin existe deja, on creer un "chemin + (1)"
