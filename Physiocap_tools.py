@@ -188,7 +188,7 @@ def physiocap_quelle_projection_demandee( self):
 def physiocap_rename_existing( chemin):
     """ Retourne le nom qu'il est possible de creer
         si chemin existe deja, on creer un "chemin + (1)"
-        si "chemin_projet + (1)" existe déjà, on crée un "chemin_projet + (2)" etc         
+        si "chemin_projet + [1]" existe déjà, on crée un "chemin_projet + (2)" etc         
     """
     # Exception suffixe
     extension = ""
@@ -202,10 +202,10 @@ def physiocap_rename_existing( chemin):
             
     # Si chemin a déjà une parenthèse dans la 3 derniers caracteres
     longueur = len(chemin)
-    if chemin[-1:] == ")":
+    if chemin[-1:] == "]":
         # cas du chemin qui a été déjà renommer
         pos = -2
-        while chemin[ pos:][0] != "(":
+        while chemin[ pos:][0] != "[":
             pos = pos - 1
             if pos == (-1 * longueur): 
                 pos = -1
@@ -217,16 +217,16 @@ def physiocap_rename_existing( chemin):
             nouveau_numero = 1
             if physiocap_is_int_number( un_num):
                 nouveau_numero = int(un_num) + 1
-                nouveau_chemin = chemin[:pos] + "(" +str(nouveau_numero) +")"
+                nouveau_chemin = chemin[:pos] + "[" +str(nouveau_numero) +"]"
             else:
                 # cas d'un nom etrange
-                nouveau_chemin = chemin + "(1)"        
+                nouveau_chemin = chemin + "[1]"        
         else:
             # cas d'un nom etrange
-            nouveau_chemin = chemin + "(1)" 
+            nouveau_chemin = chemin + "[1]" 
     else:
         # cas du premier fichier renommer
-        nouveau_chemin = chemin + "(1)"
+        nouveau_chemin = chemin + "[1]"
 
     # Remettre extension
     if (extension != ""):
@@ -235,7 +235,7 @@ def physiocap_rename_existing( chemin):
     return nouveau_chemin
 
 
-def physiocap_rename_existing_file ( chemin):
+def physiocap_rename_existing_file( chemin):
     """ Retourne le nom de fichier qu'il est possible de creer
         si chemin existe deja, on creer un "chemin + (1)"
         si "chemin_projet + (1)" existe déjà, on crée un "chemin_projet + (2)" etc         
