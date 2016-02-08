@@ -215,10 +215,12 @@ class PhysiocapIntra( QtGui.QDialog):
                 10, info_extent, pixelIntra,
                 None) 
                                        
-            if (( premier_raster != None) & ( str( list( premier_raster)).find( "USER_GRID") != -1)):
+            if (( premier_raster != None) and ( str( list( premier_raster)).find( "USER_GRID") != -1)):
                 if premier_raster[ 'USER_GRID'] != None:
                     nom_raster_temp = premier_raster[ 'USER_GRID']
-                    #physiocap_log( "=~= OK premier raster : {0}".format( nom_raster_temp))
+                    physiocap_log( "=~= OK premier raster : {0}".format( nom_raster_temp))
+                    physiocap_log( "=~= avant vignette : {0}".format( nom_vignette))
+                    physiocap_log( "=~= avant raster : {0}".format( nom_raster))
                 else:
                     physiocap_error( self, self.trUtf8( "=~= Problème dans inversedistanceweighted B"))
                     raise physiocap_exception_interpolation( nom_point)
@@ -233,7 +235,7 @@ class PhysiocapIntra( QtGui.QDialog):
                 nom_vignette,
                 nom_raster)
             
-            if (( raster_dans_poly != None) & ( str( list( raster_dans_poly)).find( "OUTPUT") != -1)):
+            if (( raster_dans_poly != None) and ( str( list( raster_dans_poly)).find( "OUTPUT") != -1)):
                 if raster_dans_poly[ 'OUTPUT'] != None:
                     nom_raster_final = raster_dans_poly[ 'OUTPUT']
                 else:
@@ -244,10 +246,10 @@ class PhysiocapIntra( QtGui.QDialog):
                 raise physiocap_exception_interpolation( nom_point)
 
             # Car Processing bloque; je passe par un autre bout de code
-            physiocap_log( self.trUtf8( "=~= avant affiche"))
-            intra_raster = QgsRasterLayer( nom_raster_final, 
-                nom_court_raster)
+            physiocap_log( self.trUtf8( "=~= avant affiche : {0}").format( nom_raster_final))
+            intra_raster = QgsRasterLayer( nom_raster_final, nom_court_raster)
             QgsMapLayerRegistry.instance().addMapLayer( intra_raster, False)
+            physiocap_log( self.trUtf8( "=~= apres affiche"))
                         
             physiocap_log( self.trUtf8( "=~= Interpolation SAGA - Etape 2 - {0}").\
                 format( nom_raster_final))            
@@ -261,7 +263,7 @@ class PhysiocapIntra( QtGui.QDialog):
                     nom_isoligne)
                 physiocap_log( self.trUtf8( "=~= Interpolation SAGA - Etape 2 - FIN"))
             
-                if (( iso_dans_poly_brut != None) & ( str( list( iso_dans_poly_brut)).find( "CONTOUR") != -1)):
+                if (( iso_dans_poly_brut != None) and ( str( list( iso_dans_poly_brut)).find( "CONTOUR") != -1)):
                     if iso_dans_poly_brut[ 'CONTOUR'] != None:
                         nom_iso_final_plus = iso_dans_poly_brut[ 'CONTOUR']
                     else:
@@ -277,7 +279,7 @@ class PhysiocapIntra( QtGui.QDialog):
                         nom_iso_final_plus, \
                         "ELEV", 1, 15, 2 ,None)
  
-                if (( iso_dans_poly_plus != None) & ( str( list( iso_dans_poly_plus)).find( "OUTPUT_LAYER") != -1)):
+                if (( iso_dans_poly_plus != None) and ( str( list( iso_dans_poly_plus)).find( "OUTPUT_LAYER") != -1)):
                     if iso_dans_poly_plus[ 'OUTPUT_LAYER'] != None:
                         nom_iso_final = iso_dans_poly_plus[ 'OUTPUT_LAYER']
                     else:
@@ -302,7 +304,7 @@ class PhysiocapIntra( QtGui.QDialog):
                     iso_dans_poly = processing.runalg("qgis:fieldcalculator", \
                         nom_iso_final, "ELEV", 0, 15, 2, False, field_formule ,None)
 
-                if (( iso_dans_poly != None) & ( str( list( iso_dans_poly)).find( "OUTPUT_LAYER") != -1)):
+                if (( iso_dans_poly != None) and ( str( list( iso_dans_poly)).find( "OUTPUT_LAYER") != -1)):
                     if iso_dans_poly[ 'OUTPUT_LAYER'] != None:
                         nom_iso_final = iso_dans_poly[ 'OUTPUT_LAYER']
                     else:
@@ -324,7 +326,7 @@ class PhysiocapIntra( QtGui.QDialog):
                 1000, 5, angle, val_nulle ,float_32, 
                 None)
           
-            if (( premier_raster != None) & ( str( list( premier_raster)).find( "OUTPUT") != -1)):
+            if (( premier_raster != None) and ( str( list( premier_raster)).find( "OUTPUT") != -1)):
                 if premier_raster[ 'OUTPUT'] != None:
                     nom_raster_temp = premier_raster[ 'OUTPUT']
                     #physiocap_log( "=xg= OK premier raster : {0}".format( nom_raster_temp))
@@ -357,7 +359,7 @@ class PhysiocapIntra( QtGui.QDialog):
                 option_clip_raster, 
                 nom_raster)
             
-            if (( raster_dans_poly != None) & ( str( list( raster_dans_poly)).find( "OUTPUT") != -1)):
+            if (( raster_dans_poly != None) and ( str( list( raster_dans_poly)).find( "OUTPUT") != -1)):
                 if raster_dans_poly[ 'OUTPUT'] != None:
                     nom_raster_final = raster_dans_poly[ 'OUTPUT']
                 else:
@@ -381,7 +383,7 @@ class PhysiocapIntra( QtGui.QDialog):
                     "",
                     nom_isoligne)
                                 
-            if (( iso_dans_poly != None) & ( str( list( iso_dans_poly)).find( "OUTPUT_VECTOR") != -1)):
+            if (( iso_dans_poly != None) and ( str( list( iso_dans_poly)).find( "OUTPUT_VECTOR") != -1)):
                 if iso_dans_poly[ 'OUTPUT_VECTOR'] != None:
                     nom_iso_final = iso_dans_poly[ 'OUTPUT_VECTOR']
                 else:
