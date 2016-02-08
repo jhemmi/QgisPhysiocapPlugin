@@ -113,10 +113,10 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         machine = platform.system()
         physiocap_log( self.trUtf8( "Votre machine tourne sous QGIS {0} et {1} ").\
             format( QGis.QGIS_VERSION, machine))        
-        physiocap_log( self.trUtf8( "Test 1 et 2 : {0} <===> {1} ").\
-            format( PHYSIOCAP_TEST1, PHYSIOCAP_TEST2))
-        physiocap_log( self.trUtf8( "Test 3 et 4 : {0} <===> {1} ").\
-            format( PHYSIOCAP_TEST3, PHYSIOCAP_TEST4))
+##        physiocap_log( self.trUtf8( "Test 1 et 2 : {0} <===> {1} ").\
+##            format( PHYSIOCAP_TEST1, PHYSIOCAP_TEST2))
+##        physiocap_log( self.trUtf8( "Test 3 et 4 : {0} <===> {1} ").\
+##            format( PHYSIOCAP_TEST3, PHYSIOCAP_TEST4))
 ##        physiocap_log( self.trUtf8( "Qgis attend des couches de projection SRID {0} CRS_ID {1} ").\
 ##            format( GEOSRID, GEO_EPSG_CRS_ID ))
         

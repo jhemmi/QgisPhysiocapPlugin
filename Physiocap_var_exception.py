@@ -72,8 +72,19 @@ NOM_PROJET = "PHY" + SEPARATEUR_ + PHYSIOCAP_TEST4 + SEPARATEUR_
 
 # Listes de valeurs
 #CEPAGES = [ "INCONNU", "CHARDONNAY", "MERLOT", "NEGRETTE", "PINOT NOIR", "PINOT MEUNIER"]
-CEPAGES = [ "Inconnu", "Cabernet Franc", "Cabernet Sauvignon", "Chardonnay", "Merlot", \
-    "Négrette", "Pinot Noir", "Pinot Meunier", "Syrah"]
+CEPAGES = [ "Inconnu", \
+"Airen", "Chardonnay", "Trebbiano", "Grasevina", "Rkatsiteli", "Sauvignon", "Cayetana", \
+"Catarratto", "Macabeo", "Chenin", "Riesling", "Colombard", "Aligote", "Muëller Thurgau", \
+"Palomino Fino", "Muscat", "Semillon", "Feteasca", "Gruner Veltliner", "Trebbiano Romagnolo", \
+"Pinot Blanc", "Garganega", "Niagara", "Pedro Gimenez", "Fernao Pires", "Sultaniye", "Chasselas", \
+"Melon", \
+"Cabernet Sauvignon", "Grenache", "Merlot", "Mazuelo", "Syrah", "Bobal", "Tempranillo", "Monastrell", \
+"Sangiovese", "Négrette", "Pinot Noir", "Pinot Meunier", "Cabernet Franc", "Cinsaut", "Gamay", \
+"Alicante", "Barbera", "Montepulciano", "Isabella", "Tribidrag", "Criolla Grande", "Cot", "Pamid", \
+"Douce Noire", "Negroamaro", "Doukkali", "Listan Prieto", "Prokupac", "Castelao", "Mencia", \
+"Blaufrankisch", "Concord", "Zinfandel" ]
+
+
 TAILLES = [ "Inconnue", "Chablis", "Cordon de Royat", "Cordon libre", "Guyot simple", "Guyot double"]
 FORMAT_VECTEUR = [ "ESRI Shapefile", POSTGRES_NOM] # "memory"]
 

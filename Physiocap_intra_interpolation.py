@@ -130,7 +130,7 @@ class PhysiocapIntra( QtGui.QDialog):
                     
         # Test SAGA version, sinon annoncer l'utilisation de Gdal
         if dialogue.radioButtonSAGA.isChecked():
-            physiocap_log ( self.trUtf8( "= Version SAGA = %s" % ( str( versionSAGA))))
+            #physiocap_log ( self.trUtf8( "= Version SAGA = %s" % ( str( versionSAGA))))
             unite, dixieme, millieme = versionSAGA.split( ".")
             versionNum = float(unite) + float(dixieme)/10 + float(millieme)/100
             if ( versionNum >= 2.10) and ( versionNum <= 2.12):
@@ -242,7 +242,13 @@ class PhysiocapIntra( QtGui.QDialog):
             else:
                 physiocap_error( self, self.trUtf8( "=~= Problème dans clipgridwithpolygon A"))
                 raise physiocap_exception_interpolation( nom_point)
-            
+
+            # Car Processing bloque; je passe par un autre bout de code
+            physiocap_log( self.trUtf8( "=~= avant affiche"))
+            intra_raster = QgsRasterLayer( nom_raster_final, 
+                nom_court_raster)
+            QgsMapLayerRegistry.instance().addMapLayer( intra_raster, False)
+                        
             physiocap_log( self.trUtf8( "=~= Interpolation SAGA - Etape 2 - {0}").\
                 format( nom_raster_final))            
 
@@ -253,7 +259,8 @@ class PhysiocapIntra( QtGui.QDialog):
                     nom_raster_final,
                     isoMin, isoMax, isoInterlignes,
                     nom_isoligne)
-
+                physiocap_log( self.trUtf8( "=~= Interpolation SAGA - Etape 2 - FIN"))
+            
                 if (( iso_dans_poly_brut != None) & ( str( list( iso_dans_poly_brut)).find( "CONTOUR") != -1)):
                     if iso_dans_poly_brut[ 'CONTOUR'] != None:
                         nom_iso_final_plus = iso_dans_poly_brut[ 'CONTOUR']
@@ -344,8 +351,8 @@ class PhysiocapIntra( QtGui.QDialog):
 ##                physiocap_log( self.trUtf8( "=xg= Option du clip: {0}").\
 ##                    format( option_clip_raster))
                 raster_dans_poly = processing.runalg("gdalogr:cliprasterbymasklayer",
-                str( nom_raster_temp),
-                str( nom_vignette),
+                nom_raster_temp,
+                nom_vignette,
                 "-9999",False,False,
                 option_clip_raster, 
                 nom_raster)

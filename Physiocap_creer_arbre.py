@@ -192,7 +192,7 @@ class PhysiocapFiltrer( QtGui.QDialog):
         a_time = time.strftime( "%d/%m/%y %H:%M\n",time.localtime())
         fichier_synthese.write( a_time)
         fichier_synthese.write( "Répertoire de base ")
-        fichier_synthese.write( chemin_base_projet + "\n")
+        fichier_synthese.write( chemin_base_projet.encode("Utf-8") + "\n")
         fichier_synthese.write( "Nom des MID \t\t Date et heures\n=>Nb. Valeurs brutes\tVitesse km/h")
         if (CENTROIDES == "YES"):
             fichier_synthese.write("\nCentroïdes")
@@ -371,7 +371,7 @@ class PhysiocapFiltrer( QtGui.QDialog):
             fichier_synthese.write("\nAucune information parcellaire saisie\n")
         else:
             fichier_synthese.write("\n")
-            msg = "Cépage : " + leCepage + "\n"
+            msg = "Cépage : %s \n" % leCepage.encode("Utf-8")
             fichier_synthese.write( msg)
             fichier_synthese.write("Type de taille : %s\n" %laTaille)        
             fichier_synthese.write("Hauteur de végétation : %s cm\n" %hauteur)

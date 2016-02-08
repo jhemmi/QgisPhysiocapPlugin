@@ -311,7 +311,6 @@ def physiocap_list_MID( repertoire, MIDs, synthese="xx"):
             fichier_pret = open(un_mid, "r")
             lignes = fichier_pret.readlines()
             if un_mid.find( repertoire) == 0:
-                #print( "VERY GOOD MID :" + trouve[ len( root_base) + 1:])
                 un_MIDs_court = un_mid[ len( repertoire) + 1:]
             gps_x = []
             gps_y = []
