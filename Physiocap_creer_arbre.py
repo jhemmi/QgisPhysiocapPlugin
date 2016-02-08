@@ -54,7 +54,7 @@ from Physiocap_inter import physiocap_fill_combo_poly_or_point
 
 from Physiocap_var_exception import *
 
-from PyQt4 import QtCore, QtGui
+from PyQt4 import QtGui
 from PyQt4.QtCore import QSettings, Qt 
 from PyQt4.QtGui import QPixmap
 from qgis.core import QgsProject, QgsVectorLayer , QgsMapLayerRegistry, QgsMapLayer
@@ -95,7 +95,6 @@ class PhysiocapFiltrer( QtGui.QDialog):
             
         # Vérification de l'existance ou création du répertoire projet
         chemin_projet = os.path.join(REPERTOIRE_DONNEES_BRUTES, NOM_PROJET)
-        #physiocap_log(u"Repertoire projet : " + str(chemin_projet))
         if not (os.path.exists( chemin_projet)):
             try:
                 os.mkdir( chemin_projet)
@@ -181,9 +180,9 @@ class PhysiocapFiltrer( QtGui.QDialog):
         # Assert le fichier de données n'est pas vide
         if os.path.getsize( nom_csv_concat ) == 0 :
             uMsg = self.trUtf8( "Le fichier {0} a une taille nulle !").\
-                format( str( nom_court_csv_concat))
+                format( nom_court_csv_concat)
             physiocap_message_box( self, uMsg)
-            return physiocap_error( uMsg)
+            return physiocap_error( self, uMsg)
         
         # Création la première partie du fichier de synthèse
         fichier_resultat_analyse = chemin_base_projet + SEPARATEUR_ + FICHIER_RESULTAT
@@ -202,7 +201,8 @@ class PhysiocapFiltrer( QtGui.QDialog):
         for all_info in info_mid:
             info = all_info.split(";")
             fichier_synthese.write( str(info[0]) + "\t" + str(info[1]) + "->" + str(info[2])+ "\n")
-            fichier_synthese.write( "=>\t" +str(info[3]) + "\t" + str(info[4]))
+            # une seule décimale pour vitesse
+            fichier_synthese.write( "=>\t{0}\t{1:.1f}".format( info[3], float( info[4])))
             if (CENTROIDES == "YES"):
                 # Centroides
                 fichier_synthese.write( "\n" + str(info[5]) + "--" + str(info[6]))
@@ -243,7 +243,7 @@ class PhysiocapFiltrer( QtGui.QDialog):
         # Appeler la fonction de vérification du format du fichier csv
         # Si plus de 20 % d'erreur exception est monté
         try:
-            pourcentage_erreurs = physiocap_assert_csv( csv_concat, erreur)
+            pourcentage_erreurs = physiocap_assert_csv( self, csv_concat, erreur)
             if ( pourcentage_erreurs > TAUX_LIGNES_ERREUR):
                 fichier_synthese.write("\nTrop d'erreurs dans les données brutes")
                 # Todo : question selon le taux de lignes en erreur autorisées
@@ -257,9 +257,9 @@ class PhysiocapFiltrer( QtGui.QDialog):
         
         if os.path.getsize( nom_csv_concat ) == 0 :
             uMsg = self.trUtf8( "Le fichier {0} a une taille nulle !").\
-                format( str( nom_court_csv_concat))            
+                format( nom_court_csv_concat)            
             physiocap_message_box( self, uMsg)
-            return physiocap_error( uMsg)
+            return physiocap_error( self, uMsg)
 
         # ouverture du fichier source
         csv_concat = open(nom_csv_concat, "r")
@@ -267,7 +267,7 @@ class PhysiocapFiltrer( QtGui.QDialog):
         # Appeler la fonction de traitement
         if histogrammes == "YES":
             #################
-            physiocap_fichier_histo( csv_concat, data_histo_diametre,    
+            physiocap_fichier_histo( self, csv_concat, data_histo_diametre,    
                         data_histo_sarment, erreur)
             #################
             # Fermerture des fichiers
@@ -348,8 +348,8 @@ class PhysiocapFiltrer( QtGui.QDialog):
         # Todo : V1.5 ? Gerer cette erreur par exception
         if retour_filtre != 0:
             uMsg = self.trUtf8( "Erreur bloquante : problème lors du filtrage des données de {0}").\
-                format( str( nom_court_csv_concat))
-            return physiocap_error(uMsg)  
+                format( nom_court_csv_concat)
+            return physiocap_error( self, uMsg)  
 
         # Progress BAR 60 %
         dialogue.progressBar.setValue( 41)
@@ -371,7 +371,7 @@ class PhysiocapFiltrer( QtGui.QDialog):
             fichier_synthese.write("\nAucune information parcellaire saisie\n")
         else:
             fichier_synthese.write("\n")
-            msg = "Cépage : " + str( leCepage) + "\n"
+            msg = "Cépage : " + leCepage + "\n"
             fichier_synthese.write( msg)
             fichier_synthese.write("Type de taille : %s\n" %laTaille)        
             fichier_synthese.write("Hauteur de végétation : %s cm\n" %hauteur)
@@ -413,7 +413,7 @@ class PhysiocapFiltrer( QtGui.QDialog):
                 laProjection,
                 nom_fichier_synthese, details)
         if retour != 0:
-            return physiocap_error( self.trUtf8( \
+            return physiocap_error( self, self.trUtf8( \
                 "Erreur bloquante : problème lors de la création du shapefile {0}").\
                 format( str ( nom_court_shape_sans_0))) 
 
@@ -434,7 +434,7 @@ class PhysiocapFiltrer( QtGui.QDialog):
         retour = physiocap_csv_vers_shapefile( dialogue, 65, nom_csv_avec_0, nom_shape_avec_0, nom_prj_avec_0, laProjection,
             "NO", details)
         if retour != 0:
-            return physiocap_error( self.trUtf8( \
+            return physiocap_error( self, self.trUtf8( \
                 "Erreur bloquante : problème lors de la création du shapefile {0}").\
                 format( str ( nom_court_shape_avec_0))) 
                               
@@ -453,13 +453,13 @@ class PhysiocapFiltrer( QtGui.QDialog):
         SHAPE_A_AFFICHER = []
         qml_is = ""
         if dialogue.checkBoxDiametre.isChecked():
-            qml_is = str( dialogue.lineEditThematiqueDiametre.text().strip('"')) + EXTENSION_QML
+            qml_is = dialogue.lineEditThematiqueDiametre.text().strip('"') + EXTENSION_QML
             SHAPE_A_AFFICHER.append( (nom_shape_sans_0, 'DIAMETRE mm', qml_is))
         if dialogue.checkBoxSarment.isChecked():
-            qml_is = str( dialogue.lineEditThematiqueSarment.text().strip('"')) + EXTENSION_QML
+            qml_is = dialogue.lineEditThematiqueSarment.text().strip('"') + EXTENSION_QML
             SHAPE_A_AFFICHER.append( (nom_shape_sans_0, 'SARMENT par m', qml_is))
         if dialogue.checkBoxVitesse.isChecked():
-            qml_is = str( dialogue.lineEditThematiqueVitesse.text().strip('"')) + EXTENSION_QML
+            qml_is = dialogue.lineEditThematiqueVitesse.text().strip('"') + EXTENSION_QML
             SHAPE_A_AFFICHER.append(( nom_shape_avec_0, 'VITESSE km/h', qml_is))
         
         for shapename, titre, un_template in SHAPE_A_AFFICHER:
@@ -525,7 +525,7 @@ class PhysiocapFiltrer( QtGui.QDialog):
         dialogue.progressBar.setValue( 100)
         # Fin 
         physiocap_log ( self.trUtf8( "** {0} a affiché des couches dans le groupe {1}").\
-            format( PHYSIOCAP_UNI, str( chemin_base_projet)))
+            format( PHYSIOCAP_UNI, chemin_base_projet))
         physiocap_fill_combo_poly_or_point( dialogue)
         # TODO : rafraichir si besoin 
         #physiocap_log ( u"Mise à jour des poly et points")

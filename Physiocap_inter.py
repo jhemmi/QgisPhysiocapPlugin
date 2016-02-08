@@ -41,7 +41,7 @@
  *                                                                         *
 ***************************************************************************/
 """
-from Physiocap_tools import physiocap_message_box, physiocap_question_box,\
+from Physiocap_tools import physiocap_message_box,\
         physiocap_log, physiocap_error, physiocap_write_in_synthese, \
         physiocap_rename_existing_file, physiocap_rename_create_dir, \
         physiocap_open_file, physiocap_quelle_projection_demandee, \
@@ -49,14 +49,15 @@ from Physiocap_tools import physiocap_message_box, physiocap_question_box,\
 
 from Physiocap_var_exception import *
 
-from PyQt4 import QtCore, QtGui 
-from PyQt4.QtCore import Qt, QVariant 
-#from PyQt4.QtGui import 
-##from qgis.core import QgsProject, QgsVectorLayer , QgsMapLayerRegistry,\
-##    QgsMapLayer, QgsLayerTreeGroup, QgsLayerTreeLayer
-from qgis.core import * # necessaire pour les valeurs Qgis.point... 
+from PyQt4 import QtGui 
+from PyQt4.QtCore import Qt, QVariant
+from PyQt4.QtGui import QDesktopServices
+from qgis.core import QGis, QgsProject, QgsVectorLayer , QgsMapLayerRegistry,\
+    QgsLayerTreeGroup, QgsLayerTreeLayer, QgsCoordinateReferenceSystem,\
+    QgsFeatureRequest, QgsFields, QgsField, QgsVectorFileWriter, QgsFeature,\
+    QgsGeometry
     
-def physiocap_vector_poly_or_point( vector):
+def physiocap_vector_poly_or_point( self, vector):
     """Vérifie le type de forme du vector : s'appuie sur la premiere valeur"""
 
     try:
@@ -78,7 +79,8 @@ def physiocap_vector_poly_or_point( vector):
             else:
                 return "Inconnu"
     except:
-        physiocap_error( "Warning : Layer ni point, ni polygone : " + vector.id())
+        physiocap_error( self, self.trUtf8("Warning : couche (layer) {0} n'est ni (is nor) point, ni (nor) polygone").\
+            format( vector.id()))
         pass
         # on evite les cas imprévus
         return "Inconnu"
@@ -111,24 +113,25 @@ def physiocap_fill_combo_poly_or_point( self, isRoot = None, node = None ):
             #physiocap_log( "- group: " + child.name())
             noeud_en_cours = child.name()
             groupe_inter = noeud_en_cours + SEPARATEUR_ + VIGNETTES_INTER
+            #physiocap_log( "- group inter : " + groupe_inter)
             if ( noeud_en_cours != groupe_inter ):
                 # On exclut les vignettes
                 un_nombre_poly, un_nombre_point = physiocap_fill_combo_poly_or_point( self, noeud, child)
                 nombre_point = nombre_point + un_nombre_point
                 nombre_poly = nombre_poly + un_nombre_poly
         elif isinstance(child, QgsLayerTreeLayer):
-            #physiocap_log( "- in tree layer: ")
             #physiocap_log( "- layer: " + child.layerName() + "  ID: " + child.layerId()) 
             # Tester si poly ou point
-            if ( physiocap_vector_poly_or_point( child.layer()) == "Point"):
+            if ( physiocap_vector_poly_or_point( self, child.layer()) == "Point"):
                 if ( child.layerName() == "DIAMETRE mm"):
+                    #physiocap_log( "- layer: " + child.layerName() + "  ID: " + child.layerId()) 
                     node_layer = noeud_en_cours + SEPARATEUR_NOEUD + child.layerId()
-                    # Todo : WT DATA BUG unicode acsii dans certain cas...        
-                    self.comboBoxPoints.addItem( str(node_layer))
+                    #physiocap_log( "- group: type node_layer " + str( type( node_layer)))
+                    self.comboBoxPoints.addItem( node_layer)
                     nombre_point = nombre_point + 1
-            elif ( physiocap_vector_poly_or_point( child.layer()) == "Polygone"):
+            elif ( physiocap_vector_poly_or_point( self, child.layer()) == "Polygone"):
                 node_layer = child.layerName() + SEPARATEUR_NOEUD + child.layerId()        
-                self.comboBoxPolygone.addItem( str(node_layer) )
+                self.comboBoxPolygone.addItem( node_layer)
                 nombre_poly = nombre_poly + 1
             #else:
                 #physiocap_log( "- layer rejeté : " + child.layerName() + "  ID: " + child.layerId()) 
@@ -145,8 +148,7 @@ def physiocap_moyenne_vers_vignette( crs, EPSG_NUMBER, nom_vignette, nom_prj,
         moyennes du diametre
         Il s'agit d'un seul polygone
     """
-    # physiocap_log( u"Début de shape vignette :"+ str( un_nom ))
-    # Prepare les attributs
+    # Prépare les attributs
     les_champs = QgsFields()
     les_champs.append( QgsField( "GID", QVariant.Int, "integer", 10))
     #les_champs.append( QgsField( NAME_NAME, QVariant.String, "string", 25))
@@ -192,8 +194,6 @@ def physiocap_moyenne_vers_vignette( crs, EPSG_NUMBER, nom_vignette, nom_prj,
         epsg = EPSG_TEXT_GPS
     prj.write(epsg)
     prj.close()    
-    
-    #physiocap_log( u"Fin vignette :"+ str( un_nom ))
     return 0
 
 def physiocap_moyenne_vers_point( crs, EPSG_NUMBER, nom_point, nom_prj,
@@ -244,7 +244,7 @@ def physiocap_moyenne_vers_point( crs, EPSG_NUMBER, nom_point, nom_prj,
     prj.write(epsg)
     prj.close()    
     
-    #physiocap_log( u"Fin point :")
+    #physiocap_log( "Fin point :")
     return 0
 
 def physiocap_moyenne_vers_contour( crs, EPSG_NUMBER, nom_contour_moyenne, nom_contour_moyenne_prj,
@@ -274,8 +274,6 @@ def physiocap_moyenne_vers_contour( crs, EPSG_NUMBER, nom_contour_moyenne, nom_c
     writer = QgsVectorFileWriter( nom_contour_moyenne, "utf-8", les_champs, 
         QGis.WKBPolygon, crs , "ESRI Shapefile")
     
-    #physiocap_log( u"Nombre contours contenant des données moyennes : %s" + str( len(les_parcelles)))
-
     for i in range( 0, len( les_parcelles)) :
         
         feat = QgsFeature()
@@ -325,7 +323,7 @@ class PhysiocapInter( QtGui.QDialog):
         # Attention peut être non renseigné repertoire_projet = dialogue.lineEditDernierProjet.text()
         if ((repertoire_data == "") or ( not os.path.exists( repertoire_data))):
             aText = self.trUtf8( "Pas de répertoire de données brutes spécifié" )
-            physiocap_error( aText)
+            physiocap_error( self, aText)
             return physiocap_message_box( dialogue, aText, "information")
                 
         details = "NO"
@@ -335,16 +333,16 @@ class PhysiocapInter( QtGui.QDialog):
         # Récupérer des styles pour chaque shape dans Affichage
         #dir_template = os.path.join( os.path.dirname(__file__), 'modeleQgis')       
         dir_template = dialogue.fieldComboThematiques.currentText()
-        qml_is = str( dialogue.lineEditThematiqueInterMoyenne.text().strip('"')) + EXTENSION_QML
+        qml_is = dialogue.lineEditThematiqueInterMoyenne.text().strip('"') + EXTENSION_QML
         le_template_moyenne = os.path.join( dir_template, qml_is)
-        qml_is = str( dialogue.lineEditThematiqueInterPoints.text().strip('"')) + EXTENSION_QML
+        qml_is = dialogue.lineEditThematiqueInterPoints.text().strip('"') + EXTENSION_QML
         le_template_point = os.path.join( dir_template, qml_is)
        
         # Pour polygone de contour   
         nom_complet_poly = dialogue.comboBoxPolygone.currentText().split( SEPARATEUR_NOEUD)
         if ( len( nom_complet_poly) != 2):
             aText = self.trUtf8( "Le polygone de contour n'est pas choisi.")
-            physiocap_error( aText)
+            physiocap_error( self, aText)
             aText = aText + "\n" + self.trUtf8( "Avez-vous créer votre shapefile de contour ?")
             return physiocap_message_box( dialogue, aText)           
         nom_poly = nom_complet_poly[ 0] 
@@ -352,7 +350,6 @@ class PhysiocapInter( QtGui.QDialog):
         vecteur_poly = physiocap_get_layer_by_ID( id_poly)
 
         leChampPoly = dialogue.fieldComboContours.currentText()
-        #physiocap_log( u"Champ Poly " + str( leChampPoly))
             
         # Pour les points
         nom_complet_point = dialogue.comboBoxPoints.currentText().split( SEPARATEUR_NOEUD)
@@ -360,7 +357,7 @@ class PhysiocapInter( QtGui.QDialog):
             aText = self.trUtf8( "Le shape de points n'est pas choisi. ")
             aText = aText + self.trUtf8( "Créer une nouvelle instance de projet - bouton OK - ")
             aText = aText + self.trUtf8( "avant de faire votre calcul de Moyenne Inter Parcellaire")
-            physiocap_error( aText, "CRITICAL")
+            physiocap_error( self, aText, "CRITICAL")
             return physiocap_message_box( dialogue, aText, "information" )
         nom_noeud_arbre = nom_complet_point[ 0] 
         id_point = nom_complet_point[ 1] 
@@ -371,10 +368,10 @@ class PhysiocapInter( QtGui.QDialog):
         un_groupe = root.findGroup( nom_noeud_arbre)
         if ( not isinstance( un_groupe, QgsLayerTreeGroup)):
             aText = self.trUtf8( "Le projet {0} n'existe pas. ").\
-                format( str( nom_noeud_arbre))
+                format( nom_noeud_arbre)
             aText = aText + self.trUtf8( "Créer une nouvelle instance de projet - bouton OK - ")
             aText = aText + self.trUtf8( "avant de faire votre calcul de Moyenne Inter Parcellaire")
-            physiocap_error( aText, "CRITICAL")
+            physiocap_error( self, aText, "CRITICAL")
             return physiocap_message_box( dialogue, aText, "information" )            
 
         # Vérification 
@@ -382,14 +379,14 @@ class PhysiocapInter( QtGui.QDialog):
             aText = self.trUtf8( "Le jeu de points choisi n'est pas valide. ")
             aText = aText + self.trUtf8( "Créer une nouvelle instance de projet - bouton OK - ")
             aText = aText + self.trUtf8( "avant de faire votre calcul de Moyenne Inter Parcellaire")
-            physiocap_error( aText, "CRITICAL")
+            physiocap_error( self, aText, "CRITICAL")
             return physiocap_message_box( dialogue, aText, "information" )  
 
         if ( vecteur_poly == None) or ( not vecteur_poly.isValid()):
             aText = self.trUtf8( "Le contour choisi n'est pas valide. ")
             aText = aText + self.trUtf8( "Créer une nouvelle instance de projet - bouton OK - ")
             aText = aText + self.trUtf8( "avant de faire votre calcul de Moyenne Inter Parcellaire")
-            physiocap_error( aText, "CRITICAL")
+            physiocap_error( self, aText, "CRITICAL")
             return physiocap_message_box( dialogue, aText, "information" ) 
 
         # Verifier SRCs sont les même
@@ -397,7 +394,7 @@ class PhysiocapInter( QtGui.QDialog):
         crs_point = vecteur_point.crs().authid()
         if ( crs_poly != crs_point):
             mes = self.trUtf8( "Les projections (CRS) des coutours et mesures brutes sont différentes !")
-            physiocap_error( mes)
+            physiocap_error( self, mes)
             return physiocap_message_box( dialogue, mes,"information")
                     
         laProjection, EXT_CRS_SHP, EXT_CRS_PRJ, EXT_CRS_RASTER, EPSG_NUMBER = \
@@ -415,9 +412,7 @@ class PhysiocapInter( QtGui.QDialog):
             chemin_shapes = os.path.dirname( unicode( vecteur_point.dataProvider().dataSourceUri() ) ) ;
         if ( not os.path.exists( chemin_shapes)):
             raise physiocap_exception_rep( chemin_shapes)
-        
-        #physiocap_log ( u"======= là c'est OK >> ")
-            
+                    
         # On passe sur les differents contours
         id = 0
         contour_avec_point = 0
@@ -436,13 +431,13 @@ class PhysiocapInter( QtGui.QDialog):
         for un_contour in vecteur_poly.getFeatures(): #iterate poly features
             id = id + 1
             try:
-                un_nom = str( un_contour[ leChampPoly]) #get attribute of poly layer
+                un_nom = un_contour[ leChampPoly] #get attribute of poly layer
             except:
                 un_nom = "PHY_ID_" + str(id)
                 pass
             
             physiocap_log ( self.trUtf8( "== Début Inter pour {0} >>>> ").\
-                format( str( un_nom)))
+                format( un_nom))
             
             un_autre_ID = "PHY_ID" + str(id)
             geom_poly = un_contour.geometry() #get geometry of poly layer
@@ -456,9 +451,9 @@ class PhysiocapInter( QtGui.QDialog):
                 physiocap_log ( "== Layer (Polygone) multiple: " + un_nom)
             else:
                 aText = self.trUtf8( "== Cette forme n'est pas un polygone : {0}").\
-                format( str( un_nom))
-                physiocap_log ( aText)
-                physiocap_error ( aText)
+                    format( un_nom)
+                physiocap_log( aText)
+                physiocap_error( self, aText)
                 physiocap_message_box( dialogue, aText, "information")
                 continue
             
@@ -486,7 +481,6 @@ class PhysiocapInter( QtGui.QDialog):
                     if i == 0:
                         contour_avec_point = contour_avec_point + 1
                     i = i + 1
-                    #physiocap_log ( "== Dans un point : " + str(i))
                     try:
                         if i == 2:
                             # Attraper date début
@@ -519,13 +513,13 @@ class PhysiocapInter( QtGui.QDialog):
                 moyenne_biom = sum(les_biom) / len( les_biom)
                 moyenne_biomgm2 = sum(les_biomgm2) / len( les_biom)
                 physiocap_log ( self.trUtf8( "== Date : {0}").\
-                    format( str(date_debut))) 
+                    format( date_debut)) 
                 physiocap_log ( self.trUtf8( "== Moyenne des sarments : {:6.2f}").\
-                    format( moyenne_sar)) # Todo : format 2 decimales
+                    format( moyenne_sar)) 
                 physiocap_log ( self.trUtf8( "== Moyenne des diamètres : {:5.2f}").\
                     format( moyenne_dia))
                 physiocap_log ( self.trUtf8( "== Fin Inter pour {0} <<<< ").\
-                format( str( un_nom)))
+                format( un_nom))
                 #physiocap_log( u"Fin du calcul des moyennes à partir de vos contours" )
 
                 # ###################
@@ -625,7 +619,7 @@ class PhysiocapInter( QtGui.QDialog):
                    
             else:
                 physiocap_log( self.trUtf8( "== Aucune point dans {0}. Pas de comparaison inter parcellaire").\
-                    format( str( un_nom)))       
+                    format( un_nom))       
         
         if ( contour_avec_point == 0):
             return physiocap_message_box( dialogue, 
@@ -654,15 +648,15 @@ class PhysiocapInter( QtGui.QDialog):
             SHAPE_A_AFFICHER = []
             if dialogue.checkBoxInterDiametre.isChecked():
                 nom_affichage = nom_court_affichage + 'DIAMETRE' + SEPARATEUR_ + nom_court_du_contour
-                qml_is = str( dialogue.lineEditThematiqueInterDiametre.text().strip('"')) + EXTENSION_QML
+                qml_is = dialogue.lineEditThematiqueInterDiametre.text().strip('"') + EXTENSION_QML
                 SHAPE_A_AFFICHER.append( (nom_affichage, qml_is))
             if dialogue.checkBoxInterBiomasse.isChecked():
                 nom_affichage = nom_court_affichage + 'BIOMASSE' + SEPARATEUR_ + nom_court_du_contour
-                qml_is = str( dialogue.lineEditThematiqueInterBiomasse.text().strip('"')) + EXTENSION_QML
+                qml_is = dialogue.lineEditThematiqueInterBiomasse.text().strip('"') + EXTENSION_QML
                 SHAPE_A_AFFICHER.append( (nom_affichage, qml_is))
             if dialogue.checkBoxInterLibelle.isChecked():
                 nom_affichage = nom_court_affichage + 'LIBELLE' + SEPARATEUR_ + nom_court_du_contour
-                qml_is = str( dialogue.lineEditThematiqueInterLibelle.text().strip('"')) + EXTENSION_QML
+                qml_is = dialogue.lineEditThematiqueInterLibelle.text().strip('"') + EXTENSION_QML
                 SHAPE_A_AFFICHER.append( (nom_affichage, qml_is))
 
             # Afficher ce contour_moyennes dans arbre "projet"

@@ -38,13 +38,12 @@
 from Physiocap_var_exception import *
 
 from PyQt4 import QtGui
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-from qgis.core import *
-from qgis.gui import *
-
-# Imports system & os
-#import os.path
+from PyQt4.QtCore import Qt 
+from qgis.core import QgsProject, QgsVectorLayer , QgsMapLayerRegistry,\
+    QgsMapLayer, QgsLayerTreeGroup, QgsLayerTreeLayer,  QgsRasterLayer, \
+    QgsCoordinateReferenceSystem, QgsMessageLog 
+from PyQt4.QtGui import QMessageBox  
+  
 import sys, string
 import time  
 
@@ -52,8 +51,10 @@ if platform.system() == 'Windows':
     import win32api
 
 # MESSAGES & LOG
-def physiocap_message_box( self, text, level="warning", title = u"\u03D5 Physiocap"):
+def physiocap_message_box( self, text, level="warning"):
     """Send a message box by default Warning"""
+    title = self.trUtf8( "{0} Physiocap").\
+        format( PHYSIOCAP_UNI)
     if level == "about":
         QMessageBox.about( self, title, text)
     elif level == "information":
@@ -64,8 +65,10 @@ def physiocap_message_box( self, text, level="warning", title = u"\u03D5 Physioc
         #QMessageBox.warning( self, title, text)
         QMessageBox.information( self, title, text)
 
-def physiocap_question_box( self, text= u"Etes-vous sûr(e) ?" , title = u"\u03D5 Physiocap"):
+def physiocap_question_box( self, text= u"Etes-vous sûr(e)? Are you sure ?"):
     """Send a question box """
+    title = self.trUtf8( "{0} Physiocap").\
+        format( PHYSIOCAP_UNI)
     reply = QMessageBox.question(self, title, text,
             QMessageBox.Yes|QMessageBox.Cancel)
     if reply == QMessageBox.Cancel:
@@ -74,32 +77,28 @@ def physiocap_question_box( self, text= u"Etes-vous sûr(e) ?" , title = u"\u03D
         return True
     return False
 
-def physiocap_log_for_error( self):
-    """ Renvoi un message dans la log pour pointer l'utilisateur vers la liste des erreurs"""
-    message_log_court = self.trUtf8( u"\u03D5 n'a pas correctement fini son analyse")
-    message_log = message_log_court + self.trUtf8( u". Consultez le journal \u03D5 Erreurs")
-    physiocap_log( message_log, "WARNING")
-    physiocap_error( message_log_court)
-    
+def physiocap_log_for_error( dialogue):
+    """ Renvoi un message dans la log Inforamtion pour pointer l'utilisateur 
+    vers la log des erreurs
+    Call Class Tools For translation"""
+    toolsObject = PhysiocapTools( dialogue)
+    toolsObject.physiocap_tools_log_for_error()
+
 def physiocap_log( aText, level ="INFO"):
     """Send a text to the Physiocap log"""
-    journal_nom = u"\u03D5 Informations"
+    journal_nom = unicode( "{0} Physiocap").\
+        format( PHYSIOCAP_UNI)
     if PHYSIOCAP_TRACE == "YES":
         if level == "WARNING":
             QgsMessageLog.logMessage( aText, journal_nom, QgsMessageLog.WARNING)
         else:
             QgsMessageLog.logMessage( aText, journal_nom, QgsMessageLog.INFO)
            
-def physiocap_error( aText, level ="WARNING"):
-    """Send a text to the Physiocap error"""
-    journal_nom = u"\u03D5 Erreurs"
-    if level == "WARNING":
-        QgsMessageLog.logMessage( aText, journal_nom, QgsMessageLog.WARNING)
-    else:
-        QgsMessageLog.logMessage( aText, journal_nom, QgsMessageLog.CRITICAL)
-
-    # Todo 1.5 ? Rajouter la trace d'erreur au fichier ?
-
+def physiocap_error( self, aText, level ="WARNING"):
+    """Send a text to the Physiocap error
+    Call Class Tools For translation"""
+    toolsObject = PhysiocapTools( self)
+    toolsObject.physiocap_tools_log_error( aText, level)
     return -1      
 
 def physiocap_write_in_synthese( self, aText):
@@ -134,14 +133,13 @@ def physiocap_get_layer_by_ID( layerID):
         if ( le_layer.isValid()):
             return le_layer
         else:
-            physiocap_log( "Layer(Couche) invalid(e) : {0}".format ( str( le_layer.name())))
+            physiocap_log( "Layer(Couche) invalid(e) : {0}".format ( le_layer.name()))
             return None
     else:
-        physiocap_log( self.trUtf8( "No layer (Aucune couche) find for (retrouvée pour) ID : {0}").\
-            format( ( str( layerID))))
+        physiocap_log( "No layer (Aucune couche) find for (retrouvée pour) ID : {0}").\
+            format( ( str( layerID)))
         return None
 
-   
 def physiocap_quelle_projection_demandee( self):
     """ Selon la valeur cochée dans le radio de projection
     positionne laProjection, EXTENSION_SHP, EXTENSION_PRJ et epsg
@@ -252,7 +250,6 @@ def physiocap_rename_create_dir( chemin):
         si chemin existe deja, on creer un "chemin + (1)"
         si "chemin_projet + (1)" existe déjà, on crée un "chemin_projet + (2)" etc         
     """
-    #physiocap_log( "Dans create rename DIR DEBUT ==" + chemin)
     if ( os.path.exists( chemin)):
         nouveau_chemin = physiocap_rename_existing( chemin)
         return physiocap_rename_create_dir( nouveau_chemin) 
@@ -260,10 +257,8 @@ def physiocap_rename_create_dir( chemin):
         try:
             os.mkdir( chemin)
         except:
-            physiocap_log( "Erreur dans fonction recursive ==" + chemin)
+            #physiocap_log( "Erreur dans fonction recursive ==" + chemin)
             raise physiocap_exception_rep( chemin)
-            
-        #physiocap_log( "avant retour OK et apres creation DIR ==>>" + chemin + "<<==")
         return chemin
 
 
@@ -348,5 +343,29 @@ def physiocap_list_MID( repertoire, MIDs, synthese="xx"):
     
     # Mettre dans Synthese
     return resultats
-    
+
+class PhysiocapTools( QtGui.QDialog):
+    """QGIS Pour voir les messages traduits."""
+    def __init__(self, parent=None):
+        """Class constructor."""
+        super( PhysiocapTools, self).__init__()
+        
+    def physiocap_tools_log_for_error( self):
+        """ Renvoi un message dans la log pour pointer l'utilisateur vers la liste des erreurs"""
+        message_log_court = self.trUtf8( "{0} n'a pas correctement fini son analyse").\
+            format( PHYSIOCAP_UNI)
+        message_log = message_log_court + self.trUtf8( ". Consultez le journal {0} Erreurs").\
+            format( PHYSIOCAP_UNI)
+        physiocap_log( message_log, "WARNING")
+        self.physiocap_tools_log_error( message_log_court, "Critical" )
+
+    def physiocap_tools_log_error( self, aText, level="WARNING"):
+        """Send a text to the Physiocap error"""
+        journal_nom = self.trUtf8( "{0} Erreurs").\
+            format( PHYSIOCAP_UNI)
+        if level == "WARNING":
+            QgsMessageLog.logMessage( aText, journal_nom, QgsMessageLog.WARNING)
+        else:
+            QgsMessageLog.logMessage( aText, journal_nom, QgsMessageLog.CRITICAL)
+        # Todo 1.5 ? Rajouter la trace d'erreur au fichier ?
 

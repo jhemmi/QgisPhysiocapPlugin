@@ -61,12 +61,20 @@ REPERTOIRE_DONNEES_BRUTES = "Choisissez votre chemin"
 PHYSIOCAP_NOM = "Physiocap"
 PHYSIOCAP_UNI = "\u03D5"
 
+# Test de robustesse de la gestion des unicodes
+PHYSIOCAP_TEST1 = "ȧƈƈḗƞŧḗḓ ŧḗẋŧ ƒǿř ŧḗşŧīƞɠ"
+PHYSIOCAP_TEST2 = "ℛℯα∂α♭ℓℯ ♭ʊ☂ η☺т Ѧ$☾ℐℐ"
+PHYSIOCAP_TEST3 = "¡ooʇ ןnɟǝsn sı uʍop-ǝpısdn"
+PHYSIOCAP_TEST4 = "Moët"
+
 SEPARATEUR_ ="_"
-NOM_PROJET = "PHY" + SEPARATEUR_
+NOM_PROJET = "PHY" + SEPARATEUR_ + PHYSIOCAP_TEST4 + SEPARATEUR_
 
 # Listes de valeurs
-CEPAGES = [ "INCONNU", "CHARDONNAY", "MERLOT", "NEGRETTE", "PINOT NOIR", "PINOT MEUNIER"]
-TAILLES = [ "Inconnue", "Chablis", "Guyot simple", "Guyot double", "Cordon de Royat", "Cordon libre" ]
+#CEPAGES = [ "INCONNU", "CHARDONNAY", "MERLOT", "NEGRETTE", "PINOT NOIR", "PINOT MEUNIER"]
+CEPAGES = [ "Inconnu", "Cabernet Franc", "Cabernet Sauvignon", "Chardonnay", "Merlot", \
+    "Négrette", "Pinot Noir", "Pinot Meunier", "Syrah"]
+TAILLES = [ "Inconnue", "Chablis", "Cordon de Royat", "Cordon libre", "Guyot simple", "Guyot double"]
 FORMAT_VECTEUR = [ "ESRI Shapefile", POSTGRES_NOM] # "memory"]
 
 # Répertoires des sources et de concaténation en fichiers texte
@@ -106,7 +114,7 @@ EXTENSION_POUR_ZERO = SEPARATEUR_ + "0"
 
 EPSG_NUMBER_L93 = 2154
 EPSG_NUMBER_GPS = 4326
-        
+
 EPSG_TEXT_L93 = 'PROJCS["RGF93_Lambert_93",GEOGCS["GCS_RGF93",DATUM["D_RGF_1993", \
 SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0], \
 UNIT["Degree",0.017453292519943295]],PROJECTION["Lambert_Conformal_Conic"], \

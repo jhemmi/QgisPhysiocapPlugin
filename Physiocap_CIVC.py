@@ -39,7 +39,7 @@
  *                                                                         *
 ***************************************************************************/
 """
-from Physiocap_tools import physiocap_message_box, physiocap_question_box, \
+from Physiocap_tools import physiocap_message_box, \
         physiocap_log, physiocap_error, physiocap_write_in_synthese
         
 ##        physiocap_quel_uriname, physiocap_tester_uri, \
@@ -47,11 +47,9 @@ from Physiocap_tools import physiocap_message_box, physiocap_question_box, \
 ##        physiocap_get_uri_by_layer 
 from Physiocap_var_exception import *
 
-from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import QSettings, Qt, QVariant
-from qgis.core import *  # * necessaire à cause QGis.WKPoint de QgsGeometry !
-## Suffisants seraient QgsCoordinateReferenceSystem, QgsFields, QgsField, \
-##        QgsVectorFileWriter, ? QgsGeometry !
+from qgis.core import QGis, QgsCoordinateReferenceSystem, QgsFields, QgsField, \
+        QgsFeature, QgsGeometry, QgsPoint, QgsVectorFileWriter
 
 import sys, string
 if platform.system() == 'Windows':
@@ -109,8 +107,7 @@ def physiocap_csv_vers_shapefile( self, progress_barre, csv_name, shape_name, pr
             r = csv.reader(csvfile, delimiter=";")
         except NameError:
             uText = u"Erreur bloquante : module csv n'est pas accessible."
-            physiocap_error( uText)
-            QgsMessageLog.logMessage( uText, u"\u03D5 Erreurs", QgsMessageLog.WARNING)
+            physiocap_error( self, uText)
             return -1
 
         for jj, row in enumerate( r):
@@ -142,7 +139,7 @@ def physiocap_csv_vers_shapefile( self, progress_barre, csv_name, shape_name, pr
                     # Niveau de detail demandé
                     # assert sur len row
                     if len(row) != 14:
-                        return physiocap_error( u"Le nombre de colonnes :" +
+                        return physiocap_error( self, u"Le nombre de colonnes :" +
                                 str( len(row)) + 
                                 u" du cvs ne permet pas le calcul détaillé")
                     nbsarmm2.append(float(row[9]))
@@ -207,7 +204,7 @@ def physiocap_csv_vers_shapefile( self, progress_barre, csv_name, shape_name, pr
     # Flush vector
     del writer
     
-    # Cas Postgres
+    # Cas PG
 ##    if (self.fieldComboFormats.currentText() == POSTGRES_NOM ):
 ##        # Todo ; fonction physiocap_creer_PG_par_copie_vecteur( uri_nom, shape_modele)
 ##        # Vérifier si une connexion Physiocap existe
@@ -229,7 +226,7 @@ def physiocap_csv_vers_shapefile( self, progress_barre, csv_name, shape_name, pr
 ##                        if reponse_drop == None:
 ##                            aText = u"Problème lors de la destruction de la table : " + str( laTable)
 ##                            physiocap_log( aText)
-##                            physiocap_error( aText)  
+##                            physiocap_error( self, aText)  
 ##                            # Todo : gérer par exception physiocap_exception_pg
 ##                            return physiocap_message_box( self, 
 ##                                self.tr( aText),
@@ -244,7 +241,7 @@ def physiocap_csv_vers_shapefile( self, progress_barre, csv_name, shape_name, pr
 ## #              " key=gid type=POINTS table=" + nom_court_shp[ :-4] + " (geom) sql="
 ##                    error = QgsVectorLayerImport.importLayer( vector, uri, POSTGRES_NOM, crs, False, False)
 ##                    if error[0] != 0:
-##                        physiocap_error( u"Problème Postgres : " + str(error[0]) + " => " + str(error[1]))
+##                        physiocap_error( self, u"Problème Postgres : " + str(error[0]) + " => " + str(error[1]))
 ##                        #iface.messageBar().pushMessage(u'Phyqiocap Error', error[1], QgsMessageBar.CRITICAL, 5)    
 ## #                    else:
 ## #                        # Sans erreur on détruit le shape file
@@ -263,7 +260,7 @@ def physiocap_csv_vers_shapefile( self, progress_barre, csv_name, shape_name, pr
 ##                    str( uri_nom) + \
 ##                    u". On continue avec des shapefiles"
 ##                physiocap_log( aText)
-##                physiocap_error( aText)
+##                physiocap_error( self, aText)
 ##                # Remettre le choix vers ESRI shape file
 ##                self.fieldComboFormats.setCurrentIndex( 0)   
 ##                
@@ -272,7 +269,7 @@ def physiocap_csv_vers_shapefile( self, progress_barre, csv_name, shape_name, pr
 ##                        str( uri_nom) + \
 ##                        u". On continue avec des shapefiles"
 ##            physiocap_log( aText)
-##            physiocap_error( aText)
+##            physiocap_error( self, aText)
 ##            # Remettre le choix vers ESRI shape file
 ##            self.fieldComboFormats.setCurrentIndex( 0)   
 ##    else:
@@ -295,32 +292,32 @@ def physiocap_csv_vers_shapefile( self, progress_barre, csv_name, shape_name, pr
         if not os.path.isfile( nom_fichier_synthese):
             uMsg =u"Le fichier de synthese " + nom_fichier_synthese + "n'existe pas"
             physiocap_log( uMsg)
-            return physiocap_error( uMsg)
+            return physiocap_error( self, uMsg)
         
         # Ecriture des resulats
         fichier_synthese = open(nom_fichier_synthese, "a")
         try:
             fichier_synthese.write("\n\nSTATISTIQUES\n")
             fichier_synthese.write("Vitesse moyenne d'avancement  \n	mean : %0.1f km/h\n" %np.mean(vitesseshp))
-            fichier_synthese.write("Section moyenne \n	mean : %0.2f mm	std : %0.1f\n" %(np.mean(diamshp), np.std(diamshp)))
-            fichier_synthese.write("Nombre de sarments au m \n	mean : %0.2f	std : %0.1f\n" %(np.mean(nbsarmshp), np.std(nbsarmshp)))
-            fichier_synthese.write("Biomasse en mm²/m linéaire \n	mean : %0.1f	std : %0.1f\n" %(np.mean(biomshp), np.std(biomshp)))
+            fichier_synthese.write("Section moyenne \n	mean : %0.2f mm\t std : %0.1f\n" %(np.mean(diamshp), np.std(diamshp)))
+            fichier_synthese.write("Nombre de sarments au m \n	mean : %0.2f  \t std : %0.1f\n" %(np.mean(nbsarmshp), np.std(nbsarmshp)))
+            fichier_synthese.write("Biomasse en mm²/m linéaire \n	mean : %0.1f\t std : %0.1f\n" %(np.mean(biomshp), np.std(biomshp)))
             if details == "YES":
-                fichier_synthese.write("Nombre de sarments au m² \n	mean : %0.1f	std : %0.1f\n" %(np.mean(nbsarmm2), np.std(nbsarmm2)))
-                fichier_synthese.write("Nombre de sarments par cep \n	mean : %0.1f	std : %0.1f\n" %(np.mean(nbsarcep), np.std(nbsarcep)))
-                fichier_synthese.write("Biomasse en mm²/m² \n	mean : %0.1f	std : %0.1f\n" %(np.mean(biommm2), np.std(biommm2)))
-                fichier_synthese.write("Biomasse en gramme/m² \n	mean : %0.1f	std : %0.1f\n" %(np.mean(biomgm2), np.std(biomgm2)))
-                fichier_synthese.write("Biomasse en gramme/cep \n	mean : %0.1f	std : %0.1f\n" %(np.mean(biomgcep), np.std(biomgcep))) 
+                fichier_synthese.write("Nombre de sarments au m² \n	 mean : %0.1f  \t std : %0.1f\n" %(np.mean(nbsarmm2), np.std(nbsarmm2)))
+                fichier_synthese.write("Nombre de sarments par cep \n	mean : %0.1f \t\t std : %0.1f\n" %(np.mean(nbsarcep), np.std(nbsarcep)))
+                fichier_synthese.write("Biomasse en mm²/m² \n	mean : %0.1f\t std : %0.1f\n" %(np.mean(biommm2), np.std(biommm2)))
+                fichier_synthese.write("Biomasse en gramme/m² \n	mean : %0.1f\t std : %0.1f\n" %(np.mean(biomgm2), np.std(biomgm2)))
+                fichier_synthese.write("Biomasse en gramme/cep \n	mean : %0.1f\t std : %0.1f\n" %(np.mean(biomgcep), np.std(biomgcep))) 
         except:
             msg = "Erreur bloquante durant les calculs de moyennes\n"
-            physiocap_error( msg )
+            physiocap_error( self, msg )
             return -1
                     
         fichier_synthese.close()
     return 0
     
 # Fonction pour vérifier le fichier csv    
-def physiocap_assert_csv(src, err):
+def physiocap_assert_csv(self, src, err):
     """Fonction d'assert. 
     Vérifie si le csv est au bon format: 
     58 virgules
@@ -346,7 +343,7 @@ def physiocap_assert_csv(src, err):
             uMsg = unicode(aMsg, 'utf-8')
             nombre_erreurs = nombre_erreurs + 1
             if nombre_erreurs < 10:
-                physiocap_error( uMsg )
+                physiocap_error( self, uMsg )
             err.write( aMsg + '\n' ) # on écrit la ligne dans le fichier ERREUR.csv
             
             continue # on a tracé erreur et on saute la ligne         
@@ -363,7 +360,7 @@ def physiocap_assert_csv(src, err):
                 uMsg = unicode(aMsg, 'utf-8')
                 nombre_erreurs = nombre_erreurs + 1
                 if nombre_erreurs < 10:
-                    physiocap_error( uMsg )
+                    physiocap_error( self, uMsg )
                     err.write( aMsg + "\n") # on écrit la ligne dans le fichier ERREUR.csv
                 break # on a tracé une erreur et on saute la ligne            
 
@@ -374,7 +371,7 @@ def physiocap_assert_csv(src, err):
             uMsg = unicode(aMsg, 'utf-8')
             nombre_erreurs = nombre_erreurs + 1
             if nombre_erreurs < 10:
-                physiocap_error( uMsg )
+                physiocap_error( self, uMsg )
             err.write( aMsg + '\n') # on écrit la ligne dans le fichier ERREUR.csv
             continue # on a tracé erreur et on saute la ligne
 
@@ -393,7 +390,7 @@ def physiocap_assert_csv(src, err):
 ##                raise
             
 # Fonction pour créer les fichiers histogrammes    
-def physiocap_fichier_histo(src, histo_diametre, histo_nbsarment, err):
+def physiocap_fichier_histo( self, src, histo_diametre, histo_nbsarment, err):
     """Fonction de traitement. Creation des fichiers pour réaliser les histogrammes
     Lit et traite ligne par ligne le fichier source (src).
     Les résultats est écrit au fur et à mesure dans histo_diametre ou histo_nbsarment
@@ -427,8 +424,8 @@ def physiocap_fichier_histo(src, histo_diametre, histo_nbsarment, err):
                     histo_diametre.write("%f%s" %(diamsF[n],";"))
         except : # accompli cette fonction si erreur
             msg = "%s%s\n" %("Erreur histo",ligne)
-            physiocap_error( msg )
-            err.write( str(msg) ) # on écrit la ligne dans le fichier ERREUR.csv
+            physiocap_error( self, msg )
+            err.write( str( msg) ) # on écrit la ligne dans le fichier ERREUR.csv
             pass # on mange l'exception
 
 
@@ -479,7 +476,7 @@ def physiocap_filtrer(self, src, csv_sans_0, csv_avec_0, diametre_filtre,
     else:
         # Assert details == "YES"
         if details != "YES" : 
-            return physiocap_error(u"Problème majeur dans le choix du détail du parcellaire")
+            return physiocap_error( self, self.trUtf8("Problème majeur dans le choix du détail du parcellaire"))
         csv_sans_0.write("%s\n" % ("X ; Y ; XL93 ; YL93 ; NBSARM ; DIAM ; BIOM ; Date ; Vitesse ; \
             NBSARMM2 ; NBSARCEP ; BIOMMM2 ; BIOMGM2 ; BIOMGCEP ")) # ecriture de l'entête
         csv_avec_0.write("%s\n" % ("X ; Y ; XL93 ; YL93 ; NBSARM ; DIAM ; BIOM ; Date ; Vitesse ; \
@@ -502,11 +499,9 @@ def physiocap_filtrer(self, src, csv_sans_0, csv_avec_0, diametre_filtre,
             progress_bar = progress_bar + 1
             barre = barre + 1
             self.progressBar.setValue( progress_bar)  
-            #physiocap_log("Bar : " + str( progress_bar) + "lignes : " + str(nombre_ligne))
                 
         comptage = ligne.count(",") # compte le nombre de virgules
         result = ligne.split(",") # split en fonction des virgules
-        #physiocap_log("Comptage de virgules : " + str(comptage))
 
         try : # accompli cette fonction si pas d'erreur sinon except
             XY = [float(x) for x in result[1:9]]   # on extrait les XY et on les transforme en float  
@@ -568,7 +563,7 @@ def physiocap_filtrer(self, src, csv_sans_0, csv_avec_0, diametre_filtre,
         except : # accompli cette fonction si erreur
             aMsg = "Erreur bloquante durant filtrage : pour la ligne numéro %d" %( nombre_ligne)
             uMsg = unicode(aMsg, 'utf-8')
-            physiocap_error( uMsg )
+            physiocap_error( self, uMsg )
             err.write( aMsg) # on écrit la ligne dans le fichier ERREUR.csv
             return -1
     #physiocap_log( u"Fin filtrage OK des "+ str(nombre_ligne - 1) + " lignes.")
