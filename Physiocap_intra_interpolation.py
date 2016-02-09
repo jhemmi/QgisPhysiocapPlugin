@@ -105,7 +105,10 @@ class PhysiocapIntra( QtGui.QDialog):
         """ Creation du raster et Iso
         Cas Saga ou Gdal : appel des processing correspondants
         """
-            
+        physiocap_log( "repr de arbre {0}\nvignette {1}\nnom{2}".\
+            format( repr( nom_noeud_arbre), repr(nom_vignette), repr(un_nom)))
+        physiocap_log( self.trUtf8( "{0}\n{1}\n{2}").format( nom_noeud_arbre, nom_vignette, un_nom))
+        
         # Pour appel de processing on attend d'etre dans Qgis et Intra
         try :
             import processing
@@ -220,10 +223,10 @@ class PhysiocapIntra( QtGui.QDialog):
                     nom_raster_temp = premier_raster[ 'USER_GRID']
                     physiocap_log( "=~= OK premier raster : {0}".format( nom_raster_temp))
                     physiocap_log( "=~= avant raster : {0}".format( nom_raster))
-                    print( "type raster " + type(raster))
-                    print( "repr raster " + repr(raster))
-                    print( "type raster " + type(nom_vignette))
-                    print( "repr raster " + repr(nom_vignette))
+                    print( "type raster " + type( nom_raster))
+                    print( "repr raster " + repr( nom_raster))
+                    print( "type raster " + type( nom_vignette))
+                    print( "repr raster " + repr( nom_vignette))
                     physiocap_log( "=~= avant vignette : {0}".format( nom_vignette))
                 else:
                     physiocap_error( self, self.trUtf8( "=~= Problème dans inversedistanceweighted B"))
@@ -583,7 +586,8 @@ class PhysiocapIntra( QtGui.QDialog):
         for un_contour in vecteur_poly.getFeatures(): #iterate poly features
             id_contour = id_contour + 1
             try:
-                un_nom = str( un_contour[ leChampPoly]) #get attribute of poly layer
+                #un_nom = str( un_contour[ leChampPoly]) #get attribute of poly layer
+                un_nom = un_contour[ leChampPoly] #get attribute of poly layer
             except:
                 un_nom = "PHY_ID_" + str(id_contour)
                 pass
