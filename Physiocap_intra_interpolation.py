@@ -219,8 +219,12 @@ class PhysiocapIntra( QtGui.QDialog):
                 if premier_raster[ 'USER_GRID'] != None:
                     nom_raster_temp = premier_raster[ 'USER_GRID']
                     physiocap_log( "=~= OK premier raster : {0}".format( nom_raster_temp))
-                    physiocap_log( "=~= avant vignette : {0}".format( nom_vignette))
                     physiocap_log( "=~= avant raster : {0}".format( nom_raster))
+                    print( "type raster " + type(raster))
+                    print( "repr raster " + repr(raster))
+                    print( "type raster " + type(nom_vignette))
+                    print( "repr raster " + repr(nom_vignette))
+                    physiocap_log( "=~= avant vignette : {0}".format( nom_vignette))
                 else:
                     physiocap_error( self, self.trUtf8( "=~= Problème dans inversedistanceweighted B"))
                     raise physiocap_exception_interpolation( nom_point)

@@ -212,7 +212,7 @@ class PhysiocapFiltrer( QtGui.QDialog):
     ##            nom_mid = nom_mid + os.path.basename( fichier_mid) + " & "
     ##        fichier_synthese.write("Liste des fichiers MID : " + nom_mid[:-3] + "\n")
     ##        physiocap_log( "Liste des MID : " + nom_mid[:-3])
-       
+        
         # Progress BAR 5 %
         dialogue.progressBar.setValue( 5)
         physiocap_log ( self.trUtf8( "Fin de la création csv et début de synthèse"))

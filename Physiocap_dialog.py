@@ -311,7 +311,8 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         if ( machine == "Windows"):
             self.radioButtonSAGA.setChecked(  Qt.Checked)
             # On bloque Gdal
-            self.radioButtonGDAL.setEnabled( False)
+            # Todo : remettre pour V1.3.2 
+            # self.radioButtonGDAL.setEnabled( False)
             self.spinBoxPower.setEnabled( False)
             self.spinBoxPixel.setEnabled( True)
 
