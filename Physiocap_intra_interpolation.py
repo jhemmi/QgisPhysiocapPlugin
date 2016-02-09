@@ -105,10 +105,6 @@ class PhysiocapIntra( QtGui.QDialog):
         """ Creation du raster et Iso
         Cas Saga ou Gdal : appel des processing correspondants
         """
-        physiocap_log( "repr de arbre {0}\nvignette {1}\nnom{2}".\
-            format( repr( nom_noeud_arbre), repr(nom_vignette), repr(un_nom)))
-        physiocap_log( self.trUtf8( "{0}\n{1}\n{2}").format( nom_noeud_arbre, nom_vignette, un_nom))
-        
         # Pour appel de processing on attend d'etre dans Qgis et Intra
         try :
             import processing
@@ -195,7 +191,22 @@ class PhysiocapIntra( QtGui.QDialog):
             un_nom + EXT_CRS_SHP
         nom_isoligne =  physiocap_rename_existing_file( os.path.join( chemin_raster, nom_court_isoligne)) # utile physiocap_rename_existing_file()        
         
-        # Attraper les exceptions processing
+        # Attraper les exceptions processing SAGA sous Windows        
+        try:
+            if platform.system() == 'Windows':            
+                unicode( nom_isoligne)
+        except UnicodeDecodeError as e:
+            physiocap_log_for_error( self)
+            # Todo : gérer le cas de la valeur d'un champ à part
+            aText = self.trUtf8( "Le projet, le champ ou une valeur de champ ont ")
+            aText = aText + self.trUtf8( "des caractères (non ascii) incompatibles avec l'interpolation SAGA. {0} ")
+            aText = aText + self.trUtf8( "Erreur bloquante sous Windows qui nécessite de creer une nouvelle instance du projet ")
+            aText = aText + self.trUtf8( " et du contour avec des caractères Ascii (ou d'utiliser Unix)").\
+                format( e)
+            physiocap_error( self, aText, "CRITICAL")
+            raise physiocap_exception_interpolation( nom_point)            
+
+        # Initialisation 
         nom_raster_temp = ""
         nom_raster_final = ""
         iso_dans_poly_brut = ""
@@ -222,12 +233,6 @@ class PhysiocapIntra( QtGui.QDialog):
                 if premier_raster[ 'USER_GRID'] != None:
                     nom_raster_temp = premier_raster[ 'USER_GRID']
                     physiocap_log( "=~= OK premier raster : {0}".format( nom_raster_temp))
-                    physiocap_log( "=~= avant raster : {0}".format( nom_raster))
-                    print( "type raster " + type( nom_raster))
-                    print( "repr raster " + repr( nom_raster))
-                    print( "type raster " + type( nom_vignette))
-                    print( "repr raster " + repr( nom_vignette))
-                    physiocap_log( "=~= avant vignette : {0}".format( nom_vignette))
                 else:
                     physiocap_error( self, self.trUtf8( "=~= Problème dans inversedistanceweighted B"))
                     raise physiocap_exception_interpolation( nom_point)
@@ -252,12 +257,6 @@ class PhysiocapIntra( QtGui.QDialog):
                 physiocap_error( self, self.trUtf8( "=~= Problème dans clipgridwithpolygon A"))
                 raise physiocap_exception_interpolation( nom_point)
 
-            # Car Processing bloque; je passe par un autre bout de code
-            physiocap_log( self.trUtf8( "=~= avant affiche : {0}").format( nom_raster_final))
-            intra_raster = QgsRasterLayer( nom_raster_final, nom_court_raster)
-            QgsMapLayerRegistry.instance().addMapLayer( intra_raster, False)
-            physiocap_log( self.trUtf8( "=~= apres affiche"))
-                        
             physiocap_log( self.trUtf8( "=~= Interpolation SAGA - Etape 2 - {0}").\
                 format( nom_raster_final))            
 
