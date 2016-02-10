@@ -17,6 +17,8 @@ A partir de sa version 1.2.3 Inter, l'extension réalise une extraction des donn
 
 Avec la 1.3.1, l'extension permet des interpolations et des alculs d'isolignes Intra parcellaire pour affiner l'analyse agronomique.
 
+La version 1.3.2 de l'extension apporte la trduction anglaise et une meilleures gestions des messages et exceptions
+
 *"Physiocap" est déposé par le CIVC.*
 
 L'extension QgisPysiocapPlugin intègre le code de calcul du CIVC (PHYSIOCAP_V8). QgisPysiocapPlugin est donc sous licence Common Creative CC-BY-NC-SA V4. S'appuyant sur QGIS elle est aussi sous licence GNU/GPL (voir les détails sous https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/LICENSE). QgisPysiocapPlugin est un logiciel libre qui cherche :
@@ -29,6 +31,6 @@ https://github.com/jhemmi/QgisPhysiocapPlugin/wiki/Qgis-Physiocap-Plugin-usage-&
 
 La 1.3.1 est publiée dans le dépot standard de Qgis et donc accessible directement dans Qgis depuis le Menu "Extension".
 
-**Attention, ce dépot GitHub contient la version 1.3.1 (version stable Décembre 2015 https://github.com/jhemmi/QgisPhysiocapPlugin/releases) et la version 1.3.2 en cours de construction - Janvier 2016**
+**Attention, ce dépot GitHub contient la version 1.3.1 (version stable Décembre 2015 https://github.com/jhemmi/QgisPhysiocapPlugin/releases) et la version 1.3.2 en fin de test - Février 2016**
 
-**Warning, this GitHub repo is version 1.3.1 (stable December 2015 https://github.com/jhemmi/QgisPhysiocapPlugin/releases) and version 1.3.2 under construction - January 2016**
+**Warning, this GitHub repo is version 1.3.1 (stable December 2015 https://github.com/jhemmi/QgisPhysiocapPlugin/releases) and version 1.3.2 en fin de test - Février 2016**
