@@ -700,14 +700,14 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
             aText = aText + self.trUtf8( "installer l'extension {0} (menu Extension => Installer une extension)").\
                 format( self.trUtf8( "Traitement"))
             physiocap_error( self, aText)
-            return physiocap_message_box( dialogue, aText, "information")
+            return physiocap_message_box( self, aText, "information")
         except physiocap_exception_no_saga:
             physiocap_log_for_error( self)
             aText = self.trUtf8( "SAGA n'est pas accessible. ")
             aText = aText + self.trUtf8( "Pour réaliser l'interpolation intra parcellaire, vous devez")
             aText = aText + self.trUtf8( "installer SAGA")
             physiocap_error( self, aText)
-            return physiocap_message_box( dialogue, aText, "information")
+            return physiocap_message_box( self, aText, "information")
         except physiocap_exception_project_contour_incoherence as e:
             physiocap_log_for_error( self)
             aText = self.trUtf8( "Le polygone de contour {0} n'est pas retrouvé. ").\
@@ -715,7 +715,7 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
             aText = aText + self.trUtf8( "Une incohérence entre le projet Physiocap et ses données vous oblige à ")
             aText = aText + self.trUtf8( "créer une nouvelle instance de projet Physiocap")
             physiocap_error( self, aText)
-            return physiocap_message_box( dialogue, aText, "information") 
+            return physiocap_message_box( self, aText, "information") 
         except physiocap_exception_project_point_incoherence as e:
             physiocap_log_for_error( self)
             aText = self.trUtf8( "La couche de point [0} n'est pas retrouvé. ").\
@@ -723,7 +723,7 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
             aText = aText + self.trUtf8( "Une incohérence entre le projet Physiocap et ses données vous oblige à ")
             aText = aText + self.trUtf8( "créer une nouvelle instance de projet Physiocap")
             physiocap_error( self, aText)
-            return physiocap_message_box( dialogue, aText, "information")  
+            return physiocap_message_box( self, aText, "information")  
         except physiocap_exception_windows_saga_ascii as e:
             physiocap_log_for_error( self)
             aText = self.trUtf8( "Le projet, le champ ou une valeur de champ {0} ont ").\
@@ -739,7 +739,7 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
 ##            aText = self.trUtf8( "Physiocap")
 ##            aText = aText + self.trUtf8( "Intra")
 ##            physiocap_error( self, aText)
-##            return physiocap_message_box( dialogue, aText, "information")
+##            return physiocap_message_box( self, aText, "information")
 
         except:
             raise
