@@ -62,7 +62,7 @@ def physiocap_vector_poly_or_point( self, vector):
 
     try:
         # geom = vector.getFeatures().next().geometry()
-        # Todo : tester avec QGis.WKBPolygon
+        # Todo : V1.5 ? tester avec QGis.WKBPolygon
         # et vérifier multi forme ou singleType
         # et Postgres    
         for uneForme in vector.getFeatures():

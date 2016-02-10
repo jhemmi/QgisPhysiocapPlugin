@@ -58,7 +58,7 @@
    </property>
    <widget class="QWidget" name="tabParametres">
     <attribute name="title">
-     <string>Paramètres</string>
+     <string>ϕ Params</string>
     </attribute>
     <widget class="QGroupBox" name="Vignoble">
      <property name="enabled">
@@ -730,7 +730,7 @@
    </widget>
    <widget class="QWidget" name="tabHistogrammes">
     <attribute name="title">
-     <string>Histogrammes</string>
+     <string>Histos</string>
     </attribute>
     <widget class="QLabel" name="label_histo_sarment">
      <property name="geometry">

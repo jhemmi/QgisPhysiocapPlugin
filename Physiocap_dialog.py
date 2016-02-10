@@ -311,8 +311,7 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         if ( machine == "Windows"):
             self.radioButtonSAGA.setChecked(  Qt.Checked)
             # On bloque Gdal
-            # Todo : remettre pour V1.3.2 
-            # self.radioButtonGDAL.setEnabled( False)
+            self.radioButtonGDAL.setEnabled( False)
             self.spinBoxPower.setEnabled( False)
             self.spinBoxPixel.setEnabled( True)
 
@@ -665,10 +664,11 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
             return physiocap_message_box( self, aText, "information" )
         except physiocap_exception_vignette_exists as e:
             physiocap_log_for_error( self)
-            aText = self.trUtf8( "Des moyennes IntraParcellaires dans {0} existent déjà. ").\
+            aText = self.trUtf8( "Les moyennes IntraParcellaires dans {0} existent déjà. ").\
                 format( e)
-            aText = aText + self.trUtf8( "Vous ne pouvez pas redemander ce calcul : vous devez détruire le groupe ") 
-            aText = aText + self.trUtf8( "ou mieux créer un nouveau projet Physiocap")
+            aText = aText + self.trUtf8( "Vous ne pouvez pas redemander ce calcul :\n")
+            aText = aText + self.trUtf8( "- Vous pouvez détruire le groupe dans le panneau des couches\n- ou ") 
+            aText = aText + self.trUtf8( "créer une nouvelle instance de projet Physiocap")
             physiocap_error( self, aText, "CRITICAL")
             return physiocap_message_box( self, aText, "information" )
         except physiocap_exception_points_invalid as e:
@@ -679,16 +679,68 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
             return physiocap_message_box( self, aText, "information" )
         except physiocap_exception_interpolation as e:
             physiocap_log_for_error( self)
-            allFile = str( e)
+            allFile = e   # avec str(e) on edite du garbage
             finFile = '"...' + allFile[-60:-1] + '"'            
             aText = self.trUtf8( "L'interpolation de : {0} n'a pu s'exécuter entièrement. ").\
                 format( finFile)
-            aText = aText + self.trUtf8( "Vérifier si la librairie d'interpolation (SAGA ou GDAL) ")
-            aText = aText + self.trUtf8( "est bien installée et activée dans {0} ").\
+            BadText = aText + self.trUtf8( "Vérifier si la librairie d'interpolation (SAGA ou GDAL) ")
+            aText = aText + self.trUtf8( "Si la librairie d'interpolation (SAGA ou GDAL) ")
+            BadText = aText + self.trUtf8( "est bien installée et activée dans {0} ")
+            aText = aText + self.trUtf8( "est bien installée et activée dans {0}, ").\
                 format( self.trUtf8( "Traitement"))
-            aText = aText + self.trUtf8( "Dans ce cas, vous pouvez contacter le support avec vos traces et données brutes")
+            BadText = aText + self.trUtf8( "Dans ce cas, vous pouvez contacter le support avec vos traces et données brutes")
+            aText = aText + self.trUtf8( "vous pouvez contacter le support avec vos traces et données brutes")
             physiocap_error( self, aText, "CRITICAL")
             return physiocap_message_box( self, aText, "information" )
+        except physiocap_exception_no_processing:
+            physiocap_log_for_error( self)
+            aText = self.trUtf8( "L'extension {0} n'est pas accessible. ").\
+                format( self.trUtf8( "Traitement"))
+            aText = aText + self.trUtf8( "Pour réaliser l'interpolation intra parcellaire, vous devez")
+            aText = aText + self.trUtf8( "installer l'extension {0} (menu Extension => Installer une extension)").\
+                format( self.trUtf8( "Traitement"))
+            physiocap_error( self, aText)
+            return physiocap_message_box( dialogue, aText, "information")
+        except physiocap_exception_no_saga:
+            physiocap_log_for_error( self)
+            aText = self.trUtf8( "SAGA n'est pas accessible. ")
+            aText = aText + self.trUtf8( "Pour réaliser l'interpolation intra parcellaire, vous devez")
+            aText = aText + self.trUtf8( "installer SAGA")
+            physiocap_error( self, aText)
+            return physiocap_message_box( dialogue, aText, "information")
+        except physiocap_exception_project_contour_incoherence as e:
+            physiocap_log_for_error( self)
+            aText = self.trUtf8( "Le polygone de contour {0} n'est pas retrouvé. ").\
+                format( e)
+            aText = aText + self.trUtf8( "Une incohérence entre le projet Physiocap et ses données vous oblige à ")
+            aText = aText + self.trUtf8( "créer une nouvelle instance de projet Physiocap")
+            physiocap_error( self, aText)
+            return physiocap_message_box( dialogue, aText, "information") 
+        except physiocap_exception_project_point_incoherence as e:
+            physiocap_log_for_error( self)
+            aText = self.trUtf8( "La couche de point [0} n'est pas retrouvé. ").\
+                format( e)
+            aText = aText + self.trUtf8( "Une incohérence entre le projet Physiocap et ses données vous oblige à ")
+            aText = aText + self.trUtf8( "créer une nouvelle instance de projet Physiocap")
+            physiocap_error( self, aText)
+            return physiocap_message_box( dialogue, aText, "information")  
+        except physiocap_exception_windows_saga_ascii as e:
+            physiocap_log_for_error( self)
+            aText = self.trUtf8( "Le projet, le champ ou une valeur de champ {0} ont ").\
+                format( e)
+            aText = aText + self.trUtf8( "des caractères (non ascii) incompatibles avec l'interpolation SAGA.")
+            aText = aText + self.trUtf8( "Erreur bloquante sous Windows qui nécessite de créer une nouvelle instance du projet ")
+            aText = aText + self.trUtf8( " et du contour avec seulement des caractères ascii (non accentuées).")
+            physiocap_error( self, aText, "CRITICAL")        
+
+            
+##        except x as e:
+##            physiocap_log_for_error( self)
+##            aText = self.trUtf8( "Physiocap")
+##            aText = aText + self.trUtf8( "Intra")
+##            physiocap_error( self, aText)
+##            return physiocap_message_box( dialogue, aText, "information")
+
         except:
             raise
         finally:

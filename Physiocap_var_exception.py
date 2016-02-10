@@ -86,7 +86,7 @@ CEPAGES = [ "Inconnu", \
 
 
 TAILLES = [ "Inconnue", "Chablis", "Cordon de Royat", "Cordon libre", "Guyot simple", "Guyot double"]
-FORMAT_VECTEUR = [ "ESRI Shapefile", POSTGRES_NOM] # "memory"]
+FORMAT_VECTEUR = [ "ESRI Shapefile"] # POSTGRES_NOM] # "memory"]
 
 # Répertoires des sources et de concaténation en fichiers texte
 FICHIER_RESULTAT = "resultat.txt"
@@ -182,11 +182,25 @@ class physiocap_exception_stop_user( ):
     pass  
 class physiocap_exception_params( physiocap_exception):
     pass
+
+# INTRA
+class physiocap_exception_interpolation( physiocap_exception):
+    pass
 class physiocap_exception_vignette_exists( physiocap_exception):
     pass
 class physiocap_exception_points_invalid( physiocap_exception):
     pass
-class physiocap_exception_interpolation( physiocap_exception):
+class physiocap_exception_no_processing( ):
+    pass
+class physiocap_exception_no_saga( ):
+    pass
+class physiocap_exception_project_contour_incoherence( physiocap_exception):
+    pass
+class physiocap_exception_project_point_incoherence( physiocap_exception):
+    pass
+class physiocap_exception_windows_saga_ascii( physiocap_exception):
+    pass
+class physiocap_exception_windows_value_ascii( physiocap_exception):
     pass
 class physiocap_exception_pg( physiocap_exception):
     pass
