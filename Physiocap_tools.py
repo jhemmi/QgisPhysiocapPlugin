@@ -86,11 +86,17 @@ def physiocap_log_for_error( dialogue):
 
 def physiocap_log( aText, level ="INFO"):
     """Send a text to the Physiocap log"""
-    journal_nom = unicode( "{0} Physiocap").\
+    journal_nom = unicode( "{0} Informations").\
         format( PHYSIOCAP_UNI)
     if PHYSIOCAP_TRACE == "YES":
         if level == "WARNING":
             QgsMessageLog.logMessage( aText, journal_nom, QgsMessageLog.WARNING)
+        elif level == "INTRA":
+            # To be commented in Prod
+            journal_nom = unicode( "{0} Intra").\
+                format( PHYSIOCAP_UNI)
+            QgsMessageLog.logMessage( aText, journal_nom, QgsMessageLog.INFO)
+            pass
         else:
             QgsMessageLog.logMessage( aText, journal_nom, QgsMessageLog.INFO)
            

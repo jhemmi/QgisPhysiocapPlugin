@@ -79,8 +79,8 @@ def physiocap_vector_poly_or_point( self, vector):
             else:
                 return "Inconnu"
     except:
-        physiocap_error( self, self.trUtf8("Warning : couche (layer) {0} n'est ni (is nor) point, ni (nor) polygone").\
-            format( vector.id()))
+##        physiocap_error( self, self.trUtf8("Warning : couche (layer) {0} n'est ni (is nor) point, ni (nor) polygone").\
+##            format( vector.id()))
         pass
         # on evite les cas imprévus
         return "Inconnu"
@@ -393,7 +393,8 @@ class PhysiocapInter( QtGui.QDialog):
         crs_poly = vecteur_poly.crs().authid()
         crs_point = vecteur_point.crs().authid()
         if ( crs_poly != crs_point):
-            mes = self.trUtf8( "Les projections (CRS) des coutours et mesures brutes sont différentes !")
+            mes = self.trUtf8( "Les projections (CRS) des coutours ({0}) et mesures brutes ({1}) sont différentes !").\
+                format( crs_poly, crs_point)
             physiocap_error( self, mes)
             return physiocap_message_box( dialogue, mes,"information")
                     

@@ -679,7 +679,7 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
             return physiocap_message_box( self, aText, "information" )
         except physiocap_exception_interpolation as e:
             physiocap_log_for_error( self)
-            allFile = e   # avec str(e) on edite du garbage
+            allFile = str(e)   # avec str(e) on edite du garbage
             finFile = '"...' + allFile[-60:-1] + '"'            
             aText = self.trUtf8( "L'interpolation de : {0} n'a pu s'exécuter entièrement. ").\
                 format( finFile)

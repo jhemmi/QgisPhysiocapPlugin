@@ -153,19 +153,28 @@ class PhysiocapIntra( QtGui.QDialog):
         val_nulle = 0 # Valeur nulle reste nulle
         float_32 = 5
       
+        # Trace des entités en entrée
+        physiocap_log( self.trUtf8( "== Nom =>> {0} ==== ").\
+            format(  un_nom), "INTRA")
+        physiocap_log( self.trUtf8( "Vignette (moyenne Inter) {0} et chemin à la vignette \n{1}").\
+            format( nom_court_vignette, nom_vignette), "INTRA")
+        physiocap_log( self.trUtf8( "Point {0} et chemin aux points \n{1}").\
+            format( nom_court_point, nom_point), "INTRA")
+        physiocap_log( self.trUtf8( "== Champ = {0} <<=== ").\
+            format(  le_champ_choisi), "INTRA")
         # Lire points_vector et vignette_vector
         try:
             # Attrapper l'existance du fichier pour monter erreur (cas BIOMGM2)
             vignette_vector = QgsVectorLayer( nom_vignette, nom_court_vignette, 'ogr')
         except:
             physiocap_log( self.trUtf8( "{0} ne retrouve pas vos contours {1}").\
-                format( PHYSIOCAP_UNI), nom_court_vignette)
+                format( PHYSIOCAP_UNI, nom_court_vignette))
             raise physiocap_exception_project_contour_incoherence( nom_court_vignette)     
         try:
             points_vector = QgsVectorLayer( nom_point, nom_court_point, 'ogr')
         except:
             physiocap_log( self.trUtf8( "{0} ne retrouve pas la couche de point {1}").\
-                format( PHYSIOCAP_UNI), nom_court_point)
+                format( PHYSIOCAP_UNI, nom_court_point))
             raise physiocap_exception_project_point_incoherence( nom_court_point)       
      
         laProjection, EXT_CRS_SHP, EXT_CRS_PRJ, EXT_CRS_RASTER, EPSG_NUMBER = \
@@ -182,11 +191,15 @@ class PhysiocapIntra( QtGui.QDialog):
             un_nom + EXT_CRS_SHP
         nom_isoligne =  physiocap_rename_existing_file( os.path.join( chemin_raster, nom_court_isoligne)) # utile physiocap_rename_existing_file()        
         
+        physiocap_log( self.trUtf8( "isoligne {0} et chemin vers isoligne\n{1}").\
+            format( nom_court_isoligne, nom_isoligne), "INTRA")
+        
+        
         # Sous Windows :attraper les exceptions processing SAGA ascii        
         try:
             # Gérer le cas de la valeur d'un champ à part
             if platform.system() == 'Windows':            
-                physiocap_log( "Type NOM " + str( type( un_nom)))
+                physiocap_log( "Type de un_nom " + str( type( un_nom)), "INTRA")
                 un_nom.decode("ascii")
         except UnicodeEncodeError as e:
             physiocap_log( self.trUtf8( "{0} ne peut pas dialoguer avec Saga et des caractères non ascii").\
@@ -196,21 +209,27 @@ class PhysiocapIntra( QtGui.QDialog):
         try:
             if platform.system() == 'Windows':            
                 unicode( nom_isoligne)
+                physiocap_log( "Type de isoligne " + str( type( nom_isoligne)), "INTRA")
                 nom_isoligne.decode("ascii")
         except UnicodeEncodeError as e:
             physiocap_log( self.trUtf8( "{0} ne peut pas dialoguer avec Saga et des caractères non ascii").\
                 format( PHYSIOCAP_UNI))
-            physiocap_log( e)
+            #physiocap_log( e)
             raise physiocap_exception_windows_saga_ascii( nom_isoligne)  
 
         # Initialisation avant Interpolation
         nom_raster_temp = ""
+        premier_raster =""
         nom_raster_final = ""
-        iso_dans_poly_brut = ""
-        iso_dans_poly_plus = ""
+        raster_dans_poly = ""
         iso_dans_poly = ""
         nom_iso_final = ""
-        nom_iso_final_plus = ""
+        # Et pour la SAGA
+        iso_dans_poly_brut = ""
+        nom_iso_sans_LEVEL = ""
+        iso_dans_poly_plus = ""
+        nom_iso_avec_LEVEL = ""
+        
         # Récuperer Extent du polygone en cours
         ex = vignette_vector.extent()
         xmin, xmax, ymin, ymax = ex.xMinimum(),ex.xMaximum(), ex.yMinimum(), ex.yMaximum()
@@ -229,7 +248,8 @@ class PhysiocapIntra( QtGui.QDialog):
             if (( premier_raster != None) and ( str( list( premier_raster)).find( "USER_GRID") != -1)):
                 if premier_raster[ 'USER_GRID'] != None:
                     nom_raster_temp = premier_raster[ 'USER_GRID']
-                    #physiocap_log( "=~= OK premier raster : {0}".format( nom_raster_temp))
+                    physiocap_log( "=~= Premier raster : inversedistanceweighted \n{0}".\
+                        format( nom_raster_temp), "INTRA")
                 else:
                     physiocap_error( self, self.trUtf8( "=~= Problème bloquant durant {0} partie-{1}").\
                         format("inversedistanceweighted","B"))
@@ -249,6 +269,8 @@ class PhysiocapIntra( QtGui.QDialog):
             if (( raster_dans_poly != None) and ( str( list( raster_dans_poly)).find( "OUTPUT") != -1)):
                 if raster_dans_poly[ 'OUTPUT'] != None:
                     nom_raster_final = raster_dans_poly[ 'OUTPUT']
+                    physiocap_log( self.trUtf8("=~= Raster clippé : clipgridwithpolygon\n{0}").\
+                        format( nom_raster_final), "INTRA")
                 else:
                     physiocap_error( self, self.trUtf8( "=~= Problème bloquant durant {0} partie-{1}").\
                         format("clipgridwithpolygon","B"))
@@ -272,7 +294,9 @@ class PhysiocapIntra( QtGui.QDialog):
             
                 if (( iso_dans_poly_brut != None) and ( str( list( iso_dans_poly_brut)).find( "CONTOUR") != -1)):
                     if iso_dans_poly_brut[ 'CONTOUR'] != None:
-                        nom_iso_final_plus = iso_dans_poly_brut[ 'CONTOUR']
+                        nom_iso_sans_LEVEL = iso_dans_poly_brut[ 'CONTOUR']
+                        physiocap_log( self.trUtf8("=~= Iso sans LEVEL : contourlinesfromgrid\n{0}").\
+                            format( nom_iso_sans_LEVEL), "INTRA")
                     else:
                         physiocap_error( self, self.trUtf8( "=~= Problème bloquant durant {0} partie-{1}").\
                             format("contourlinesfromgrid","B"))
@@ -282,15 +306,17 @@ class PhysiocapIntra( QtGui.QDialog):
                         format("contourlinesfromgrid","A"))
                     raise physiocap_exception_interpolation( nom_point)
 
-                # On passe ETAPE FIELD si nom_iso_final_plus existe
-                if ( nom_iso_final_plus != ""):                              
+                # On passe ETAPE FIELD si nom_iso_sans_LEVEL existe
+                if ( nom_iso_sans_LEVEL != ""):                              
                     iso_dans_poly_plus = processing.runalg("qgis:addfieldtoattributestable", \
-                        nom_iso_final_plus, \
+                        nom_iso_sans_LEVEL, \
                         "ELEV", 1, 15, 2 ,None)
  
                 if (( iso_dans_poly_plus != None) and ( str( list( iso_dans_poly_plus)).find( "OUTPUT_LAYER") != -1)):
                     if iso_dans_poly_plus[ 'OUTPUT_LAYER'] != None:
-                        nom_iso_final = iso_dans_poly_plus[ 'OUTPUT_LAYER']
+                        nom_iso_avec_LEVEL = iso_dans_poly_plus[ 'OUTPUT_LAYER']
+                        physiocap_log( self.trUtf8("=~= Iso avec LEVEL ajouté : addfieldtoattributestable\n{0}").\
+                            format( nom_iso_avec_LEVEL), "INTRA")
                     else:
                         physiocap_error( self, self.trUtf8( "=~= Problème bloquant durant {0} partie-{1}").\
                             format("addfieldtoattributestable","B"))
@@ -301,23 +327,26 @@ class PhysiocapIntra( QtGui.QDialog):
                     raise physiocap_exception_interpolation( nom_point)
 
                 # On passe ETAPE CALCULATOR si nom_iso_final existe
-                if ( nom_iso_final != ""):                              
+                if ( nom_iso_avec_LEVEL != ""):                              
                     # Retrouver le nom de l'atribut créé et 
-                    intra_iso_modifie = QgsVectorLayer( nom_iso_final, 
+                    intra_iso_modifie = QgsVectorLayer( nom_iso_avec_LEVEL, 
                             nom_court_isoligne, 'ogr')
                     fields = intra_iso_modifie.pendingFields()
+                    physiocap_log( "=~= Isolignes fields : " + str( fields), "INTRA")                                                 
                     field_probable = fields[1]
                     field_name = field_probable.name()
                     field_formule = '"' + str( field_name) + '"'  
-    #               physiocap_log( u"=~= Isolignes formule : " + str(field_formule))                                                 
-    #               QgsMessageLog.logMessage( "PHYSIOCAP : Avant calculator ", "Processing", QgsMessageLog.WARNING)
-                    # Le remplacer par "Elev"
+                    physiocap_log( "=~= Isolignes formule : " + str( field_formule), "INTRA")                                                 
+                    QgsMessageLog.logMessage( "PHYSIOCAP : Avant calculator ", "Processing", QgsMessageLog.WARNING)
+                    # Le remplacer par "ELEV", en fait on le copie dans "ELEV"
                     iso_dans_poly = processing.runalg("qgis:fieldcalculator", \
-                        nom_iso_final, "ELEV", 0, 15, 2, False, field_formule ,None)
+                        nom_iso_avec_LEVEL, "ELEV", 0, 15, 2, False, field_formule ,None)
 
                 if (( iso_dans_poly != None) and ( str( list( iso_dans_poly)).find( "OUTPUT_LAYER") != -1)):
                     if iso_dans_poly[ 'OUTPUT_LAYER'] != None:
                         nom_iso_final = iso_dans_poly[ 'OUTPUT_LAYER']
+                        physiocap_log( self.trUtf8("=~= Iso final : fieldcalculator\n{0}").\
+                            format( nom_iso_final), "INTRA")
                     else:
                         physiocap_error( self, self.trUtf8( "=~= Problème bloquant durant {0} partie-{1}").\
                             format("fieldcalculator","B"))
@@ -330,6 +359,8 @@ class PhysiocapIntra( QtGui.QDialog):
                 physiocap_error( self, self.trUtf8( "=~= Problème bloquant durant {0} partie-{1}").\
                     format("clipgridwithpolygon","0"))
                 raise physiocap_exception_interpolation( nom_point)
+            physiocap_log( self.trUtf8( "=~= Interpolation SAGA - Fin iso - {0}").\
+                format( nom_iso_final))          
         else:
             # Appel GDAL
 ##            physiocap_log( self.trUtf8( "=xg= Interpolation GDAL {0}").\
@@ -342,7 +373,8 @@ class PhysiocapIntra( QtGui.QDialog):
             if (( premier_raster != None) and ( str( list( premier_raster)).find( "OUTPUT") != -1)):
                 if premier_raster[ 'OUTPUT'] != None:
                     nom_raster_temp = premier_raster[ 'OUTPUT']
-                    #physiocap_log( "=xg= OK premier raster : {0}".format( nom_raster_temp))
+                    physiocap_log( "=xg= Premier raster : gridinvdist \n{0}".\
+                        format( nom_raster_temp), "INTRA")
                 else:
                     physiocap_error( self, self.trUtf8( "=~= Problème bloquant durant {0} partie-{1}").\
                         format("gridinvdist","B"))
@@ -351,8 +383,6 @@ class PhysiocapIntra( QtGui.QDialog):
                 physiocap_error( self, self.trUtf8( "=~= Problème bloquant durant {0} partie-{1}").\
                     format("gridinvdist","A"))
                 raise physiocap_exception_interpolation( nom_point)           
-##            physiocap_log( self.trUtf8( "=xg= Interpolation GDAL - Etape 1 - {0}").\
-##                format( nom_raster_temp))
             QgsMessageLog.logMessage( "PHYSIOCAP : Avant clip", "Processing", QgsMessageLog.WARNING)
             
             option_clip_raster = ""
@@ -364,8 +394,8 @@ class PhysiocapIntra( QtGui.QDialog):
                 
             # On passe ETAPE CLIP si nom_raster_temp existe
             if ( nom_raster_temp != ""):
-##                physiocap_log( self.trUtf8( "=xg= Option du clip: {0}").\
-##                    format( option_clip_raster))
+                physiocap_log( self.trUtf8( "=xg= Option du clip: {0}").\
+                    format( option_clip_raster), "INTRA") 
                 raster_dans_poly = processing.runalg("gdalogr:cliprasterbymasklayer",
                 nom_raster_temp,
                 nom_vignette,
@@ -376,6 +406,8 @@ class PhysiocapIntra( QtGui.QDialog):
             if (( raster_dans_poly != None) and ( str( list( raster_dans_poly)).find( "OUTPUT") != -1)):
                 if raster_dans_poly[ 'OUTPUT'] != None:
                     nom_raster_final = raster_dans_poly[ 'OUTPUT']
+                    physiocap_log( self.trUtf8("=xg= Raster clippé : cliprasterbymasklayer \n{0}").\
+                        format( nom_raster_temp), "INTRA")
                 else:
                     physiocap_error( self, self.trUtf8( "=~= Problème bloquant durant {0} partie-{1}").\
                         format("cliprasterbymasklayer","B"))
@@ -402,6 +434,8 @@ class PhysiocapIntra( QtGui.QDialog):
             if (( iso_dans_poly != None) and ( str( list( iso_dans_poly)).find( "OUTPUT_VECTOR") != -1)):
                 if iso_dans_poly[ 'OUTPUT_VECTOR'] != None:
                     nom_iso_final = iso_dans_poly[ 'OUTPUT_VECTOR']
+                    physiocap_log( self.trUtf8("=xg= isoligne FINAL : contour \n{0}").\
+                        format( nom_iso_final), "INTRA")
                 else:
                     physiocap_error( self, self.trUtf8( "=~= Problème bloquant durant {0} partie-{1}").\
                         format("contour","B"))
@@ -410,9 +444,6 @@ class PhysiocapIntra( QtGui.QDialog):
                 physiocap_error( self, self.trUtf8( "=~= Problème bloquant durant {0} partie-{1}").\
                     format("contour","A"))
                 raise physiocap_exception_interpolation( nom_point)
-            
-##            physiocap_log( self.trUtf8( "=xg= Interpolation GDAL - Etape 3 - {0}").\
-##                format( nom_iso_final))          
         
         return nom_raster_final, nom_court_raster, nom_iso_final, nom_court_isoligne            
 
@@ -500,7 +531,7 @@ class PhysiocapIntra( QtGui.QDialog):
             physiocap_quelle_projection_demandee(dialogue)
         crs = QgsCoordinateReferenceSystem( EPSG_NUMBER, QgsCoordinateReferenceSystem.PostgisCrsId)
 
-        # Assert repertoire shapfile 
+        # Assert repertoire shapefile 
         chemin_shapes = os.path.dirname( unicode( vecteur_point.dataProvider().dataSourceUri() ) ) ;
         if ( not os.path.exists( chemin_shapes)):
             raise physiocap_exception_rep( chemin_shapes)
@@ -532,13 +563,15 @@ class PhysiocapIntra( QtGui.QDialog):
         
         # On passe sur le contour général
         contour_avec_point = 0
+        contours_possibles = 0
        
         # #####################
         # Cas d'une image seule
         # #####################
         if ( dialogue.checkBoxIntraUnSeul.isChecked()):
+            contours_possibles = contours_possibles + 1
 
-            # Nom du Shape moyenne 
+            # Nom du Shape moyenne et de sa vignette dans l'arbre
             nom_vecteur_contour = vecteur_poly.name()
             nom_court_du_contour = os.path.basename( nom_vecteur_contour + EXTENSION_SHP)
             nom_court_vignette = nom_noeud_arbre + NOM_MOYENNE + nom_court_du_contour
@@ -550,19 +583,23 @@ class PhysiocapIntra( QtGui.QDialog):
 
             # Vérifier si le point et la vignette existent
             if not (os.path.exists( nom_vignette)):
-                physiocap_log( self.trUtf8( "=~= Vignette absente : pas d'interpolation"))
+                physiocap_log( self.trUtf8( "=~=  Pas d'interpolation, Vignette absente : {0}").\
+                    format( nom_vignette))
             if not (os.path.exists( nom_point)):
-                physiocap_log( self.trUtf8( "=~= Points absents : pas d'interpolation"))
+                physiocap_log( self.trUtf8( "=~=  Pas d'interpolation, Points absents : {0}").\
+                    format( nom_point))
             else:
                 try:
                     # ###############
                     # Calcul raster et iso
                     # ###############
+                    physiocap_log( self.trUtf8( "=~=  Le contour : {0}").\
+                        format( nom_vecteur_contour), "INTRA")
                     nom_raster_final, nom_court_raster, nom_iso_final, nom_court_isoligne = \
                         self.physiocap_creer_raster_iso( dialogue,
                         nom_noeud_arbre, chemin_raster, 
                         nom_court_vignette, nom_vignette, nom_court_point, nom_point,
-                        le_champ_choisi, nom_vecteur_contour) 
+                        le_champ_choisi, nom_vecteur_contour[:-4]) 
                     contour_avec_point = contour_avec_point + 1
                 except physiocap_exception_windows_value_ascii as e:
                     aText = self.trUtf8( "La valeur {0} a ").\
@@ -606,6 +643,7 @@ class PhysiocapIntra( QtGui.QDialog):
         id_contour = 0
         for un_contour in vecteur_poly.getFeatures(): #iterate poly features
             id_contour = id_contour + 1
+            contours_possibles = contours_possibles + 1
             try:
                 #un_nom = str( un_contour[ leChampPoly]) #get attribute of poly layer
                 un_nom = un_contour[ leChampPoly] #get attribute of poly layer
@@ -699,8 +737,8 @@ class PhysiocapIntra( QtGui.QDialog):
                     format( un_nom))
 
         if ( contour_avec_point >  0 ):                                            
-            physiocap_log( self.trUtf8( "=~= Fin des {0} interpolation(s) intra parcellaire").\
-                format( str(contour_avec_point)))
+            physiocap_log( self.trUtf8( "=~= Fin des {0}/{1} interpolation(s) intra parcellaire").\
+                format( str(contour_avec_point), str( contours_possibles)))
         else:
             aText = self.trUtf8( "=~= Aucune point dans votre contour. ")
             aText = aText + self.trUtf8( "Pas d'interpolation intra parcellaire")       
