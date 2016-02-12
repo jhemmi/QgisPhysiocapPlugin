@@ -226,9 +226,9 @@ class PhysiocapIntra( QtGui.QDialog):
         nom_iso_final = ""
         # Et pour la SAGA
         iso_dans_poly_brut = ""
-        nom_iso_sans_LEVEL = ""
+        nom_iso_sans_ELEV = ""
         iso_dans_poly_plus = ""
-        nom_iso_avec_LEVEL = ""
+        nom_iso_avec_ELEV = ""
         
         # Récuperer Extent du polygone en cours
         ex = vignette_vector.extent()
@@ -294,9 +294,9 @@ class PhysiocapIntra( QtGui.QDialog):
             
                 if (( iso_dans_poly_brut != None) and ( str( list( iso_dans_poly_brut)).find( "CONTOUR") != -1)):
                     if iso_dans_poly_brut[ 'CONTOUR'] != None:
-                        nom_iso_sans_LEVEL = iso_dans_poly_brut[ 'CONTOUR']
+                        nom_iso_sans_ELEV = iso_dans_poly_brut[ 'CONTOUR']
                         physiocap_log( self.trUtf8("=~= Iso sans LEVEL : contourlinesfromgrid\n{0}").\
-                            format( nom_iso_sans_LEVEL), "INTRA")
+                            format( nom_iso_sans_ELEV), "INTRA")
                     else:
                         physiocap_error( self, self.trUtf8( "=~= Problème bloquant durant {0} partie-{1}").\
                             format("contourlinesfromgrid","B"))
@@ -306,17 +306,17 @@ class PhysiocapIntra( QtGui.QDialog):
                         format("contourlinesfromgrid","A"))
                     raise physiocap_exception_interpolation( nom_point)
 
-                # On passe ETAPE FIELD si nom_iso_sans_LEVEL existe
-                if ( nom_iso_sans_LEVEL != ""):                              
+                # On passe ETAPE FIELD si nom_iso_sans_ELEV existe
+                if ( nom_iso_sans_ELEV != ""):                              
                     iso_dans_poly_plus = processing.runalg("qgis:addfieldtoattributestable", \
-                        nom_iso_sans_LEVEL, \
-                        "ELEV", 1, 15, 2 , nom_isoligne)
+                        nom_iso_sans_ELEV, \
+                        "ELEV", 1, 15, 2 , None)
  
                 if (( iso_dans_poly_plus != None) and ( str( list( iso_dans_poly_plus)).find( "OUTPUT_LAYER") != -1)):
                     if iso_dans_poly_plus[ 'OUTPUT_LAYER'] != None:
-                        nom_iso_avec_LEVEL = iso_dans_poly_plus[ 'OUTPUT_LAYER']
+                        nom_iso_avec_ELEV = iso_dans_poly_plus[ 'OUTPUT_LAYER']
                         physiocap_log( self.trUtf8("=~= Iso avec LEVEL ajouté : addfieldtoattributestable\n{0}").\
-                            format( nom_iso_avec_LEVEL), "INTRA")
+                            format( nom_iso_avec_ELEV), "INTRA")
                     else:
                         physiocap_error( self, self.trUtf8( "=~= Problème bloquant durant {0} partie-{1}").\
                             format("addfieldtoattributestable","B"))
@@ -327,12 +327,11 @@ class PhysiocapIntra( QtGui.QDialog):
                     raise physiocap_exception_interpolation( nom_point)
 
                 # On passe ETAPE CALCULATOR si nom_iso_final existe
-                if ( nom_iso_avec_LEVEL != ""):                              
-                    # Retrouver le nom de l'atribut créé et 
-                    intra_iso_modifie = QgsVectorLayer( nom_iso_avec_LEVEL, 
-                            nom_court_isoligne, 'ogr')
+                if ( nom_iso_avec_ELEV != ""):                              
+                    # Retrouver le nom de l'attribut créé
+                    intra_iso_modifie = QgsVectorLayer( nom_iso_avec_ELEV, 
+                            "Ne pas voir serait mieux", 'ogr')
                     fields = intra_iso_modifie.pendingFields()
-                    physiocap_log( "=~= Isolignes fields : " + str( fields), "INTRA")                                                 
                     field_probable = fields[1]
                     field_name = field_probable.name()
                     field_formule = '"' + str( field_name) + '"'  
@@ -340,7 +339,7 @@ class PhysiocapIntra( QtGui.QDialog):
                     QgsMessageLog.logMessage( "PHYSIOCAP : Avant calculator ", "Processing", QgsMessageLog.WARNING)
                     # Le remplacer par "ELEV", en fait on le copie dans "ELEV"
                     iso_dans_poly = processing.runalg("qgis:fieldcalculator", \
-                        nom_iso_avec_LEVEL, "ELEV", 0, 15, 2, False, field_formule ,None)
+                        nom_iso_avec_ELEV, "ELEV", 0, 15, 2, False, field_formule , nom_isoligne)
 
                 if (( iso_dans_poly != None) and ( str( list( iso_dans_poly)).find( "OUTPUT_LAYER") != -1)):
                     if iso_dans_poly[ 'OUTPUT_LAYER'] != None:
