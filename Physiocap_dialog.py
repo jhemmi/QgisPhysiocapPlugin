@@ -683,12 +683,11 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
             finFile = '"...' + allFile[-60:-1] + '"'            
             aText = self.trUtf8( "L'interpolation de : {0} n'a pu s'exécuter entièrement. ").\
                 format( finFile)
-            BadText = aText + self.trUtf8( "Vérifier si la librairie d'interpolation (SAGA ou GDAL) ")
             aText = aText + self.trUtf8( "Si la librairie d'interpolation (SAGA ou GDAL) ")
             BadText = aText + self.trUtf8( "est bien installée et activée dans {0} ")
             aText = aText + self.trUtf8( "est bien installée et activée dans {0}, ").\
                 format( self.trUtf8( "Traitement"))
-            BadText = aText + self.trUtf8( "Dans ce cas, vous pouvez contacter le support avec vos traces et données brutes")
+            # Todo : Si GPS averti du changement d'unité assert plus tot serait meilleur
             aText = aText + self.trUtf8( "vous pouvez contacter le support avec vos traces et données brutes")
             physiocap_error( self, aText, "CRITICAL")
             return physiocap_message_box( self, aText, "information" )

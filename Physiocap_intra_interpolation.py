@@ -289,7 +289,7 @@ class PhysiocapIntra( QtGui.QDialog):
                 iso_dans_poly_brut = processing.runalg("saga:contourlinesfromgrid",
                     nom_raster_final,
                     isoMin, isoMax, isoInterlignes,
-                    nom_isoligne)
+                    None)
                 # physiocap_log( self.trUtf8( "=~= Interpolation SAGA - Etape 2 - FIN"))
             
                 if (( iso_dans_poly_brut != None) and ( str( list( iso_dans_poly_brut)).find( "CONTOUR") != -1)):
@@ -310,7 +310,7 @@ class PhysiocapIntra( QtGui.QDialog):
                 if ( nom_iso_sans_LEVEL != ""):                              
                     iso_dans_poly_plus = processing.runalg("qgis:addfieldtoattributestable", \
                         nom_iso_sans_LEVEL, \
-                        "ELEV", 1, 15, 2 ,None)
+                        "ELEV", 1, 15, 2 , nom_isoligne)
  
                 if (( iso_dans_poly_plus != None) and ( str( list( iso_dans_poly_plus)).find( "OUTPUT_LAYER") != -1)):
                     if iso_dans_poly_plus[ 'OUTPUT_LAYER'] != None:
@@ -417,8 +417,6 @@ class PhysiocapIntra( QtGui.QDialog):
                     format("cliprasterbymasklayer","A"))
                 raise physiocap_exception_interpolation( nom_point)
             
-##            physiocap_log( self.trUtf8( "=xg= Interpolation GDAL - Etape 2 - {0}").\
-##                format( nom_raster_final))            
             QgsMessageLog.logMessage( "PHYSIOCAP : Avant Iso", "Processing", QgsMessageLog.WARNING)
 
             # On passe ETAPE ISO si nom_raster_final existe

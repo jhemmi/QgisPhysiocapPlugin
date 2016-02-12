@@ -142,8 +142,8 @@ def physiocap_get_layer_by_ID( layerID):
             physiocap_log( "Layer(Couche) invalid(e) : {0}".format ( le_layer.name()))
             return None
     else:
-        physiocap_log( "No layer (Aucune couche) find for (retrouvée pour) ID : {0}").\
-            format( ( str( layerID)))
+        physiocap_log( "No layer (Aucune couche) find for (retrouvée pour) ID : {0}".\
+            format( ( str( layerID))))
         return None
 
 def physiocap_quelle_projection_demandee( self):
@@ -357,7 +357,7 @@ class PhysiocapTools( QtGui.QDialog):
         
     def physiocap_tools_log_for_error( self):
         """ Renvoi un message dans la log pour pointer l'utilisateur vers la liste des erreurs"""
-        message_log_court = self.trUtf8( "{0} n'a pas correctement fini son analyse").\
+        message_log_court = self.trUtf8( "\u26A0 {0} n'a pas correctement fini son analyse").\
             format( PHYSIOCAP_UNI)
         message_log = message_log_court + self.trUtf8( ". Consultez le journal {0} Erreurs").\
             format( PHYSIOCAP_UNI)
