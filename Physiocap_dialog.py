@@ -746,7 +746,7 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
             pass
         # Fin de capture des erreurs Physiocap        
         physiocap_log( self.trUtf8( "=~= {0} a terminé les interpolations intra parcelaire.").\
-            format( PHYSIOCAP_UNI))
+            format( PHYSIOCAP_UNI), "INTRA")
 
                    
     def slot_moyenne_inter_parcelles(self):

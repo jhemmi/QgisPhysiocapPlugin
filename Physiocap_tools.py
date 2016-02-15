@@ -357,7 +357,7 @@ class PhysiocapTools( QtGui.QDialog):
         
     def physiocap_tools_log_for_error( self):
         """ Renvoi un message dans la log pour pointer l'utilisateur vers la liste des erreurs"""
-        message_log_court = self.trUtf8( "\u26A0 {0} n'a pas correctement fini son analyse").\
+        message_log_court = self.trUtf8( "{0} n'a pas correctement fini son analyse").\
             format( PHYSIOCAP_UNI)
         message_log = message_log_court + self.trUtf8( ". Consultez le journal {0} Erreurs").\
             format( PHYSIOCAP_UNI)

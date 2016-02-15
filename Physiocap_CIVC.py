@@ -49,7 +49,7 @@ from Physiocap_var_exception import *
 
 from PyQt4.QtCore import QSettings, Qt, QVariant
 from qgis.core import QGis, QgsCoordinateReferenceSystem, QgsFields, QgsField, \
-        QgsFeature, QgsGeometry, QgsPoint, QgsVectorFileWriter
+        QgsFeature, QgsGeometry, QgsPoint, QgsVectorFileWriter, QgsMessageLog
 
 import sys, string
 if platform.system() == 'Windows':
