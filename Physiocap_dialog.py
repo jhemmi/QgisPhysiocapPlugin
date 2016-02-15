@@ -293,6 +293,8 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         self.spinBoxPower.setValue( float( self.settings.value("Physiocap/powerIntra", 2 )))
         self.spinBoxRayon.setValue( int( self.settings.value("Physiocap/rayonIntra", 12 )))
         self.spinBoxPixel.setValue( float( self.settings.value("Physiocap/pixelIntra", 1 )))
+        self.spinBoxDoubleRayon.setValue( float( self.settings.value("Physiocap/rayonDoubleIntra", 0 )))
+        self.slot_rayon()
         self.spinBoxIsoMin.setValue( int( self.settings.value("Physiocap/isoMin", 1 )))
         self.spinBoxIsoMax.setValue( int( self.settings.value("Physiocap/isoMax", 1000 )))
         self.spinBoxNombreIso.setValue( int( self.settings.value("Physiocap/isoNombres", 5 )))
@@ -304,7 +306,7 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
             self.spinBoxPower.setEnabled( False)
         else:
             self.radioButtonGDAL.setChecked(  Qt.Checked)
-            self.spinBoxPixel.setEnabled( False)
+            # Todo : rebloquer ? self.spinBoxPixel.setEnabled( False)
         
         # On ne vérifie pas la version SAGA ici
         # Cas Windows : on force SAGA
@@ -362,6 +364,10 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         self.spinBoxInterrangs.valueChanged.connect( self.slot_calcul_densite)
         self.spinBoxInterceps.valueChanged.connect( self.slot_calcul_densite)
  
+        # Calcul dyn de rayon en unite de carte
+        self.spinBoxRayon.valueChanged.connect( self.slot_rayon)
+        self.spinBoxPixel.valueChanged.connect( self.slot_rayon)
+        
         # Calcul dynamique du intervale Isolignes
         self.spinBoxIsoMin.valueChanged.connect( self.slot_iso_distance)
         self.spinBoxIsoMax.valueChanged.connect( self.slot_iso_distance)
@@ -537,6 +543,20 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         else:
             self.groupBoxInter.setEnabled( False)
             
+    def slot_rayon( self):
+        """ 
+        Recherche du rayon en unite de carte
+        si erreur rend 0
+        """
+        # retrouve sans QT
+        rayon_nb_pixel = round( float ( self.spinBoxRayon.value()))
+        valeur_pixel = float ( self.spinBoxPixel.value())      
+
+        rayon_unite_carte = rayon_nb_pixel * valeur_pixel
+        
+        self.lineEditDoubleRayon.setText( str( rayon_unite_carte))
+        return 
+
     def slot_iso_distance( self):
         """ 
         Recherche du la distance optimale tenant compte de min et max et du nombre d'intervalle
@@ -585,6 +605,8 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         self.settings.setValue("Physiocap/attributIntra", self.fieldComboIntra.currentText())
         self.settings.setValue("Physiocap/powerIntra", float( self.spinBoxPower.value()))
         self.settings.setValue("Physiocap/rayonIntra", float( self.spinBoxRayon.value()))
+        self.settings.setValue("Physiocap/rayonDoubleIntra", float( self.spinBoxDoubleRayon.value()))
+        
         self.settings.setValue("Physiocap/pixelIntra", float( self.spinBoxPixel.value()))
         self.settings.setValue("Physiocap/isoMin", float( self.spinBoxIsoMin.value()))
         self.settings.setValue("Physiocap/isoMax", float( self.spinBoxIsoMax.value()))

@@ -39,7 +39,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>9</y>
+     <y>17</y>
      <width>541</width>
      <height>611</height>
     </rect>
@@ -51,7 +51,7 @@
     <enum>QTabWidget::North</enum>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>3</number>
    </property>
    <property name="movable">
     <bool>true</bool>
@@ -1025,22 +1025,22 @@
      <widget class="QLabel" name="lab_76">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>110</y>
-        <width>271</width>
+        <x>10</x>
+        <y>155</y>
+        <width>191</width>
         <height>21</height>
        </rect>
       </property>
       <property name="text">
-       <string>Rayon en mètre</string>
+       <string>Rayon (nombre de pixel)</string>
       </property>
      </widget>
      <widget class="QSpinBox" name="spinBoxRayon">
       <property name="geometry">
        <rect>
-        <x>310</x>
-        <y>110</y>
-        <width>91</width>
+        <x>180</x>
+        <y>155</y>
+        <width>51</width>
         <height>21</height>
        </rect>
       </property>
@@ -1061,7 +1061,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>90</y>
+        <y>79</y>
         <width>281</width>
         <height>21</height>
        </rect>
@@ -1082,8 +1082,8 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>130</y>
+        <x>10</x>
+        <y>97</y>
         <width>281</width>
         <height>21</height>
        </rect>
@@ -1096,7 +1096,7 @@
       <property name="geometry">
        <rect>
         <x>290</x>
-        <y>179</y>
+        <y>198</y>
         <width>161</width>
         <height>21</height>
        </rect>
@@ -1109,7 +1109,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>160</y>
+        <y>179</y>
         <width>261</width>
         <height>21</height>
        </rect>
@@ -1128,7 +1128,7 @@
       <property name="geometry">
        <rect>
         <x>290</x>
-        <y>200</y>
+        <y>219</y>
         <width>101</width>
         <height>21</height>
        </rect>
@@ -1150,7 +1150,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>230</y>
+        <y>242</y>
         <width>261</width>
         <height>21</height>
        </rect>
@@ -1166,7 +1166,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>40</y>
+        <y>34</y>
         <width>471</width>
         <height>21</height>
        </rect>
@@ -1188,7 +1188,7 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>60</y>
+        <y>54</y>
         <width>201</width>
         <height>20</height>
        </rect>
@@ -1239,17 +1239,17 @@
      <widget class="QDoubleSpinBox" name="spinBoxPixel">
       <property name="geometry">
        <rect>
-        <x>310</x>
-        <y>130</y>
-        <width>91</width>
+        <x>300</x>
+        <y>97</y>
+        <width>121</width>
         <height>21</height>
        </rect>
       </property>
       <property name="decimals">
-       <number>5</number>
+       <number>8</number>
       </property>
       <property name="minimum">
-       <double>0.000010000000000</double>
+       <double>-1.000000000000000</double>
       </property>
       <property name="maximum">
        <double>5.000000000000000</double>
@@ -1265,7 +1265,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>180</y>
+        <y>199</y>
         <width>111</width>
         <height>21</height>
        </rect>
@@ -1278,7 +1278,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>200</y>
+        <y>219</y>
         <width>101</width>
         <height>21</height>
        </rect>
@@ -1300,7 +1300,7 @@
       <property name="geometry">
        <rect>
         <x>140</x>
-        <y>180</y>
+        <y>197</y>
         <width>211</width>
         <height>21</height>
        </rect>
@@ -1313,7 +1313,7 @@
       <property name="geometry">
        <rect>
         <x>170</x>
-        <y>200</y>
+        <y>219</y>
         <width>71</width>
         <height>21</height>
        </rect>
@@ -1338,7 +1338,7 @@
       <property name="geometry">
        <rect>
         <x>290</x>
-        <y>228</y>
+        <y>240</y>
         <width>111</width>
         <height>28</height>
        </rect>
@@ -1361,6 +1361,118 @@
       </property>
       <property name="readOnly">
        <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lab_78">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>115</y>
+        <width>481</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <italic>true</italic>
+       </font>
+      </property>
+      <property name="text">
+       <string>En L93, 1 correspond à 1 mètre</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lab_80">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>133</y>
+        <width>471</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <italic>true</italic>
+       </font>
+      </property>
+      <property name="text">
+       <string>En WGS84, 0.0000001 correspond à 1 mètre (selon votre latitude)</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lab_84">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>156</y>
+        <width>161</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Rayon (unite de carte)</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEditDoubleRayon">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>330</x>
+        <y>175</y>
+        <width>181</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhDialableCharactersOnly</set>
+      </property>
+      <property name="maxLength">
+       <number>50</number>
+      </property>
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="readOnly">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="spinBoxDoubleRayon">
+      <property name="geometry">
+       <rect>
+        <x>390</x>
+        <y>154</y>
+        <width>121</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>8</number>
+      </property>
+      <property name="minimum">
+       <double>0.000000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>100.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
       </property>
      </widget>
     </widget>

@@ -44,6 +44,7 @@ data/PHY_*
 data/*OK
 data/*erreur
 data/test*
+data/Mo*
 testdata/
 modeleQgis/*.txt
 i18n/bak*

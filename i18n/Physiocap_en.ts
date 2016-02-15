@@ -255,8 +255,7 @@
         <source>- Vous pouvez détruire le groupe dans le panneau des couches
 - ou </source>
         <translation>- you can delete the group in the Layers Panel
-- or 
-- ou</translation>
+- or </translation>
     </message>
     <message utf8="true">
         <location filename="Physiocap_dialog.py" line="723"/>

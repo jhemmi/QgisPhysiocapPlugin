@@ -132,7 +132,7 @@ class PhysiocapIntra( QtGui.QDialog):
                 dialogue.radioButtonGDAL.setChecked(  Qt.Checked)
                 dialogue.radioButtonSAGA.setChecked(  Qt.Unchecked)
                 dialogue.spinBoxPower.setEnabled( False)
-                dialogue.spinBoxPixel.setEnabled( False)
+                # Todo : rebloqué ? dialogue.spinBoxPixel.setEnabled( False)
                 physiocap_message_box( dialogue,
                     self.trUtf8( "= Saga a une version incompatible : on force l'utilisation de Gdal" ),
                     "information")
@@ -140,6 +140,13 @@ class PhysiocapIntra( QtGui.QDialog):
         # Récupération des parametres d'Intra
         powerIntra = float ( dialogue.spinBoxPower.value())
         rayonIntra = float ( dialogue.spinBoxRayon.value())
+        rayonDoubleIntra = float ( dialogue.spinBoxDoubleRayon.value())
+        physiocap_log( self.trUtf8( "== Double rayon saisi =>> {0} ==== ").\
+            format(  str(rayonDoubleIntra)), "INTRA")
+        calculDoubleRayonIntra = float ( dialogue.lineEditDoubleRayon.text())
+        physiocap_log( self.trUtf8( "== Double rayon calculé =>> {0} ==== ").\
+            format(  str( calculDoubleRayonIntra)), "INTRA")
+
         pixelIntra = float ( dialogue.spinBoxPixel.value())
 
          # Pour isolignes
@@ -240,8 +247,19 @@ class PhysiocapIntra( QtGui.QDialog):
             # Appel SAGA power à 2 fixe
             physiocap_log( self.trUtf8( "=~= Interpolation SAGA {0}").\
                 format(  nom_court_raster))
+            # Les parametres proviennent du modele d'interpolation Physiocap du CIVC
+            # apres le champ, 1 veut dire Linearly discreasing with search radius
+            # 2 est power
+            # 1 est bande pour expo ou gauss (non utilisé)
+            # 0 recherche locale dans le rayon
+            # rayon de recherche (defaut saga est 100) : local maximum search distance given in map units
+            # 0 all directions et non quadrans
+            # 1 tous les points ce qui annule ? le 10 qui suit
+            # 10 nombre de point max
+            # extent calculé precedemment
+            # cellsize ou taille du pixel (unité de la carte)
             premier_raster = processing.runalg("saga:inversedistanceweighted",
-                nom_point, le_champ_choisi, 1, 2, 1, 0,rayonIntra, 0, 1,
+                nom_point, le_champ_choisi, 1, 2, 1, 0,rayonDoubleIntra, 0, 1,
                 10, info_extent, pixelIntra,
                 None) 
                                        
@@ -279,9 +297,6 @@ class PhysiocapIntra( QtGui.QDialog):
                 physiocap_error( self, self.trUtf8( "=~= Problème bloquant durant {0} partie-{1}").\
                     format("clipgridwithpolygon","A"))
                 raise physiocap_exception_interpolation( nom_point)
-
-##            physiocap_log( self.trUtf8( "=~= Interpolation SAGA - Etape 2 - {0}").\
-##                format( nom_raster_final))            
 
             # On passe ETAPE ISO si nom_raster_final existe
             if ( nom_raster_final != ""):
@@ -364,8 +379,15 @@ class PhysiocapIntra( QtGui.QDialog):
             # Appel GDAL
 ##            physiocap_log( self.trUtf8( "=xg= Interpolation GDAL {0}").\
 ##                format( nom_court_raster))
+            # Paramètres apres le champ
+            # Power vaut 2 
+            # lissage à 0 car ce lissage peut se faire dans les propriétés du raster
+            # Rayon identique (unité douteuse)
+            # Max points à 1000 difference avec SAGA    
+            # Min à 5 
+            # Angle à 0 (c'est l'angle de l'elipse
             premier_raster = processing.runalg("gdalogr:gridinvdist",
-                nom_point, le_champ_choisi, powerIntra, 0.0, rayonIntra, rayonIntra, 
+                nom_point, le_champ_choisi, powerIntra, 0.0, rayonDoubleIntra, rayonDoubleIntra, 
                 1000, 5, angle, val_nulle ,float_32, 
                 None)
           
