@@ -305,7 +305,6 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
             self.spinBoxPower.setEnabled( False)
         else:
             self.radioButtonGDAL.setChecked(  Qt.Checked)
-            # Todo : rebloquer ? self.spinBoxPixel.setEnabled( False)
         
         # On ne vérifie pas la version SAGA ici
         # Cas Windows : on force SAGA
@@ -578,7 +577,7 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
                 self.lineEditDoubleRayon.setText( aText)
             if self.radioButtonGPS.isChecked():
                 # Proposer un texte
-                aText = self.trUtf8( "{0} conseille un rayon d'interpolation proche de 0.000115 (1,15E-4)").\
+                aText = self.trUtf8( "{0} conseille un rayon d'interpolation proche de 0.00015 (1.5E-4)").\
                     format( PHYSIOCAP_UNI)
                 self.lineEditDoubleRayon.setText( aText)
 
@@ -732,10 +731,13 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
                 format( finFile)
             aText = aText + self.trUtf8( "Si la librairie d'interpolation (SAGA ou GDAL) ")
             BadText = aText + self.trUtf8( "est bien installée et activée dans {0} ")
-            aText = aText + self.trUtf8( "est bien installée et activée dans {0}, ").\
+            aText = aText + self.trUtf8( "est bien installée et activée dans {0}. ").\
                 format( self.trUtf8( "Traitement"))
-            # Todo : Si GPS averti du changement d'unité assert plus tot serait meilleur
-            aText = aText + self.trUtf8( "vous pouvez contacter le support avec vos traces et données brutes")
+            aText = aText + self.trUtf8( "Si vous n'avez pas des contours bizarres.")
+            aText = aText + self.trUtf8( "Si vous n'avez pas détruit de couches recemment...")
+            aText = aText + self.trUtf8( "Si vous n'avez pas modifié de contexte L93/GPS,")
+            aText = aText + self.trUtf8( "sans mettre à jour les parametres d'interpolation...")
+            aText = aText + self.trUtf8( "Alors vous pouvez contacter le support avec vos traces et données brutes")
             physiocap_error( self, aText, "CRITICAL")
             return physiocap_message_box( self, aText, "information" )
         except physiocap_exception_no_processing:

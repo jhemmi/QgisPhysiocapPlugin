@@ -123,7 +123,7 @@ class PhysiocapIntra( QtGui.QDialog):
             unite, dixieme, millieme = versionSAGA.split( ".")
             versionNum = float(unite) + float(dixieme)/10 + float(millieme)/100
             if ( versionNum >= 2.10) and ( versionNum <= 2.12):
-                physiocap_log ( self.trUtf8( "= Version SAGA OK : %s" % ( str( versionSAGA))))
+                physiocap_log ( self.trUtf8( "= Version SAGA OK : %s" % ( str( versionSAGA))), "INTRA")
             else:
                 physiocap_log ( self.trUtf8( "= Version SAGA %s est inférieure à 2.1.0 " % ( str( versionSAGA))))
                 physiocap_log ( self.trUtf8( "= ou supérieure à 2.1.2"))
@@ -132,7 +132,6 @@ class PhysiocapIntra( QtGui.QDialog):
                 dialogue.radioButtonGDAL.setChecked(  Qt.Checked)
                 dialogue.radioButtonSAGA.setChecked(  Qt.Unchecked)
                 dialogue.spinBoxPower.setEnabled( False)
-                # Todo : rebloqué ? dialogue.spinBoxPixel.setEnabled( False)
                 physiocap_message_box( dialogue,
                     self.trUtf8( "= Saga a une version incompatible : on force l'utilisation de Gdal" ),
                     "information")
@@ -245,7 +244,7 @@ class PhysiocapIntra( QtGui.QDialog):
         
         if dialogue.radioButtonSAGA.isChecked():
             # Appel SAGA power à 2 fixe
-            physiocap_log( self.trUtf8( "=~= Interpolation SAGA {0}").\
+            physiocap_log( self.trUtf8( "=~= Interpolation SAGA dans {0}").\
                 format(  nom_court_raster))
             # Les parametres proviennent du modele d'interpolation Physiocap du CIVC
             # apres le champ, 1 veut dire Linearly discreasing with search radius
@@ -374,7 +373,7 @@ class PhysiocapIntra( QtGui.QDialog):
                     format("clipgridwithpolygon","0"))
                 raise physiocap_exception_interpolation( nom_point)
             physiocap_log( self.trUtf8( "=~= Interpolation SAGA - Fin iso - {0}").\
-                format( nom_iso_final))          
+                format( nom_iso_final), "INTRA")          
         else:
             # Appel GDAL
 ##            physiocap_log( self.trUtf8( "=xg= Interpolation GDAL {0}").\

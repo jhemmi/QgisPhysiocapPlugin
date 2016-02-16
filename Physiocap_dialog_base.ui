@@ -95,7 +95,7 @@
       <property name="geometry">
        <rect>
         <x>280</x>
-        <y>13</y>
+        <y>9</y>
         <width>101</width>
         <height>21</height>
        </rect>
@@ -1210,9 +1210,9 @@
      <widget class="QDoubleSpinBox" name="spinBoxPixel">
       <property name="geometry">
        <rect>
-        <x>300</x>
+        <x>280</x>
         <y>97</y>
-        <width>121</width>
+        <width>171</width>
         <height>21</height>
        </rect>
       </property>
@@ -1283,9 +1283,9 @@
      <widget class="QSpinBox" name="spinBoxNombreIso">
       <property name="geometry">
        <rect>
-        <x>170</x>
+        <x>150</x>
         <y>219</y>
-        <width>71</width>
+        <width>91</width>
         <height>21</height>
        </rect>
       </property>
@@ -1401,9 +1401,9 @@
      <widget class="QDoubleSpinBox" name="spinBoxDoubleRayon">
       <property name="geometry">
        <rect>
-        <x>300</x>
+        <x>280</x>
         <y>140</y>
-        <width>121</width>
+        <width>171</width>
         <height>21</height>
        </rect>
       </property>
