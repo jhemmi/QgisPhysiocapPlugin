@@ -291,9 +291,8 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         
         # Les parametres Intra  
         self.spinBoxPower.setValue( float( self.settings.value("Physiocap/powerIntra", 2 )))
-        self.spinBoxRayon.setValue( int( self.settings.value("Physiocap/rayonIntra", 12 )))
-        self.spinBoxPixel.setValue( float( self.settings.value("Physiocap/pixelIntra", 1 )))
-        self.spinBoxDoubleRayon.setValue( float( self.settings.value("Physiocap/rayonDoubleIntra", 0 )))
+        self.spinBoxPixel.setValue( float( self.settings.value("Physiocap/pixelIntra", 0.5 )))
+        self.spinBoxDoubleRayon.setValue( float( self.settings.value("Physiocap/rayonIntra", 12 )))
         self.slot_rayon()
         self.spinBoxIsoMin.setValue( int( self.settings.value("Physiocap/isoMin", 1 )))
         self.spinBoxIsoMax.setValue( int( self.settings.value("Physiocap/isoMax", 1000 )))
@@ -364,10 +363,12 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         self.spinBoxInterrangs.valueChanged.connect( self.slot_calcul_densite)
         self.spinBoxInterceps.valueChanged.connect( self.slot_calcul_densite)
  
-        # Calcul dyn de rayon en unite de carte
-        self.spinBoxRayon.valueChanged.connect( self.slot_rayon)
-        self.spinBoxPixel.valueChanged.connect( self.slot_rayon)
-        
+        # Calcul du commentaire sur pixel et rayon en unite de carte
+        self.radioButtonSAGA.toggled.connect( self.slot_rayon)
+        #self.radioButtonGDAL.toggled.connect( self.slot_rayon)
+        self.radioButtonGPS.toggled.connect( self.slot_rayon)
+        #self.radioButtonL93.toggled.connect( self.slot_rayon)
+      
         # Calcul dynamique du intervale Isolignes
         self.spinBoxIsoMin.valueChanged.connect( self.slot_iso_distance)
         self.spinBoxIsoMax.valueChanged.connect( self.slot_iso_distance)
@@ -542,20 +543,46 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
             self.slot_min_max_champ_intra()
         else:
             self.groupBoxInter.setEnabled( False)
+        
+        # Mise à jour du commentaire pour le rayon
+        self.slot_rayon()
             
     def slot_rayon( self):
         """ 
-        Recherche du rayon en unite de carte
-        si erreur rend 0
+        Selon GPS ou L93 et SAGA ou GDAL mise en place du x=commentaire pour le
+        rayon en unite de carte
         """
         # retrouve sans QT
-        rayon_nb_pixel = round( float ( self.spinBoxRayon.value()))
-        valeur_pixel = float ( self.spinBoxPixel.value())      
-
-        rayon_unite_carte = rayon_nb_pixel * valeur_pixel
+        #physiocap_message_box( self, "Dans slot Rayon", "information")   
+        self.lineEditDoubleRayon.setText( "Etrange et bizarre")
+                
+        self.spinBoxDoubleRayon.setEnabled( True)
         
-        self.lineEditDoubleRayon.setText( str( rayon_unite_carte))
-        return 
+        if self.radioButtonSAGA.isChecked():
+            self.spinBoxPixel.setEnabled( True)
+            if self.radioButtonL93.isChecked():
+                aText = self.trUtf8( "{0} conseille un rayon d'interpolation entre 5 et 15").\
+                    format( PHYSIOCAP_UNI)
+                self.lineEditDoubleRayon.setText( aText)
+            if self.radioButtonGPS.isChecked():
+                aText = self.trUtf8( "{0} conseille un rayon d'interpolation proche de 0.000085 (8.85E-5)").\
+                    format( PHYSIOCAP_UNI)
+                self.lineEditDoubleRayon.setText( aText)
+                
+        if self.radioButtonGDAL.isChecked():
+            self.spinBoxPixel.setEnabled( False)
+            if self.radioButtonL93.isChecked():
+                # Proposer un texte
+                aText = self.trUtf8( "{0} conseille un rayon d'interpolation proche de 5").\
+                    format( PHYSIOCAP_UNI)
+                self.lineEditDoubleRayon.setText( aText)
+            if self.radioButtonGPS.isChecked():
+                # Proposer un texte
+                aText = self.trUtf8( "{0} conseille un rayon d'interpolation proche de 0.000115 (1,15E-4)").\
+                    format( PHYSIOCAP_UNI)
+                self.lineEditDoubleRayon.setText( aText)
+
+        return 0
 
     def slot_iso_distance( self):
         """ 
@@ -604,9 +631,7 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
 
         self.settings.setValue("Physiocap/attributIntra", self.fieldComboIntra.currentText())
         self.settings.setValue("Physiocap/powerIntra", float( self.spinBoxPower.value()))
-        self.settings.setValue("Physiocap/rayonIntra", float( self.spinBoxRayon.value()))
-        self.settings.setValue("Physiocap/rayonDoubleIntra", float( self.spinBoxDoubleRayon.value()))
-        
+        self.settings.setValue("Physiocap/rayonIntra", float( self.spinBoxDoubleRayon.value()))
         self.settings.setValue("Physiocap/pixelIntra", float( self.spinBoxPixel.value()))
         self.settings.setValue("Physiocap/isoMin", float( self.spinBoxIsoMin.value()))
         self.settings.setValue("Physiocap/isoMax", float( self.spinBoxIsoMax.value()))

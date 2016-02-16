@@ -139,13 +139,13 @@ class PhysiocapIntra( QtGui.QDialog):
 
         # Récupération des parametres d'Intra
         powerIntra = float ( dialogue.spinBoxPower.value())
-        rayonIntra = float ( dialogue.spinBoxRayon.value())
+        #rayonIntra = float ( dialogue.spinBoxRayon.value())
         rayonDoubleIntra = float ( dialogue.spinBoxDoubleRayon.value())
         physiocap_log( self.trUtf8( "== Double rayon saisi =>> {0} ==== ").\
             format(  str(rayonDoubleIntra)), "INTRA")
-        calculDoubleRayonIntra = float ( dialogue.lineEditDoubleRayon.text())
-        physiocap_log( self.trUtf8( "== Double rayon calculé =>> {0} ==== ").\
-            format(  str( calculDoubleRayonIntra)), "INTRA")
+##        calculDoubleRayonIntra = float ( dialogue.lineEditDoubleRayon.text())
+##        physiocap_log( self.trUtf8( "== Double rayon calculé =>> {0} ==== ").\
+##            format(  str( calculDoubleRayonIntra)), "INTRA")
 
         pixelIntra = float ( dialogue.spinBoxPixel.value())
 
