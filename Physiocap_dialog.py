@@ -766,7 +766,7 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
             return physiocap_message_box( self, aText, "information") 
         except physiocap_exception_project_point_incoherence as e:
             physiocap_log_for_error( self)
-            aText = self.trUtf8( "La couche de point [0} n'est pas retrouvé. ").\
+            aText = self.trUtf8( "La couche de point {0} n'est pas retrouvé. ").\
                 format( e)
             aText = aText + self.trUtf8( "Une incohérence entre le projet Physiocap et ses données vous oblige à ")
             aText = aText + self.trUtf8( "créer une nouvelle instance de projet Physiocap")
