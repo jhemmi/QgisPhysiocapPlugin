@@ -51,7 +51,7 @@
     <enum>QTabWidget::North</enum>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>5</number>
    </property>
    <property name="movable">
     <bool>true</bool>
@@ -1055,7 +1055,7 @@
        <rect>
         <x>10</x>
         <y>97</y>
-        <width>281</width>
+        <width>251</width>
         <height>21</height>
        </rect>
       </property>
@@ -1537,7 +1537,7 @@
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>241</width>
+        <width>191</width>
         <height>21</height>
        </rect>
       </property>
@@ -1549,7 +1549,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Calculs et filtrage Physiocap</string>
+       <string>Calcul initial et filtrage</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="lineEditThematiqueDiametre">
@@ -2454,7 +2454,7 @@ p, li { white-space: pre-wrap; }
       <rect>
        <x>40</x>
        <y>229</y>
-       <width>351</width>
+       <width>401</width>
        <height>21</height>
       </rect>
      </property>

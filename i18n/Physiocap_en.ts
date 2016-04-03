@@ -611,11 +611,6 @@
         <translation>Diameter **</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="1552"/>
-        <source>Calculs et filtrage Physiocap</source>
-        <translation>Initial calculations and Physiocap filtration</translation>
-    </message>
-    <message>
         <location filename="Physiocap_dialog_base.ui" line="1595"/>
         <source>Sarment</source>
         <translation>Vine shoot</translation>
@@ -840,11 +835,6 @@ p, li { white-space: pre-wrap; }
         <source>Format des couches générées</source>
         <translation>Format of layers</translation>
     </message>
-    <message>
-        <location filename="Physiocap_dialog_base.ui" line="2307"/>
-        <source>Version 1.3.2</source>
-        <translation></translation>
-    </message>
     <message utf8="true">
         <location filename="Physiocap_dialog_base.ui" line="61"/>
         <source>ϕ Params</source>
@@ -874,6 +864,16 @@ p, li { white-space: pre-wrap; }
         <location filename="Physiocap_dialog_base.ui" line="1371"/>
         <source>Rayon d&apos;interpolation (unite de carte)</source>
         <translation>Interpolation radius (in cart unit)</translation>
+    </message>
+    <message>
+        <location filename="Physiocap_dialog_base.ui" line="1552"/>
+        <source>Calcul initial et filtrage</source>
+        <translation>Initial calculus and filtration</translation>
+    </message>
+    <message>
+        <location filename="Physiocap_dialog_base.ui" line="2307"/>
+        <source>Version 1.3.3</source>
+        <translation>Version 1.3.3</translation>
     </message>
 </context>
 <context>
