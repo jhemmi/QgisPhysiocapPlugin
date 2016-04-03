@@ -31,6 +31,6 @@ https://github.com/jhemmi/QgisPhysiocapPlugin/wiki/Qgis-Physiocap-Plugin-usage-&
 
 La 1.3.1 est publiée dans le dépot standard de Qgis et donc accessible directement dans Qgis depuis le Menu "Extension".
 
-**Attention, ce dépot GitHub contient la version 1.3.1 (version stable Décembre 2015 https://github.com/jhemmi/QgisPhysiocapPlugin/releases) et la version 1.3.2 en fin de test - Février 2016**
+**Attention, ce dépot GitHub contient la version 1.3.2 (version stable Février 2016 https://github.com/jhemmi/QgisPhysiocapPlugin/releases) et la version 1.3.3 en test - Avril 2016**
 
-**Warning, this GitHub repo is version 1.3.1 (stable December 2015 https://github.com/jhemmi/QgisPhysiocapPlugin/releases) and version 1.3.2 en fin de test - Février 2016**
+**Warning, this GitHub repo is version 1.3.2 (stable February 2016 https://github.com/jhemmi/QgisPhysiocapPlugin/releases) and Draft 1.3.3 in test - April 2016**
