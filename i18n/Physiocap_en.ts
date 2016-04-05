@@ -726,27 +726,27 @@
         <translation>About</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="2364"/>
+        <location filename="Physiocap_dialog_base.ui" line="2363"/>
         <source>jhemmi.eu</source>
         <translation>jhemmi.eu</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="2380"/>
+        <location filename="Physiocap_dialog_base.ui" line="2379"/>
         <source>CIVC</source>
         <translation>Champagne Comity</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="2402"/>
+        <location filename="Physiocap_dialog_base.ui" line="2401"/>
         <source>Auteurs :</source>
         <translation>Authors :</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="2482"/>
+        <location filename="Physiocap_dialog_base.ui" line="2548"/>
         <source>Contribuez maintenant !</source>
         <translation>Contibute now !</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="2449"/>
+        <location filename="Physiocap_dialog_base.ui" line="2515"/>
         <source>Contributions pour jhemmi.eu</source>
         <translation>Contributions for jhemmi.eu</translation>
     </message>
@@ -805,30 +805,10 @@
         <source>Extension Physiocap pour Qgis</source>
         <translation>Physiocap&apos;s plugin for Qgis</translation>
     </message>
-    <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="2346"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Cantarell&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Utilisez le bouton &lt;span style=&quot; font-weight:600;&quot;&gt;Aide&lt;/span&gt; pour accéder aux documentations, à la license et au suivi des évolutions sous gitHub.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;N&apos;hésitez pas à poster vos questions, proposition d&apos;évolutions et retour de bugs.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation></translation>
-    </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="2469"/>
+        <location filename="Physiocap_dialog_base.ui" line="2535"/>
         <source>L&apos;extension Physiocap pour Qgis est utile pour vous ?</source>
         <translation>Is Physiocap&apos;s plugin usefull for you ?</translation>
-    </message>
-    <message>
-        <location filename="Physiocap_dialog_base.ui" line="2495"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Cantarell&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Use the &lt;span style=&quot; font-weight:600;&quot;&gt;Help&lt;/span&gt; bouton to access to documentations, licence and issues that are avaible on gitHub.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Do no hesitate to post your questions, enhancement proposal and to return your issues.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation></translation>
     </message>
     <message utf8="true">
         <location filename="Physiocap_dialog_base.ui" line="605"/>
@@ -874,6 +854,39 @@ p, li { white-space: pre-wrap; }
         <location filename="Physiocap_dialog_base.ui" line="2307"/>
         <source>Version 1.3.3</source>
         <translation>Version 1.3.3</translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog_base.ui" line="2346"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Cantarell&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Utilisez le bouton &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Aide&lt;/span&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt; pour accéder aux documentations, à la license et au suivi des évolutions sous gitHub. N&apos;hésitez pas à poster vos questions, proposition d&apos;évolutions et retour de bugs.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="Physiocap_dialog_base.ui" line="2442"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Cantarell&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Use the &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Help&lt;/span&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt; bouton to access to documentations, licence and issues that are avaible on gitHub. Do no hesitate to post your questions, enhancement proposal and to return your issues.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="Physiocap_dialog_base.ui" line="2465"/>
+        <source>Contributeurs : </source>
+        <translation>Contributeurs : </translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog_base.ui" line="2562"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Cantarell&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt; color:#000000;&quot;&gt;A. Davy a contribué aux précisions sur les métriques Physiocap.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt; color:#000000;&quot;&gt;M. Raynal a corrigé la traduction anglaise (voir version 1.3.3).&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -1342,6 +1355,11 @@ p, li { white-space: pre-wrap; }
         <location filename="Physiocap_intra_interpolation.py" line="758"/>
         <source>=~= Fin des {0}/{1} interpolation(s) intra parcellaire</source>
         <translation>=~=End of interpolation {0}/{1} for intra parcels</translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_intra_interpolation.py" line="626"/>
+        <source>Erreur bloquante sous Windows qui empêche de traiter cette interpolation.</source>
+        <translation>Severe error does not authorize to interpolate under Windows.</translation>
     </message>
 </context>
 <context>

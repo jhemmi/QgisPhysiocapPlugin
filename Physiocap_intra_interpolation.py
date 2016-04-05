@@ -623,7 +623,7 @@ class PhysiocapIntra( QtGui.QDialog):
                     aText = self.trUtf8( "La valeur {0} a ").\
                         format( e)
                     aText = aText + self.trUtf8( "des caractères (non ascii) incompatibles avec l'interpolation SAGA.")
-                    aText = aText + self.trUtf8( "Erreur bloquante sous Windows qui empeche de traiter cette interpolation.")
+                    aText = aText + self.trUtf8( "Erreur bloquante sous Windows qui empêche de traiter cette interpolation.")
                     physiocap_error( self, aText, "CRITICAL")        
                 except:
                     raise
