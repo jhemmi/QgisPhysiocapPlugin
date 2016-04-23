@@ -72,18 +72,19 @@ NOM_PROJET = "PHY" + SEPARATEUR_ + PHYSIOCAP_TEST4 + SEPARATEUR_
 
 # Listes de valeurs
 #CEPAGES = [ "INCONNU", "CHARDONNAY", "MERLOT", "NEGRETTE", "PINOT NOIR", "PINOT MEUNIER"]
-CEPAGES = [ "Inconnu", \
-"Airen", "Chardonnay", "Trebbiano", "Grasevina", "Rkatsiteli", "Sauvignon", "Cayetana", \
-"Catarratto", "Macabeo", "Chenin", "Riesling", "Colombard", "Aligote", "Muëller Thurgau", \
-"Palomino Fino", "Muscat", "Semillon", "Feteasca", "Gruner Veltliner", "Trebbiano Romagnolo", \
-"Pinot Blanc", "Garganega", "Niagara", "Pedro Gimenez", "Fernao Pires", "Sultaniye", "Chasselas", \
-"Melon", \
-"Cabernet Sauvignon", "Grenache", "Merlot", "Mazuelo", "Syrah", "Bobal", "Tempranillo", "Monastrell", \
-"Sangiovese", "Négrette", "Pinot Noir", "Pinot Meunier", "Cabernet Franc", "Cinsaut", "Gamay", \
-"Alicante", "Barbera", "Montepulciano", "Isabella", "Tribidrag", "Criolla Grande", "Cot", "Pamid", \
-"Douce Noire", "Negroamaro", "Doukkali", "Listan Prieto", "Prokupac", "Castelao", "Mencia", \
-"Blaufrankisch", "Concord", "Zinfandel" ]
-
+CEPAGES = [ 'Inconnu', 'Airen', 'Alicante', 'Aligote', \
+'Barbera', 'Blaufrankisch', 'Bobal', \
+'Cabernet Franc', 'Cabernet Sauvignon', 'Castelao', 'Catarratto', 'Cayetana', 'Chardonnay', \
+'Chasselas', 'Chenin', 'Cinsaut', 'Colombard', 'Concord', 'Cot', 'Criolla Grande', \
+'Douce Noire', 'Doukkali', 'Fernao Pires', 'Feteasca', \
+'Gamay', 'Garganega', 'Grasevina', 'Grenache', 'Gruner Veltliner', 'Isabella', \
+'Listan Prieto', 'Macabeo', 'Mazuelo', 'Melon', 'Mencia', 'Merlot', 'Monastrell', \
+'Montepulciano', 'Muscat', 'Muëller Thurgau', \
+'Negroamaro', 'Niagara', 'Négrette', \
+'Palomino Fino', 'Pamid', 'Pedro Gimenez', 'Pinot Blanc', 'Pinot Meunier', 'Pinot Noir', \
+'Prokupac', 'Riesling', 'Rkatsiteli', \
+'Sangiovese', 'Sauvignon', 'Semillon', 'Sultaniye', 'Syrah', \
+'Tempranillo', 'Trebbiano', 'Trebbiano Romagnolo', 'Tribidrag', 'Zinfandel']
 
 TAILLES = [ "Inconnue", "Chablis", "Cordon de Royat", "Cordon libre", "Guyot simple", "Guyot double"]
 FORMAT_VECTEUR = [ "ESRI Shapefile"] # POSTGRES_NOM] # "memory"]
@@ -150,7 +151,7 @@ VIGNETTES_INTRA = "INTRA_PARCELLAIRE"
 NOM_INTRA = SEPARATEUR_ + "INTRA"
 REPERTOIRE_RASTERS = "IntraParcelle"
 ATTRIBUTS_INTRA = [ "DIAM", "NBSARM", "BIOM"] 
-ATTRIBUTS_INTRA_DETAILS = [ "BIOMGM2"] 
+ATTRIBUTS_INTRA_DETAILS = [ "NBSARMM2", "NBSARCEP","BIOMM2", "BIOMGM2", "BIOMGCEP" ] 
 CHEMIN_TEMPLATES = [ "modeleQgis", "project_templates"]
 UNE_SEULE_FOIS = "NO"
 

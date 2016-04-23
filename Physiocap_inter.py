@@ -141,7 +141,8 @@ def physiocap_fill_combo_poly_or_point( self, isRoot = None, node = None ):
 def physiocap_moyenne_vers_vignette( crs, EPSG_NUMBER, nom_vignette, nom_prj,
         geom_poly, un_nom, un_autre_ID, date_debut, heure_fin, 
         moyenne_vitesse, moyenne_sar, moyenne_dia, moyenne_biom,
-        moyenne_biomgm2, details = "NO"):
+        moyenne_biomgm2, moyenne_biomgcep, moyenne_biomm2, moyenne_nbsarmm2, moyenne_nbsarcep,
+        details = "NO"):
     """ Creation d'une vignette nommé un_nom avec les moyennes
         qui se trouvent moyenne_sar, moyenne_dia 
         moyennes des nombres de sarments / Metre
@@ -163,6 +164,10 @@ def physiocap_moyenne_vers_vignette( crs, EPSG_NUMBER, nom_vignette, nom_prj,
     if details == "YES":
         # Niveau de detail demandé
         les_champs.append( QgsField( "BIOMGM2", QVariant.Double,"double", 10,2))
+        les_champs.append( QgsField( "BIOMGCEP", QVariant.Double,"double", 10,2))
+        les_champs.append( QgsField( "BIOMM2", QVariant.Double,"double", 10,2))
+        les_champs.append( QgsField( "NBSARMM2", QVariant.Double,"double", 10,2))
+        les_champs.append( QgsField( "NBSARCEP", QVariant.Double,"double", 10,2))
 
     # Creation du Shape
     writer = QgsVectorFileWriter( nom_vignette, "utf-8", les_champs, 
@@ -177,7 +182,8 @@ def physiocap_moyenne_vers_vignette( crs, EPSG_NUMBER, nom_vignette, nom_prj,
     if details == "YES":
         # Ecrit tous les attributs
         feat.setAttributes( [ 1, un_nom, un_autre_ID, date_debut, heure_fin, 
-            moyenne_vitesse, moyenne_sar, moyenne_dia, moyenne_biom, moyenne_biomgm2])
+            moyenne_vitesse, moyenne_sar, moyenne_dia, moyenne_biom,
+            moyenne_biomgm2, moyenne_biomgcep, moyenne_biomm2, moyenne_nbsarmm2, moyenne_nbsarcep ])
     else:
         # Ecrit les premiers attributs
         feat.setAttributes( [ 1, un_nom, un_autre_ID, date_debut, heure_fin, 
@@ -199,7 +205,8 @@ def physiocap_moyenne_vers_vignette( crs, EPSG_NUMBER, nom_vignette, nom_prj,
 def physiocap_moyenne_vers_point( crs, EPSG_NUMBER, nom_point, nom_prj,
                     les_geom_point_feat, les_GID, les_dates, 
                     les_vitesses, les_sarments, les_diametres, les_biom, 
-                    les_biomgm2, details = "NO"):
+                    les_biomgm2, les_biomgcep, les_biomm2, les_nbsarmm2, les_nbsarcep,
+                    details = "NO"):
     """ Creation d'un shape de points se trouvant dans le contour
     """
     # Prepare les attributs
@@ -213,7 +220,10 @@ def physiocap_moyenne_vers_point( crs, EPSG_NUMBER, nom_point, nom_prj,
     if details == "YES":
         # Niveau de detail demandé
         les_champs.append(QgsField("BIOMGM2", QVariant.Double,"double", 10,2))
-
+        les_champs.append( QgsField( "BIOMGCEP", QVariant.Double,"double", 10,2))
+        les_champs.append( QgsField( "BIOMM2", QVariant.Double,"double", 10,2))
+        les_champs.append( QgsField( "NBSARMM2", QVariant.Double,"double", 10,2))
+        les_champs.append( QgsField( "NBSARCEP", QVariant.Double,"double", 10,2))
     # Creation du Shape
     writer = QgsVectorFileWriter( nom_point, "utf-8", les_champs, 
         QGis.WKBPoint, crs , "ESRI Shapefile")
@@ -226,7 +236,8 @@ def physiocap_moyenne_vers_point( crs, EPSG_NUMBER, nom_point, nom_prj,
         if details == "YES":
             # Ecrit tous les attributs
             feat.setAttributes( [ les_GID[ i], les_dates[ i], les_vitesses[ i], 
-            les_sarments[ i], les_diametres[ i], les_biom[ i], les_biomgm2[ i] ])
+            les_sarments[ i], les_diametres[ i], les_biom[ i], 
+            les_biomgm2[ i], les_biomgcep[ i], les_biomm2[ i], les_nbsarmm2[ i], les_nbsarcep[ i] ])
         else:
             # Ecrit les premiers attributs
             feat.setAttributes( [ les_GID[ i], les_dates[ i], les_vitesses[ i], 
@@ -250,7 +261,9 @@ def physiocap_moyenne_vers_point( crs, EPSG_NUMBER, nom_point, nom_prj,
 def physiocap_moyenne_vers_contour( crs, EPSG_NUMBER, nom_contour_moyenne, nom_contour_moyenne_prj,
     les_geoms_poly, les_parcelles, les_parcelles_ID, les_dates_parcelle, les_heures_parcelle,
     les_moyennes_vitesse, les_moyennes_sarment, les_moyennes_diametre, les_moyennes_biom,
-    les_moyennes_biomgm2, details = "NO"):
+    les_moyennes_biomgm2, les_moyennes_biomgcep, les_moyennes_biomm2, 
+    les_moyennes_nbsarmm2, les_moyennes_nbsarcep,
+    details = "NO"):
     """ Creation d'un contour avec les moyennes
        Il s'agit de plusieurs polygones
     """
@@ -269,7 +282,10 @@ def physiocap_moyenne_vers_contour( crs, EPSG_NUMBER, nom_contour_moyenne, nom_c
     if details == "YES":
         # Niveau de detail demandé
         les_champs.append(QgsField("BIOMGM2", QVariant.Double,"double", 10,2))
-
+        les_champs.append( QgsField( "BIOMGCEP", QVariant.Double,"double", 10,2))
+        les_champs.append( QgsField( "BIOMM2", QVariant.Double,"double", 10,2))
+        les_champs.append( QgsField( "NBSARMM2", QVariant.Double,"double", 10,2))
+        les_champs.append( QgsField( "NBSARCEP", QVariant.Double,"double", 10,2))
     # Creation du Shape
     writer = QgsVectorFileWriter( nom_contour_moyenne, "utf-8", les_champs, 
         QGis.WKBPolygon, crs , "ESRI Shapefile")
@@ -283,7 +299,9 @@ def physiocap_moyenne_vers_contour( crs, EPSG_NUMBER, nom_contour_moyenne, nom_c
             feat.setAttributes( [ i, les_parcelles[ i], les_parcelles_ID[ i],
                 les_dates_parcelle[ i],  les_heures_parcelle[ i],
                 les_moyennes_vitesse[ i], les_moyennes_sarment[ i], les_moyennes_diametre[ i], 
-                les_moyennes_biom[ i], les_moyennes_biomgm2[ i]])
+                les_moyennes_biom[ i],
+                les_moyennes_biomgm2[ i], les_moyennes_biomgcep[ i], les_moyennes_biomm2[ i],
+                les_moyennes_nbsarmm2[ i], les_moyennes_nbsarcep[ i] ])
         else:
             # Ecrit les premiers attributs
             feat.setAttributes( [ i, les_parcelles[ i], les_parcelles_ID[ i],
@@ -427,7 +445,10 @@ class PhysiocapInter( QtGui.QDialog):
         les_moyennes_diametre = []
         les_moyennes_biom = []
         les_moyennes_biomgm2 = []
-
+        les_moyennes_biomgcep = []
+        les_moyennes_biomm2 = []
+        les_moyennes_nbsarmm2 = []
+        les_moyennes_nbsarcep= []
 
         for un_contour in vecteur_poly.getFeatures(): #iterate poly features
             id = id + 1
@@ -469,6 +490,10 @@ class PhysiocapInter( QtGui.QDialog):
             nb_sar = 0
             les_biom = []
             les_biomgm2 = []
+            les_biomgcep = []
+            les_biomm2 = []
+            les_nbsarmm2 = []
+            les_nbsarcep= []
             i = 0
             date_debut = ""
             heure_fin = ""
@@ -496,6 +521,10 @@ class PhysiocapInter( QtGui.QDialog):
                         if ( details == "YES"):
                             try:
                                 les_biomgm2.append( un_point["BIOMGM2"])
+                                les_biomgcep.append( un_point["BIOMGCEP"])
+                                les_biomm2.append( un_point["BIOMM2"])
+                                les_nbsarmm2.append( un_point["NBSARMM2"])
+                                les_nbsarcep.append( un_point["NBSARCEP"])
                             except KeyError:
                                 # Se remettre en détails non
                                 details = "NO"
@@ -513,6 +542,10 @@ class PhysiocapInter( QtGui.QDialog):
                 moyenne_dia = sum(les_diametres) / nb_dia
                 moyenne_biom = sum(les_biom) / len( les_biom)
                 moyenne_biomgm2 = sum(les_biomgm2) / len( les_biom)
+                moyenne_biomgcep = sum(les_biomgcep) / len( les_biom)
+                moyenne_biomm2 = sum(les_biomm2) / len( les_biom)
+                moyenne_nbsarmm2 = sum(les_nbsarmm2) / nb_sar
+                moyenne_nbsarcep = sum(les_nbsarcep) / nb_sar
                 physiocap_log ( self.trUtf8( "== Date : {0}").\
                     format( date_debut)) 
                 physiocap_log ( self.trUtf8( "== Moyenne des sarments : {:6.2f}").\
@@ -554,8 +587,9 @@ class PhysiocapInter( QtGui.QDialog):
                 physiocap_moyenne_vers_vignette( crs, EPSG_NUMBER, nom_vignette, nom_prj, 
                     geom_poly, un_nom, un_autre_ID, date_debut, heure_fin,
                     moyenne_vitesse, moyenne_sar, moyenne_dia, moyenne_biom, 
-                    moyenne_biomgm2, details)
-                                            
+                    moyenne_biomgm2, moyenne_biomgcep, moyenne_biomm2, moyenne_nbsarmm2, moyenne_nbsarcep,
+                    details)
+                                     
                 # Memorisation de la parcelle du contour et des moyennes
                 les_geoms_poly.append( geom_poly.asPolygon())
                 les_parcelles.append( un_nom)
@@ -567,7 +601,10 @@ class PhysiocapInter( QtGui.QDialog):
                 les_moyennes_diametre.append( moyenne_dia)
                 les_moyennes_biom.append( moyenne_biom)
                 les_moyennes_biomgm2.append( moyenne_biomgm2)
-                
+                les_moyennes_biomgcep.append( moyenne_biomgcep)
+                les_moyennes_biomm2.append( moyenne_biomm2)
+                les_moyennes_nbsarmm2.append( moyenne_nbsarmm2)
+                les_moyennes_nbsarcep.append( moyenne_nbsarcep)             
                 
                 # ###################
                 # CRÉATION point
@@ -582,7 +619,8 @@ class PhysiocapInter( QtGui.QDialog):
                 physiocap_moyenne_vers_point( crs, EPSG_NUMBER, nom_point, nom_point_prj, 
                     les_geom_point_feat, les_GID, les_dates, 
                     les_vitesses, les_sarments, les_diametres, les_biom, 
-                    les_biomgm2, details)
+                    les_biomgm2, les_biomgcep, les_biomm2, les_nbsarmm2, les_nbsarcep,
+                    details)
                 
                 # Affichage dans arbre "vignettes" selon les chack dans onglet Affichage
                 SHAPE_MOYENNE_PAR_CONTOUR = "NO"
@@ -642,7 +680,8 @@ class PhysiocapInter( QtGui.QDialog):
             physiocap_moyenne_vers_contour( crs, EPSG_NUMBER, nom_contour_moyenne, nom_contour_moyenne_prj, 
                 les_geoms_poly, les_parcelles, les_parcelles_ID, les_dates_parcelle,  les_heures_parcelle,
                 les_moyennes_vitesse, les_moyennes_sarment, les_moyennes_diametre, les_moyennes_biom, 
-                    les_moyennes_biomgm2, details) 
+                les_moyennes_biomgm2, les_moyennes_biomgcep, les_moyennes_biomm2, les_moyennes_nbsarmm2, 
+                les_moyennes_nbsarcep, details) 
                     
             # Affichage du resultat
             nom_court_affichage = nom_noeud_arbre + SEPARATEUR_

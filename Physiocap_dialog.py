@@ -402,7 +402,10 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         self.label_jhemmi.setPixmap( QPixmap( os.path.join( REPERTOIRE_HELP, 
             "jhemmi.eu.png")))
         self.label_CIVC.setPixmap( QPixmap( os.path.join( REPERTOIRE_HELP, 
-            "CIVC.jpg"))) 
+            "CIVC.jpg")))
+        # Contributeurs : Icone
+        self.label_IFVV.setPixmap( QPixmap( os.path.join( REPERTOIRE_HELP, 
+            "Logo_IFV.png"))) 
         
         # Init fin 
         return
@@ -445,7 +448,7 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
             self.spinBoxIsoMin.setValue( int( min(valeurs) ))
 
     def slot_maj_champ_poly_liste( self ):
-        """ Create a list of fields for the current vector in fieldCombo Box"""
+        """ Create a list of fields having unique values for the current vector in fieldCombo Box"""
         nom_complet_poly = self.comboBoxPolygone.currentText().split( SEPARATEUR_NOEUD)
         inputLayer = nom_complet_poly[0] 
         self.fieldComboContours.clear()
@@ -457,11 +460,34 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
             if ( layer.type() == 0):
                 i = 1 # Demarre à 1 car NOM_PHY est dejà ajouté
                 dernierAttribut = self.settings.value("Physiocap/attributPoly", "xx") 
+                # OLD for index, field in enumerate(layer.dataProvider().fields()):
                 for index, field in enumerate(layer.dataProvider().fields()):
-                    self.fieldComboContours.addItem( field.name() )
-                    if ( str( field.name()) == dernierAttribut):
-                        self.fieldComboContours.setCurrentIndex( i)
-                    i=i+1
+                    # Vérifier si les valeurs du field name sont unique
+                    valeur_unique = "YES"
+                    valeur_dic = {}
+                    mon_nom = field.name()
+                    #idx = layer.fieldNameIndex(mon_nom)
+                    k = 0
+                    iter = layer.getFeatures()
+                    for feature in iter:
+                        try:
+                            if feature.attributes()[index] == None:
+                                valeur_unique = "NO"
+                            elif valeur_dic.has_key( feature.attributes()[index]) ==1:
+                                valeur_unique = "NO"
+                            else:
+                                valeur_dic[ feature.attributes()[index]] = k
+                        except:
+                            valeur_unique = "NO"
+                        if valeur_unique == "NO":
+                            break
+                        k = k+1
+                    
+                    if valeur_unique == "YES":
+                        self.fieldComboContours.addItem( mon_nom )
+                        if ( str( mon_nom) == dernierAttribut):
+                            self.fieldComboContours.setCurrentIndex( i)
+                        i=i+1
                     
     def slot_maj_points_choix_inter_intra( self ):
         """ Verify whether the value autorize Inter or Intra"""
