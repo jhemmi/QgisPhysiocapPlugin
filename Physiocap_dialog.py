@@ -55,7 +55,7 @@ from Physiocap_var_exception import *
 
 from PyQt4 import QtGui, uic
 from PyQt4.QtCore import QSettings, Qt, QUrl
-from PyQt4.QtGui import QDialogButtonBox, QDialog, QPixmap, QFileDialog
+from PyQt4.QtGui import QDialogButtonBox, QDialog, QPixmap, QFileDialog, QDesktopServices
 from qgis.core import QGis, QgsProject, QgsMapLayerRegistry, QgsMapLayer, \
     GEOSRID, GEO_EPSG_CRS_ID
 
@@ -372,6 +372,10 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         self.spinBoxIsoMin.valueChanged.connect( self.slot_iso_distance)
         self.spinBoxIsoMax.valueChanged.connect( self.slot_iso_distance)
         self.spinBoxNombreIso.valueChanged.connect( self.slot_iso_distance)
+        
+        # Alerte GPS
+        self.radioButtonGPS.toggled.connect( self.slot_GPS_alert)
+
  
         # Remplissage de la liste de ATTRIBUTS_INTRA 
         self.fieldComboIntra.setCurrentIndex( 0)   
@@ -403,6 +407,9 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
             "jhemmi.eu.png")))
         self.label_CIVC.setPixmap( QPixmap( os.path.join( REPERTOIRE_HELP, 
             "CIVC.jpg")))
+        
+        # Appel à contrib
+        self.slot_Contrib_alert()
         # Contributeurs : Icone
         self.label_IFVV.setPixmap( QPixmap( os.path.join( REPERTOIRE_HELP, 
             "Logo_IFV.png"))) 
@@ -571,6 +578,52 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         
         # Mise à jour du commentaire pour le rayon
         self.slot_rayon()
+            
+    def slot_Contrib_alert( self):
+        """ 
+        Toute les x utilisations, rappeler à l'utilisateur qu'il est bien de contribuer
+        """
+        # Vérifier si le nombre d'utilisation est atteint
+        self.settings= QSettings( PHYSIOCAP_NOM, PHYSIOCAP_NOM)
+        niveau_utilisation = int( self.settings.value("Affichage/Contrib_alert", 0))
+        if ( niveau_utilisation < 10):
+            self.settings.setValue("Affichage/Contrib_alert", \
+                niveau_utilisation + 1)
+            return 
+          
+        aText = self.trUtf8( "{0} vous rapelle que ce logiciel ouvert et libre n'est pas exempt de besoins. ").\
+                    format( PHYSIOCAP_UNI)
+        aText = aText + self.trUtf8( "L'extension est diffusée gratuitement par le biais de la distribution ")
+        aText = aText + self.trUtf8( "QGIS pour vous faciliter son utilisation. Ce choix est lié à la grande importance ")
+        aText = aText + self.trUtf8( "de rester maître de ses données. L'extension a besoin de votre aide. ")
+        aText = aText + self.trUtf8( "Contribuez simplement à la hauteur du service rendu. ")
+        aText = aText + self.trUtf8( 'Trois clics : Onglet "A Propos" puis bouton "Contribuer" et passez par votre navigateur')
+        # Mémoriser que le message a été donné
+        self.settings.setValue("Affichage/Contrib_alert", 0)
+        return physiocap_message_box( self, aText, "information")
+    
+    def slot_GPS_alert( self):
+        """ 
+        Quand GPS est choisi, on monte une alerte
+        """
+        # Vérifier si le message a déjà été donné
+        self.settings= QSettings( PHYSIOCAP_NOM, PHYSIOCAP_NOM)
+        if (self.settings.value("Affichage/GPSalertIntra", "NO") == "YES"):
+            return
+            
+        #physiocap_message_box( self, "Dans slot_GPS_alert", "information")   
+        aText = self.trUtf8( "{0} ne conseille le choix GPS si vous souhaitez réaliser").\
+                    format( PHYSIOCAP_UNI)
+        aText = aText + self.trUtf8( "une interpolatioin INTRA parcellaire. ")
+        aText = aText + self.trUtf8( "Il n'est pas conseillé d'interpoler dans un systeme non plan. ")
+        aText = aText + self.trUtf8( "En effet, selon votre lattitude, l'unite des coordonnées X et Y ")
+        aText = aText + self.trUtf8( "peuvent varier. L'interpolation basée sur l'inverse des distances ")
+        aText = aText + self.trUtf8( "pourra donc être déformée par rapport à un calcul dans un systeme ")
+        aText = aText + self.trUtf8( "plan (comme L93).")
+        # Mémoriser que le message a été donné
+        self.settings.setValue("Affichage/GPSalertIntra", "YES")
+        
+        return physiocap_message_box( self, aText, "information")
             
     def slot_rayon( self):
         """ 
@@ -755,15 +808,13 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
             finFile = '"...' + allFile[-60:-1] + '"'            
             aText = self.trUtf8( "L'interpolation de : {0} n'a pu s'exécuter entièrement. ").\
                 format( finFile)
-            aText = aText + self.trUtf8( "Si la librairie d'interpolation (SAGA ou GDAL) ")
-            BadText = aText + self.trUtf8( "est bien installée et activée dans {0} ")
+            aText = aText + self.trUtf8( "\n - Si la librairie d'interpolation (SAGA ou GDAL) ")
             aText = aText + self.trUtf8( "est bien installée et activée dans {0}. ").\
                 format( self.trUtf8( "Traitement"))
-            aText = aText + self.trUtf8( "Si vous n'avez pas des contours bizarres.")
-            aText = aText + self.trUtf8( "Si vous n'avez pas détruit de couches recemment...")
-            aText = aText + self.trUtf8( "Si vous n'avez pas modifié de contexte L93/GPS,")
-            aText = aText + self.trUtf8( "sans mettre à jour les parametres d'interpolation...")
-            aText = aText + self.trUtf8( "Alors vous pouvez contacter le support avec vos traces et données brutes")
+            aText = aText + self.trUtf8( "\n - Si vous n'avez pas des contours bizarres.")
+            aText = aText + self.trUtf8( "\n - Si vous n'avez pas détruit de couches récemment...")
+            aText = aText + self.trUtf8( "\n - Si vous n'avez pas modifié de contexte L93/GPS.")
+            aText = aText + self.trUtf8( "\nAlors vous pouvez contacter le support avec vos traces et données brutes")
             physiocap_error( self, aText, "CRITICAL")
             return physiocap_message_box( self, aText, "information" )
         except physiocap_exception_no_processing:
@@ -771,7 +822,7 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
             aText = self.trUtf8( "L'extension {0} n'est pas accessible. ").\
                 format( self.trUtf8( "Traitement"))
             aText = aText + self.trUtf8( "Pour réaliser l'interpolation intra parcellaire, vous devez")
-            aText = aText + self.trUtf8( "installer l'extension {0} (menu Extension => Installer une extension)").\
+            aText = aText + self.trUtf8( " installer l'extension {0} (menu Extension => Installer une extension)").\
                 format( self.trUtf8( "Traitement"))
             physiocap_error( self, aText)
             return physiocap_message_box( self, aText, "information")
@@ -779,7 +830,7 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
             physiocap_log_for_error( self)
             aText = self.trUtf8( "SAGA n'est pas accessible. ")
             aText = aText + self.trUtf8( "Pour réaliser l'interpolation intra parcellaire, vous devez")
-            aText = aText + self.trUtf8( "installer SAGA")
+            aText = aText + self.trUtf8( " installer SAGA")
             physiocap_error( self, aText)
             return physiocap_message_box( self, aText, "information")
         except physiocap_exception_project_contour_incoherence as e:
@@ -803,7 +854,7 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
             aText = self.trUtf8( "Le projet, le champ ou une valeur de champ {0} ont ").\
                 format( e)
             aText = aText + self.trUtf8( "des caractères (non ascii) incompatibles avec l'interpolation SAGA.")
-            aText = aText + self.trUtf8( "Erreur bloquante sous Windows qui nécessite de créer une nouvelle instance du projet ")
+            aText = aText + self.trUtf8( "\nErreur bloquante sous Windows qui nécessite de créer une nouvelle instance du projet ")
             aText = aText + self.trUtf8( " et du contour avec seulement des caractères ascii (non accentuées).")
             physiocap_error( self, aText, "CRITICAL")        
 

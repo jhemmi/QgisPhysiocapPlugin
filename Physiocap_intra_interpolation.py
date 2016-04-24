@@ -663,12 +663,12 @@ class PhysiocapIntra( QtGui.QDialog):
             id_contour = id_contour + 1
             contours_possibles = contours_possibles + 1
             try:
-                #un_nom = str( un_contour[ leChampPoly]) #get attribute of poly layer
-                un_nom = un_contour[ leChampPoly] #get attribute of poly layer
+                un_nom = str( un_contour[ leChampPoly]) #get attribute of poly layer
+                #un_nom = un_contour[ leChampPoly] #get attribute of poly layer
             except:
                 un_nom = "PHY_ID_" + str(id_contour)
                 pass
-            
+
             physiocap_log ( self.trUtf8( "=~= Début Interpolation de {0} >>>>").\
                 format( un_nom))
 

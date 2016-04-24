@@ -453,7 +453,7 @@ class PhysiocapInter( QtGui.QDialog):
         for un_contour in vecteur_poly.getFeatures(): #iterate poly features
             id = id + 1
             try:
-                un_nom = un_contour[ leChampPoly] #get attribute of poly layer
+                un_nom = str( un_contour[ leChampPoly]) #get attribute of poly layer
             except:
                 un_nom = "PHY_ID_" + str(id)
                 pass
@@ -468,9 +468,11 @@ class PhysiocapInter( QtGui.QDialog):
             
             #physiocap_log ( "Dans polygone geom multipart : " + str(geom_poly.wkbType()))
             if geom_poly.wkbType() == QGis.WKBPolygon:
-                physiocap_log ( "== Layer (Polygone) simple: " + un_nom)
+                physiocap_log ( self.trUtf8( "== Layer (Polygone) simple: {0} ".\
+                    format( un_nom)))
             elif geom_poly.wkbType() == QGis.WKBMultiPolygon:
-                physiocap_log ( "== Layer (Polygone) multiple: " + un_nom)
+                physiocap_log ( self.trUtf8("== Layer (Polygone) multiple:{0} ".\
+                    format( un_nom)))
             else:
                 aText = self.trUtf8( "== Cette forme n'est pas un polygone : {0}").\
                     format( un_nom)
