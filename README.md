@@ -1,6 +1,7 @@
 # QgisPhysiocapPlugin
 _Physiocap plugin helps analysing raw data from Physiocap in QGIS. 
-This version is in French only._
+The documentations available on github are in French only. 
+The plugin and TIPS are avaible in English _
 
 L'extension Physiocap pour QGIS permet d'analyser les résultats bruts de Physiocap. Il s'agit de mesures directes de la vigueur et de l'expression végétative de la vigne.
 Trois métriques sont calculés à partir des données brutes :
@@ -18,6 +19,8 @@ A partir de sa version 1.2.3 Inter, l'extension réalise une extraction des donn
 Avec la 1.3.1, l'extension permet des interpolations et des alculs d'isolignes Intra parcellaire pour affiner l'analyse agronomique.
 
 La version 1.3.2 de l'extension apporte la trduction anglaise et une meilleures gestions des messages et exceptions
+
+Avec la version 1.4.0, apparition de TIPS contextuels et amélioration de la version anglaise.
 
 *"Physiocap" est déposé par le CIVC.*
 
