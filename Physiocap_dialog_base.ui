@@ -1030,7 +1030,7 @@
       <rect>
        <x>10</x>
        <y>30</y>
-       <width>451</width>
+       <width>261</width>
        <height>31</height>
       </rect>
      </property>
@@ -1621,6 +1621,22 @@
      </property>
      <property name="value">
       <number>0</number>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBoxConsolidation">
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>33</y>
+       <width>431</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Si vous souhaitez regrouper des données MID de plusieurs sous répertoires, cochez la case &amp;quot;Recherche des MIDs dans les sous répertoires&amp;quot;.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;Astuce : vous pouvez regrouper toutes les données brutes d'une campagne, d'un cépage ou d'un secteur dans un même arbre de données. Choisissez un nom de projet Physiocap explicitant le regroupement. L'extension Physiocap les traitera avec un même paramétrage.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="text">
+      <string>Option consolidation</string>
      </property>
     </widget>
    </widget>
@@ -2599,7 +2615,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Version 1.4.0</string>
+       <string>Version 1.5 b</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_100">

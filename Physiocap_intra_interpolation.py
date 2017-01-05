@@ -559,10 +559,10 @@ class PhysiocapIntra( QtGui.QDialog):
         if not (os.path.exists( chemin_vignettes)):
             raise physiocap_exception_rep( VIGNETTES_INTER)
 
-
         # Création du REP RASTER
-        chemin_projet = os.path.join( repertoire_data, nom_noeud_arbre)
-        chemin_raster = os.path.join(chemin_projet, REPERTOIRE_RASTERS)
+        #chemin_projet = os.path.join( repertoire_data, nom_noeud_arbre)
+        #chemin_raster = os.path.join(chemin_projet, REPERTOIRE_RASTERS)
+        chemin_raster = os.path.join( chemin_shapes, REPERTOIRE_RASTERS)
         if not (os.path.exists( chemin_raster)):
             try:
                 os.mkdir( chemin_raster)

@@ -502,7 +502,7 @@ class PhysiocapFiltrer( QtGui.QDialog):
             physiocap_write_in_synthese( dialogue, ligne)
             if not ligne: 
                 fichier_synthese.close
-                break     
+                break
 
         # Progress BAR 95 %
         dialogue.progressBar.setValue( 95)

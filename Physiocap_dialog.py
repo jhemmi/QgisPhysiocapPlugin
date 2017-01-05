@@ -145,6 +145,13 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         
         self.lineEditDernierProjet.setText( self.settings.value("Physiocap/dernier_repertoire",
             ""))    
+
+        # Consolidation
+        if (self.settings.value("Physiocap/consolidation") == "YES"):
+            self.checkBoxConsolidation.setChecked( Qt.Checked)
+        else:
+            self.checkBoxConsolidation.setChecked( Qt.Unchecked)
+        
             
         # Choisir radioButtonL93 ou radioButtonGPS
         laProjection = self.settings.value("Physiocap/laProjection", PROJECTION_L93)
@@ -999,6 +1006,12 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
             recursif = "YES"
             physiocap_log( self.trUtf8( "La recherche des MID fouille l'arbre de données"))
         self.settings.setValue("Physiocap/recursif", recursif )
+
+        # Cas consolidation
+        consolidation = "NO"
+        if self.checkBoxConsolidation.isChecked():
+            consolidation = "YES"
+        self.settings.setValue("Physiocap/consolidation", consolidation )
             
         laProjection, EXT_CRS_SHP, EXT_CRS_PRJ, EXT_CRS_RASTER, EPSG_NUMBER = physiocap_quelle_projection_demandee( self) 
         self.settings.setValue("Physiocap/laProjection", laProjection)

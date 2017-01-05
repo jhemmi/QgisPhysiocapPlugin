@@ -120,10 +120,11 @@ def physiocap_fill_combo_poly_or_point( self, isRoot = None, node = None ):
                 nombre_point = nombre_point + un_nombre_point
                 nombre_poly = nombre_poly + un_nombre_poly
         elif isinstance(child, QgsLayerTreeLayer):
-            #physiocap_log( "- layer: " + child.layerName() + "  ID: " + child.layerId()) 
+            # physiocap_log( "- layer: " + child.layerName() + "  ID: " + child.layerId()) 
             # Tester si poly ou point
             if ( physiocap_vector_poly_or_point( self, child.layer()) == "Point"):
-                if ( child.layerName() == "DIAMETRE mm"):
+                if (( child.layerName() == "DIAMETRE mm") or \
+                ((self.checkBoxConsolidation.isChecked()) and ( child.layerName() == CONSOLIDATION))):
                     #physiocap_log( "- layer: " + child.layerName() + "  ID: " + child.layerId()) 
                     node_layer = noeud_en_cours + SEPARATEUR_NOEUD + child.layerId()
                     #physiocap_log( "- group: type node_layer " + str( type( node_layer)))
@@ -347,7 +348,10 @@ class PhysiocapInter( QtGui.QDialog):
         details = "NO"
         if dialogue.checkBoxInfoVignoble.isChecked():
             details = "YES"
-        
+        consolidation = "NO"
+        if dialogue.checkBoxConsolidation.isChecked():
+            consolidation = "YES"
+                    
         # Récupérer des styles pour chaque shape dans Affichage
         #dir_template = os.path.join( os.path.dirname(__file__), 'modeleQgis')       
         dir_template = dialogue.fieldComboThematiques.currentText()
@@ -389,6 +393,9 @@ class PhysiocapInter( QtGui.QDialog):
                 format( nom_noeud_arbre)
             aText = aText + self.trUtf8( "Créer une nouvelle instance de projet - bouton OK - ")
             aText = aText + self.trUtf8( "avant de faire votre calcul de Moyenne Inter Parcellaire")
+            if (consolidation == "YES"):
+                aText = aText + self.trUtf8( "Cas de consolidation : le groupe {0} doit exister. ").\
+                    format( nom_noeud_arbre)
             physiocap_error( self, aText, "CRITICAL")
             return physiocap_message_box( dialogue, aText, "information" )            
 
@@ -428,6 +435,7 @@ class PhysiocapInter( QtGui.QDialog):
             chemin_shapes = os.path.join( chemin_projet, REPERTOIRE_SHAPEFILE)
         else:
             # Assert repertoire shapfile : c'est le repertoire qui contient le vecteur point
+            # Ca fonctionne pour consolidation
             chemin_shapes = os.path.dirname( unicode( vecteur_point.dataProvider().dataSourceUri() ) ) ;
         if ( not os.path.exists( chemin_shapes)):
             raise physiocap_exception_rep( chemin_shapes)
