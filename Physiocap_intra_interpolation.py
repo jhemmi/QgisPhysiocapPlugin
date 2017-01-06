@@ -425,13 +425,13 @@ class PhysiocapIntra( QtGui.QDialog):
                 unite, dixieme, millieme = versionGDAL.split( ".")
                 versionNum = float(unite) + float(dixieme)/10 + float(millieme)/100
                 if ( versionNum >= 2.1):
-                    physiocap_log ( self.trUtf8( "= Version GDAL 16 arguments %s" % ( str( versionSAGA))))
+                    physiocap_log ( self.trUtf8( "= Version GDAL %s => 16 arguments" % ( str( versionGDAL))))
                     raster_dans_poly = processing.runalg("gdalogr:cliprasterbymasklayer",
                     nom_raster_temp,
                     nom_vignette,
-                    "-9999",False,False,
-                    False, 5, 4, 75, 6, 1, False, 0, False,
-                    option_clip_raster, 
+                    "-9999",False,True,
+                    True, 5, 4, 75, 6, 1, False, 0, False,
+                    "", 
                     nom_raster)
                 else:
                     # Version à 7 arg
