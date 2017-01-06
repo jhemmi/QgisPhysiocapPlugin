@@ -958,8 +958,8 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         self.lineEditDensite.setText( str( densite))
         
     def slot_demander_contribution( self):
-        """ Pointer vers payname """ 
-        help_url = QUrl("http://plus.payname.fr/jhemmi/?type=9xwqt")
+        """ Pointer vers page de paiement en ligne """ 
+        help_url = QUrl("https://sites.google.com/a/jhemmi.eu/objectifs/tarifs")
         QDesktopServices.openUrl(help_url)
     
     def slot_demander_aide(self):
