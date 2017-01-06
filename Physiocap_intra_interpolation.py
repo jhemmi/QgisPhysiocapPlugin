@@ -116,6 +116,9 @@ class PhysiocapIntra( QtGui.QDialog):
             physiocap_log( self.trUtf8( "{0} nécessite SAGA version 2.1.0 à 2.1.2").\
                 format( PHYSIOCAP_UNI))
             raise physiocap_exception_no_saga
+
+        physiocap_log ( self.trUtf8( "= Version SAGA = %s" % ( str( versionSAGA))))
+        physiocap_log ( self.trUtf8( "= Version GDAL = %s" % ( str( versionGDAL))))
         
         # Test SAGA version, sinon annonce de l'utilisation de GDAL
         if dialogue.radioButtonSAGA.isChecked():
@@ -394,7 +397,8 @@ class PhysiocapIntra( QtGui.QDialog):
                 if premier_raster[ 'OUTPUT'] != None:
                     nom_raster_temp = premier_raster[ 'OUTPUT']
                     physiocap_log( "=xg= Premier raster : gridinvdist \n{0}".\
-                        format( nom_raster_temp), "INTRA")
+                        format( nom_raster_temp))
+                     # Prod   format( nom_raster_temp), "INTRA")
                 else:
                     physiocap_error( self, self.trUtf8( "=~= Problème bloquant durant {0} partie-{1}").\
                         format("gridinvdist","B"))
@@ -411,17 +415,32 @@ class PhysiocapIntra( QtGui.QDialog):
                 #option_clip_raster = '-s_2015-12-09T16:17:46	1	PHYSIOCAP : Avant calculator 
                 #srs "EPSG:' + str(EPSG_NUMBER_GPS) + '" -t_srs "EPSG:' + str(EPSG_NUMBER_L93) + '"'
                 option_clip_raster = "-t_srs \"EPSG:" + str(EPSG_NUMBER_L93) + "\""
-                
+            
+
             # On passe ETAPE CLIP si nom_raster_temp existe
             if ( nom_raster_temp != ""):
                 physiocap_log( self.trUtf8( "=xg= Option du clip: {0}").\
                     format( option_clip_raster), "INTRA") 
-                raster_dans_poly = processing.runalg("gdalogr:cliprasterbymasklayer",
-                nom_raster_temp,
-                nom_vignette,
-                "-9999",False,False,
-                option_clip_raster, 
-                nom_raster)
+                # Tester la version de GDAL ou de processing
+                unite, dixieme, millieme = versionGDAL.split( ".")
+                versionNum = float(unite) + float(dixieme)/10 + float(millieme)/100
+                if ( versionNum >= 2.1):
+                    physiocap_log ( self.trUtf8( "= Version GDAL 16 arguments %s" % ( str( versionSAGA))))
+                    raster_dans_poly = processing.runalg("gdalogr:cliprasterbymasklayer",
+                    nom_raster_temp,
+                    nom_vignette,
+                    "-9999",False,False,
+                    False, 5, 4, 75, 6, 1, False, 0, False,
+                    option_clip_raster, 
+                    nom_raster)
+                else:
+                    # Version à 7 arg
+                    raster_dans_poly = processing.runalg("gdalogr:cliprasterbymasklayer",
+                    nom_raster_temp,
+                    nom_vignette,
+                    "-9999",False,False,
+                    option_clip_raster, 
+                    nom_raster)
             
             if (( raster_dans_poly != None) and ( str( list( raster_dans_poly)).find( "OUTPUT") != -1)):
                 if raster_dans_poly[ 'OUTPUT'] != None:

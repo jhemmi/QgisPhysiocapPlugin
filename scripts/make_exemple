@@ -1,0 +1,21 @@
+make option,Explication
+transup,recherche les traductions
+test,lance les test (et compiles si besoin)
+derase deploy,nettoie et installe l'espace du plugin QGIS
+clean test,nettoie ressource et lance compile puis test
+,
+--h,help
+clean,nettoie ressource
+compile,compile (ressource)
+,
+deploy,installe le plugin dans l'espace qgis
+derase,"supprime la version en prod du plugin, sortir de qgis au préalable"
+,
+transclean,nettoie traduction  i*/qm
+transclean clean,nettoie tout
+transcompile,compile pour traduction (recréer les i*/qm)
+transup transcompile,recherche les traductions et les compile
+,
+zip,Cree un zip pour QGIS
+upload ,vers QGIS direct
+package,faire une version
