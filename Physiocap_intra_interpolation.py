@@ -503,7 +503,12 @@ class PhysiocapIntra( QtGui.QDialog):
         # Répertoire
         repertoire_data = dialogue.lineEditDirectoryPhysiocap.text()
         if ((repertoire_data == "") or ( not os.path.exists( repertoire_data))):
-            aText = self.trUtf8( "Pas de répertoire de donnée spécifié")
+            aText = self.trUtf8( "Pas de répertoire de données brtutes spécifié")
+            physiocap_error( self, aText)
+            return physiocap_message_box( dialogue, aText, "information")
+        repertoire_cible = dialogue.lineEditDirectoryFilter.text()
+        if ((repertoire_cible == "") or ( not os.path.exists( repertoire_cible))):
+            aText = self.trUtf8( "Pas de répertoire de données cibles spécifié")
             physiocap_error( self, aText)
             return physiocap_message_box( dialogue, aText, "information")
                

@@ -88,8 +88,9 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         ##self.buttonBox.button( QDialogButtonBox.Cancel ).pressed.connect(self.reject)
         self.buttonBox.button( QDialogButtonBox.Help ).pressed.connect(self.slot_demander_aide)
         self.buttonContribuer.pressed.connect(self.slot_demander_contribution)
-        # Slot pour données brutes
+        # Slot pour données brutes et pour données cibles
         self.toolButtonDirectoryPhysiocap.pressed.connect( self.slot_lecture_repertoire_donnees_brutes )  
+        self.toolButtonDirectoryFiltre.pressed.connect( self.slot_lecture_repertoire_donnees_cibles)  
         # Slot pour le groupe vignoble
         self.checkBoxInfoVignoble.stateChanged.connect( self.slot_bascule_details_vignoble)
 
@@ -130,22 +131,26 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         ###############
         self.settings= QSettings(PHYSIOCAP_NOM, PHYSIOCAP_NOM)
         # Initialisation des parametres à partir des settings
-        self.lineEditProjet.setText( self.settings.value("Physiocap/projet", 
-            NOM_PROJET ))
-
-##        self.lineEditContours.setText(  self.settings.value("Physiocap/contours",
-##            SHAPE_CONTOURS))
-
-        self.lineEditDirectoryPhysiocap.setText(  self.settings.value("Physiocap/repertoire",
-            REPERTOIRE_DONNEES_BRUTES))
+        nom_projet = self.settings.value("Physiocap/projet", NOM_PROJET)
+        self.lineEditProjet.setText( nom_projet)
+        
         if (self.settings.value("Physiocap/recursif") == "YES"):
             self.checkBoxRecursif.setChecked( Qt.Checked)
         else:
             self.checkBoxRecursif.setChecked( Qt.Unchecked)
         
+        # Nom du projet et des répertoires
+        repertoire_brut = self.settings.value("Physiocap/repertoire",
+            REPERTOIRE_DONNEES_BRUTES)
+        self.lineEditDirectoryPhysiocap.setText( repertoire_brut )
         self.lineEditDernierProjet.setText( self.settings.value("Physiocap/dernier_repertoire",
             ""))    
-
+        # Répertoire cibles apres filtre
+        repertoire_cible = self.settings.value("Physiocap/cible_repertoire", "VIDE")
+        if ( repertoire_cible == "VIDE"):
+            repertoire_cible = repertoire_brut
+        self.lineEditDirectoryFiltre.setText( repertoire_cible)
+                
         # Consolidation
         if (self.settings.value("Physiocap/consolidation") == "YES"):
             self.checkBoxConsolidation.setChecked( Qt.Checked)
@@ -568,6 +573,24 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         if len( dirName) == 0:
           return
         self.lineEditDirectoryPhysiocap.setText( dirName )
+        
+     # Repertoire données brutes :
+    def slot_lecture_repertoire_donnees_cibles( self):
+        """Catch directory for new filtered data"""
+        # Récuperer dans setting le nom du dernier ou sinon REPERTOIRE_DONNEES_BRUTES
+        self.settings= QSettings(PHYSIOCAP_NOM, PHYSIOCAP_NOM)
+        exampleDirName =  self.settings.value("Physiocap/cible_repertoire", "Vide")
+        # Cas vraiment inital
+        if exampleDirName == "Vide":
+            exampleDirName =  self.settings.value("Physiocap/repertoire", REPERTOIRE_DONNEES_BRUTES)
+            
+        dirName = QFileDialog.getExistingDirectory( self, self.trUtf8 ("Choisir le répertoire qui contiendra les résultats les données filtrées par Physiocap"),
+                                                 exampleDirName,
+                                                 QFileDialog.ShowDirsOnly
+                                                 | QFileDialog.DontResolveSymlinks);
+        if len( dirName) == 0:
+          return
+        self.lineEditDirectoryFiltre.setText( dirName )
  
     def slot_liste_inter_parcelles( self):
         """ Rafraichit les listes avant le calcul inter parcelles"""
@@ -986,6 +1009,11 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
             aText = self.trUtf8( "Pas de répertoire de données brutes spécifié")
             physiocap_error( self, aText)
             return physiocap_message_box( self, aText)
+        repertoire_cible = self.lineEditDirectoryFiltre.text()
+        if ((repertoire_cible == "") or ( not os.path.exists( repertoire_cible))):
+            aText = self.trUtf8( "Pas de répertoire de données cibles spécifié")
+            physiocap_error( self, aText)
+            return physiocap_message_box( self, aText)
         if self.lineEditProjet.text() == "":
             aText = self.trUtf8( "Pas de nom de projet spécifié")
             physiocap_error( self, aText)
@@ -997,6 +1025,7 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         self.settings= QSettings( PHYSIOCAP_NOM, PHYSIOCAP_NOM)
         self.settings.setValue("Physiocap/projet", self.lineEditProjet.text() )
         self.settings.setValue("Physiocap/repertoire", self.lineEditDirectoryPhysiocap.text() )
+        self.settings.setValue("Physiocap/cible_repertoire", self.lineEditDirectoryFiltre.text() )
         #self.settings.setValue("Physiocap/contours", self.lineEditContours.text() )
 
 

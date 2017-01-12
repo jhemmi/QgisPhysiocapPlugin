@@ -79,8 +79,9 @@ class PhysiocapFiltrer( QtGui.QDialog):
         Ce sont les résultats de l'analyse filtration des données brutes"""
                     
         # Récupérer les paramètres saisies
-        REPERTOIRE_DONNEES_BRUTES = dialogue.lineEditDirectoryPhysiocap.text()
-        NOM_PROJET = dialogue.lineEditProjet.text()
+        Repertoire_Donnees_Brutes = dialogue.lineEditDirectoryPhysiocap.text()
+        Repertoire_Donnees_Cibles = dialogue.lineEditDirectoryFiltre.text()
+        Nom_Projet = dialogue.lineEditProjet.text()
         mindiam = float( dialogue.spinBoxMinDiametre.value())
         maxdiam = float( dialogue.spinBoxMaxDiametre.value())
         max_sarments_metre = float( dialogue.spinBoxMaxSarmentsParMetre.value())
@@ -94,12 +95,12 @@ class PhysiocapFiltrer( QtGui.QDialog):
             laTaille = dialogue.fieldComboTaille.currentText()
             
         # Vérification de l'existance ou création du répertoire projet
-        chemin_projet = os.path.join(REPERTOIRE_DONNEES_BRUTES, NOM_PROJET)
+        chemin_projet = os.path.join(Repertoire_Donnees_Cibles, Nom_Projet)
         if not (os.path.exists( chemin_projet)):
             try:
                 os.mkdir( chemin_projet)
             except:
-                raise physiocap_exception_rep( NOM_PROJET)
+                raise physiocap_exception_rep( Nom_Projet)
         else:
             # Le répertoire existant est renommé en (+1)
             try: 
@@ -132,20 +133,20 @@ class PhysiocapFiltrer( QtGui.QDialog):
                 raise physiocap_exception_rep( REPERTOIRE_SOURCES)
                     
         # Fichier de concaténations CSV des résultats bruts        
-        nom_court_csv_concat = NOM_PROJET + SUFFIXE_BRUT_CSV
+        nom_court_csv_concat = Nom_Projet + SUFFIXE_BRUT_CSV
         try:
             nom_csv_concat, csv_concat = physiocap_open_file( nom_court_csv_concat, chemin_sources, "w")
         except physiocap_exception_fic as e:
             raise physiocap_exception_csv( nom_court_csv_concat)
             
         # Création du fichier concaténé
-        nom_fichiers_recherches = os.path.join(REPERTOIRE_DONNEES_BRUTES, EXTENSION_MID)
+        nom_fichiers_recherches = os.path.join(Repertoire_Donnees_Brutes, EXTENSION_MID)
         
         # Assert le nombre de MID > 0
         # le Tri pour retomber dans l'ordre de Physiocap_V8
         if ( recursif == "YES"):
             # On appelle la fonction de recherche récursive
-            listeTriee = physiocap_look_for_MID( REPERTOIRE_DONNEES_BRUTES, "YES", REPERTOIRE_SOURCES)
+            listeTriee = physiocap_look_for_MID( Repertoire_Donnees_Brutes, "YES", REPERTOIRE_SOURCES)
         else:
             # Non recursif
             listeTriee = sorted(glob.glob( nom_fichiers_recherches))
@@ -197,7 +198,7 @@ class PhysiocapFiltrer( QtGui.QDialog):
         if (CENTROIDES == "YES"):
             fichier_synthese.write("\nCentroïdes")
         fichier_synthese.write("\n")
-        info_mid = physiocap_list_MID( REPERTOIRE_DONNEES_BRUTES, listeTriee)
+        info_mid = physiocap_list_MID( Repertoire_Donnees_Brutes, listeTriee)
         for all_info in info_mid:
             info = all_info.split(";")
             fichier_synthese.write( str(info[0]) + "\t" + str(info[1]) + "->" + str(info[2])+ "\n")
@@ -309,11 +310,11 @@ class PhysiocapFiltrer( QtGui.QDialog):
         dialogue.progressBar.setValue( 15) 
                   
         # Création des csv
-        nom_court_csv_sans_0 = NOM_PROJET + SEPARATEUR_ + "OUT.csv"
+        nom_court_csv_sans_0 = Nom_Projet + SEPARATEUR_ + "OUT.csv"
         nom_csv_sans_0, csv_sans_0 = physiocap_open_file( 
             nom_court_csv_sans_0, chemin_textes)
 
-        nom_court_csv_avec_0 = NOM_PROJET + SEPARATEUR_ + "OUT0.csv"
+        nom_court_csv_avec_0 = Nom_Projet + SEPARATEUR_ + "OUT0.csv"
         nom_csv_avec_0, csv_avec_0 = physiocap_open_file( 
             nom_court_csv_avec_0, chemin_textes)
        
@@ -397,9 +398,9 @@ class PhysiocapFiltrer( QtGui.QDialog):
                 raise physiocap_exception_rep( REPERTOIRE_SHAPEFILE)
 
         # Création des shapes sans 0
-        nom_court_shape_sans_0 = NOM_PROJET + NOM_POINTS + EXT_CRS_SHP
+        nom_court_shape_sans_0 = Nom_Projet + NOM_POINTS + EXT_CRS_SHP
         nom_shape_sans_0 = os.path.join(chemin_shapes, nom_court_shape_sans_0)
-        nom_court_prj_sans_0 = NOM_PROJET + NOM_POINTS + EXT_CRS_PRJ
+        nom_court_prj_sans_0 = Nom_Projet + NOM_POINTS + EXT_CRS_PRJ
         nom_prj_sans_0 = os.path.join(chemin_shapes, nom_court_prj_sans_0)
 
             
@@ -421,9 +422,9 @@ class PhysiocapFiltrer( QtGui.QDialog):
         dialogue.progressBar.setValue( 65)
                 
         # Création des shapes avec 0
-        nom_court_shape_avec_0 = NOM_PROJET + NOM_POINTS + EXTENSION_POUR_ZERO + EXT_CRS_SHP
+        nom_court_shape_avec_0 = Nom_Projet + NOM_POINTS + EXTENSION_POUR_ZERO + EXT_CRS_SHP
         nom_shape_avec_0 = os.path.join(chemin_shapes, nom_court_shape_avec_0)
-        nom_court_prj_avec_0 = NOM_PROJET + NOM_POINTS + EXTENSION_POUR_ZERO + EXT_CRS_PRJ
+        nom_court_prj_avec_0 = Nom_Projet + NOM_POINTS + EXTENSION_POUR_ZERO + EXT_CRS_PRJ
         nom_prj_avec_0 = os.path.join(chemin_shapes, nom_court_prj_avec_0)
         # Si le shape existe dejà il faut le détruire
         if os.path.isfile( nom_shape_avec_0):

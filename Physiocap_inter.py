@@ -344,6 +344,13 @@ class PhysiocapInter( QtGui.QDialog):
             aText = self.trUtf8( "Pas de répertoire de données brutes spécifié" )
             physiocap_error( self, aText)
             return physiocap_message_box( dialogue, aText, "information")
+        repertoire_cible = dialogue.lineEditDirectoryFiltre.text()
+        # Attention peut être non renseigné repertoire_projet = dialogue.lineEditDernierProjet.text()
+        if ((repertoire_cible == "") or ( not os.path.exists( repertoire_cible))):
+            aText = self.trUtf8( "Pas de répertoire de données cibles spécifié" )
+            physiocap_error( self, aText)
+            return physiocap_message_box( dialogue, aText, "information")
+                
                 
         details = "NO"
         if dialogue.checkBoxInfoVignoble.isChecked():

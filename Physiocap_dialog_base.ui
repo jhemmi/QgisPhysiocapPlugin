@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>558</width>
-    <height>699</height>
+    <width>562</width>
+    <height>766</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>637</y>
+     <y>657</y>
      <width>301</width>
      <height>31</height>
     </rect>
@@ -50,14 +50,14 @@
      <x>10</x>
      <y>9</y>
      <width>541</width>
-     <height>611</height>
+     <height>644</height>
     </rect>
    </property>
    <property name="toolTip">
     <string/>
    </property>
    <property name="whatsThis">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Usage des onglets de l'extension Physiocap :&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;- ϕ Params pour les paramètres initaux de l'extension&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;- Synthèse donne une lecture synthétiques de l'analyse de vos données brutes&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;- Histos permet de valider vos filtres&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;- Parcelles pour des calculs de moyennes INTER parcellaires puis une interpolation INTRA&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;- Affichages définit les couches affichées et leurs thématiques (coloriage, légende...)&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;- A Propos donne les liens pour plus d'information&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Usage des onglets de l'extension Physiocap :&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;- ϕ Params pour les paramètres initaux de l'extension&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;- Synthèse donne une lecture synthétiques de l'analyse de vos données brutes&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;- Histos permet de valider vos filtres&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;- Parcelles pour des calculs de moyennes INTER parcellaires puis une interpolation INTRA&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;- Affichages permet de choisir les couches affichées et leurs thématiques (coloriage, légende...)&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;- A Propos donne les liens pour plus d'informations&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="accessibleDescription">
     <string/>
@@ -73,7 +73,7 @@
    </property>
    <widget class="QWidget" name="tabParametres">
     <attribute name="title">
-     <string>ϕ Params</string>
+     <string comment="Params">ϕ Params</string>
     </attribute>
     <widget class="QGroupBox" name="Vignoble">
      <property name="enabled">
@@ -347,7 +347,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>12</y>
+       <y>13</y>
        <width>511</width>
        <height>348</height>
       </rect>
@@ -371,7 +371,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>153</y>
+        <y>192</y>
         <width>261</width>
         <height>21</height>
        </rect>
@@ -390,7 +390,7 @@
       <property name="geometry">
        <rect>
         <x>270</x>
-        <y>143</y>
+        <y>182</y>
         <width>201</width>
         <height>26</height>
        </rect>
@@ -410,55 +410,11 @@
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QLabel" name="lab_13">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>191</y>
-        <width>431</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Format des couches générées</string>
-      </property>
-     </widget>
-     <widget class="QComboBox" name="fieldComboFormats">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>230</x>
-        <y>192</y>
-        <width>231</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Cette version de l'extension ne propose que le format ESRI Shapefile.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-      <property name="accessibleDescription">
-       <string/>
-      </property>
-      <property name="editable">
-       <bool>true</bool>
-      </property>
-      <property name="currentIndex">
-       <number>-1</number>
-      </property>
-      <property name="minimumContentsLength">
-       <number>1</number>
-      </property>
-     </widget>
      <widget class="QRadioButton" name="radioButtonGPS">
       <property name="geometry">
        <rect>
         <x>270</x>
-        <y>163</y>
+        <y>202</y>
         <width>221</width>
         <height>26</height>
        </rect>
@@ -479,37 +435,12 @@
         <x>0</x>
         <y>2</y>
         <width>511</width>
-        <height>142</height>
+        <height>182</height>
        </rect>
       </property>
       <property name="title">
        <string/>
       </property>
-      <widget class="QLineEdit" name="lineEditProjet">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>101</y>
-         <width>321</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Il s'agit du nom qui identifie votre session de travail. Ce nom sert de répertoire de base pour les données produites par l'extension Physiocap. Il sert aussi de préfixe pour les données créées.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;Astuce : Choisir un nom court, décrivant clairement votre jeu de données.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Si vous lancez plusieurs itérations (bouton OK), ce nom se completera du suffixe (1) puis (2) jusqu'à (n). Le plus grand numéro correspond à la dernière itération.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-       <property name="inputMethodHints">
-        <set>Qt::ImhDialableCharactersOnly</set>
-       </property>
-       <property name="maxLength">
-        <number>50</number>
-       </property>
-       <property name="dragEnabled">
-        <bool>true</bool>
-       </property>
-      </widget>
       <widget class="QLineEdit" name="lineEditDirectoryPhysiocap">
        <property name="geometry">
         <rect>
@@ -533,32 +464,16 @@
         </rect>
        </property>
        <property name="text">
-        <string>Sélectionez le répertoire des données brutes de Physiocap</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="lab_11">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>81</y>
-         <width>461</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Nom du projet Physiocap (répertoire et préfixes des fichiers générés)</string>
+        <string>Sélectionnez le répertoire des données brutes de Physiocap</string>
        </property>
       </widget>
       <widget class="QToolButton" name="toolButtonDirectoryPhysiocap">
        <property name="geometry">
         <rect>
-         <x>430</x>
-         <y>19</y>
+         <x>440</x>
+         <y>22</y>
          <width>41</width>
-         <height>37</height>
+         <height>30</height>
         </rect>
        </property>
        <property name="text">
@@ -568,8 +483,8 @@
       <widget class="QCheckBox" name="checkBoxRecursif">
        <property name="geometry">
         <rect>
-         <x>20</x>
-         <y>51</y>
+         <x>30</x>
+         <y>49</y>
          <width>431</width>
          <height>26</height>
         </rect>
@@ -581,12 +496,92 @@
         <string>Recherche des MIDs dans les sous-répertoires</string>
        </property>
       </widget>
+      <widget class="QToolButton" name="toolButtonDirectoryFiltre">
+       <property name="geometry">
+        <rect>
+         <x>440</x>
+         <y>92</y>
+         <width>41</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>...</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lab_14">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>75</y>
+         <width>461</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Sélectionnez le répertoire cible des données filtrées par Physiocap</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="lineEditDirectoryFiltre">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>91</y>
+         <width>431</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Ouvrir la liste de vos répertoires avec le bouton &amp;quot;...&amp;quot;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Vous devez sélectionner le répertoire où se trouvent les mesures brutes de votre capture Physiocap (répertoire qui contient les fichiers MID issus de votre clé USB).&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;L'extension crée des entités dans des sous répertoires et n'altèrent jamais vos données brutes.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="lineEditProjet">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>147</y>
+         <width>271</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Il s'agit du nom qui identifie votre session de travail. Ce nom sert de répertoire de base pour les données produites par l'extension Physiocap. Il sert aussi de préfixe pour les données créées.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;Astuce : Choisir un nom court, décrivant clairement votre jeu de données.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Si vous lancez plusieurs itérations (bouton OK), ce nom se completera du suffixe (1) puis (2) jusqu'à (n). Le plus grand numéro correspond à la dernière itération.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="inputMethodHints">
+        <set>Qt::ImhDialableCharactersOnly</set>
+       </property>
+       <property name="maxLength">
+        <number>50</number>
+       </property>
+       <property name="dragEnabled">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lab_11">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>124</y>
+         <width>461</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Nom du projet Physiocap (répertoire et préfixes des fichiers générés)</string>
+       </property>
+      </widget>
      </widget>
      <widget class="QGroupBox" name="Filtres">
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>228</y>
+        <y>225</y>
         <width>511</width>
         <height>121</height>
        </rect>
@@ -604,7 +599,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>11</y>
+         <y>7</y>
          <width>451</width>
          <height>21</height>
         </rect>
@@ -768,6 +763,35 @@
       <bool>false</bool>
      </property>
     </widget>
+    <widget class="QPushButton" name="pushButtonFiltrer">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>569</y>
+       <width>191</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Filtrer les données brutes</string>
+     </property>
+    </widget>
+    <widget class="QProgressBar" name="progressBar">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>569</y>
+       <width>191</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Etat d'avancement du dernier calcul et filtrage des données brutes&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="value">
+      <number>0</number>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="tabSynthese">
     <attribute name="title">
@@ -808,9 +832,9 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>240</x>
+       <x>210</x>
        <y>11</y>
-       <width>271</width>
+       <width>301</width>
        <height>21</height>
       </rect>
      </property>
@@ -899,7 +923,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>70</y>
+       <y>69</y>
        <width>511</width>
        <height>131</height>
       </rect>
@@ -922,9 +946,9 @@
      <widget class="QComboBox" name="comboBoxPoints">
       <property name="geometry">
        <rect>
-        <x>260</x>
-        <y>20</y>
-        <width>201</width>
+        <x>10</x>
+        <y>94</y>
+        <width>381</width>
         <height>31</height>
        </rect>
       </property>
@@ -946,7 +970,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>0</y>
+        <y>-1</y>
         <width>321</width>
         <height>21</height>
        </rect>
@@ -961,8 +985,8 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>260</x>
-        <y>0</y>
+        <x>10</x>
+        <y>74</y>
         <width>201</width>
         <height>21</height>
        </rect>
@@ -971,31 +995,15 @@
        <string>Choisir le jeu de mesures</string>
       </property>
      </widget>
-     <widget class="QLabel" name="lab_62">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>60</y>
-        <width>371</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Choisir le champ identifiant vos contours</string>
-      </property>
-     </widget>
      <widget class="QComboBox" name="fieldComboContours">
       <property name="enabled">
        <bool>true</bool>
       </property>
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>100</y>
-        <width>201</width>
+        <x>250</x>
+        <y>26</y>
+        <width>211</width>
         <height>20</height>
        </rect>
       </property>
@@ -1009,19 +1017,58 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>80</y>
-        <width>481</width>
-        <height>21</height>
+        <x>320</x>
+        <y>49</y>
+        <width>181</width>
+        <height>17</height>
        </rect>
       </property>
       <property name="font">
        <font>
+        <pointsize>8</pointsize>
         <italic>true</italic>
        </font>
       </property>
       <property name="text">
-       <string>Dans la Moyenne Inter Parcellaire, ce champ se nomme NOM_PHY</string>
+       <string>Dans la Moyenne Inter Parcellaire, </string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lab_65">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>1</y>
+        <width>371</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Choisir le champ identifiant vos contours</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lab_66">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>320</x>
+        <y>65</y>
+        <width>171</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>8</pointsize>
+        <italic>true</italic>
+       </font>
+      </property>
+      <property name="text">
+       <string>ce champ se nomme NOM_PHY</string>
       </property>
      </widget>
     </widget>
@@ -1033,6 +1080,13 @@
        <width>261</width>
        <height>31</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>11</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
      </property>
      <property name="toolTip">
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Si vous hésitez, rafraîchissez ces listes&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1417,7 +1471,7 @@
        <number>3</number>
       </property>
       <property name="maximum">
-       <number>10</number>
+       <number>20</number>
       </property>
       <property name="singleStep">
        <number>1</number>
@@ -1627,13 +1681,13 @@
      <property name="geometry">
       <rect>
        <x>290</x>
-       <y>33</y>
-       <width>431</width>
+       <y>34</y>
+       <width>221</width>
        <height>26</height>
       </rect>
      </property>
      <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Si vous souhaitez regrouper des données MID de plusieurs sous répertoires, cochez la case &amp;quot;Recherche des MIDs dans les sous répertoires&amp;quot;.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;Astuce : vous pouvez regrouper toutes les données brutes d'une campagne, d'un cépage ou d'un secteur dans un même arbre de données. Choisissez un nom de projet Physiocap explicitant le regroupement. L'extension Physiocap les traitera avec un même paramétrage.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Si vous souhaitez fairer des modifications dans les Shapefiles, vous pouvez choisir cette option pour réaliser les traitements Inter et Intra sur cette donnée consolidée.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;Astuce : lire la documentation de Consolidation dans le  &lt;/span&gt;&lt;a href=&quot;https://github.com/jhemmi/QgisPhysiocapPlugin/wiki/Utilisation-de-la-consolidation-de-plusieurs-shapefiles&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Wiki de l'extension Physiocap dans Github&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="text">
       <string>Option consolidation</string>
@@ -1650,7 +1704,7 @@
        <x>10</x>
        <y>10</y>
        <width>521</width>
-       <height>404</height>
+       <height>428</height>
       </rect>
      </property>
      <property name="toolTip">
@@ -1683,7 +1737,7 @@
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>191</width>
+        <width>141</width>
         <height>21</height>
        </rect>
       </property>
@@ -1695,7 +1749,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Calcul initial et filtrage</string>
+       <string>Filtrage</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="lineEditThematiqueDiametre">
@@ -1704,9 +1758,9 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>280</x>
-        <y>33</y>
-        <width>211</width>
+        <x>340</x>
+        <y>32</y>
+        <width>161</width>
         <height>21</height>
        </rect>
       </property>
@@ -1744,7 +1798,7 @@
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QCheckBox" name="checkBoxVitesse">
+     <widget class="QCheckBox" name="checkBoxBiomasse">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -1754,15 +1808,15 @@
        </rect>
       </property>
       <property name="text">
-       <string>Vitesse</string>
+       <string>Biomasse</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_201">
       <property name="geometry">
        <rect>
-        <x>280</x>
-        <y>13</y>
-        <width>241</width>
+        <x>340</x>
+        <y>12</y>
+        <width>171</width>
         <height>21</height>
        </rect>
       </property>
@@ -1783,9 +1837,9 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>280</x>
-        <y>53</y>
-        <width>211</width>
+        <x>340</x>
+        <y>52</y>
+        <width>161</width>
         <height>21</height>
        </rect>
       </property>
@@ -1807,15 +1861,15 @@
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEditThematiqueVitesse">
+     <widget class="QLineEdit" name="lineEditThematiqueBiomasse">
       <property name="enabled">
        <bool>false</bool>
       </property>
       <property name="geometry">
        <rect>
-        <x>280</x>
-        <y>73</y>
-        <width>211</width>
+        <x>340</x>
+        <y>72</y>
+        <width>161</width>
         <height>21</height>
        </rect>
       </property>
@@ -1828,7 +1882,7 @@
        <set>Qt::ImhDialableCharactersOnly</set>
       </property>
       <property name="text">
-       <string>&quot;Vitesse&quot;</string>
+       <string>&quot;Biomasse 4 Jenks&quot;</string>
       </property>
       <property name="maxLength">
        <number>50</number>
@@ -1843,9 +1897,9 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>280</x>
-        <y>163</y>
-        <width>211</width>
+        <x>340</x>
+        <y>186</y>
+        <width>161</width>
         <height>21</height>
        </rect>
       </property>
@@ -1873,9 +1927,9 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>280</x>
+        <x>340</x>
         <y>143</y>
-        <width>211</width>
+        <width>161</width>
         <height>21</height>
        </rect>
       </property>
@@ -1901,7 +1955,7 @@
       <property name="geometry">
        <rect>
         <x>40</x>
-        <y>159</y>
+        <y>182</y>
         <width>151</width>
         <height>26</height>
        </rect>
@@ -1917,13 +1971,13 @@
       <property name="geometry">
        <rect>
         <x>40</x>
-        <y>179</y>
-        <width>151</width>
+        <y>202</y>
+        <width>231</width>
         <height>26</height>
        </rect>
       </property>
       <property name="text">
-       <string>Libellé</string>
+       <string>Libellé de toutes les moyennes</string>
       </property>
       <property name="checked">
        <bool>true</bool>
@@ -1933,8 +1987,8 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>100</y>
-        <width>231</width>
+        <y>118</y>
+        <width>461</width>
         <height>21</height>
        </rect>
       </property>
@@ -1946,7 +2000,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Inter Parcellaire</string>
+       <string>Moyennes Inter parcellaire</string>
       </property>
      </widget>
      <widget class="QCheckBox" name="checkBoxInterDiametre">
@@ -1971,9 +2025,9 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>280</x>
-        <y>183</y>
-        <width>211</width>
+        <x>340</x>
+        <y>206</y>
+        <width>161</width>
         <height>21</height>
        </rect>
       </property>
@@ -1995,34 +2049,14 @@
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QLabel" name="label_206">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>120</y>
-        <width>291</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>11</pointsize>
-        <weight>50</weight>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Moyennes de l'ensemble de vos parcelles</string>
-      </property>
-     </widget>
      <widget class="QCheckBox" name="checkBoxInterMoyennes">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>210</y>
+        <y>239</y>
         <width>251</width>
         <height>26</height>
        </rect>
@@ -2040,9 +2074,9 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>280</x>
-        <y>213</y>
-        <width>211</width>
+        <x>340</x>
+        <y>242</y>
+        <width>161</width>
         <height>21</height>
        </rect>
       </property>
@@ -2066,12 +2100,12 @@
      </widget>
      <widget class="QCheckBox" name="checkBoxInterPoints">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>236</y>
+        <y>261</y>
         <width>221</width>
         <height>26</height>
        </rect>
@@ -2089,9 +2123,9 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>280</x>
-        <y>243</y>
-        <width>211</width>
+        <x>340</x>
+        <y>266</y>
+        <width>161</width>
         <height>21</height>
        </rect>
       </property>
@@ -2119,9 +2153,9 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>280</x>
-        <y>332</y>
-        <width>211</width>
+        <x>340</x>
+        <y>349</y>
+        <width>161</width>
         <height>21</height>
        </rect>
       </property>
@@ -2149,9 +2183,9 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>280</x>
-        <y>312</y>
-        <width>211</width>
+        <x>340</x>
+        <y>329</y>
+        <width>161</width>
         <height>21</height>
        </rect>
       </property>
@@ -2177,7 +2211,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>329</y>
+        <y>346</y>
         <width>211</width>
         <height>26</height>
        </rect>
@@ -2193,7 +2227,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>270</y>
+        <y>287</y>
         <width>231</width>
         <height>21</height>
        </rect>
@@ -2213,7 +2247,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>307</y>
+        <y>324</y>
         <width>211</width>
         <height>26</height>
        </rect>
@@ -2225,33 +2259,11 @@
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QLabel" name="lab_211">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>379</y>
-        <width>471</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-        <italic>true</italic>
-       </font>
-      </property>
-      <property name="text">
-       <string>** Ces 3 affichages sont nécessaires aux modules Inter et Intra</string>
-      </property>
-     </widget>
      <widget class="QCheckBox" name="checkBoxIntraUnSeul">
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>286</y>
+        <y>303</y>
         <width>241</width>
         <height>26</height>
        </rect>
@@ -2266,8 +2278,8 @@
      <widget class="QLabel" name="label">
       <property name="geometry">
        <rect>
-        <x>490</x>
-        <y>311</y>
+        <x>500</x>
+        <y>328</y>
         <width>21</width>
         <height>21</height>
        </rect>
@@ -2279,8 +2291,8 @@
      <widget class="QLabel" name="label_2">
       <property name="geometry">
        <rect>
-        <x>490</x>
-        <y>332</y>
+        <x>500</x>
+        <y>350</y>
         <width>21</width>
         <height>21</height>
        </rect>
@@ -2289,26 +2301,283 @@
        <string>*</string>
       </property>
      </widget>
-     <widget class="QLabel" name="lab_212">
+     <widget class="QLabel" name="label_202">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>9</y>
+        <width>191</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Shapefile affiché</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="fieldComboShapeDiametre">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>32</y>
+        <width>171</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Cette version de l'extension ne propose que le format ESRI Shapefile.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="accessibleDescription">
+       <string/>
+      </property>
+      <property name="editable">
+       <bool>true</bool>
+      </property>
+      <property name="currentIndex">
+       <number>-1</number>
+      </property>
+      <property name="minimumContentsLength">
+       <number>1</number>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="fieldComboShapeSarment">
       <property name="enabled">
        <bool>true</bool>
       </property>
       <property name="geometry">
        <rect>
+        <x>130</x>
+        <y>54</y>
+        <width>171</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Cette version de l'extension ne propose que le format ESRI Shapefile.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="accessibleDescription">
+       <string/>
+      </property>
+      <property name="editable">
+       <bool>true</bool>
+      </property>
+      <property name="currentIndex">
+       <number>-1</number>
+      </property>
+      <property name="minimumContentsLength">
+       <number>1</number>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="fieldComboShapeBiomasse">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>75</y>
+        <width>171</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Cette version de l'extension ne propose que le format ESRI Shapefile.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="accessibleDescription">
+       <string/>
+      </property>
+      <property name="editable">
+       <bool>true</bool>
+      </property>
+      <property name="currentIndex">
+       <number>-1</number>
+      </property>
+      <property name="minimumContentsLength">
+       <number>1</number>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBoxVitesse">
+      <property name="geometry">
+       <rect>
         <x>0</x>
-        <y>360</y>
-        <width>461</width>
+        <y>91</y>
+        <width>151</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Vitesse</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="fieldComboShapeVitesse">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>97</y>
+        <width>171</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Cette version de l'extension ne propose que le format ESRI Shapefile.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="accessibleDescription">
+       <string/>
+      </property>
+      <property name="editable">
+       <bool>true</bool>
+      </property>
+      <property name="currentIndex">
+       <number>-1</number>
+      </property>
+      <property name="minimumContentsLength">
+       <number>1</number>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEditThematiqueVitesse">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>94</y>
+        <width>161</width>
         <height>21</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <pointsize>9</pointsize>
-        <italic>true</italic>
+       </font>
+      </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhDialableCharactersOnly</set>
+      </property>
+      <property name="text">
+       <string>&quot;Vitesse&quot;</string>
+      </property>
+      <property name="maxLength">
+       <number>50</number>
+      </property>
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBoxInterSarment">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>161</y>
+        <width>151</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Sarment</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEditThematiqueInterSarment">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>165</y>
+        <width>161</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhDialableCharactersOnly</set>
+      </property>
+      <property name="text">
+       <string>&quot;Sarment&quot;</string>
+      </property>
+      <property name="maxLength">
+       <number>50</number>
+      </property>
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_207">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>221</y>
+        <width>431</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
        </font>
       </property>
       <property name="text">
-       <string>* Ces 2 thématiques sont suffixées par l'entité interpolée (DIAM, SARM, BIOM)</string>
+       <string>Détail Inter parcellaire</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="fieldComboAideIso">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>397</y>
+        <width>451</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="editable">
+       <bool>true</bool>
+      </property>
+      <property name="currentIndex">
+       <number>-1</number>
+      </property>
+      <property name="minimumContentsLength">
+       <number>1</number>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lab_195">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>377</y>
+        <width>451</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Méthode d'aide au calcul des isolignes</string>
       </property>
      </widget>
     </widget>
@@ -2316,9 +2585,9 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>421</y>
+       <y>431</y>
        <width>521</width>
-       <height>141</height>
+       <height>123</height>
       </rect>
      </property>
      <property name="toolTip">
@@ -2375,7 +2644,7 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>70</y>
+        <y>60</y>
         <width>421</width>
         <height>21</height>
        </rect>
@@ -2391,7 +2660,7 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>54</y>
+        <y>44</y>
         <width>421</width>
         <height>21</height>
        </rect>
@@ -2407,7 +2676,7 @@
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>110</y>
+        <y>100</y>
         <width>421</width>
         <height>21</height>
        </rect>
@@ -2423,7 +2692,7 @@
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>90</y>
+        <y>80</y>
         <width>421</width>
         <height>21</height>
        </rect>
@@ -2432,6 +2701,50 @@
        <string>- devez copier les modèles vers ce répertoire</string>
       </property>
      </widget>
+    </widget>
+    <widget class="QLabel" name="lab_211">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>582</y>
+       <width>371</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>6</pointsize>
+       <italic>true</italic>
+      </font>
+     </property>
+     <property name="text">
+      <string>** Ces 3 affichages sont nécessaires aux modules Inter et Intra</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lab_212">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>564</y>
+       <width>401</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>6</pointsize>
+       <italic>true</italic>
+      </font>
+     </property>
+     <property name="text">
+      <string>* Ces 2 thématiques sont suffixées par l'entité interpolée (DIAM, SARM, BIOM)</string>
+     </property>
     </widget>
    </widget>
    <widget class="QWidget" name="tabAide">
@@ -2615,7 +2928,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Version 1.5 b</string>
+       <string>Version 1.6 b</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_100">
@@ -2653,8 +2966,8 @@
      <widget class="QLabel" name="label_IFVV">
       <property name="geometry">
        <rect>
-        <x>50</x>
-        <y>368</y>
+        <x>180</x>
+        <y>360</y>
         <width>101</width>
         <height>76</height>
        </rect>
@@ -2664,6 +2977,25 @@
       </property>
       <property name="text">
        <string>IFVV</string>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_Moet">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>364</y>
+        <width>101</width>
+        <height>76</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Moët a proposé la possibilité de Consolidation des données avant traitement Inter et Intra. Afin d'améliorer l'extension pour le cas de traitemetn de gros volumes de données, les possibilités suivantes ont été ajoutées : &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;De choix de répertoire des données produites,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;amélioration des possibilités de choix d'affichage et possibilité de préciser les noms de fichiers qml&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Choix du mode d'aide pour le calcul des isolignes&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt; L'ensemble de ces modifications ont recu la contribution de Moët et sont incluses dans la version 1.6.0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="text">
+       <string>Moët</string>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -2717,20 +3049,89 @@ p, li { white-space: pre-wrap; }
     </widget>
    </widget>
   </widget>
-  <widget class="QProgressBar" name="progressBar">
+  <widget class="QLabel" name="lab_13">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="geometry">
     <rect>
-     <x>320</x>
-     <y>640</y>
-     <width>191</width>
-     <height>31</height>
+     <x>40</x>
+     <y>702</y>
+     <width>431</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Format des couches générées</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="fieldComboFormats">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>704</y>
+     <width>231</width>
+     <height>20</height>
     </rect>
    </property>
    <property name="toolTip">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Etat d'avancement du dernier calcul et filtrage des données brutes&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Cette version de l'extension ne propose que le format ESRI Shapefile.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
-   <property name="value">
-    <number>0</number>
+   <property name="accessibleDescription">
+    <string/>
+   </property>
+   <property name="editable">
+    <bool>true</bool>
+   </property>
+   <property name="currentIndex">
+    <number>-1</number>
+   </property>
+   <property name="minimumContentsLength">
+    <number>1</number>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="radioButtonAvec0Diam_2">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>729</y>
+     <width>121</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="text">
+    <string>Avec vitesse 0</string>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="radioButtonSans0Diam_2">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>728</y>
+     <width>71</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="text">
+    <string>Sans 0</string>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
    </property>
   </widget>
  </widget>
