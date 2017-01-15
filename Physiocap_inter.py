@@ -62,7 +62,7 @@ def physiocap_vector_poly_or_point( self, vector):
 
     try:
         # geom = vector.getFeatures().next().geometry()
-        # Todo : V1.5 ? tester avec QGis.WKBPolygon
+        # Todo : V3 ? tester avec QGis.WKBPolygon
         # et vérifier multi forme ou singleType
         # et Postgres    
         for uneForme in vector.getFeatures():
@@ -158,7 +158,7 @@ def physiocap_moyenne_vers_vignette( crs, EPSG_NUMBER, nom_vignette, nom_prj,
     les_champs.append( QgsField( "ID_PHY", QVariant.String, "string", 15))
     les_champs.append( QgsField( "DEBUT", QVariant.String, "string", 25))
     les_champs.append( QgsField( "FIN", QVariant.String, "string", 12))
-    les_champs.append( QgsField("VITESSE", QVariant.Double, "double", 10,2))
+    les_champs.append( QgsField( "VITESSE", QVariant.Double, "double", 10,2))
     les_champs.append( QgsField( "NBSARM",  QVariant.Double, "double", 10,2))
     les_champs.append( QgsField( "DIAM",  QVariant.Double, "double", 10,2))
     les_champs.append( QgsField( "BIOM", QVariant.Double,"double", 10,2))
@@ -316,7 +316,7 @@ def physiocap_moyenne_vers_contour( crs, EPSG_NUMBER, nom_contour_moyenne, nom_c
     prj = open(nom_contour_moyenne_prj, "w")
     epsg = 'inconnu'
     if ( EPSG_NUMBER == EPSG_NUMBER_L93):
-        # Todo: V1.5 ? Faire aussi un fichier de metadata 
+        # Todo: V3 ? Faire aussi un fichier de metadata 
         epsg = EPSG_TEXT_L93
     if (EPSG_NUMBER == EPSG_NUMBER_GPS):
         epsg = EPSG_TEXT_GPS
@@ -355,6 +355,7 @@ class PhysiocapInter( QtGui.QDialog):
         details = "NO"
         if dialogue.checkBoxInfoVignoble.isChecked():
             details = "YES"
+            
         consolidation = "NO"
         if dialogue.checkBoxConsolidation.isChecked():
             consolidation = "YES"
@@ -438,7 +439,8 @@ class PhysiocapInter( QtGui.QDialog):
         pro = vecteur_point.dataProvider() 
         if ( pro.name() == POSTGRES_NOM):
             # On construit le chemin depuis data/projet...
-            chemin_projet = os.path.join( repertoire_data, nom_noeud_arbre)
+            # Todo: WT P : test non passé : repertoire_data = > repertoire_cible
+            chemin_projet = os.path.join( repertoire_cible, nom_noeud_arbre)
             chemin_shapes = os.path.join( chemin_projet, REPERTOIRE_SHAPEFILE)
         else:
             # Assert repertoire shapfile : c'est le repertoire qui contient le vecteur point
@@ -479,7 +481,7 @@ class PhysiocapInter( QtGui.QDialog):
             un_autre_ID = "PHY_ID" + str(id)
             geom_poly = un_contour.geometry() #get geometry of poly layer
             
-            # Todo : WT DATA BUG contour :  test validé geom_poly
+            # Todo : 1.6 WT DATA BUG contour :  test validé geom_poly
             
             #physiocap_log ( "Dans polygone geom multipart : " + str(geom_poly.wkbType()))
             if geom_poly.wkbType() == QGis.WKBPolygon:
@@ -706,6 +708,10 @@ class PhysiocapInter( QtGui.QDialog):
             if dialogue.checkBoxInterDiametre.isChecked():
                 nom_affichage = nom_court_affichage + 'DIAMETRE' + SEPARATEUR_ + nom_court_du_contour
                 qml_is = dialogue.lineEditThematiqueInterDiametre.text().strip('"') + EXTENSION_QML
+                SHAPE_A_AFFICHER.append( (nom_affichage, qml_is))
+            if dialogue.checkBoxInterSarment.isChecked():
+                nom_affichage = nom_court_affichage + 'SARMENT' + SEPARATEUR_ + nom_court_du_contour
+                qml_is = dialogue.lineEditThematiqueInterSarment.text().strip('"') + EXTENSION_QML
                 SHAPE_A_AFFICHER.append( (nom_affichage, qml_is))
             if dialogue.checkBoxInterBiomasse.isChecked():
                 nom_affichage = nom_court_affichage + 'BIOMASSE' + SEPARATEUR_ + nom_court_du_contour

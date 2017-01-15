@@ -236,7 +236,7 @@ class PhysiocapFiltrer( QtGui.QDialog):
         nom_data_histo_sarment, data_histo_sarment = physiocap_open_file( nom_court_fichier_sarment, 
             chemin_textes)
 
-        # Todo: V1.5 ? Supprimer le fichier erreur
+        # Todo: V3 ? Supprimer le fichier erreur
         nom_fichier_erreur, erreur = physiocap_open_file( "erreurs.csv" , chemin_textes)
 
         # ouverture du fichier source
@@ -247,7 +247,7 @@ class PhysiocapFiltrer( QtGui.QDialog):
             pourcentage_erreurs = physiocap_assert_csv( self, csv_concat, erreur)
             if ( pourcentage_erreurs > TAUX_LIGNES_ERREUR):
                 fichier_synthese.write("\nTrop d'erreurs dans les données brutes")
-                # Todo : question selon le taux de lignes en erreur autorisées
+                # Todo : V3 question selon le taux de lignes en erreur autorisées
                 #raise physiocap_exception_err_csv( pourcentage_erreurs)
         except:
             raise
@@ -346,7 +346,7 @@ class PhysiocapFiltrer( QtGui.QDialog):
         # Fermerture du fichier source
         csv_concat.close()  
 
-        # Todo : V1.5 ? Gerer cette erreur par exception
+        # Todo : V3 ? Gerer cette erreur par exception
         if retour_filtre != 0:
             uMsg = self.trUtf8( "Erreur bloquante : problème lors du filtrage des données de {0}").\
                 format( nom_court_csv_concat)
@@ -455,14 +455,31 @@ class PhysiocapFiltrer( QtGui.QDialog):
         qml_is = ""
         if dialogue.checkBoxDiametre.isChecked():
             qml_is = dialogue.lineEditThematiqueDiametre.text().strip('"') + EXTENSION_QML
+            # Pas de choix du shape, car il faut pour Inter un diam sans 0
             SHAPE_A_AFFICHER.append( (nom_shape_sans_0, 'DIAMETRE mm', qml_is))
         if dialogue.checkBoxSarment.isChecked():
             qml_is = dialogue.lineEditThematiqueSarment.text().strip('"') + EXTENSION_QML
-            SHAPE_A_AFFICHER.append( (nom_shape_sans_0, 'SARMENT par m', qml_is))
+            # Choix du shape à afficher
+            if ( dialogue.fieldComboShapeSarment.currentIndex() == 0):
+                SHAPE_A_AFFICHER.append( (nom_shape_sans_0, 'SARMENT par m', qml_is))
+            else:
+                SHAPE_A_AFFICHER.append( (nom_shape_avec_0, 'SARMENT par m', qml_is))
+            
+        if dialogue.checkBoxBiomasse.isChecked():
+            qml_is = dialogue.lineEditThematiqueBiomasse.text().strip('"') + EXTENSION_QML
+            # Choix du shape à afficher
+            if ( dialogue.fieldComboShapeBiomasse.currentIndex() == 0):
+                SHAPE_A_AFFICHER.append( (nom_shape_sans_0, 'BIOMASSE', qml_is))
+            else:
+                SHAPE_A_AFFICHER.append( (nom_shape_avec_0, 'BIOMASSE', qml_is))
         if dialogue.checkBoxVitesse.isChecked():
             qml_is = dialogue.lineEditThematiqueVitesse.text().strip('"') + EXTENSION_QML
-            SHAPE_A_AFFICHER.append(( nom_shape_avec_0, 'VITESSE km/h', qml_is))
-        
+            # Choix du shape à afficher
+            if ( dialogue.fieldComboShapeVitesse.currentIndex() == 0):
+                SHAPE_A_AFFICHER.append( (nom_shape_sans_0, 'VITESSE km/h', qml_is))
+            else:
+                SHAPE_A_AFFICHER.append( (nom_shape_avec_0, 'VITESSE km/h', qml_is))       
+
         for shapename, titre, un_template in SHAPE_A_AFFICHER:
 ##            if ( dialogue.fieldComboFormats.currentText() == POSTGRES_NOM ):
 ##                uri_nom = physiocap_quel_uriname( dialogue)
@@ -528,6 +545,5 @@ class PhysiocapFiltrer( QtGui.QDialog):
         physiocap_log ( self.trUtf8( "** {0} a affiché des couches dans le groupe {1}").\
             format( PHYSIOCAP_UNI, chemin_base_projet))
         physiocap_fill_combo_poly_or_point( dialogue)
-        # TODO : rafraichir si besoin 
         #physiocap_log ( u"Mise à jour des poly et points")
         return 0 

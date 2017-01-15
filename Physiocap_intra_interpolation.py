@@ -397,8 +397,7 @@ class PhysiocapIntra( QtGui.QDialog):
                 if premier_raster[ 'OUTPUT'] != None:
                     nom_raster_temp = premier_raster[ 'OUTPUT']
                     physiocap_log( "=xg= Premier raster : gridinvdist \n{0}".\
-                        format( nom_raster_temp))
-                     # Prod   format( nom_raster_temp), "INTRA")
+                        format( nom_raster_temp), "INTRA")
                 else:
                     physiocap_error( self, self.trUtf8( "=~= Problème bloquant durant {0} partie-{1}").\
                         format("gridinvdist","B"))
@@ -506,7 +505,7 @@ class PhysiocapIntra( QtGui.QDialog):
             aText = self.trUtf8( "Pas de répertoire de données brtutes spécifié")
             physiocap_error( self, aText)
             return physiocap_message_box( dialogue, aText, "information")
-        repertoire_cible = dialogue.lineEditDirectoryFilter.text()
+        repertoire_cible = dialogue.lineEditDirectoryFiltre.text()
         if ((repertoire_cible == "") or ( not os.path.exists( repertoire_cible))):
             aText = self.trUtf8( "Pas de répertoire de données cibles spécifié")
             physiocap_error( self, aText)

@@ -19,8 +19,8 @@
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>657</y>
+     <x>-10</x>
+     <y>658</y>
      <width>301</width>
      <height>31</height>
     </rect>
@@ -48,7 +48,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>9</y>
+     <y>4</y>
      <width>541</width>
      <height>644</height>
     </rect>
@@ -66,7 +66,7 @@
     <enum>QTabWidget::North</enum>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>4</number>
    </property>
    <property name="movable">
     <bool>true</bool>
@@ -764,6 +764,9 @@
      </property>
     </widget>
     <widget class="QPushButton" name="pushButtonFiltrer">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>60</x>
@@ -1703,8 +1706,8 @@
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>521</width>
-       <height>428</height>
+       <width>311</width>
+       <height>378</height>
       </rect>
      </property>
      <property name="toolTip">
@@ -1721,12 +1724,12 @@
        <rect>
         <x>0</x>
         <y>29</y>
-        <width>151</width>
+        <width>111</width>
         <height>26</height>
        </rect>
       </property>
       <property name="text">
-       <string>Diamètre **</string>
+       <string>Diamètre</string>
       </property>
       <property name="checked">
        <bool>true</bool>
@@ -1752,42 +1755,12 @@
        <string>Filtrage</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEditThematiqueDiametre">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>340</x>
-        <y>32</y>
-        <width>161</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-       </font>
-      </property>
-      <property name="inputMethodHints">
-       <set>Qt::ImhDialableCharactersOnly</set>
-      </property>
-      <property name="text">
-       <string>&quot;Diametre 4 Jenks&quot;</string>
-      </property>
-      <property name="maxLength">
-       <number>50</number>
-      </property>
-      <property name="dragEnabled">
-       <bool>true</bool>
-      </property>
-     </widget>
      <widget class="QCheckBox" name="checkBoxSarment">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>49</y>
-        <width>151</width>
+        <width>101</width>
         <height>26</height>
        </rect>
       </property>
@@ -1795,7 +1768,7 @@
        <string>Sarment</string>
       </property>
       <property name="checked">
-       <bool>true</bool>
+       <bool>false</bool>
       </property>
      </widget>
      <widget class="QCheckBox" name="checkBoxBiomasse">
@@ -1803,152 +1776,12 @@
        <rect>
         <x>0</x>
         <y>69</y>
-        <width>151</width>
+        <width>111</width>
         <height>26</height>
        </rect>
       </property>
       <property name="text">
        <string>Biomasse</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_201">
-      <property name="geometry">
-       <rect>
-        <x>340</x>
-        <y>12</y>
-        <width>171</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>11</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Thématiques (.qml)</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="lineEditThematiqueSarment">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>340</x>
-        <y>52</y>
-        <width>161</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-       </font>
-      </property>
-      <property name="inputMethodHints">
-       <set>Qt::ImhDialableCharactersOnly</set>
-      </property>
-      <property name="text">
-       <string>&quot;Sarments 4 Jenks&quot;</string>
-      </property>
-      <property name="maxLength">
-       <number>50</number>
-      </property>
-      <property name="dragEnabled">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="lineEditThematiqueBiomasse">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>340</x>
-        <y>72</y>
-        <width>161</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-       </font>
-      </property>
-      <property name="inputMethodHints">
-       <set>Qt::ImhDialableCharactersOnly</set>
-      </property>
-      <property name="text">
-       <string>&quot;Biomasse 4 Jenks&quot;</string>
-      </property>
-      <property name="maxLength">
-       <number>50</number>
-      </property>
-      <property name="dragEnabled">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="lineEditThematiqueInterBiomasse">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>340</x>
-        <y>186</y>
-        <width>161</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-       </font>
-      </property>
-      <property name="inputMethodHints">
-       <set>Qt::ImhDialableCharactersOnly</set>
-      </property>
-      <property name="text">
-       <string>&quot;Biomasse&quot;</string>
-      </property>
-      <property name="maxLength">
-       <number>50</number>
-      </property>
-      <property name="dragEnabled">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="lineEditThematiqueInterDiametre">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>340</x>
-        <y>143</y>
-        <width>161</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-       </font>
-      </property>
-      <property name="inputMethodHints">
-       <set>Qt::ImhDialableCharactersOnly</set>
-      </property>
-      <property name="text">
-       <string>&quot;Diametre&quot;</string>
-      </property>
-      <property name="maxLength">
-       <number>50</number>
-      </property>
-      <property name="dragEnabled">
-       <bool>true</bool>
       </property>
      </widget>
      <widget class="QCheckBox" name="checkBoxInterBiomasse">
@@ -2004,6 +1837,9 @@
       </property>
      </widget>
      <widget class="QCheckBox" name="checkBoxInterDiametre">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>40</x>
@@ -2016,36 +1852,6 @@
        <string>Diamètre</string>
       </property>
       <property name="checked">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="lineEditThematiqueInterLibelle">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>340</x>
-        <y>206</y>
-        <width>161</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-       </font>
-      </property>
-      <property name="inputMethodHints">
-       <set>Qt::ImhDialableCharactersOnly</set>
-      </property>
-      <property name="text">
-       <string>&quot;Moyenne Inter&quot;</string>
-      </property>
-      <property name="maxLength">
-       <number>50</number>
-      </property>
-      <property name="dragEnabled">
        <bool>true</bool>
       </property>
      </widget>
@@ -2062,39 +1868,9 @@
        </rect>
       </property>
       <property name="text">
-       <string>Moyennes de chaque parcelle **</string>
+       <string>Moyennes de chaque parcelle</string>
       </property>
       <property name="checked">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="lineEditThematiqueInterMoyenne">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>340</x>
-        <y>242</y>
-        <width>161</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-       </font>
-      </property>
-      <property name="inputMethodHints">
-       <set>Qt::ImhDialableCharactersOnly</set>
-      </property>
-      <property name="text">
-       <string>&quot;Moyenne Inter&quot;</string>
-      </property>
-      <property name="maxLength">
-       <number>50</number>
-      </property>
-      <property name="dragEnabled">
        <bool>true</bool>
       </property>
      </widget>
@@ -2111,99 +1887,9 @@
        </rect>
       </property>
       <property name="text">
-       <string>Points de chaque parcelle **</string>
+       <string>Points de chaque parcelle</string>
       </property>
       <property name="checked">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="lineEditThematiqueInterPoints">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>340</x>
-        <y>266</y>
-        <width>161</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-       </font>
-      </property>
-      <property name="inputMethodHints">
-       <set>Qt::ImhDialableCharactersOnly</set>
-      </property>
-      <property name="text">
-       <string>&quot;Diametre 4 Jenks&quot;</string>
-      </property>
-      <property name="maxLength">
-       <number>50</number>
-      </property>
-      <property name="dragEnabled">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="lineEditThematiqueIntraImage">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>340</x>
-        <y>349</y>
-        <width>161</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-       </font>
-      </property>
-      <property name="inputMethodHints">
-       <set>Qt::ImhDialableCharactersOnly</set>
-      </property>
-      <property name="text">
-       <string>&quot;Intra&quot;</string>
-      </property>
-      <property name="maxLength">
-       <number>50</number>
-      </property>
-      <property name="dragEnabled">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="lineEditThematiqueIntraIso">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>340</x>
-        <y>329</y>
-        <width>161</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-       </font>
-      </property>
-      <property name="inputMethodHints">
-       <set>Qt::ImhDialableCharactersOnly</set>
-      </property>
-      <property name="text">
-       <string>&quot;Isolignes&quot;</string>
-      </property>
-      <property name="maxLength">
-       <number>50</number>
-      </property>
-      <property name="dragEnabled">
        <bool>true</bool>
       </property>
      </widget>
@@ -2275,38 +1961,12 @@
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QLabel" name="label">
-      <property name="geometry">
-       <rect>
-        <x>500</x>
-        <y>328</y>
-        <width>21</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>*</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_2">
-      <property name="geometry">
-       <rect>
-        <x>500</x>
-        <y>350</y>
-        <width>21</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>*</string>
-      </property>
-     </widget>
      <widget class="QLabel" name="label_202">
       <property name="geometry">
        <rect>
-        <x>130</x>
+        <x>120</x>
         <y>9</y>
-        <width>191</width>
+        <width>201</width>
         <height>21</height>
        </rect>
       </property>
@@ -2318,7 +1978,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Shapefile affiché</string>
+       <string>Choix affichage des vitesses </string>
       </property>
      </widget>
      <widget class="QComboBox" name="fieldComboShapeDiametre">
@@ -2327,14 +1987,14 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>130</x>
+        <x>110</x>
         <y>32</y>
-        <width>171</width>
+        <width>191</width>
         <height>20</height>
        </rect>
       </property>
       <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Cette version de l'extension ne propose que le format ESRI Shapefile.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Pour la thématique &amp;quot;Diamètre&amp;quot;, l'affichage en fin de filtrage contiendra les données sans vitesses nulles.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="accessibleDescription">
        <string/>
@@ -2355,14 +2015,14 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>130</x>
-        <y>54</y>
-        <width>171</width>
+        <x>110</x>
+        <y>53</y>
+        <width>191</width>
         <height>20</height>
        </rect>
       </property>
       <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Cette version de l'extension ne propose que le format ESRI Shapefile.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Vous pouvez choisir d'afficher en fin de filtrage : les données avec les vitesses nulles ou les données sans vitesse nulle.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="accessibleDescription">
        <string/>
@@ -2383,14 +2043,14 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>130</x>
-        <y>75</y>
-        <width>171</width>
+        <x>110</x>
+        <y>72</y>
+        <width>191</width>
         <height>20</height>
        </rect>
       </property>
       <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Cette version de l'extension ne propose que le format ESRI Shapefile.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Vous pouvez choisir d'afficher en fin de filtrage : les données avec les vitesses nulles ou les données sans vitesse nulle.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="accessibleDescription">
        <string/>
@@ -2410,28 +2070,31 @@
        <rect>
         <x>0</x>
         <y>91</y>
-        <width>151</width>
+        <width>121</width>
         <height>26</height>
        </rect>
       </property>
       <property name="text">
        <string>Vitesse</string>
       </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
      </widget>
      <widget class="QComboBox" name="fieldComboShapeVitesse">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="geometry">
        <rect>
-        <x>130</x>
-        <y>97</y>
-        <width>171</width>
+        <x>110</x>
+        <y>93</y>
+        <width>191</width>
         <height>20</height>
        </rect>
       </property>
       <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Cette version de l'extension ne propose que le format ESRI Shapefile.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Pour la thématique &amp;quot;Vitesse&amp;quot;, l'affichage en fin de filtrage contiendra les données avec les vitesses nulles.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="accessibleDescription">
        <string/>
@@ -2444,36 +2107,6 @@
       </property>
       <property name="minimumContentsLength">
        <number>1</number>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="lineEditThematiqueVitesse">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>340</x>
-        <y>94</y>
-        <width>161</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-       </font>
-      </property>
-      <property name="inputMethodHints">
-       <set>Qt::ImhDialableCharactersOnly</set>
-      </property>
-      <property name="text">
-       <string>&quot;Vitesse&quot;</string>
-      </property>
-      <property name="maxLength">
-       <number>50</number>
-      </property>
-      <property name="dragEnabled">
-       <bool>true</bool>
       </property>
      </widget>
      <widget class="QCheckBox" name="checkBoxInterSarment">
@@ -2489,37 +2122,7 @@
        <string>Sarment</string>
       </property>
       <property name="checked">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="lineEditThematiqueInterSarment">
-      <property name="enabled">
        <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>340</x>
-        <y>165</y>
-        <width>161</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>9</pointsize>
-       </font>
-      </property>
-      <property name="inputMethodHints">
-       <set>Qt::ImhDialableCharactersOnly</set>
-      </property>
-      <property name="text">
-       <string>&quot;Sarment&quot;</string>
-      </property>
-      <property name="maxLength">
-       <number>50</number>
-      </property>
-      <property name="dragEnabled">
-       <bool>true</bool>
       </property>
      </widget>
      <widget class="QLabel" name="label_207">
@@ -2542,26 +2145,403 @@
        <string>Détail Inter parcellaire</string>
       </property>
      </widget>
-     <widget class="QComboBox" name="fieldComboAideIso">
+    </widget>
+    <widget class="QGroupBox" name="groupBoxThematiques">
+     <property name="geometry">
+      <rect>
+       <x>330</x>
+       <y>42</y>
+       <width>181</width>
+       <height>364</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string/>
+     </property>
+     <widget class="QLineEdit" name="lineEditThematiqueInterDiametre">
       <property name="enabled">
        <bool>true</bool>
       </property>
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>397</y>
-        <width>451</width>
-        <height>20</height>
+        <x>0</x>
+        <y>109</y>
+        <width>161</width>
+        <height>21</height>
        </rect>
       </property>
-      <property name="editable">
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhDialableCharactersOnly</set>
+      </property>
+      <property name="text">
+       <string>Aucun thème</string>
+      </property>
+      <property name="maxLength">
+       <number>50</number>
+      </property>
+      <property name="dragEnabled">
        <bool>true</bool>
       </property>
-      <property name="currentIndex">
-       <number>-1</number>
+     </widget>
+     <widget class="QLineEdit" name="lineEditThematiqueVitesse">
+      <property name="enabled">
+       <bool>true</bool>
       </property>
-      <property name="minimumContentsLength">
-       <number>1</number>
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>61</y>
+        <width>161</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhDialableCharactersOnly</set>
+      </property>
+      <property name="text">
+       <string>Aucun thème</string>
+      </property>
+      <property name="maxLength">
+       <number>50</number>
+      </property>
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEditThematiqueSarment">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>21</y>
+        <width>161</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhDialableCharactersOnly</set>
+      </property>
+      <property name="text">
+       <string>Aucun thème</string>
+      </property>
+      <property name="maxLength">
+       <number>50</number>
+      </property>
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEditThematiqueBiomasse">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>41</y>
+        <width>161</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhDialableCharactersOnly</set>
+      </property>
+      <property name="text">
+       <string>Aucun thème</string>
+      </property>
+      <property name="maxLength">
+       <number>50</number>
+      </property>
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEditThematiqueIntraImage">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>317</y>
+        <width>161</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhDialableCharactersOnly</set>
+      </property>
+      <property name="text">
+       <string>Aucun thème</string>
+      </property>
+      <property name="maxLength">
+       <number>50</number>
+      </property>
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEditThematiqueInterBiomasse">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>149</y>
+        <width>161</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhDialableCharactersOnly</set>
+      </property>
+      <property name="text">
+       <string>Aucun thème</string>
+      </property>
+      <property name="maxLength">
+       <number>50</number>
+      </property>
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEditThematiqueInterSarment">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>129</y>
+        <width>161</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhDialableCharactersOnly</set>
+      </property>
+      <property name="text">
+       <string>Aucun thème</string>
+      </property>
+      <property name="maxLength">
+       <number>50</number>
+      </property>
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEditThematiqueInterPoints">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>232</y>
+        <width>161</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhDialableCharactersOnly</set>
+      </property>
+      <property name="text">
+       <string>Aucun thème</string>
+      </property>
+      <property name="maxLength">
+       <number>50</number>
+      </property>
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEditThematiqueIntraIso">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>296</y>
+        <width>161</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhDialableCharactersOnly</set>
+      </property>
+      <property name="text">
+       <string>Aucun thème</string>
+      </property>
+      <property name="maxLength">
+       <number>50</number>
+      </property>
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEditThematiqueInterLibelle">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>169</y>
+        <width>161</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhDialableCharactersOnly</set>
+      </property>
+      <property name="text">
+       <string>Aucun thème</string>
+      </property>
+      <property name="maxLength">
+       <number>50</number>
+      </property>
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEditThematiqueInterMoyenne">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>211</y>
+        <width>161</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhDialableCharactersOnly</set>
+      </property>
+      <property name="text">
+       <string>Aucun thème</string>
+      </property>
+      <property name="maxLength">
+       <number>50</number>
+      </property>
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>296</y>
+        <width>21</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>*</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>317</y>
+        <width>21</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>*</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEditThematiqueDiametre">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>161</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhDialableCharactersOnly</set>
+      </property>
+      <property name="text">
+       <string>Aucun thème</string>
+      </property>
+      <property name="maxLength">
+       <number>50</number>
+      </property>
+      <property name="dragEnabled">
+       <bool>true</bool>
       </property>
      </widget>
      <widget class="QLabel" name="lab_195">
@@ -2570,8 +2550,8 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>377</y>
+        <x>-310</x>
+        <y>349</y>
         <width>451</width>
         <height>21</height>
        </rect>
@@ -2580,14 +2560,100 @@
        <string>Méthode d'aide au calcul des isolignes</string>
       </property>
      </widget>
+     <widget class="QLabel" name="lab_212">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>350</y>
+        <width>161</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>6</pointsize>
+        <italic>true</italic>
+       </font>
+      </property>
+      <property name="text">
+       <string>l'entité interpolée (DIAM, SARM, BIOM,...)</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lab_213">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>336</y>
+        <width>171</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>6</pointsize>
+        <italic>true</italic>
+       </font>
+      </property>
+      <property name="text">
+       <string>** ces thématiques seront suffixées par </string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QComboBox" name="fieldComboAideIso">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>411</y>
+       <width>451</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="editable">
+      <bool>true</bool>
+     </property>
+     <property name="currentIndex">
+      <number>-1</number>
+     </property>
+     <property name="minimumContentsLength">
+      <number>1</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_201">
+     <property name="geometry">
+      <rect>
+       <x>330</x>
+       <y>20</y>
+       <width>161</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>11</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Thématiques (.qml)</string>
+     </property>
     </widget>
     <widget class="QGroupBox" name="groupBoxThematique">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>431</y>
+       <y>435</y>
        <width>521</width>
-       <height>123</height>
+       <height>164</height>
       </rect>
      </property>
      <property name="toolTip">
@@ -2649,8 +2715,13 @@
         <height>21</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
       <property name="text">
-       <string>Si vous changez vers le répertoire des modèles de Qgis, vous</string>
+       <string>Si vous choississez le répertoire des modèles de QGIS, vous</string>
       </property>
      </widget>
      <widget class="QLabel" name="lab_191">
@@ -2659,14 +2730,21 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>44</y>
+        <x>10</x>
+        <y>42</y>
         <width>421</width>
         <height>21</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <italic>false</italic>
+        <kerning>true</kerning>
+       </font>
+      </property>
       <property name="text">
-       <string>Par defaut, le répertoire des thématiques est celui du plugin.</string>
+       <string>Par défaut, le répertoire des thématiques est celui du plugin.</string>
       </property>
      </widget>
      <widget class="QLabel" name="lab_194">
@@ -2677,12 +2755,12 @@
        <rect>
         <x>30</x>
         <y>100</y>
-        <width>421</width>
+        <width>471</width>
         <height>21</height>
        </rect>
       </property>
       <property name="text">
-       <string>- pourrez les modifier à votre choix, sans en modifier les noms</string>
+       <string>- pourrez modifier ces modèles à votre choix puis changer leurs noms</string>
       </property>
      </widget>
      <widget class="QLabel" name="lab_193">
@@ -2693,12 +2771,54 @@
        <rect>
         <x>30</x>
         <y>80</y>
-        <width>421</width>
+        <width>451</width>
         <height>21</height>
        </rect>
       </property>
       <property name="text">
-       <string>- devez copier les modèles vers ce répertoire</string>
+       <string>- devez Fermer ϕ puis QGIS et copier les modèles vers ce répertoire</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lab_197">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>141</y>
+        <width>471</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <italic>true</italic>
+       </font>
+      </property>
+      <property name="text">
+       <string>choisir à nouveau le repertoire des thématiques du plugin</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lab_196">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>122</y>
+        <width>471</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <italic>true</italic>
+       </font>
+      </property>
+      <property name="text">
+       <string>Pour revenir en arrière (vous perdrez vos nommages spécifiques),</string>
       </property>
      </widget>
     </widget>
@@ -2708,42 +2828,14 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>0</x>
-       <y>582</y>
-       <width>371</width>
+       <x>20</x>
+       <y>388</y>
+       <width>271</width>
        <height>21</height>
       </rect>
      </property>
-     <property name="font">
-      <font>
-       <pointsize>6</pointsize>
-       <italic>true</italic>
-      </font>
-     </property>
      <property name="text">
-      <string>** Ces 3 affichages sont nécessaires aux modules Inter et Intra</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="lab_212">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>564</y>
-       <width>401</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>6</pointsize>
-       <italic>true</italic>
-      </font>
-     </property>
-     <property name="text">
-      <string>* Ces 2 thématiques sont suffixées par l'entité interpolée (DIAM, SARM, BIOM)</string>
+      <string>Méthode d'aide au calcul des isolignes</string>
      </property>
     </widget>
    </widget>
@@ -2992,7 +3084,7 @@
        </rect>
       </property>
       <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Moët a proposé la possibilité de Consolidation des données avant traitement Inter et Intra. Afin d'améliorer l'extension pour le cas de traitemetn de gros volumes de données, les possibilités suivantes ont été ajoutées : &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;De choix de répertoire des données produites,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;amélioration des possibilités de choix d'affichage et possibilité de préciser les noms de fichiers qml&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Choix du mode d'aide pour le calcul des isolignes&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt; L'ensemble de ces modifications ont recu la contribution de Moët et sont incluses dans la version 1.6.0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Moët a proposé la possibilité de Consolidation des données avant traitement Inter et Intra. Afin d'améliorer l'extension pour le cas de traitement de gros volumes de données, les possibilités suivantes ont été ajoutées : &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- choix du répertoire des données cibles produites,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- amélioration des possibilités de choix d'affichage et possibilité de préciser les noms de fichiers qml&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- choix du mode d'aide pour le calcul des isolignes&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Ces modifications ont été développé grace à la contribution de Moët et sont incluses dans la version 1.6.0.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="text">
        <string>Moët</string>
@@ -3030,13 +3122,57 @@
       <double>2.000000000000000</double>
      </property>
     </widget>
+    <widget class="QLabel" name="lab_13">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>495</y>
+       <width>431</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Format des couches générées</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="fieldComboFormats">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>497</y>
+       <width>231</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Cette version de l'extension ne propose que le format ESRI Shapefile.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="accessibleDescription">
+      <string/>
+     </property>
+     <property name="editable">
+      <bool>true</bool>
+     </property>
+     <property name="currentIndex">
+      <number>-1</number>
+     </property>
+     <property name="minimumContentsLength">
+      <number>1</number>
+     </property>
+    </widget>
     <widget class="QTextBrowser" name="textBrowser_2">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>493</y>
        <width>521</width>
-       <height>74</height>
+       <height>76</height>
       </rect>
      </property>
      <property name="html">
@@ -3048,91 +3184,6 @@ p, li { white-space: pre-wrap; }
      </property>
     </widget>
    </widget>
-  </widget>
-  <widget class="QLabel" name="lab_13">
-   <property name="enabled">
-    <bool>true</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>702</y>
-     <width>431</width>
-     <height>19</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Format des couches générées</string>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="fieldComboFormats">
-   <property name="enabled">
-    <bool>true</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>260</x>
-     <y>704</y>
-     <width>231</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="toolTip">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Cette version de l'extension ne propose que le format ESRI Shapefile.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-   </property>
-   <property name="accessibleDescription">
-    <string/>
-   </property>
-   <property name="editable">
-    <bool>true</bool>
-   </property>
-   <property name="currentIndex">
-    <number>-1</number>
-   </property>
-   <property name="minimumContentsLength">
-    <number>1</number>
-   </property>
-  </widget>
-  <widget class="QRadioButton" name="radioButtonAvec0Diam_2">
-   <property name="enabled">
-    <bool>true</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>280</x>
-     <y>729</y>
-     <width>121</width>
-     <height>26</height>
-    </rect>
-   </property>
-   <property name="toolTip">
-    <string/>
-   </property>
-   <property name="text">
-    <string>Avec vitesse 0</string>
-   </property>
-   <property name="checked">
-    <bool>false</bool>
-   </property>
-  </widget>
-  <widget class="QRadioButton" name="radioButtonSans0Diam_2">
-   <property name="geometry">
-    <rect>
-     <x>200</x>
-     <y>728</y>
-     <width>71</width>
-     <height>26</height>
-    </rect>
-   </property>
-   <property name="toolTip">
-    <string/>
-   </property>
-   <property name="text">
-    <string>Sans 0</string>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
   </widget>
  </widget>
  <resources/>

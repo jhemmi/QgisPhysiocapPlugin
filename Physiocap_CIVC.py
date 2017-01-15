@@ -227,7 +227,7 @@ def physiocap_csv_vers_shapefile( self, progress_barre, csv_name, shape_name, pr
 ##                            aText = u"Problème lors de la destruction de la table : " + str( laTable)
 ##                            physiocap_log( aText)
 ##                            physiocap_error( self, aText)  
-##                            # Todo : gérer par exception physiocap_exception_pg
+##                            # Todo : V3 gérer par exception physiocap_exception_pg
 ##                            return physiocap_message_box( self, 
 ##                                self.tr( aText),
 ##                                "warning")                   
@@ -277,7 +277,7 @@ def physiocap_csv_vers_shapefile( self, progress_barre, csv_name, shape_name, pr
     prj = open(prj_name, "w")
     epsg = 'inconnu'
     if ( laProjection == PROJECTION_L93):
-        # Todo: V1.x ? Faire aussi un fichier de metadata 
+        # Todo: V3 ? Faire aussi un fichier de metadata 
         epsg = EPSG_TEXT_L93
     if ( laProjection == PROJECTION_GPS):
         #  prj pour GPS 4326

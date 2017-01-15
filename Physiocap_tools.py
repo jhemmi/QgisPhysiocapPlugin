@@ -137,6 +137,7 @@ def physiocap_get_layer_by_ID( layerID):
             break
     if ( layer_trouve != None):
         if ( le_layer.isValid()):
+            #physiocap_log( "Layer(Couche) valid(e) : {0}".format ( le_layer.name()))
             return le_layer
         else:
             physiocap_log( "Layer(Couche) invalid(e) : {0}".format ( le_layer.name()))
