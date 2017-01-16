@@ -1543,10 +1543,10 @@
        </rect>
       </property>
       <property name="minimum">
-       <number>3</number>
+       <number>1</number>
       </property>
       <property name="maximum">
-       <number>20</number>
+       <number>25</number>
       </property>
       <property name="singleStep">
        <number>1</number>

@@ -784,7 +784,7 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         # Vérifier si le nombre d'utilisation est atteint
         self.settings= QSettings( PHYSIOCAP_NOM, PHYSIOCAP_NOM)
         niveau_utilisation = int( self.settings.value("Affichage/Contrib_alert", 0))
-        if ( niveau_utilisation < 10):
+        if ( niveau_utilisation <  500):
             self.settings.setValue("Affichage/Contrib_alert", \
                 niveau_utilisation + 1)
             return 
@@ -903,6 +903,8 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
             ecart_intervalle = int( distance / ( nombre_iso + 1))
             if ecart_intervalle < 1:
                 ecart_intervalle = 1
+            if ecart_intervalle >max_entier:
+                ecart_intervalle = max_entier
                 
 ##            physiocap_log( "CAS nb ISO : Ecart d'un intervalle : " + str(ecart_intervalle) + " min =" + \
 ##                str( min_entier) + " max =" + str( max_entier) + " nombre iso =" + str( nombre_iso))
@@ -914,6 +916,7 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
             distance = max_entier - min_entier
             if ecart_intervalle > distance:
                 ecart_intervalle = distance
+                self.spinBoxDistanceIso.setValue( ecart_intervalle)
             nombre_iso = int( distance /  ecart_intervalle)
             if nombre_iso < 1:
                 nombre_iso = 1
