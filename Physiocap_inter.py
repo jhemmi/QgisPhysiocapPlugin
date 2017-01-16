@@ -123,8 +123,8 @@ def physiocap_fill_combo_poly_or_point( self, isRoot = None, node = None ):
             # physiocap_log( "- layer: " + child.layerName() + "  ID: " + child.layerId()) 
             # Tester si poly ou point
             if ( physiocap_vector_poly_or_point( self, child.layer()) == "Point"):
-                if (( child.layerName() == "DIAMETRE mm") or \
-                ((self.checkBoxConsolidation.isChecked()) and ( child.layerName() == CONSOLIDATION))):
+                if (((not self.checkBoxConsolidation.isChecked()) and ( child.layerName() == "DIAMETRE mm")) or \
+                    ((self.checkBoxConsolidation.isChecked()) and ( child.layerName() == CONSOLIDATION))):
                     #physiocap_log( "- layer: " + child.layerName() + "  ID: " + child.layerId()) 
                     node_layer = noeud_en_cours + SEPARATEUR_NOEUD + child.layerId()
                     #physiocap_log( "- group: type node_layer " + str( type( node_layer)))

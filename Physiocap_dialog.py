@@ -86,7 +86,8 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         # Slot for boutons : ces deux sont déjà sont dans UI
         ##self.buttonBox.button( QDialogButtonBox.Ok ).pressed.connect(self.accept)
         ##self.buttonBox.button( QDialogButtonBox.Cancel ).pressed.connect(self.reject)
-        self.buttonBox.button( QDialogButtonBox.Help ).pressed.connect(self.slot_demander_aide)
+        ##self.buttonBox.button( QDialogButtonBox.Help ).pressed.connect(self.slot_demander_aide)
+        self.ButtonFiltrer.pressed.connect(self.slot_accept)
         self.buttonContribuer.pressed.connect(self.slot_demander_contribution)
         # Slot pour données brutes et pour données cibles
         self.toolButtonDirectoryPhysiocap.pressed.connect( self.slot_lecture_repertoire_donnees_brutes )  
@@ -108,6 +109,9 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         self.groupBoxIntra.setEnabled( False)
         self.ButtonIntra.setEnabled( False)
         
+        # Affichage
+        self.fieldComboAideIso.currentIndexChanged[int].connect( self.slot_bascule_aide_iso )
+               
         # Slot pour les contours
         # self.toolButtonContours.pressed.connect( self.lecture_shape_contours )   
               
@@ -229,7 +233,7 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         # Remplissage de la liste de SHAPE Filtre
         # DIAMETRE : Cas unique
         self.fieldComboShapeDiametre.clear( )
-        self.fieldComboShapeDiametre.addItem( "Sans vitesse nulle **")
+        self.fieldComboShapeDiametre.addItem( PHYSIOCAP_WARNING + " Sans vitesse nulle")
         self.fieldComboShapeDiametre.setCurrentIndex( 0)                
  
         # SARMENT
@@ -299,11 +303,16 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
             self.fieldComboAideIso.clear( )
             self.fieldComboAideIso.addItems( CHOIX_ISO )
             if ( leChoixAideIso == -1):
-                self.fieldComboAideIso.setCurrentIndex( 0)                
-            else:
-                # Le combo a déjà été rempli, on retrouve le choix
-                self.fieldComboAideIso.setCurrentIndex( leChoixAideIso) 
-
+                leChoixAideIso = 0
+                self.fieldComboAideIso.setCurrentIndex( leChoixAideIso)                
+            
+            # Le combo a déjà été rempli, on retrouve le choix
+            self.fieldComboAideIso.setCurrentIndex( leChoixAideIso) 
+                    
+                    
+            # Selon le choix on rend modifiable 
+            self.slot_bascule_aide_iso()
+               
         # Remplissage de la liste de CHEMIN_TEMPLATES
         self.fieldComboThematiques.setCurrentIndex( 0)   
         if len( CHEMIN_TEMPLATES) == 0:
@@ -470,8 +479,8 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         # Choix d'affichage généraux
         # Toujour le diametre qui est necessaire à "Inter"
         self.checkBoxDiametre.setChecked( Qt.Checked)
-        self.checkBoxInterPoints.setChecked( Qt.Checked)
-        self.checkBoxInterMoyennes.setChecked( Qt.Checked)
+        # 1.6 self.checkBoxInterPoints.setChecked( Qt.Checked)
+        # 1.6 self.checkBoxInterMoyennes.setChecked( Qt.Checked)
 
         # Les autres on peut les choisir 
         if (self.settings.value("Affichage/sarment", "YES") == "YES"):
@@ -503,6 +512,14 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
             self.checkBoxInterLibelle.setChecked( Qt.Checked)
         else:
             self.checkBoxInterLibelle.setChecked( Qt.Unchecked)        
+        if (self.settings.value("Affichage/InterPoints", "NO") == "YES"):
+            self.checkBoxInterPoints.setChecked( Qt.Checked)
+        else:
+            self.checkBoxInterPoints.setChecked( Qt.Unchecked)        
+        if (self.settings.value("Affichage/InterMoyennes", "NO") == "YES"):
+            self.checkBoxInterMoyennes.setChecked( Qt.Checked)
+        else:
+            self.checkBoxInterMoyennes.setChecked( Qt.Unchecked)        
 
         # Choix d'affichage Intra
         if (self.settings.value("Affichage/IntraUnSeul", "YES") == "YES"):
@@ -532,6 +549,7 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         self.spinBoxIsoMin.valueChanged.connect( self.slot_iso_distance)
         self.spinBoxIsoMax.valueChanged.connect( self.slot_iso_distance)
         self.spinBoxNombreIso.valueChanged.connect( self.slot_iso_distance)
+        self.spinBoxDistanceIso.valueChanged.connect( self.slot_iso_distance)
         
         # Alerte GPS
         self.radioButtonGPS.toggled.connect( self.slot_GPS_alert)
@@ -841,11 +859,23 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
                 self.lineEditDoubleRayon.setText( aText)
 
         return 0
-
+    
+    def slot_bascule_aide_iso( self):
+        """ 
+        Bascule le mode d'aide du calcul iso 
+        """
+        if ( self.fieldComboAideIso.currentIndex() == 0):
+            self.spinBoxDistanceIso.setEnabled( False)
+            self.spinBoxNombreIso.setEnabled( True)
+        if ( self.fieldComboAideIso.currentIndex() == 1):
+            self.spinBoxDistanceIso.setEnabled( True)
+            self.spinBoxNombreIso.setEnabled( False)        
+        return
+    
     def slot_iso_distance( self):
         """ 
         Recherche du la distance optimale tenant compte de min et max et du nombre d'intervalle
-        si erreur rend 3 
+        si erreur rend 1 
         """
         # retrouve sans QT
         min_entier = round( float ( self.spinBoxIsoMin.value()))
@@ -862,21 +892,36 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         if (min_entier >= max_entier):
 ##            physiocap_log( u"Nombre min " + str(min_entier))
 ##            physiocap_log( u"Nombre max " + str(max_entier))
-##            physiocap_log( u"Nombre d'intervalle d'isoligne forcé à 3")
-            self.lineEditDistanceIso.setText( str( 3))
+##            physiocap_log( u"Nombre d'intervalle d'isoligne forcé à 1")
+            self.spinBoxDistanceIso.setValue( 1)
             return 
-        
-        nombre_iso = round( float ( self.spinBoxNombreIso.value())) 
 
-        distance = max_entier - min_entier
-        nombre_intervalles = int( distance / ( nombre_iso + 1))
-        if nombre_intervalles < 1:
-            nombre_intervalles = 1
-            
-##        physiocap_log( "Nombre d'intervalle d'iso : " + str(nombre_intervalles) + " min =" + \
-##            str( min_entier) + " max =" + str( max_entier) + " nombre iso =" + str( nombre_iso))
-        self.lineEditDistanceIso.setText( str( nombre_intervalles))
-        return 
+        if ( self.fieldComboAideIso.currentIndex() == 0):
+            # du nombre d'iso on déduit l'écart
+            nombre_iso = round( float ( self.spinBoxNombreIso.value())) 
+            distance = max_entier - min_entier
+            ecart_intervalle = int( distance / ( nombre_iso + 1))
+            if ecart_intervalle < 1:
+                ecart_intervalle = 1
+                
+##            physiocap_log( "CAS nb ISO : Ecart d'un intervalle : " + str(ecart_intervalle) + " min =" + \
+##                str( min_entier) + " max =" + str( max_entier) + " nombre iso =" + str( nombre_iso))
+            self.spinBoxDistanceIso.setValue( ecart_intervalle)
+            return
+        if ( self.fieldComboAideIso.currentIndex() == 1):
+            # de l'écartentre iso on deduit nombre d'iso
+            ecart_intervalle = round( float ( self.spinBoxDistanceIso.value()))
+            distance = max_entier - min_entier
+            if ecart_intervalle > distance:
+                ecart_intervalle = distance
+            nombre_iso = int( distance /  ecart_intervalle)
+            if nombre_iso < 1:
+                nombre_iso = 1
+                
+##            physiocap_log( "CAS ECART : Ecart d'un intervalle : " + str(ecart_intervalle) + " min =" + \
+##                str( min_entier) + " max =" + str( max_entier) + " nombre iso =" + str( nombre_iso))
+            self.spinBoxNombreIso.setValue( nombre_iso)                    
+            return
 
     def memoriser_saisies_inter_intra_parcelles(self):
         """ Mémorise les saisies inter et intra """
@@ -894,6 +939,7 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         self.settings.setValue("Physiocap/isoMin", float( self.spinBoxIsoMin.value()))
         self.settings.setValue("Physiocap/isoMax", float( self.spinBoxIsoMax.value()))
         self.settings.setValue("Physiocap/isoNombres", float( self.spinBoxNombreIso.value()))
+        self.settings.setValue("Physiocap/isoDistance", float( self.spinBoxDistanceIso.value()))
 
         self.settings.setValue("Physiocap/leChoixAideIso", self.fieldComboAideIso.currentIndex())
         
@@ -1150,15 +1196,12 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
     def reject( self ):
         """Close when bouton is Cancel"""
         # Todo : V3 prefixe Slot et nommage SLOT_Bouton_Cancel      
-        #self.textEdit.clear()
-        # On sauve le choix du repertoire des thematiques
-        self.settings.setValue("Physiocap/leDirThematiques", self.fieldComboThematiques.currentText())
-        self.settings.setValue("Physiocap/leChoixDeThematiques", self.fieldComboThematiques.currentIndex())
+        # On sauve les saisies
+        self.memoriser_saisies_inter_intra_parcelles()
         QDialog.reject( self)
                 
-    def accept( self ):
-        """Verify when bouton is OK"""
-        # Todo : V3 prefixe Slot et nommage SLOT_Bouton_OK
+    def slot_accept( self ):
+        """Verify when bouton is Filtrer """
         # Vérifier les valeurs saisies
         # QT confiance et initialisation par Qsettings sert d'assert sur la
         # cohérence des variables saisies

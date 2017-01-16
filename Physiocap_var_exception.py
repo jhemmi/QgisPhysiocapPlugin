@@ -59,7 +59,8 @@ CENTROIDES = "NO"  # CENTROIDES YES est pour voir les centroides dans la synthes
 
 REPERTOIRE_DONNEES_BRUTES = "Choisissez votre chemin"
 PHYSIOCAP_NOM = "Physiocap"
-PHYSIOCAP_UNI = "\u03D5"
+PHYSIOCAP_UNI = u"\u03D5"
+PHYSIOCAP_WARNING = u"\u26A0"
 
 # Test de robustesse de la gestion des unicodes
 PHYSIOCAP_TEST1 = "ȧƈƈḗƞŧḗḓ ŧḗẋŧ ƒǿř ŧḗşŧīƞɠ"

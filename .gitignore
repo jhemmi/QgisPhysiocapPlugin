@@ -50,7 +50,7 @@ testdata/
 modeleQgis/*.txt
 i18n/bak*
 Physiocap_tools_PG.pyJH
-i18nOKJH/
+i18nOKJH*/
 print/
 ssl/
 #.noseids

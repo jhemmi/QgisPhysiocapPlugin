@@ -105,6 +105,13 @@ class PhysiocapIntra( QtGui.QDialog):
         # Pour appel de processing on attend d'etre dans Qgis et Intra
         try :
             import processing
+            try:
+                from processing.core.Processing import Processing
+                Processing.initialize()
+            except:
+                physiocap_log( self.trUtf8( "{0} nécessite l'extension {1}").\
+                    format( PHYSIOCAP_UNI, self.tr("Traitement")))
+                raise physiocap_exception_no_processing                
             versionGDAL = processing.tools.raster.gdal.__version__
             versionSAGA = processing.algs.saga.SagaUtils.getSagaInstalledVersion()
         except ImportError:
@@ -117,7 +124,7 @@ class PhysiocapIntra( QtGui.QDialog):
                 format( PHYSIOCAP_UNI))
             raise physiocap_exception_no_saga
 
-        physiocap_log ( self.trUtf8( "= Version SAGA = %s" % ( str( versionSAGA))))
+        #physiocap_log ( self.trUtf8( "= Version SAGA = %s" % ( str( versionSAGA))))
         physiocap_log ( self.trUtf8( "= Version GDAL = %s" % ( str( versionGDAL))))
         
         # Test SAGA version, sinon annonce de l'utilisation de GDAL
@@ -155,7 +162,7 @@ class PhysiocapIntra( QtGui.QDialog):
         isoMin = float ( dialogue.spinBoxIsoMin.value())
         isoMax = float ( dialogue.spinBoxIsoMax.value())
         #isoNombreIso = float ( dialogue.spinBoxNombreIso.value())
-        isoInterlignes = float ( dialogue.lineEditDistanceIso.text())
+        isoInterlignes = float ( dialogue.spinBoxDistanceIso.value())
      
         # Parametres fixes
         angle = 0    # Pas utiliser
