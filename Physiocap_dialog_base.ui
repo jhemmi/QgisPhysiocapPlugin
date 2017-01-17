@@ -74,7 +74,7 @@
     <enum>QTabWidget::North</enum>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>3</number>
    </property>
    <property name="movable">
     <bool>true</bool>
@@ -1027,7 +1027,7 @@
        <rect>
         <x>10</x>
         <y>20</y>
-        <width>201</width>
+        <width>231</width>
         <height>31</height>
        </rect>
       </property>
@@ -1070,8 +1070,8 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>250</x>
-        <y>26</y>
+        <x>290</x>
+        <y>22</y>
         <width>211</width>
         <height>24</height>
        </rect>
@@ -1086,7 +1086,7 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>250</x>
+        <x>290</x>
         <y>48</y>
         <width>181</width>
         <height>16</height>
@@ -1110,12 +1110,15 @@
        <rect>
         <x>240</x>
         <y>1</y>
-        <width>371</width>
+        <width>261</width>
         <height>21</height>
        </rect>
       </property>
       <property name="text">
        <string>Choisir le champ identifiant vos contours</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
       </property>
      </widget>
      <widget class="QLabel" name="lab_66">
@@ -1124,7 +1127,7 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>250</x>
+        <x>290</x>
         <y>62</y>
         <width>171</width>
         <height>17</height>
@@ -1686,9 +1689,9 @@
      <widget class="QSpinBox" name="spinBoxDistanceIso">
       <property name="geometry">
        <rect>
-        <x>170</x>
+        <x>290</x>
         <y>256</y>
-        <width>91</width>
+        <width>101</width>
         <height>21</height>
        </rect>
       </property>
@@ -2076,8 +2079,8 @@
      <widget class="QLabel" name="label_202">
       <property name="geometry">
        <rect>
-        <x>120</x>
-        <y>9</y>
+        <x>110</x>
+        <y>10</y>
         <width>201</width>
         <height>21</height>
        </rect>
@@ -3151,7 +3154,7 @@
        </rect>
       </property>
       <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Moët a proposé la possibilité de Consolidation des données avant traitement Inter et Intra. Afin d'améliorer l'extension pour le cas de traitement de gros volumes de données, les possibilités suivantes ont été ajoutées : &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- choix du répertoire des données cibles produites,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- amélioration des possibilités de choix d'affichage et possibilité de préciser les noms de fichiers qml&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- choix du mode d'aide pour le calcul des isolignes&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Ces modifications ont été développé grace à la contribution de Moët et sont incluses dans la version 1.6.0.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Moët a demandé la possibilité de Consolidation des données avant traitement Inter et Intra. Afin d'améliorer l'extension pour le cas de traitement de gros volumes de données, les possibilités suivantes ont été ajoutées : &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- choix du répertoire des données cibles produites,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- amélioration des possibilités de choix d'affichage et possibilité de préciser les noms de fichiers qml&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- choix du mode d'aide pour le calcul des isolignes&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Ces modifications ont été développé avec la contribution de Moët et sont incluses dans la version 1.6.0.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="text">
        <string>Moët</string>

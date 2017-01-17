@@ -62,8 +62,9 @@ PY_FILES = \
 UI_FILES = Physiocap_dialog_base.ui
 
 DATA = data
-DATA_FILES = $(DATA)/01021103.MID $(DATA)/01021103.ERC
-
+DATA_FILES = $(DATA)/01021103.MID $(DATA)/01021103.ERC  \
+	$(DATA)/Contour_L93.shp $(DATA)/Contour_L93.shx \
+	$(DATA)/Contour_L93.dbf
 EXTRAS = icon.png metadata.txt LICENSE README.md
 
 COMPILED_RESOURCE_FILES = resources_rc.py

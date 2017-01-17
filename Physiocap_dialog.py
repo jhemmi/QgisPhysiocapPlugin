@@ -86,9 +86,10 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         # Slot for boutons : ces deux sont déjà sont dans UI
         ##self.buttonBox.button( QDialogButtonBox.Ok ).pressed.connect(self.accept)
         ##self.buttonBox.button( QDialogButtonBox.Cancel ).pressed.connect(self.reject)
-        ##self.buttonBox.button( QDialogButtonBox.Help ).pressed.connect(self.slot_demander_aide)
+        self.buttonBox.button( QDialogButtonBox.Help ).pressed.connect(self.slot_demander_aide)
         self.ButtonFiltrer.pressed.connect(self.slot_accept)
         self.buttonContribuer.pressed.connect(self.slot_demander_contribution)
+        
         # Slot pour données brutes et pour données cibles
         self.toolButtonDirectoryPhysiocap.pressed.connect( self.slot_lecture_repertoire_donnees_brutes )  
         self.toolButtonDirectoryFiltre.pressed.connect( self.slot_lecture_repertoire_donnees_cibles)  
@@ -233,85 +234,83 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         # Remplissage de la liste de SHAPE Filtre
         # DIAMETRE : Cas unique
         self.fieldComboShapeDiametre.clear( )
-        self.fieldComboShapeDiametre.addItem( PHYSIOCAP_WARNING + " Sans vitesse nulle")
+        self.fieldComboShapeDiametre.addItem( PHYSIOCAP_WARNING + " " + self.trUtf8("Sans vitesse nulle"))
         self.fieldComboShapeDiametre.setCurrentIndex( 0)                
  
         # SARMENT
         self.fieldComboShapeSarment.setCurrentIndex( 0)   
-        if len( CHEMIN_SHAPES_FILTRATION) == 0:
-            self.fieldComboShapeSarment.clear( )
-            aText = self.trUtf8( "Pas de liste de shapefiles à afficher apres filtration")
-            physiocap_log( aText)
-            physiocap_error( self, aText)
+        leChoixDeShape = int( self.settings.value("Physiocap/leChoixShapeSarment", -1)) 
+        # Cas initial
+        self.fieldComboShapeSarment.clear( )
+        self.fieldComboShapeSarment.addItem( self.trUtf8("Sans vitesse nulle") )
+        self.fieldComboShapeSarment.addItem( self.trUtf8("Avec vitesse nulle") )
+        if ( leChoixDeShape == -1):
+            self.fieldComboShapeSarment.setCurrentIndex( 0)                
         else:
-            leChoixDeShape = int( self.settings.value("Physiocap/leChoixShapeSarment", -1)) 
-            # Cas initial
-            self.fieldComboShapeSarment.clear( )
-            self.fieldComboShapeSarment.addItems( CHEMIN_SHAPES_FILTRATION )
-            if ( leChoixDeShape == -1):
-                self.fieldComboShapeSarment.setCurrentIndex( 0)                
-            else:
-                # Le combo a déjà été rempli, on retrouve le choix
-                self.fieldComboShapeSarment.setCurrentIndex( leChoixDeShape)
- 
+            # Le combo a déjà été rempli, on retrouve le choix
+            self.fieldComboShapeSarment.setCurrentIndex( leChoixDeShape)
+        # Vitesse
+        self.fieldComboShapeVitesse.setCurrentIndex( 0)   
+        leChoixDeShape = int( self.settings.value("Physiocap/leChoixShapeVitesse", -1)) 
+        # Cas initial
+        self.fieldComboShapeVitesse.clear( )
+        self.fieldComboShapeVitesse.addItem( self.trUtf8("Sans vitesse nulle") )
+        self.fieldComboShapeVitesse.addItem( self.trUtf8("Avec vitesse nulle") )
+        if ( leChoixDeShape == -1):
+            self.fieldComboShapeVitesse.setCurrentIndex( 0)                
+        else:
+            # Le combo a déjà été rempli, on retrouve le choix
+            self.fieldComboShapeVitesse.setCurrentIndex( leChoixDeShape)
         # BIOMASSE
         self.fieldComboShapeBiomasse.setCurrentIndex( 0)   
-        if len( CHEMIN_SHAPES_FILTRATION) == 0:
-            self.fieldComboShapeBiomasse.clear( )
-            aText = self.trUtf8( "Pas de liste de shapefiles à afficher apres filtration")
-            physiocap_log( aText)
-            physiocap_error( self, aText)
+        leChoixDeShape = int( self.settings.value("Physiocap/leChoixShapeBiomasse", -1)) 
+        # Cas initial
+        self.fieldComboShapeBiomasse.clear( )
+        self.fieldComboShapeBiomasse.addItem( self.trUtf8("Sans vitesse nulle") )
+        self.fieldComboShapeBiomasse.addItem( self.trUtf8("Avec vitesse nulle") )
+        if ( leChoixDeShape == -1):
+            self.fieldComboShapeBiomasse.setCurrentIndex( 0)                
         else:
-            leChoixDeShape = int( self.settings.value("Physiocap/leChoixShapeBiomasse", -1)) 
-            # Cas initial
-            self.fieldComboShapeBiomasse.clear( )
-            self.fieldComboShapeBiomasse.addItems( CHEMIN_SHAPES_FILTRATION )
-            if ( leChoixDeShape == -1):
-                self.fieldComboShapeBiomasse.setCurrentIndex( 0)                
-            else:
-                # Le combo a déjà été rempli, on retrouve le choix
-                self.fieldComboShapeBiomasse.setCurrentIndex( leChoixDeShape)
- 
-        # VITESSE
-        self.fieldComboShapeVitesse.setCurrentIndex( 0)   
-        if len( CHEMIN_SHAPES_FILTRATION) == 0:
-            self.fieldComboShapeVitesse.clear( )
-            aText = self.trUtf8( "Pas de liste de shapefiles à afficher apres filtration")
-            physiocap_log( aText)
-            physiocap_error( self, aText)
-        else:
-            leChoixDeShape = int( self.settings.value("Physiocap/leChoixShapeVitesse", -1)) 
-            # Cas initial
-            self.fieldComboShapeVitesse.clear( )
-            self.fieldComboShapeVitesse.addItems( CHEMIN_SHAPES_FILTRATION )
-            if ( leChoixDeShape == -1):
-                self.fieldComboShapeVitesse.setCurrentIndex( 1)                
-            else:
-                # Le combo a déjà été rempli, on retrouve le choix
-                self.fieldComboShapeVitesse.setCurrentIndex( leChoixDeShape)
- 
+            # Le combo a déjà été rempli, on retrouve le choix
+            self.fieldComboShapeBiomasse.setCurrentIndex( leChoixDeShape)
+
+        # old VITESSE
+##        self.fieldComboShapeVitesse.setCurrentIndex( 0)   
+##        if len( CHEMIN_SHAPES_FILTRATION) == 0:
+##            self.fieldComboShapeVitesse.clear( )
+##            aText = self.trUtf8( "Pas de liste de shapefiles à afficher apres filtration")
+##            physiocap_log( aText)
+##            physiocap_error( self, aText)
+##        else:
+##            leChoixDeShape = int( self.settings.value("Physiocap/leChoixShapeVitesse", -1)) 
+##            # Cas initial
+##            self.fieldComboShapeVitesse.clear( )
+##            self.fieldComboShapeVitesse.addItems( CHEMIN_SHAPES_FILTRATION )
+##            if ( leChoixDeShape == -1):
+##                self.fieldComboShapeVitesse.setCurrentIndex( 1)                
+##            else:
+##                # Le combo a déjà été rempli, on retrouve le choix
+##                self.fieldComboShapeVitesse.setCurrentIndex( leChoixDeShape)
+
+
         # Remplissage du choix de calcul isoligne
         self.fieldComboAideIso.setCurrentIndex( 0)   
-        if len( CHOIX_ISO) == 0:
-            self.fieldComboAideIso.clear( )
-            aText = self.trUtf8( "Pas d'option de choix d'aide au calcul iso")
-            physiocap_log( aText)
-            physiocap_error( self, aText)
-        else:
-            leChoixAideIso = int( self.settings.value("Physiocap/leChoixAideIso", -1)) 
-            # Cas inital
-            self.fieldComboAideIso.clear( )
-            self.fieldComboAideIso.addItems( CHOIX_ISO )
-            if ( leChoixAideIso == -1):
-                leChoixAideIso = 0
-                self.fieldComboAideIso.setCurrentIndex( leChoixAideIso)                
-            
-            # Le combo a déjà été rempli, on retrouve le choix
-            self.fieldComboAideIso.setCurrentIndex( leChoixAideIso) 
-                    
-                    
-            # Selon le choix on rend modifiable 
-            self.slot_bascule_aide_iso()
+        leChoixAideIso = int( self.settings.value("Physiocap/leChoixAideIso", -1)) 
+        # Cas inital
+        self.fieldComboAideIso.clear( )
+        self.fieldComboAideIso.addItem( \
+            self.trUtf8("Nombre d'isolignes permet le calcul de l'écartement des isolignes"))
+        self.fieldComboAideIso.addItem( \
+            self.trUtf8("Ecartement des isolignes permet le calcul du nombre d'isolignes"))
+        if ( leChoixAideIso == -1):
+            leChoixAideIso = 0
+            self.fieldComboAideIso.setCurrentIndex( leChoixAideIso)                
+        
+        # Le combo a déjà été rempli, on retrouve le choix
+        self.fieldComboAideIso.setCurrentIndex( leChoixAideIso) 
+                
+        # Selon le choix on rend modifiable 
+        self.slot_bascule_aide_iso()
                
         # Remplissage de la liste de CHEMIN_TEMPLATES
         self.fieldComboThematiques.setCurrentIndex( 0)   
@@ -1192,7 +1191,7 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
     
     def slot_demander_aide(self):
         """ Help html qui pointe vers gitHub""" 
-        help_url = QUrl("file:///%s/help/index.html" % self.plugin_dir)
+        help_url = QUrl("https://github.com/jhemmi/QgisPhysiocapPlugin/wiki")
         QDesktopServices.openUrl(help_url)
 
 
