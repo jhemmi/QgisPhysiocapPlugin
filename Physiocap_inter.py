@@ -115,16 +115,20 @@ def physiocap_fill_combo_poly_or_point( self, isRoot = None, node = None ):
             groupe_inter = noeud_en_cours + SEPARATEUR_ + VIGNETTES_INTER
             #physiocap_log( "- group inter : " + groupe_inter)
             if ( noeud_en_cours != groupe_inter ):
-                # On exclut les vignettes
+                # On exclut les vignettes INTER
                 un_nombre_poly, un_nombre_point = physiocap_fill_combo_poly_or_point( self, noeud, child)
                 nombre_point = nombre_point + un_nombre_point
                 nombre_poly = nombre_poly + un_nombre_poly
         elif isinstance(child, QgsLayerTreeLayer):
-            # physiocap_log( "- layer: " + child.layerName() + "  ID: " + child.layerId()) 
+            #physiocap_log( "- layer: " + child.layerName() + "  ID: " + child.layerId()) 
+            #physiocap_log( "- layer parent le groupe : " + child.parent().name() ) 
             # Tester si poly ou point
             if ( physiocap_vector_poly_or_point( self, child.layer()) == "Point"):
-                if (((not self.checkBoxConsolidation.isChecked()) and ( child.layerName() == "DIAMETRE mm")) or \
-                    ((self.checkBoxConsolidation.isChecked()) and ( child.layerName() == CONSOLIDATION))):
+                if (((not self.checkBoxConsolidation.isChecked()) and \
+                    ( child.layerName() == "DIAMETRE mm")) \
+                    or \
+                    ((self.checkBoxConsolidation.isChecked()) and \
+                    ( child.parent().name() == CONSOLIDATION))):
                     #physiocap_log( "- layer: " + child.layerName() + "  ID: " + child.layerId()) 
                     node_layer = noeud_en_cours + SEPARATEUR_NOEUD + child.layerId()
                     #physiocap_log( "- group: type node_layer " + str( type( node_layer)))
@@ -443,7 +447,7 @@ class PhysiocapInter( QtGui.QDialog):
             chemin_projet = os.path.join( repertoire_cible, nom_noeud_arbre)
             chemin_shapes = os.path.join( chemin_projet, REPERTOIRE_SHAPEFILE)
         else:
-            # Assert repertoire shapfile : c'est le repertoire qui contient le vecteur point
+            # Assert repertoire shapefile : c'est le repertoire qui contient le vecteur point
             # Ca fonctionne pour consolidation
             chemin_shapes = os.path.dirname( unicode( vecteur_point.dataProvider().dataSourceUri() ) ) ;
         if ( not os.path.exists( chemin_shapes)):

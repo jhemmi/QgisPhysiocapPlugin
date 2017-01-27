@@ -609,6 +609,10 @@ class PhysiocapIntra( QtGui.QDialog):
         stepBar = int( 60 / iforme)
         positionBar = 5
         
+        consolidation = "NO"
+        if dialogue.checkBoxConsolidation.isChecked():
+            consolidation = "YES"
+
         # On passe sur le contour général
         contour_avec_point = 0
         contours_possibles = 0
@@ -626,7 +630,19 @@ class PhysiocapIntra( QtGui.QDialog):
             nom_vignette = os.path.join( chemin_vignettes, nom_court_vignette)        
                                                    
             # Nom point 
-            nom_court_point = NOM_PROJET + NOM_POINTS + EXT_CRS_SHP     
+            if consolidation == "YES" :
+                # Dans le cas de consolidation, on s'appuie sur le repertoire 
+                # shapefile fictif (celui de la consolidation, en verité)
+                # On cherche le nom de base dans le vecteur de consolitatioin choisi 
+                
+                # Assert repertoire shapefile : c'est le repertoire qui contient le vecteur point
+                # Ca doit fonctionner pour consolidation
+                if ( not os.path.exists( chemin_shapes)):
+                    raise physiocap_exception_rep( chemin_shapes)
+                nom_base_point = os.path.basename( unicode( vecteur_point.name() ) )
+                nom_court_point = nom_base_point + EXTENSION_SHP
+            else:
+                nom_court_point = NOM_PROJET + NOM_POINTS + EXT_CRS_SHP     
             nom_point = os.path.join( chemin_shapes, nom_court_point)                    
 
             # Vérifier si le point et la vignette existent

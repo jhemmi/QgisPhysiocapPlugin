@@ -274,24 +274,6 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
             # Le combo a déjà été rempli, on retrouve le choix
             self.fieldComboShapeBiomasse.setCurrentIndex( leChoixDeShape)
 
-        # old VITESSE
-##        self.fieldComboShapeVitesse.setCurrentIndex( 0)   
-##        if len( CHEMIN_SHAPES_FILTRATION) == 0:
-##            self.fieldComboShapeVitesse.clear( )
-##            aText = self.trUtf8( "Pas de liste de shapefiles à afficher apres filtration")
-##            physiocap_log( aText)
-##            physiocap_error( self, aText)
-##        else:
-##            leChoixDeShape = int( self.settings.value("Physiocap/leChoixShapeVitesse", -1)) 
-##            # Cas initial
-##            self.fieldComboShapeVitesse.clear( )
-##            self.fieldComboShapeVitesse.addItems( CHEMIN_SHAPES_FILTRATION )
-##            if ( leChoixDeShape == -1):
-##                self.fieldComboShapeVitesse.setCurrentIndex( 1)                
-##            else:
-##                # Le combo a déjà été rempli, on retrouve le choix
-##                self.fieldComboShapeVitesse.setCurrentIndex( leChoixDeShape)
-
 
         # Remplissage du choix de calcul isoligne
         self.fieldComboAideIso.setCurrentIndex( 0)   
@@ -325,7 +307,15 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
             CHEMIN_TEMPLATES_USER = []
             self.fieldComboThematiques.clear( )
             CHEMIN_TEMPLATES_USER.append( os.path.join( self.plugin_dir, CHEMIN_TEMPLATES[0]))
-            CHEMIN_TEMPLATES_USER.append( os.path.join( self.gis2_dir, CHEMIN_TEMPLATES[1]))
+            # On donne le chemin QGIS ou celui présent dans les preferences
+            if leChoixDeThematiques == 1:
+                # en cas de changement dans .config
+                chemin_preference = self.settings.value("Physiocap/leDirThematiques", \
+                    os.path.join( self.gis2_dir, CHEMIN_TEMPLATES[1]))
+            else:
+                # cas QGIS pour le premeir cas
+                chemin_preference = os.path.join( self.gis2_dir, CHEMIN_TEMPLATES[1])                
+            CHEMIN_TEMPLATES_USER.append( chemin_preference)
             self.fieldComboThematiques.addItems( CHEMIN_TEMPLATES_USER )
             if ( leChoixDeThematiques == -1):
                 self.fieldComboThematiques.setCurrentIndex( 0)                
@@ -333,12 +323,12 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
                 # Le combo a déjà été rempli, on retrouve le choix
                 self.fieldComboThematiques.setCurrentIndex( leChoixDeThematiques)
                 if ( leChoixDeThematiques == 1): 
-                    # On est dans le cas où l'utilisateur a pri sla main sur ces qml
+                    # On est dans le cas où l'utilisateur a pris la main sur ces qml
                     # autorisation de modifier les nom de qml
                     self.groupBoxThematiques.setEnabled( True)
-                    themeDiametre = self.settings.value("Physiocap/themeDiametre", "x Diametre 4 Jenks")
+                    themeDiametre = self.settings.value("Physiocap/themeDiametre", "Diametre 4 Jenks")
                     self.lineEditThematiqueDiametre.setText( themeDiametre )
-                    themeSarment = self.settings.value("Physiocap/themeSarment", "x Sarment 4 Jenks")
+                    themeSarment = self.settings.value("Physiocap/themeSarment", "Sarment 4 Jenks")
                     self.lineEditThematiqueSarment.setText( themeSarment )
                     themeBiomasse = self.settings.value("Physiocap/themeBiomasse", "Biomasse 4 Jenks")
                     self.lineEditThematiqueBiomasse.setText( themeBiomasse )
@@ -586,7 +576,7 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
             "CIVC.jpg")))
         
         # Appel à contrib
-        self.slot_Contrib_alert()
+        self.slot_contrib_alert()
         # Contributeurs : Icone
         self.label_IFVV.setPixmap( QPixmap( os.path.join( REPERTOIRE_HELP, 
             "Logo_IFV.png"))) 
@@ -776,7 +766,7 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         # Mise à jour du commentaire pour le rayon
         self.slot_rayon()
             
-    def slot_Contrib_alert( self):
+    def slot_contrib_alert( self):
         """ 
         Toute les x utilisations, rappeler à l'utilisateur qu'il est bien de contribuer
         """
@@ -787,7 +777,7 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
             self.settings.setValue("Affichage/Contrib_alert", \
                 niveau_utilisation + 1)
             return 
-          
+        
         aText = self.trUtf8( "{0} vous rapelle que ce logiciel ouvert et libre n'est pas exempt de besoins. ").\
                     format( PHYSIOCAP_UNI)
         aText = aText + self.trUtf8( "L'extension est diffusée gratuitement par le biais de la distribution ")
@@ -924,6 +914,52 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
 ##                str( min_entier) + " max =" + str( max_entier) + " nombre iso =" + str( nombre_iso))
             self.spinBoxNombreIso.setValue( nombre_iso)                    
             return
+        
+    def memoriser_affichages(self):
+        """ Mémoriser les choix d'affichage """        
+        # Sauver les affichages cas généraux
+        diametre = "NO"
+        if self.checkBoxDiametre.isChecked():
+            diametre = "YES"
+        self.settings.setValue("Affichage/diametre", diametre )
+        sarment = "NO"
+        if self.checkBoxSarment.isChecked():
+            sarment = "YES"
+        self.settings.setValue("Affichage/sarment", sarment )
+        biomasse = "NO"
+        if self.checkBoxBiomasse.isChecked():
+            biomasse = "YES"
+        self.settings.setValue("Affichage/biomasse", biomasse )
+        vitesse = "NO"
+        if self.checkBoxVitesse.isChecked():
+            vitesse = "YES"
+        self.settings.setValue("Affichage/vitesse", vitesse )
+
+        self.settings.setValue("Physiocap/leFormat", self.fieldComboFormats.currentText())
+        #self.settings.setValue("Physiocap/leChoixShapeDiametre", self.fieldComboShapeDiametre.currentIndex())
+        self.settings.setValue("Physiocap/leChoixShapeSarment", self.fieldComboShapeSarment.currentIndex())
+        self.settings.setValue("Physiocap/leChoixShapeBiomasse", self.fieldComboShapeBiomasse.currentIndex())
+        self.settings.setValue("Physiocap/leChoixShapeVitesse", self.fieldComboShapeVitesse.currentIndex())
+        
+        # THEMATIQUES
+        self.settings.setValue("Physiocap/leDirThematiques", self.fieldComboThematiques.currentText())
+        self.settings.setValue("Physiocap/leChoixDeThematiques", self.fieldComboThematiques.currentIndex())
+        # Filtrage
+        self.settings.setValue("Physiocap/themeDiametre", self.lineEditThematiqueDiametre.text())
+        self.settings.setValue("Physiocap/themeSarment", self.lineEditThematiqueSarment.text())
+        self.settings.setValue("Physiocap/themeBiomasse",self.lineEditThematiqueBiomasse.text())
+        self.settings.setValue("Physiocap/themeVitesse", self.lineEditThematiqueVitesse.text())
+        # Inter
+        self.settings.setValue("Physiocap/themeInterDiametre", self.lineEditThematiqueInterDiametre.text())
+        self.settings.setValue("Physiocap/themeInterSarment", self.lineEditThematiqueInterSarment.text())
+        self.settings.setValue("Physiocap/themeInterBiomasse", self.lineEditThematiqueInterBiomasse.text())
+        self.settings.setValue("Physiocap/themeInterLibelle", self.lineEditThematiqueInterLibelle.text())
+        # inter moyenne et points
+        self.settings.setValue("Physiocap/themeInterMoyenne", self.lineEditThematiqueInterMoyenne.text())
+        self.settings.setValue("Physiocap/themeInterPoints", self.lineEditThematiqueInterPoints.text())
+        # intra
+        self.settings.setValue("Physiocap/themeIntraIso", self.lineEditThematiqueIntraIso.text())
+        self.settings.setValue("Physiocap/themeIntraImage", self.lineEditThematiqueIntraImage.text())
 
     def memoriser_saisies_inter_intra_parcelles(self):
         """ Mémorise les saisies inter et intra """
@@ -988,6 +1024,13 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
             images = "YES"
         self.settings.setValue("Affichage/IntraImages", images ) 
         
+        # Cas consolidation
+        consolidation = "NO"
+        if self.checkBoxConsolidation.isChecked():
+            consolidation = "YES"
+        self.settings.setValue("Physiocap/consolidation", consolidation )
+            
+
         # Cas du choix SAGA / GDAL
         LIB = "DO NOT KNOW"
         if self.radioButtonSAGA.isChecked():
@@ -1007,7 +1050,8 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
             physiocap_error( self, aText, "CRITICAL")
             return physiocap_message_box( self, aText, "information" )
 
-        # Memorisation des saisies
+        # Memorisation des saisies et les affichage
+        self.memoriser_affichages()
         self.memoriser_saisies_inter_intra_parcelles()
             
         try:
@@ -1123,6 +1167,7 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         # Eviter les appels multiples
         self.ButtonInter.setEnabled( False)
         # Memorisation des saisies
+        self.memoriser_affichages()
         self.memoriser_saisies_inter_intra_parcelles()
             
         try:
@@ -1199,6 +1244,7 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         """Close when bouton is Cancel"""
         # Todo : V3 prefixe Slot et nommage SLOT_Bouton_Cancel      
         # On sauve les saisies
+        self.memoriser_affichages()
         self.memoriser_saisies_inter_intra_parcelles()
         QDialog.reject( self)
                 
@@ -1277,50 +1323,9 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
             physiocap_log( self.trUtf8( "Les histogrammes sont attendus"))
         self.settings.setValue("Physiocap/histogrammes", TRACE_HISTO)
 
-        # Sauver les affichages cas généraux
-        diametre = "NO"
-        if self.checkBoxDiametre.isChecked():
-            diametre = "YES"
-        self.settings.setValue("Affichage/diametre", diametre )
-        sarment = "NO"
-        if self.checkBoxSarment.isChecked():
-            sarment = "YES"
-        self.settings.setValue("Affichage/sarment", sarment )
-        biomasse = "NO"
-        if self.checkBoxBiomasse.isChecked():
-            biomasse = "YES"
-        self.settings.setValue("Affichage/biomasse", biomasse )
-        vitesse = "NO"
-        if self.checkBoxVitesse.isChecked():
-            vitesse = "YES"
-        self.settings.setValue("Affichage/vitesse", vitesse )
-
-        self.settings.setValue("Physiocap/leFormat", self.fieldComboFormats.currentText())
-        #self.settings.setValue("Physiocap/leChoixShapeDiametre", self.fieldComboShapeDiametre.currentIndex())
-        self.settings.setValue("Physiocap/leChoixShapeSarment", self.fieldComboShapeSarment.currentIndex())
-        self.settings.setValue("Physiocap/leChoixShapeBiomasse", self.fieldComboShapeBiomasse.currentIndex())
-        self.settings.setValue("Physiocap/leChoixShapeVitesse", self.fieldComboShapeVitesse.currentIndex())
-        
-        # THEMATIQUES
-        self.settings.setValue("Physiocap/leDirThematiques", self.fieldComboThematiques.currentText())
-        self.settings.setValue("Physiocap/leChoixDeThematiques", self.fieldComboThematiques.currentIndex())
-        # Filtrage
-        self.settings.setValue("Physiocap/themeDiametre", self.lineEditThematiqueDiametre.text())
-        self.settings.setValue("Physiocap/themeSarment", self.lineEditThematiqueSarment.text())
-        self.settings.setValue("Physiocap/themeBiomasse",self.lineEditThematiqueBiomasse.text())
-        self.settings.setValue("Physiocap/themeVitesse", self.lineEditThematiqueVitesse.text())
-        # Inter
-        self.settings.setValue("Physiocap/themeInterDiametre", self.lineEditThematiqueInterDiametre.text())
-        self.settings.setValue("Physiocap/themeInterSarment", self.lineEditThematiqueInterSarment.text())
-        self.settings.setValue("Physiocap/themeInterBiomasse", self.lineEditThematiqueInterBiomasse.text())
-        self.settings.setValue("Physiocap/themeInterLibelle", self.lineEditThematiqueInterLibelle.text())
-        # inter moyenne et points
-        self.settings.setValue("Physiocap/themeInterMoyenne", self.lineEditThematiqueInterMoyenne.text())
-        self.settings.setValue("Physiocap/themeInterPoints", self.lineEditThematiqueInterPoints.text())
-        # intra
-        self.settings.setValue("Physiocap/themeIntraIso", self.lineEditThematiqueIntraIso.text())
-        self.settings.setValue("Physiocap/themeIntraImage", self.lineEditThematiqueIntraImage.text())
-            
+        # On sauve les affichages
+        self.memoriser_affichages()
+                    
         # ########################################
         # Gestion de capture des erreurs Physiocap
         # ########################################

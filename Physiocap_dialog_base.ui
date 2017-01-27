@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>555</width>
+    <width>535</width>
     <height>720</height>
    </rect>
   </property>
@@ -19,8 +19,8 @@
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
-     <x>340</x>
-     <y>678</y>
+     <x>320</x>
+     <y>674</y>
      <width>211</width>
      <height>31</height>
     </rect>
@@ -55,8 +55,8 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>4</y>
+     <x>0</x>
+     <y>7</y>
      <width>531</width>
      <height>662</height>
     </rect>
@@ -74,7 +74,7 @@
     <enum>QTabWidget::North</enum>
    </property>
    <property name="currentIndex">
-    <number>3</number>
+    <number>0</number>
    </property>
    <property name="movable">
     <bool>true</bool>
@@ -1920,12 +1920,12 @@
        <rect>
         <x>40</x>
         <y>202</y>
-        <width>231</width>
+        <width>261</width>
         <height>26</height>
        </rect>
       </property>
       <property name="text">
-       <string>Libellé de toutes les moyennes</string>
+       <string>Etiquettes de toutes les moyennes</string>
       </property>
       <property name="checked">
        <bool>true</bool>
@@ -1978,12 +1978,12 @@
        <rect>
         <x>0</x>
         <y>239</y>
-        <width>251</width>
+        <width>321</width>
         <height>26</height>
        </rect>
       </property>
       <property name="text">
-       <string>Moyennes de chaque parcelle</string>
+       <string>Etiquettes pour  chacune des moyennes </string>
       </property>
       <property name="checked">
        <bool>false</bool>
@@ -3090,7 +3090,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Version 1.6.0 CONSOLIDATION</string>
+       <string>Version 1.6.2 CONSOLIDATION</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_100">
