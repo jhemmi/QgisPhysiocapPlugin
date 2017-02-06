@@ -44,8 +44,8 @@ class SafeTranslationsTest(unittest.TestCase):
         translator.load(file_path)
         QCoreApplication.installTranslator(translator)
 
-        expected_message = 'Main'
-        real_message = QCoreApplication.translate("PhysiocapAnalyseurDialogBase", 'Paramètres')
+        expected_message = 'Physiocap analysor'
+        real_message = QCoreApplication.translate("PhysiocapAnalyseurDialogBase", 'Physiocap analyseur')
         self.assertEqual(real_message, expected_message)
 
 

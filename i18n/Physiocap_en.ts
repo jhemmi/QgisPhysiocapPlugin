@@ -481,11 +481,6 @@ Erreur bloquante sous Windows qui nécessite de créer une nouvelle instance du 
         <source>Physiocap</source>
         <translation>Physiocap</translation>
     </message>
-    <message utf8="true">
-        <location filename="test_translations.py" line="48"/>
-        <source>Paramètres</source>
-        <translation>Main</translation>
-    </message>
     <message>
         <location filename="Physiocap_dialog_base.ui" line="120"/>
         <source>Interrang (cm) - Ecartement entre rangs</source>
@@ -1174,6 +1169,11 @@ p, li { white-space: pre-wrap; }
         <location filename="Physiocap_dialog_base.ui" line="3096"/>
         <source>Version 1.6.2 CONSOLIDATION</source>
         <translation>Version 1.6.2 CONSOLIDATE</translation>
+    </message>
+    <message>
+        <location filename="test_translations.py" line="48"/>
+        <source>Physiocap analyseur</source>
+        <translation>Physiocap analysor</translation>
     </message>
 </context>
 <context>

@@ -25,7 +25,7 @@
 
 #Add iso code for any locales you want to support here (space separated)
 # default is no locales
-LOCALES = Physiocap_en
+LOCALES = Physiocap_it Physiocap_en 
 
 # If locales are enabled, set the name of the lrelease binary on your system. If
 # you have trouble compiling the translations, you may have to specify the full path to
@@ -215,7 +215,8 @@ transcompile:
 	@echo "Compiled translation files to .qm files."
 	@echo "----------------------------------------"
 	@chmod +x scripts/compile-strings.sh
-	@scripts/compile-strings.sh $(LRELEASE) $(LOCALES)
+	#echo "Trancompile == $(LOCALES) =="
+	@scripts/compile-strings.sh $(LRELEASE) "$(LOCALES)"
 
 transclean:
 	@echo
