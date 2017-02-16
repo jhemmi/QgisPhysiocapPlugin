@@ -19,8 +19,8 @@
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
-     <x>320</x>
-     <y>674</y>
+     <x>260</x>
+     <y>675</y>
      <width>211</width>
      <height>31</height>
     </rect>
@@ -81,7 +81,7 @@
    </property>
    <widget class="QWidget" name="tabParametres">
     <attribute name="title">
-     <string comment="Params">ϕ Params</string>
+     <string>Params</string>
     </attribute>
     <widget class="QGroupBox" name="Vignoble">
      <property name="enabled">
@@ -586,7 +586,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>Nom du projet ϕ (suffixe du répertoire et préfixes des fichiers générés)</string>
+        <string>Projet Physiocap (suffixe du répertoire et préfixes des fichiers générés)</string>
        </property>
       </widget>
      </widget>
@@ -826,9 +826,9 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>60</x>
+       <x>40</x>
        <y>586</y>
-       <width>191</width>
+       <width>211</width>
        <height>31</height>
       </rect>
      </property>
@@ -1132,7 +1132,7 @@
        <rect>
         <x>290</x>
         <y>62</y>
-        <width>171</width>
+        <width>181</width>
         <height>17</height>
        </rect>
       </property>
@@ -1214,7 +1214,7 @@
       <rect>
        <x>10</x>
        <y>30</y>
-       <width>261</width>
+       <width>281</width>
        <height>31</height>
       </rect>
      </property>
@@ -1602,15 +1602,15 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>0</x>
         <y>162</y>
-        <width>501</width>
+        <width>511</width>
         <height>33</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <weight>50</weight>
         <italic>true</italic>
         <bold>false</bold>
@@ -1675,7 +1675,7 @@
        <rect>
         <x>10</x>
         <y>303</y>
-        <width>451</width>
+        <width>481</width>
         <height>20</height>
        </rect>
       </property>
@@ -1796,9 +1796,9 @@
     <widget class="QCheckBox" name="checkBoxConsolidation">
      <property name="geometry">
       <rect>
-       <x>280</x>
-       <y>34</y>
-       <width>221</width>
+       <x>300</x>
+       <y>33</y>
+       <width>201</width>
        <height>26</height>
       </rect>
      </property>
@@ -2105,9 +2105,9 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>110</x>
+        <x>100</x>
         <y>32</y>
-        <width>191</width>
+        <width>211</width>
         <height>20</height>
        </rect>
       </property>
@@ -2133,9 +2133,9 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>110</x>
+        <x>100</x>
         <y>53</y>
-        <width>191</width>
+        <width>211</width>
         <height>20</height>
        </rect>
       </property>
@@ -2161,9 +2161,9 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>110</x>
+        <x>100</x>
         <y>72</y>
-        <width>191</width>
+        <width>211</width>
         <height>20</height>
        </rect>
       </property>
@@ -2205,9 +2205,9 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>110</x>
+        <x>100</x>
         <y>93</y>
-        <width>191</width>
+        <width>211</width>
         <height>20</height>
        </rect>
       </property>
@@ -2686,7 +2686,7 @@
        <rect>
         <x>0</x>
         <y>350</y>
-        <width>161</width>
+        <width>181</width>
         <height>16</height>
        </rect>
       </property>
@@ -2708,7 +2708,7 @@
        <rect>
         <x>0</x>
         <y>336</y>
-        <width>171</width>
+        <width>181</width>
         <height>20</height>
        </rect>
       </property>
@@ -2749,7 +2749,7 @@
        <x>10</x>
        <y>417</y>
        <width>491</width>
-       <height>190</height>
+       <height>200</height>
       </rect>
      </property>
      <property name="toolTip">
@@ -2811,9 +2811,9 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>72</y>
-        <width>421</width>
+        <x>10</x>
+        <y>73</y>
+        <width>461</width>
         <height>21</height>
        </rect>
       </property>
@@ -2834,7 +2834,7 @@
        <rect>
         <x>10</x>
         <y>54</y>
-        <width>421</width>
+        <width>471</width>
         <height>21</height>
        </rect>
       </property>
@@ -2849,20 +2849,20 @@
        <string>Par défaut, le répertoire des thématiques est celui du plugin.</string>
       </property>
      </widget>
-     <widget class="QLabel" name="lab_194">
+     <widget class="QLabel" name="lab_198">
       <property name="enabled">
        <bool>true</bool>
       </property>
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>112</y>
+        <x>20</x>
+        <y>127</y>
         <width>461</width>
         <height>21</height>
        </rect>
       </property>
       <property name="text">
-       <string>- pourrez modifier ces modèles dans QGIS puis changer leurs noms</string>
+       <string>- pourrez modifier ces modèles puis changer leurs noms</string>
       </property>
      </widget>
      <widget class="QLabel" name="lab_193">
@@ -2871,7 +2871,7 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>30</x>
+        <x>20</x>
         <y>92</y>
         <width>461</width>
         <height>21</height>
@@ -2884,7 +2884,7 @@
        </font>
       </property>
       <property name="text">
-       <string>- devez Fermer ϕ puis QGIS. Copiez les modèles vers ce répertoire</string>
+       <string>- devez Fermer l'extension Physiocap puis QGIS. </string>
       </property>
      </widget>
      <widget class="QLabel" name="lab_197">
@@ -2894,18 +2894,19 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>153</y>
+        <y>169</y>
         <width>471</width>
         <height>21</height>
        </rect>
       </property>
       <property name="font">
        <font>
+        <pointsize>9</pointsize>
         <italic>true</italic>
        </font>
       </property>
       <property name="text">
-       <string>choisir à nouveau le repertoire des thématiques du plugin</string>
+       <string>choisir à nouveau le répertoire des thématiques du plugin</string>
       </property>
      </widget>
      <widget class="QLabel" name="lab_196">
@@ -2915,18 +2916,41 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>134</y>
+        <y>150</y>
         <width>471</width>
         <height>21</height>
        </rect>
       </property>
       <property name="font">
        <font>
+        <pointsize>9</pointsize>
         <italic>true</italic>
        </font>
       </property>
       <property name="text">
        <string>Pour revenir en arrière (vous perdrez vos nommages spécifiques),</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lab_194">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>112</y>
+        <width>461</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>- copiez les modèles vers ce répertoire</string>
       </property>
      </widget>
     </widget>
@@ -3093,7 +3117,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Version 1.6.2 CONSOLIDATION</string>
+       <string>Version 1.6.3 CONSOLIDATION</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_100">
