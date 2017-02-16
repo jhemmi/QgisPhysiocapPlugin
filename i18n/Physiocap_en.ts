@@ -732,22 +732,22 @@ Erreur bloquante sous Windows qui nécessite de créer une nouvelle instance du 
         <translation>Choose your template folder</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="2936"/>
+        <location filename="Physiocap_dialog_base.ui" line="2960"/>
         <source>A propos</source>
         <translation>About</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="3125"/>
+        <location filename="Physiocap_dialog_base.ui" line="3149"/>
         <source>jhemmi.eu</source>
         <translation>jhemmi.eu</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="3053"/>
+        <location filename="Physiocap_dialog_base.ui" line="3077"/>
         <source>CIVC</source>
         <translation>Champagne Comity</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="3075"/>
+        <location filename="Physiocap_dialog_base.ui" line="3099"/>
         <source>Auteurs :</source>
         <translation>Authors :</translation>
     </message>
@@ -762,12 +762,12 @@ Erreur bloquante sous Windows qui nécessite de créer une nouvelle instance du 
         <translation>Prefered coordinate reference system</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="3109"/>
+        <location filename="Physiocap_dialog_base.ui" line="3133"/>
         <source>Extension Physiocap pour Qgis</source>
         <translation>Physiocap&apos;s plugin for Qgis</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="3002"/>
+        <location filename="Physiocap_dialog_base.ui" line="3026"/>
         <source>L&apos;extension Physiocap pour Qgis est utile pour vous ?</source>
         <translation>Is Physiocap&apos;s plugin usefull for you ?</translation>
     </message>
@@ -802,7 +802,7 @@ Erreur bloquante sous Windows qui nécessite de créer une nouvelle instance du 
         <translation>Interpolation radius (in cart unit)</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="3040"/>
+        <location filename="Physiocap_dialog_base.ui" line="3064"/>
         <source>Contributeurs : </source>
         <translation>Contributors : </translation>
     </message>
@@ -867,7 +867,7 @@ Erreur bloquante sous Windows qui nécessite de créer une nouvelle instance du 
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Status bar for last Inter ou Intra calculus&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="3037"/>
+        <location filename="Physiocap_dialog_base.ui" line="3061"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Vous aussi contribuez à l&apos;extension qui vous garantit de garder la maîtrise de vos mesures Physiocap. Le capteur vous permet de prendre possession de vos mesures. L&apos;extension vous autorise à rester maître de leurs utilisations.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -887,7 +887,7 @@ Erreur bloquante sous Windows qui nécessite de créer une nouvelle instance du 
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;When you hesitate, refresh lists&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="3144"/>
+        <location filename="Physiocap_dialog_base.ui" line="3168"/>
         <source>IFVV</source>
         <translation></translation>
     </message>
@@ -942,7 +942,7 @@ Erreur bloquante sous Windows qui nécessite de créer une nouvelle instance du 
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="2980"/>
+        <location filename="Physiocap_dialog_base.ui" line="3004"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;L&apos;extension Physiocap pour QGIS est Open Source, sous licence GNU et en Common Creative.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Ce choix est lié à la grande importance de rester maître de ses données. Le capteur Physiocap vous permet de maîtriser vos mesures. Le Comité Champagne a fait le choix de l&apos;ouverture en publiant en Common Creative l&apos;ensemble des publications et outils traitant de Physiocap. jhemmi.eu s&apos;engage dans cette même voie pour permettre une diffusion simple et efficace d&apos;un outil de traitement des données brutes de Physiocap sous QGIS.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Mais Open Source et diffusé gratuitement par le biais de la distribution QGIS ne signifie pas &amp;quot;exempt de besoins&amp;quot;. &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;L&apos;extension a besoin de votre aide&lt;/span&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;. Contribuez simplement à la hauteur du service rendu.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -952,7 +952,7 @@ Erreur bloquante sous Windows qui nécessite de créer une nouvelle instance du 
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="3141"/>
+        <location filename="Physiocap_dialog_base.ui" line="3165"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;A. Davy a contribué aux précisions sur les métriques Physiocap.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;M. Raynal a corrigé la traduction anglaise de la version 1.3.3.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -962,7 +962,7 @@ Erreur bloquante sous Windows qui nécessite de créer une nouvelle instance du 
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Running an interpolation needs to  to be sure of your choice.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;When you hesitate , please find help. &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="3208"/>
+        <location filename="Physiocap_dialog_base.ui" line="3232"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -1105,37 +1105,22 @@ p, li { white-space: pre-wrap; }
         <translation>Initial option : plugin templates folder.</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="2865"/>
-        <source>- pourrez modifier ces modèles dans QGIS puis changer leurs noms</source>
-        <translation>- can modify your templates using QGIS then you can rename templates</translation>
-    </message>
-    <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="2887"/>
-        <source>- devez Fermer ϕ puis QGIS. Copiez les modèles vers ce répertoire</source>
-        <translation>- have to close ϕ then QGIS. Copy the models to QGIS template folder</translation>
-    </message>
-    <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="2908"/>
-        <source>choisir à nouveau le repertoire des thématiques du plugin</source>
-        <translation>choose again the plugin template folder</translation>
-    </message>
-    <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="2929"/>
+        <location filename="Physiocap_dialog_base.ui" line="2931"/>
         <source>Pour revenir en arrière (vous perdrez vos nommages spécifiques),</source>
         <translation>To return to initial option (you&apos;ll lost yours specific names),</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="3018"/>
+        <location filename="Physiocap_dialog_base.ui" line="3042"/>
         <source>Contribuez maintenant pour jhemmi.eu !</source>
         <translation>Contribute now for jhemmi.eu !</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="3160"/>
+        <location filename="Physiocap_dialog_base.ui" line="3184"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Moët a demandé la possibilité de Consolidation des données avant traitement Inter et Intra. Afin d&apos;améliorer l&apos;extension pour le cas de traitement de gros volumes de données, les possibilités suivantes ont été ajoutées : &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- choix du répertoire des données cibles produites,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- amélioration des possibilités de choix d&apos;affichage et possibilité de préciser les noms de fichiers qml&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- choix du mode d&apos;aide pour le calcul des isolignes&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Ces modifications ont été développé avec la contribution de Moët et sont incluses dans la version 1.6.0.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="3163"/>
+        <location filename="Physiocap_dialog_base.ui" line="3187"/>
         <source>Moët</source>
         <translation></translation>
     </message>
@@ -1165,11 +1150,6 @@ p, li { white-space: pre-wrap; }
         <translation>Label for each plot&apos;s average</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="3096"/>
-        <source>Version 1.6.2 CONSOLIDATION</source>
-        <translation>Version 1.6.2 CONSOLIDATE</translation>
-    </message>
-    <message>
         <location filename="test_translations.py" line="48"/>
         <source>Physiocap analyseur</source>
         <translation>Physiocap analysor</translation>
@@ -1178,6 +1158,31 @@ p, li { white-space: pre-wrap; }
         <location filename="Physiocap_dialog_base.ui" line="84"/>
         <source>Params</source>
         <translation>Main</translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog_base.ui" line="2865"/>
+        <source>- pourrez modifier ces modèles puis changer leurs noms</source>
+        <translation>- can modify your templates then you can rename templates</translation>
+    </message>
+    <message>
+        <location filename="Physiocap_dialog_base.ui" line="2887"/>
+        <source>- devez Fermer l&apos;extension Physiocap puis QGIS. </source>
+        <translation>- have to close Physiocap plugin then QGIS.</translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog_base.ui" line="2909"/>
+        <source>choisir à nouveau le répertoire des thématiques du plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog_base.ui" line="2953"/>
+        <source>- copiez les modèles vers ce répertoire</source>
+        <translation>- copy the models to QGIS template folder</translation>
+    </message>
+    <message>
+        <location filename="Physiocap_dialog_base.ui" line="3120"/>
+        <source>Version 1.6.3 CONSOLIDATION</source>
+        <translation></translation>
     </message>
 </context>
 <context>
