@@ -151,21 +151,6 @@ def physiocap_csv_vers_shapefile( self, progress_barre, csv_name, shape_name, pr
     # Prepare les attributs
     les_champs = QgsFields()
     # V1.0 Ajout du GID
-##    les_champs.append( QgsField("gid", QVariant.Int, "integer", 10))
-##    les_champs.append( QgsField("date", QVariant.String, "string", 25))
-##    les_champs.append( QgsField("vitesse", QVariant.Double, "double", 10,2))
-##    les_champs.append(QgsField("nbsarm",  QVariant.Double, "double", 10,2))
-##    les_champs.append(QgsField("diam",  QVariant.Double, "double", 10,2))
-##    les_champs.append(QgsField("biom", QVariant.Double,"double", 10,2)) 
-##    if details == "YES":
-##        # Niveau de detail demandé
-##        les_champs.append(QgsField("nbsarmm2", QVariant.Double,"double", 10,2))
-##        les_champs.append(QgsField("nbsarmcep", QVariant.Double,"double", 10,2))
-##        les_champs.append(QgsField("biomm2", QVariant.Double,"double", 10,2))
-##        les_champs.append(QgsField("biomgm2", QVariant.Double,"double", 10,2))
-##        les_champs.append(QgsField("biomgcep", QVariant.Double,"double", 10,2))
-## 
-    # V1.0 Ajout du GID
     les_champs.append( QgsField("GID", QVariant.Int, "integer", 10))
     les_champs.append( QgsField("DATE", QVariant.String, "string", 25))
     les_champs.append( QgsField("VITESSE", QVariant.Double, "double", 10,2))

@@ -74,7 +74,7 @@
     <enum>QTabWidget::North</enum>
    </property>
    <property name="currentIndex">
-    <number>3</number>
+    <number>4</number>
    </property>
    <property name="movable">
     <bool>true</bool>
@@ -1858,7 +1858,7 @@
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>141</width>
+        <width>61</width>
         <height>21</height>
        </rect>
       </property>
@@ -2084,7 +2084,7 @@
        <rect>
         <x>110</x>
         <y>10</y>
-        <width>201</width>
+        <width>191</width>
         <height>21</height>
        </rect>
       </property>
@@ -2096,7 +2096,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Choix affichage des vitesses </string>
+       <string>Choix des points affichés</string>
       </property>
      </widget>
      <widget class="QComboBox" name="fieldComboShapeDiametre">
@@ -2112,7 +2112,7 @@
        </rect>
       </property>
       <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Pour la thématique &amp;quot;Diamètre&amp;quot;, l'affichage en fin de filtrage contiendra les données sans vitesses nulles.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Pour la thématique &amp;quot;Diamètre&amp;quot;, l'affichage en fin de filtrage contiendra uniquement les points qui ont des sarments filtrés.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="accessibleDescription">
        <string/>
@@ -2140,7 +2140,7 @@
        </rect>
       </property>
       <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Vous pouvez choisir d'afficher en fin de filtrage : les données avec les vitesses nulles ou les données sans vitesse nulle.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Vous pouvez choisir d'afficher en fin de filtrage : &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;les points avec uniquement les sarments filtrés &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;ou&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;les points avec les sarments filtrés et les points sans sarments mesurés.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="accessibleDescription">
        <string/>
@@ -2168,7 +2168,7 @@
        </rect>
       </property>
       <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Vous pouvez choisir d'afficher en fin de filtrage : les données avec les vitesses nulles ou les données sans vitesse nulle.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Vous pouvez choisir d'afficher en fin de filtrage : &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;les points avec uniquement les sarments filtrés &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;ou&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;les points avec les sarments filtrés et les points sans sarments mesurés.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="accessibleDescription">
        <string/>
@@ -2212,7 +2212,7 @@
        </rect>
       </property>
       <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Pour la thématique &amp;quot;Vitesse&amp;quot;, l'affichage en fin de filtrage contiendra les données avec les vitesses nulles.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Vous pouvez choisir d'afficher en fin de filtrage : &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;les points avec uniquement les sarments filtrés &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;ou&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;les points avec les sarments filtrés et les points sans sarments mesurés. Ce choix est adapté pour visualiser toutes les arrêts (vitesses nulles).&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="accessibleDescription">
        <string/>
@@ -2938,7 +2938,7 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>112</y>
+        <y>111</y>
         <width>461</width>
         <height>16</height>
        </rect>
@@ -3117,7 +3117,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Version 1.6.3 CONSOLIDATION</string>
+       <string>Version 1.6.3 B CONSOLIDATION</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_100">

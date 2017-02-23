@@ -235,7 +235,7 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         # Remplissage de la liste de SHAPE Filtre
         # DIAMETRE : Cas unique
         self.fieldComboShapeDiametre.clear( )
-        self.fieldComboShapeDiametre.addItem( PHYSIOCAP_WARNING + " " + self.trUtf8("Sans vitesse nulle"))
+        self.fieldComboShapeDiametre.addItem( PHYSIOCAP_WARNING + " " + self.trUtf8("Sarments filtrés"))
         self.fieldComboShapeDiametre.setCurrentIndex( 0)                
  
         # SARMENT
@@ -243,8 +243,8 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         leChoixDeShape = int( self.settings.value("Physiocap/leChoixShapeSarment", -1)) 
         # Cas initial
         self.fieldComboShapeSarment.clear( )
-        self.fieldComboShapeSarment.addItem( self.trUtf8("Sans vitesse nulle") )
-        self.fieldComboShapeSarment.addItem( self.trUtf8("Avec vitesse nulle") )
+        self.fieldComboShapeSarment.addItem( self.trUtf8("Sarments filtrés") )
+        self.fieldComboShapeSarment.addItem( self.trUtf8("Points sans sarment") )
         if ( leChoixDeShape == -1):
             self.fieldComboShapeSarment.setCurrentIndex( 0)                
         else:
@@ -255,8 +255,8 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         leChoixDeShape = int( self.settings.value("Physiocap/leChoixShapeVitesse", -1)) 
         # Cas initial
         self.fieldComboShapeVitesse.clear( )
-        self.fieldComboShapeVitesse.addItem( self.trUtf8("Sans vitesse nulle") )
-        self.fieldComboShapeVitesse.addItem( self.trUtf8("Avec vitesse nulle") )
+        self.fieldComboShapeVitesse.addItem( self.trUtf8("Sarments filtrés") )
+        self.fieldComboShapeVitesse.addItem( self.trUtf8("Points sans sarment") )
         if ( leChoixDeShape == -1):
             self.fieldComboShapeVitesse.setCurrentIndex( 0)                
         else:
@@ -267,8 +267,8 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         leChoixDeShape = int( self.settings.value("Physiocap/leChoixShapeBiomasse", -1)) 
         # Cas initial
         self.fieldComboShapeBiomasse.clear( )
-        self.fieldComboShapeBiomasse.addItem( self.trUtf8("Sans vitesse nulle") )
-        self.fieldComboShapeBiomasse.addItem( self.trUtf8("Avec vitesse nulle") )
+        self.fieldComboShapeBiomasse.addItem( self.trUtf8("Sarments filtrés") )
+        self.fieldComboShapeBiomasse.addItem( self.trUtf8("Points sans sarment") )
         if ( leChoixDeShape == -1):
             self.fieldComboShapeBiomasse.setCurrentIndex( 0)                
         else:

@@ -8,7 +8,7 @@
         <translation>Physiocap</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="Physiocap_CIVC.py" line="479"/>
+        <location filename="Physiocap_CIVC.py" line="464"/>
         <source>Problème majeur dans le choix du détail du parcellaire</source>
         <translation>Problema maggiore nelle scelte
 dei dettagli delle parcelle</translation>
@@ -48,16 +48,6 @@ dei dettagli delle parcelle</translation>
         <location filename="Physiocap_dialog.py" line="215"/>
         <source>Pas de liste des formats de vecteurs pré défini</source>
         <translation>La lista dei formati dei vettori non è definita</translation>
-    </message>
-    <message>
-        <location filename="Physiocap_dialog.py" line="270"/>
-        <source>Sans vitesse nulle</source>
-        <translation>velocità non nulla</translation>
-    </message>
-    <message>
-        <location filename="Physiocap_dialog.py" line="271"/>
-        <source>Avec vitesse nulle</source>
-        <translation>La velocità può essere nulla</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="Physiocap_dialog.py" line="284"/>
@@ -471,6 +461,16 @@ Erreur bloquante sous Windows qui nécessite de créer une nouvelle instance du 
     <message>
         <location filename="Physiocap_dialog.py" line="99"/>
         <source>{0} Params</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="Physiocap_dialog.py" line="270"/>
+        <source>Sarments filtrés</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Physiocap_dialog.py" line="271"/>
+        <source>Points sans sarment</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -977,28 +977,8 @@ Erreur bloquante sous Windows qui nécessite de créer une nouvelle instance du 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="2099"/>
-        <source>Choix affichage des vitesses </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="Physiocap_dialog_base.ui" line="2115"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Pour la thématique &amp;quot;Diamètre&amp;quot;, l&apos;affichage en fin de filtrage contiendra les données sans vitesses nulles.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="Physiocap_dialog_base.ui" line="2171"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Vous pouvez choisir d&apos;afficher en fin de filtrage : les données avec les vitesses nulles ou les données sans vitesse nulle.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="Physiocap_dialog_base.ui" line="2196"/>
         <source>Vitesse</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="Physiocap_dialog_base.ui" line="2215"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Pour la thématique &amp;quot;Vitesse&amp;quot;, l&apos;affichage en fin de filtrage contiendra les données avec les vitesses nulles.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message encoding="UTF-8">
@@ -1170,9 +1150,29 @@ p, li { white-space: pre-wrap; }
         <source>- copiez les modèles vers ce répertoire</source>
         <translation type="unfinished"></translation>
     </message>
+    <message encoding="UTF-8">
+        <location filename="Physiocap_dialog_base.ui" line="2099"/>
+        <source>Choix des points affichés</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="Physiocap_dialog_base.ui" line="2115"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Pour la thématique &amp;quot;Diamètre&amp;quot;, l&apos;affichage en fin de filtrage contiendra uniquement les points qui ont des sarments filtrés.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="Physiocap_dialog_base.ui" line="2171"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Vous pouvez choisir d&apos;afficher en fin de filtrage : &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;les points avec uniquement les sarments filtrés &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;ou&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;les points avec les sarments filtrés et les points sans sarments mesurés.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="Physiocap_dialog_base.ui" line="2215"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Vous pouvez choisir d&apos;afficher en fin de filtrage : &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;les points avec uniquement les sarments filtrés &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;ou&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;les points avec les sarments filtrés et les points sans sarments mesurés. Ce choix est adapté pour visualiser toutes les arrêts (vitesses nulles).&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message>
         <location filename="Physiocap_dialog_base.ui" line="3120"/>
-        <source>Version 1.6.3 CONSOLIDATION</source>
+        <source>Version 1.6.3 B CONSOLIDATION</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
