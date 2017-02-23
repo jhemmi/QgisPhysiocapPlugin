@@ -74,7 +74,7 @@
     <enum>QTabWidget::North</enum>
    </property>
    <property name="currentIndex">
-    <number>4</number>
+    <number>3</number>
    </property>
    <property name="movable">
     <bool>true</bool>
@@ -1858,7 +1858,7 @@
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>61</width>
+        <width>71</width>
         <height>21</height>
        </rect>
       </property>
@@ -2082,9 +2082,9 @@
      <widget class="QLabel" name="label_202">
       <property name="geometry">
        <rect>
-        <x>110</x>
-        <y>10</y>
-        <width>191</width>
+        <x>100</x>
+        <y>8</y>
+        <width>211</width>
         <height>21</height>
        </rect>
       </property>
