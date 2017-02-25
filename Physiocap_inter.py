@@ -389,7 +389,7 @@ class PhysiocapInter( QtGui.QDialog):
         nom_complet_point = dialogue.comboBoxPoints.currentText().split( SEPARATEUR_NOEUD)
         if ( len( nom_complet_point) != 2):
             aText = self.trUtf8( "Le shape de points n'est pas choisi. ")
-            aText = aText + self.trUtf8( "Créer une nouvelle instance de projet - bouton OK - ")
+            aText = aText + self.trUtf8( "Créer une nouvelle instance de projet - bouton Filtrer les données brutes - ")
             aText = aText + self.trUtf8( "avant de faire votre calcul de Moyenne Inter Parcellaire")
             physiocap_error( self, aText, "CRITICAL")
             return physiocap_message_box( dialogue, aText, "information" )
@@ -403,7 +403,7 @@ class PhysiocapInter( QtGui.QDialog):
         if ( not isinstance( un_groupe, QgsLayerTreeGroup)):
             aText = self.trUtf8( "Le projet {0} n'existe pas. ").\
                 format( nom_noeud_arbre)
-            aText = aText + self.trUtf8( "Créer une nouvelle instance de projet - bouton OK - ")
+            aText = aText + self.trUtf8( "Créer une nouvelle instance de projet - bouton Filtrer les données brutes - ")
             aText = aText + self.trUtf8( "avant de faire votre calcul de Moyenne Inter Parcellaire")
             if (consolidation == "YES"):
                 aText = aText + self.trUtf8( "Cas de consolidation : le groupe {0} doit exister. ").\
@@ -414,14 +414,14 @@ class PhysiocapInter( QtGui.QDialog):
         # Vérification 
         if ( vecteur_point == None):
             aText = self.trUtf8( "Le jeu de points choisi n'est pas valide. ")
-            aText = aText + self.trUtf8( "Créer une nouvelle instance de projet - bouton OK - ")
+            aText = aText + self.trUtf8( "Créer une nouvelle instance de projet - bouton Filtrer les données brutes - ")
             aText = aText + self.trUtf8( "avant de faire votre calcul de Moyenne Inter Parcellaire")
             physiocap_error( self, aText, "CRITICAL")
             return physiocap_message_box( dialogue, aText, "information" )  
 
         if ( vecteur_poly == None) or ( not vecteur_poly.isValid()):
             aText = self.trUtf8( "Le contour choisi n'est pas valide. ")
-            aText = aText + self.trUtf8( "Créer une nouvelle instance de projet - bouton OK - ")
+            aText = aText + self.trUtf8( "Créer une nouvelle instance de projet - bouton Filtrer les données brutes - ")
             aText = aText + self.trUtf8( "avant de faire votre calcul de Moyenne Inter Parcellaire")
             physiocap_error( self, aText, "CRITICAL")
             return physiocap_message_box( dialogue, aText, "information" ) 
@@ -443,13 +443,16 @@ class PhysiocapInter( QtGui.QDialog):
         pro = vecteur_point.dataProvider() 
         if ( pro.name() == POSTGRES_NOM):
             # On construit le chemin depuis data/projet...
-            # Todo: WT P : test non passé : repertoire_data = > repertoire_cible
+            # Todo: WT PG : test non passé : repertoire_data = > repertoire_cible
             chemin_projet = os.path.join( repertoire_cible, nom_noeud_arbre)
             chemin_shapes = os.path.join( chemin_projet, REPERTOIRE_SHAPEFILE)
         else:
             # Assert repertoire shapefile : c'est le repertoire qui contient le vecteur point
             # Ca fonctionne pour consolidation
             chemin_shapes = os.path.dirname( unicode( vecteur_point.dataProvider().dataSourceUri() ) ) ;
+            shape_point_extension = os.path.basename( unicode( vecteur_point.dataProvider().dataSourceUri() ) ) ;
+            pos_extension = shape_point_extension.rfind(".")
+            shape_point_sans_extension = shape_point_extension[:pos_extension]
         if ( not os.path.exists( chemin_shapes)):
             raise physiocap_exception_rep( chemin_shapes)
                     
@@ -536,7 +539,11 @@ class PhysiocapInter( QtGui.QDialog):
                             date_debut = un_point["DATE"]
                         les_geom_point_feat.append( un_point.geometry().asPoint())
                         les_dates.append( un_point["DATE"])
-                        les_GID.append( un_point["GID"])
+                        # Bug 38 : si pas de GID (cf Python V8)
+                        try:
+                            les_GID.append( un_point["GID"])
+                        except KeyError:
+                            les_GID.append( i)
                         les_vitesses.append( un_point["VITESSE"])
                         les_sarments.append( un_point["NBSARM"])
                         les_diametres.append( un_point["DIAM"])
@@ -584,7 +591,12 @@ class PhysiocapInter( QtGui.QDialog):
                 # ###################
                 if ( contour_avec_point == 1):
                     if un_groupe != None:
-                        vignette_projet = nom_noeud_arbre + SEPARATEUR_ + VIGNETTES_INTER  
+                        # Rajout pour consolidation du nom du shape
+                        if (consolidation == "YES"):
+                            vignette_projet = nom_noeud_arbre + SEPARATEUR_ + shape_point_sans_extension + \
+                             SEPARATEUR_ + VIGNETTES_INTER  
+                        else:
+                            vignette_projet = nom_noeud_arbre + SEPARATEUR_ + VIGNETTES_INTER  
                         vignette_existante = un_groupe.findGroup( vignette_projet)
                         if ( vignette_existante == None ):
                             vignette_group_inter = un_groupe.addGroup( vignette_projet)
@@ -592,7 +604,14 @@ class PhysiocapInter( QtGui.QDialog):
                             # Si vignette preexiste, on ne recommence pas
                             raise physiocap_exception_vignette_exists( nom_noeud_arbre) 
                         
-                    chemin_vignettes = os.path.join( chemin_shapes, VIGNETTES_INTER)
+                    if (consolidation == "YES"):
+                        # Rajout pour consolidation du nom du shape
+                        chemin_shape_nom_point = os.path.join( chemin_shapes, shape_point_sans_extension)
+                        if not (os.path.exists( chemin_shape_nom_point)):
+                            os.mkdir( chemin_shape_nom_point)                    
+                        chemin_vignettes = os.path.join( chemin_shape_nom_point, VIGNETTES_INTER)
+                    else:
+                        chemin_vignettes = os.path.join( chemin_shapes, VIGNETTES_INTER)
                     if not (os.path.exists( chemin_vignettes)):
                         try:
                             os.mkdir( chemin_vignettes)
@@ -645,7 +664,7 @@ class PhysiocapInter( QtGui.QDialog):
                     les_biomgm2, les_biomgcep, les_biomm2, les_nbsarmm2, les_nbsarcep,
                     details)
                 
-                # Affichage dans arbre "vignettes" selon les chack dans onglet Affichage
+                # Affichage dans arbre "vignettes" selon les choix dans onglet Affichage
                 SHAPE_MOYENNE_PAR_CONTOUR = "NO"
                 if dialogue.checkBoxInterMoyennes.isChecked():
                     SHAPE_MOYENNE_PAR_CONTOUR = "YES"

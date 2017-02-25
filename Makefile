@@ -79,7 +79,7 @@ PEP8EXCLUDE=pydev,resources_rc.py,conf.py,third_party,ui
 HELP = help
 HELP_FILES = $(HELP)/index.html $(HELP)/Histo_non_calcule.png \
     $(HELP)/jhemmi.eu.png $(HELP)/CIVC.jpg $(HELP)/Logo_IFV.png \
-    $(HELP)/Logo_Moet.png
+    $(HELP)/Logo_MHCS.png
     
     
 CONF_TARGET = $(HOME)/.config/Physiocap/Physiocap.conf

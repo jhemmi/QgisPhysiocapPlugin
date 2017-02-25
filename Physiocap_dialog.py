@@ -581,8 +581,8 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         # Contributeurs : Icone
         self.label_IFVV.setPixmap( QPixmap( os.path.join( REPERTOIRE_HELP, 
             "Logo_IFV.png"))) 
-        self.label_Moet.setPixmap( QPixmap( os.path.join( REPERTOIRE_HELP, 
-            "Logo_Moet.png"))) 
+        self.label_MHCS.setPixmap( QPixmap( os.path.join( REPERTOIRE_HELP, 
+            "Logo_MHCS.png"))) 
         
         # Init fin 
         return
@@ -682,10 +682,20 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
             chemin_shapes = "chemin vers shapeFile"
             if pro.name() != POSTGRES_NOM:
                 chemin_shapes = os.path.dirname( unicode( layer.dataProvider().dataSourceUri() ) ) ;
+                nom_shape = os.path.basename( unicode( layer.dataProvider().dataSourceUri() ) ) ;
                 if ( not os.path.exists( chemin_shapes)):
                     raise physiocap_exception_rep( "chemin vers shapeFile")
-            
-                chemin_inter = os.path.join( chemin_shapes, VIGNETTES_INTER)
+
+                consolidation = "NO"
+                if self.checkBoxConsolidation.isChecked():
+                    consolidation = "YES"                
+                if (consolidation == "YES"):
+                    pos_extension = nom_shape.rfind(".")
+                    nom_shape_sans_ext = nom_shape[:pos_extension]
+                    chemin_shape_et_nom = os.path.join( chemin_shapes, nom_shape_sans_ext)            
+                    chemin_inter = os.path.join( chemin_shape_et_nom, VIGNETTES_INTER)
+                else:
+                    chemin_inter = os.path.join( chemin_shapes, VIGNETTES_INTER)
                 if (os.path.exists( chemin_inter)):
                     # On aiguille vers Intra
                     self.groupBoxIntra.setEnabled( True)
@@ -1046,7 +1056,7 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         nom_complet_point = self.comboBoxPoints.currentText().split( SEPARATEUR_NOEUD)
         if ( len( nom_complet_point) != 2):
             aText = self.trUtf8( "Le shape de points n'est pas choisi. ")
-            aText = aText + self.trUtf8( "Créer une nouvelle instance de projet - bouton OK - ")
+            aText = aText + self.trUtf8( "Créer une nouvelle instance de projet - bouton Filtrer les données brutes - ")
             aText = aText + self.trUtf8( "avant de faire votre calcul de Moyenne Inter puis Intra Parcellaire")   
             physiocap_error( self, aText, "CRITICAL")
             return physiocap_message_box( self, aText, "information" )
@@ -1077,7 +1087,7 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
             return physiocap_message_box( self, aText, "information" )
         except physiocap_exception_points_invalid as e:
             physiocap_log_for_error( self)
-            aText = self.trUtf8( "Le fichier de points du projet {0} ne contient pas les attributs attendus").\
+            aText = self.trUtf8( "Le fichier de points du projet (champ{0}) ne contient pas les attributs attendus").\
                 format( e)
             physiocap_error( self, aText, "CRITICAL")
             return physiocap_message_box( self, aText, "information" )
@@ -1160,7 +1170,7 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         nom_complet_point = self.comboBoxPoints.currentText().split( SEPARATEUR_NOEUD)
         if ( len( nom_complet_point) != 2):
             aText = self.trUtf8( "Le shape de points n'est pas choisi. ")
-            aText = aText + self.trUtf8( "Créer une nouvelle instance de projet - bouton OK - ")
+            aText = aText + self.trUtf8( "Créer une nouvelle instance de projet - bouton Filtrer les données brutes - ")
             aText = aText + self.trUtf8( "avant de faire votre calcul de Moyenne Inter Parcellaire")
             physiocap_error( self, aText, "CRITICAL")
             return physiocap_message_box( self, aText, "information" )
@@ -1193,9 +1203,9 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         except physiocap_exception_points_invalid as e:
             physiocap_log_for_error( self)
             physiocap_log_for_error( self)
-            aText = self.trUtf8( "Le fichier de points du projet {0} ne contient pas les attributs attendus").\
+            aText = self.trUtf8( "Le fichier de points du projet {0} ne contient pas les attributs attendus. ").\
                 format( e)
-            aText = aText + self.trUtf8( "Lancez le traitement initial - bouton OK - avant de faire votre ")
+            aText = aText + self.trUtf8( "Lancez le traitement initial - bouton Filtrer les données brutes - avant de faire votre ")
             aText = aText + self.trUtf8( "calcul de Moyenne Inter Parcellaire" )
             physiocap_error( self, aText, "CRITICAL")
             return physiocap_message_box( self, aText, "information" )

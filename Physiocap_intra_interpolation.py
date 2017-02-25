@@ -536,7 +536,7 @@ class PhysiocapIntra( QtGui.QDialog):
         nom_complet_point = dialogue.comboBoxPoints.currentText().split( SEPARATEUR_NOEUD)
         if ( len( nom_complet_point) != 2):
             aText = self.trUtf8( "Le shape de points n'est pas choisi. ")
-            aText = aText + self.trUtf8( "Lancez le traitement initial - bouton OK puis Inter - ")
+            aText = aText + self.trUtf8( "Lancez le traitement initial - bouton Filtrer les données brutes puis Inter - ")
             aText = aText + self.trUtf8( "avant de faire votre calcul de Moyenne Intra Parcellaire")
             physiocap_error( self, aText) 
             return physiocap_message_box( dialogue, aText, "information")            
@@ -555,7 +555,7 @@ class PhysiocapIntra( QtGui.QDialog):
         if ( not isinstance( un_groupe, QgsLayerTreeGroup)):
             aText = self.trUtf8( "Le projet {0} n'existe pas. ").\
                 format(  nom_noeud_arbre)
-            aText = aText + self.trUtf8( "Créer une nouvelle instance de projet - bouton OK puis Inter - ")
+            aText = aText + self.trUtf8( "Créer une nouvelle instance de projet - bouton Filtrer les données brutes puis Inter - ")
             aText = aText + self.trUtf8( "avant de faire votre interpolation Intra Parcellaire")
             physiocap_error( self, aText, "CRITICAL")
             return physiocap_message_box( dialogue, aText, "information" )            
@@ -563,14 +563,14 @@ class PhysiocapIntra( QtGui.QDialog):
         # Vérification 
         if ( vecteur_point == None):
             aText = self.trUtf8( "Le jeu de points choisi n'est pas valide. ")
-            aText = aText + self.trUtf8( "Créer une nouvelle instance de projet - bouton OK puis Inter - ")
+            aText = aText + self.trUtf8( "Créer une nouvelle instance de projet - bouton Filtrer les données brutes puis Inter - ")
             aText = aText + self.trUtf8( "avant de faire votre interpolation Intra Parcellaire")
             physiocap_error( self, aText, "CRITICAL")
             return physiocap_message_box( dialogue, aText, "information" )  
 
         if ( vecteur_poly == None) or ( not vecteur_poly.isValid()):
             aText = self.trUtf8( "Le contour choisi n'est pas valide. ")
-            aText = aText + self.trUtf8( "Créer une nouvelle instance de projet - bouton OK puis Inter - ")
+            aText = aText + self.trUtf8( "Créer une nouvelle instance de projet - bouton Filtrer les données brutes puis Inter - ")
             aText = aText + self.trUtf8( "avant de faire votre interpolation Intra Parcellaire")
             physiocap_error( self, aText, "CRITICAL")
             return physiocap_message_box( dialogue, aText, "information" ) 
@@ -580,19 +580,39 @@ class PhysiocapIntra( QtGui.QDialog):
         crs = QgsCoordinateReferenceSystem( EPSG_NUMBER, QgsCoordinateReferenceSystem.PostgisCrsId)
 
         # Assert repertoire shapefile 
-        chemin_shapes = os.path.dirname( unicode( vecteur_point.dataProvider().dataSourceUri() ) ) ;
+        chemin_shapes = os.path.dirname( unicode( vecteur_point.dataProvider().dataSourceUri() ) )
+        shape_point_extension = os.path.basename( unicode( vecteur_point.dataProvider().dataSourceUri() ) ) ;
+        pos_extension = shape_point_extension.rfind(".")
+        shape_point_sans_extension = shape_point_extension[:pos_extension]
         if ( not os.path.exists( chemin_shapes)):
             raise physiocap_exception_rep( chemin_shapes)
 
+
+        consolidation = "NO"
+        if dialogue.checkBoxConsolidation.isChecked():
+            consolidation = "YES"
+            
+        # Test selon Consolidation
+        if (consolidation == "YES"):
+            # Rajout pour consolidation du nom du shape
+            chemin_shape_nom_point = os.path.join( chemin_shapes, shape_point_sans_extension)
+            if not (os.path.exists( chemin_shape_nom_point)):
+                os.mkdir( chemin_shape_nom_point)                    
+            chemin_vignettes = os.path.join( chemin_shape_nom_point, VIGNETTES_INTER)
+        else:            
+            chemin_vignettes = os.path.join( chemin_shapes, VIGNETTES_INTER)
         # Assert repertoire vignette inter 
-        chemin_vignettes = os.path.join( chemin_shapes, VIGNETTES_INTER)
         if not (os.path.exists( chemin_vignettes)):
             raise physiocap_exception_rep( VIGNETTES_INTER)
 
         # Création du REP RASTER
         #chemin_projet = os.path.join( repertoire_data, nom_noeud_arbre)
         #chemin_raster = os.path.join(chemin_projet, REPERTOIRE_RASTERS)
-        chemin_raster = os.path.join( chemin_shapes, REPERTOIRE_RASTERS)
+        # Test selon Consolidation
+        if (consolidation == "YES"):
+            chemin_raster = os.path.join( chemin_shape_nom_point, REPERTOIRE_RASTERS)
+        else:
+            chemin_raster = os.path.join( chemin_shapes, REPERTOIRE_RASTERS)
         if not (os.path.exists( chemin_raster)):
             try:
                 os.mkdir( chemin_raster)
@@ -609,9 +629,7 @@ class PhysiocapIntra( QtGui.QDialog):
         stepBar = int( 60 / iforme)
         positionBar = 5
         
-        consolidation = "NO"
-        if dialogue.checkBoxConsolidation.isChecked():
-            consolidation = "YES"
+
 
         # On passe sur le contour général
         contour_avec_point = 0
@@ -679,8 +697,13 @@ class PhysiocapIntra( QtGui.QDialog):
                             
             # CRÉATION groupe INTRA
             if (( contour_avec_point == 1) and (un_groupe != None)):
-                vignette_projet = nom_noeud_arbre + SEPARATEUR_ + le_champ_choisi + \
-                    SEPARATEUR_ + VIGNETTES_INTRA 
+                if (consolidation == "YES"):
+                    vignette_projet = nom_noeud_arbre + SEPARATEUR_ + shape_point_sans_extension + \
+                        SEPARATEUR_ + le_champ_choisi + \
+                        SEPARATEUR_ + VIGNETTES_INTRA                 
+                else:
+                    vignette_projet = nom_noeud_arbre + SEPARATEUR_ + le_champ_choisi + \
+                        SEPARATEUR_ + VIGNETTES_INTRA 
                 vignette_existante = un_groupe.findGroup( vignette_projet)
                 if ( vignette_existante == None ):
                     vignette_group_intra = un_groupe.addGroup( vignette_projet)

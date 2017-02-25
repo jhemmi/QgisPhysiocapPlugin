@@ -3117,7 +3117,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Version 1.6.3 B CONSOLIDATION</string>
+       <string>Version 1.6.3  CONSOLIDATION</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_100">
@@ -3171,7 +3171,7 @@
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QLabel" name="label_Moet">
+     <widget class="QLabel" name="label_MHCS">
       <property name="geometry">
        <rect>
         <x>50</x>
@@ -3181,10 +3181,10 @@
        </rect>
       </property>
       <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Moët a demandé la possibilité de Consolidation des données avant traitement Inter et Intra. Afin d'améliorer l'extension pour le cas de traitement de gros volumes de données, les possibilités suivantes ont été ajoutées : &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- choix du répertoire des données cibles produites,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- amélioration des possibilités de choix d'affichage et possibilité de préciser les noms de fichiers qml&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- choix du mode d'aide pour le calcul des isolignes&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Ces modifications ont été développé avec la contribution de Moët et sont incluses dans la version 1.6.0.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;MHCS a demandé la possibilité de Consolidation des données avant traitement Inter et Intra. Afin d'améliorer l'extension pour traiter de nombreuses captures Physiocap, les possibilités suivantes ont été ajoutées : &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- choix du répertoire des données cibles produites,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- amélioration des possibilités de choix d'affichage et possibilité de préciser les noms de fichiers qml&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- choix du mode d'aide pour le calcul des isolignes&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Ces modifications ont été développé avec la contribution de MHCS et sont incluses dans la version 1.6.3.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="text">
-       <string>Moët</string>
+       <string>MHCS</string>
       </property>
       <property name="scaledContents">
        <bool>true</bool>

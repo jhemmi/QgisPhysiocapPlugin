@@ -44,7 +44,10 @@ data/PHY_*
 data/*OK
 data/*erreur
 data/test*
+data/TEST*
 data/Exempl*
+data/Doc*
+
 data/Mo*
 testdata/
 modeleQgis/*.txt

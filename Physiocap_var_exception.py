@@ -121,11 +121,6 @@ EXTENSION_PRJ = ".prj"
 EXTENSION_RASTER = ".tif"
 EXTENSION_RASTER_SAGA = ".sdat"
 
-# pb translate 
-###CHEMIN_SHAPES_FILTRATION = [ "Sans vitesse nulle", "Avec vitesse nulle" ]
-##CHOIX_ISO = [ "Nombre d'isolignes permet le calcul de l'écartement des isolignes", \
-##"Ecartement des isolignes permet le calcul du nombre d'isolignes" ]
-##
 EXTENSION_QML = ".qml"
 
 EXTENSION_POUR_ZERO = SEPARATEUR_ + "0"
