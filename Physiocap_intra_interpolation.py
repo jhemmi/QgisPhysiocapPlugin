@@ -200,11 +200,11 @@ class PhysiocapIntra( QtGui.QDialog):
         # CRÉATION raster
         # ###################
         # Nom du raster avec le_champ_choisi
-        nom_court_raster = nom_noeud_arbre + SEPARATEUR_ + le_champ_choisi + SEPARATEUR_ + \
-            un_nom + EXT_CRS_RASTER
+        nom_court_raster = nom_noeud_arbre + NOM_INTRA + SEPARATEUR_ + le_champ_choisi +  \
+            SEPARATEUR_ + un_nom + EXT_CRS_RASTER
         nom_raster =  physiocap_rename_existing_file( os.path.join( chemin_raster, nom_court_raster)) # utile physiocap_rename_existing_file()        
-        nom_court_isoligne = nom_noeud_arbre + SEPARATEUR_  + le_champ_choisi + SEPARATEUR_ + "ISOLIGNE_" + \
-            un_nom + EXT_CRS_SHP
+        nom_court_isoligne = nom_noeud_arbre + NOM_INTRA  + SEPARATEUR_  + le_champ_choisi  + \
+            SEPARATEUR_ + "ISOLIGNE_" + un_nom + EXT_CRS_SHP
         nom_isoligne =  physiocap_rename_existing_file( os.path.join( chemin_raster, nom_court_isoligne)) # utile physiocap_rename_existing_file()        
         
         physiocap_log( self.trUtf8( "isoligne {0} et chemin vers isoligne\n{1}").\
@@ -700,7 +700,15 @@ class PhysiocapIntra( QtGui.QDialog):
                 if (consolidation == "YES"):
                     vignette_projet = nom_noeud_arbre + SEPARATEUR_ + shape_point_sans_extension + \
                         SEPARATEUR_ + le_champ_choisi + \
-                        SEPARATEUR_ + VIGNETTES_INTRA                 
+                        SEPARATEUR_ + VIGNETTES_INTRA
+                    # modifier les noms courts raster et iso
+                    longueur_nom_arbre = len(nom_noeud_arbre)
+                    nom_court_raster_ori = nom_court_raster
+                    nom_court_raster = shape_point_sans_extension + \
+                        nom_court_raster_ori[longueur_nom_arbre:]
+                    nom_court_isoligne_ori = nom_court_isoligne
+                    nom_court_isoligne = shape_point_sans_extension + \
+                        nom_court_isoligne_ori[longueur_nom_arbre:]
                 else:
                     vignette_projet = nom_noeud_arbre + SEPARATEUR_ + le_champ_choisi + \
                         SEPARATEUR_ + VIGNETTES_INTRA 
@@ -791,7 +799,7 @@ class PhysiocapIntra( QtGui.QDialog):
                 aText = self.trUtf8( "La valeur {0} a ").\
                     format( e)
                 aText = aText + self.trUtf8( "des caractères (non ascii) incompatibles avec l'interpolation SAGA.")
-                aText = aText + self.trUtf8( "Erreur bloquante sous Windows qui empeche de traiter cette interpolation.")
+                aText = aText + self.trUtf8( "Erreur bloquante sous Windows qui empêche de traiter cette interpolation.")
                 physiocap_error( self, aText, "CRITICAL")        
                 continue    
             except:
@@ -810,6 +818,19 @@ class PhysiocapIntra( QtGui.QDialog):
                 # Affichage dans panneau Qgis                           
                 if (( dialogue.checkBoxIntraIsos.isChecked()) or 
                     ( dialogue.checkBoxIntraImages.isChecked())):
+
+                    if (consolidation == "YES"):
+                        # modifier les noms courts raster et iso
+                        longueur_nom_arbre = len(nom_noeud_arbre)
+                        nom_court_raster_ori = nom_court_raster
+                        # nom_court_raster = nom_court_raster_ori[0:longueur_nom_arbre +1] + \
+                        nom_court_raster = shape_point_sans_extension + \
+                            nom_court_raster_ori[longueur_nom_arbre:]
+                        nom_court_isoligne_ori = nom_court_isoligne
+                        # nom_court_isoligne = nom_court_isoligne_ori[0:longueur_nom_arbre +1] + \
+                        nom_court_isoligne = shape_point_sans_extension + \
+                            nom_court_isoligne_ori[longueur_nom_arbre:]
+
                     afficheIso = "NO"
                     if ( dialogue.checkBoxIntraIsos.isChecked()):
                         afficheIso = "YES"                

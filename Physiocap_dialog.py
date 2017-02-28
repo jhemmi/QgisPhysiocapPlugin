@@ -96,7 +96,8 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
         # Slot pour le groupe vignoble
         self.checkBoxInfoVignoble.stateChanged.connect( self.slot_bascule_details_vignoble)
 
-        self.tabWidgetPhysiocap.setTabText(0, self.trUtf8("{0} Params").format( PHYSIOCAP_UNI))
+        onglet_params = self.trUtf8("{0} Params").format( PHYSIOCAP_UNI)
+        self.tabWidgetPhysiocap.setTabText(0, onglet_params)
        
         # Inter
         self.comboBoxPolygone.currentIndexChanged[int].connect( self.slot_maj_champ_poly_liste )

@@ -61,6 +61,11 @@
      <height>662</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
    <property name="toolTip">
     <string/>
    </property>
@@ -74,7 +79,7 @@
     <enum>QTabWidget::North</enum>
    </property>
    <property name="currentIndex">
-    <number>3</number>
+    <number>0</number>
    </property>
    <property name="movable">
     <bool>true</bool>
@@ -194,7 +199,7 @@
       <property name="geometry">
        <rect>
         <x>280</x>
-        <y>62</y>
+        <y>57</y>
         <width>101</width>
         <height>21</height>
        </rect>
@@ -229,7 +234,7 @@
       <property name="geometry">
        <rect>
         <x>280</x>
-        <y>85</y>
+        <y>80</y>
         <width>101</width>
         <height>21</height>
        </rect>
@@ -467,12 +472,12 @@
         <rect>
          <x>10</x>
          <y>3</y>
-         <width>421</width>
+         <width>451</width>
          <height>21</height>
         </rect>
        </property>
        <property name="text">
-        <string>Sélectionnez le répertoire des données brutes de Physiocap</string>
+        <string>Sélectionnez le répertoire des données brutes de Physiocap (MID)</string>
        </property>
       </widget>
       <widget class="QToolButton" name="toolButtonDirectoryPhysiocap">
@@ -693,7 +698,7 @@
         <rect>
          <x>10</x>
          <y>70</y>
-         <width>371</width>
+         <width>421</width>
          <height>21</height>
         </rect>
        </property>
@@ -706,7 +711,7 @@
         <rect>
          <x>110</x>
          <y>93</y>
-         <width>241</width>
+         <width>251</width>
          <height>21</height>
         </rect>
        </property>
@@ -717,8 +722,8 @@
       <widget class="QSpinBox" name="spinBoxMaxDiametre">
        <property name="geometry">
         <rect>
-         <x>350</x>
-         <y>92</y>
+         <x>370</x>
+         <y>94</y>
          <width>81</width>
          <height>21</height>
         </rect>
@@ -995,9 +1000,9 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>69</y>
+       <y>72</y>
        <width>511</width>
-       <height>155</height>
+       <height>169</height>
       </rect>
      </property>
      <property name="toolTip">
@@ -1019,7 +1024,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>81</y>
+        <y>99</y>
         <width>481</width>
         <height>31</height>
        </rect>
@@ -1043,9 +1048,14 @@
        <rect>
         <x>10</x>
         <y>-1</y>
-        <width>321</width>
-        <height>21</height>
+        <width>271</width>
+        <height>22</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
       </property>
       <property name="text">
        <string>Polygones décrivant vos contours</string>
@@ -1058,7 +1068,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>61</y>
+        <y>79</y>
         <width>201</width>
         <height>21</height>
        </rect>
@@ -1074,7 +1084,7 @@
       <property name="geometry">
        <rect>
         <x>290</x>
-        <y>22</y>
+        <y>40</y>
         <width>211</width>
         <height>24</height>
        </rect>
@@ -1090,7 +1100,7 @@
       <property name="geometry">
        <rect>
         <x>290</x>
-        <y>48</y>
+        <y>66</y>
         <width>181</width>
         <height>16</height>
        </rect>
@@ -1111,17 +1121,22 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>240</x>
-        <y>1</y>
-        <width>261</width>
-        <height>21</height>
+        <x>290</x>
+        <y>-1</y>
+        <width>201</width>
+        <height>22</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
       <property name="text">
-       <string>Choisir le champ identifiant vos contours</string>
+       <string>Choisir le champ identifiant</string>
       </property>
       <property name="alignment">
-       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
       </property>
      </widget>
      <widget class="QLabel" name="lab_66">
@@ -1131,7 +1146,7 @@
       <property name="geometry">
        <rect>
         <x>290</x>
-        <y>62</y>
+        <y>80</y>
         <width>181</width>
         <height>17</height>
        </rect>
@@ -1150,7 +1165,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>117</y>
+        <y>135</y>
         <width>221</width>
         <height>31</height>
        </rect>
@@ -1208,6 +1223,30 @@
        <string>Moyennes Inter Parcellaire</string>
       </property>
      </widget>
+     <widget class="QLabel" name="lab_67">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>17</y>
+        <width>201</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>vos contours</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      </property>
+     </widget>
     </widget>
     <widget class="QPushButton" name="ButtonInterRefresh">
      <property name="geometry">
@@ -1243,6 +1282,12 @@
        <width>511</width>
        <height>21</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+       <italic>true</italic>
+      </font>
      </property>
      <property name="text">
       <string>Si besoin, chargez vos contours par le menu &quot;Couche&quot; puis &quot;Ajouter vecteur&quot;</string>
@@ -3117,7 +3162,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Version 1.6.3  CONSOLIDATION</string>
+       <string>Version 1.6.3 B2  CONSOLIDATION</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_100">
@@ -3232,8 +3277,8 @@
       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Cantarell'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Utilisez le bouton &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Aide&lt;/span&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt; pour accéder aux documentations, à la license et au suivi des évolutions sous le Wiki de l'extension. N'hésitez pas à y poster vos questions, proposition d'évolutions et retour de bugs.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Cantarell'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Utilisez le bouton &lt;span style=&quot; font-weight:600;&quot;&gt;Aide&lt;/span&gt; pour accéder aux documentations, à la license et au suivi des évolutions sous le Wiki de l'extension. N'hésitez pas à y poster vos questions, proposition d'évolutions et retour de bugs.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
    </widget>

@@ -54,6 +54,7 @@ modeleQgis/*.txt
 i18n/bak*
 Physiocap_tools_PG.pyJH
 i18nOKJH*/
+i18nOK1*/
 print/
 ssl/
 #.noseids

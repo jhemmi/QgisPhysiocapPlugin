@@ -93,10 +93,10 @@ def physiocap_log( aText, level ="INFO"):
             QgsMessageLog.logMessage( aText, journal_nom, QgsMessageLog.WARNING)
         elif level == "INTRA":
             # To be commented in Prod
-##            journal_nom = unicode( "{0} Intra").\
-##                format( PHYSIOCAP_UNI)
-##            QgsMessageLog.logMessage( aText, journal_nom, QgsMessageLog.INFO)
-            pass
+            journal_nom = unicode( "{0} Intra").\
+                format( PHYSIOCAP_UNI)
+            QgsMessageLog.logMessage( aText, journal_nom, QgsMessageLog.INFO)
+            ## pass
         else:
             QgsMessageLog.logMessage( aText, journal_nom, QgsMessageLog.INFO)
            

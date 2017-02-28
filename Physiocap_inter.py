@@ -726,18 +726,23 @@ class PhysiocapInter( QtGui.QDialog):
                 les_moyennes_nbsarcep, details) 
                     
             # Affichage du resultat
-            nom_court_affichage = nom_noeud_arbre + SEPARATEUR_
+            if (consolidation == "YES"):
+                # Cas de consolidation on précise le nom du shaoe de point
+                nom_court_affichage = shape_point_sans_extension + \
+                    SEPARATEUR_
+            else:
+                nom_court_affichage = nom_noeud_arbre + SEPARATEUR_
             SHAPE_A_AFFICHER = []
             if dialogue.checkBoxInterDiametre.isChecked():
-                nom_affichage = nom_court_affichage + 'DIAMETRE' + SEPARATEUR_ + nom_court_du_contour
+                nom_affichage = nom_court_affichage + 'MOY_DIAMETRE' + SEPARATEUR_ + nom_court_du_contour
                 qml_is = dialogue.lineEditThematiqueInterDiametre.text().strip('"') + EXTENSION_QML
                 SHAPE_A_AFFICHER.append( (nom_affichage, qml_is))
             if dialogue.checkBoxInterSarment.isChecked():
-                nom_affichage = nom_court_affichage + 'SARMENT' + SEPARATEUR_ + nom_court_du_contour
+                nom_affichage = nom_court_affichage + 'MOY_SARMENT' + SEPARATEUR_ + nom_court_du_contour
                 qml_is = dialogue.lineEditThematiqueInterSarment.text().strip('"') + EXTENSION_QML
                 SHAPE_A_AFFICHER.append( (nom_affichage, qml_is))
             if dialogue.checkBoxInterBiomasse.isChecked():
-                nom_affichage = nom_court_affichage + 'BIOMASSE' + SEPARATEUR_ + nom_court_du_contour
+                nom_affichage = nom_court_affichage + 'MOY_BIOMASSE' + SEPARATEUR_ + nom_court_du_contour
                 qml_is = dialogue.lineEditThematiqueInterBiomasse.text().strip('"') + EXTENSION_QML
                 SHAPE_A_AFFICHER.append( (nom_affichage, qml_is))
             if dialogue.checkBoxInterLibelle.isChecked():
