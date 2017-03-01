@@ -28,6 +28,7 @@ var/
 # temporairement JH
 Ecran Physiocap Plugin.png
 Physiocap_dialog_base_save*.ui
+Physiocap_dialog_base.ui.bak
 Physiocap*.zip
 Makefile~
 data (esquive)/

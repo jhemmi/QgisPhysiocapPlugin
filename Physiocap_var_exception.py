@@ -53,7 +53,6 @@ import platform
 # dont les fonctions de calcul sont conservé à l'identique
 # Répertoire de base et projet
 PHYSIOCAP_TRACE = "YES"
-POSTGRES_NOM = "postgres"
 # En prod CENTROIDES vaut NO
 CENTROIDES = "NO"  # CENTROIDES YES est pour voir les centroides dans la synthese
 
@@ -67,6 +66,8 @@ PHYSIOCAP_TEST1 = "ȧƈƈḗƞŧḗḓ ŧḗẋŧ ƒǿř ŧḗşŧīƞɠ"
 PHYSIOCAP_TEST2 = "ℛℯα∂α♭ℓℯ ♭ʊ☂ η☺т Ѧ$☾ℐℐ"
 PHYSIOCAP_TEST3 = "¡ooʇ ןnɟǝsn sı uʍop-ǝpısdn"
 PHYSIOCAP_TEST4 = "Moët"
+POSTGRES_NOM = "postgres"
+
 
 SEPARATEUR_ ="_"
 NOM_PROJET = "PHY" + SEPARATEUR_ # + PHYSIOCAP_TEST4 + SEPARATEUR_

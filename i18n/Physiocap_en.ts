@@ -1166,11 +1166,6 @@ Erreur bloquante sous Windows qui nécessite de créer une nouvelle instance du 
         <source>vos contours</source>
         <translation>your limits</translation>
     </message>
-    <message>
-        <location filename="Physiocap_dialog_base.ui" line="3165"/>
-        <source>Version 1.6.3 B2  CONSOLIDATION</source>
-        <translation></translation>
-    </message>
     <message utf8="true">
         <location filename="Physiocap_dialog_base.ui" line="3229"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;MHCS a demandé la possibilité de Consolidation des données avant traitement Inter et Intra. Afin d&apos;améliorer l&apos;extension pour traiter de nombreuses captures Physiocap, les possibilités suivantes ont été ajoutées : &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- choix du répertoire des données cibles produites,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- amélioration des possibilités de choix d&apos;affichage et possibilité de préciser les noms de fichiers qml&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- choix du mode d&apos;aide pour le calcul des isolignes&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Ces modifications ont été développé avec la contribution de MHCS et sont incluses dans la version 1.6.3.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -1182,7 +1177,7 @@ Erreur bloquante sous Windows qui nécessite de créer une nouvelle instance du 
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="3277"/>
+        <location filename="Physiocap_dialog_base.ui" line="3296"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -1193,6 +1188,21 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Cantarell&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Use the &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Help&lt;/span&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt; bouton to access to documentations, licence and issues that are avaible on gitHub. Do no hesitate to post your questions, enhancement proposal and to return your issues.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="Physiocap_dialog_base.ui" line="3165"/>
+        <source>Version 1.6.3 B  CONSOLIDATION</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Physiocap_dialog_base.ui" line="3248"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Maurizio a traduit en Italien&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Maurizio translate in Italian&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="Physiocap_dialog_base.ui" line="3251"/>
+        <source>Maurizio Eramo - Agronome</source>
+        <translation>Maurizio Eramo - Agronomist</translation>
     </message>
 </context>
 <context>
@@ -1434,82 +1444,82 @@ p, li { white-space: pre-wrap; }
         <translation>Processing</translation>
     </message>
     <message>
-        <location filename="Physiocap_intra_interpolation.py" line="524"/>
+        <location filename="Physiocap_intra_interpolation.py" line="525"/>
         <source>Le polygone de contour n&apos;est pas choisi. </source>
         <translation>Limits layer is not choosen.</translation>
     </message>
     <message>
-        <location filename="Physiocap_intra_interpolation.py" line="525"/>
+        <location filename="Physiocap_intra_interpolation.py" line="526"/>
         <source>Avez-vous ouvert votre shapefile de contour ?</source>
         <translation>Did you open your limits layer ?</translation>
     </message>
     <message>
-        <location filename="Physiocap_intra_interpolation.py" line="538"/>
+        <location filename="Physiocap_intra_interpolation.py" line="539"/>
         <source>Le shape de points n&apos;est pas choisi. </source>
         <translation>Points layer is not choosen.</translation>
     </message>
     <message>
-        <location filename="Physiocap_intra_interpolation.py" line="540"/>
+        <location filename="Physiocap_intra_interpolation.py" line="541"/>
         <source>avant de faire votre calcul de Moyenne Intra Parcellaire</source>
         <translation>before running your Intra Parcels interpolation</translation>
     </message>
     <message>
-        <location filename="Physiocap_intra_interpolation.py" line="556"/>
+        <location filename="Physiocap_intra_interpolation.py" line="557"/>
         <source>Le projet {0} n&apos;existe pas. </source>
         <translation>Project {0} does not exist.</translation>
     </message>
     <message>
-        <location filename="Physiocap_intra_interpolation.py" line="574"/>
+        <location filename="Physiocap_intra_interpolation.py" line="575"/>
         <source>avant de faire votre interpolation Intra Parcellaire</source>
         <translation>before running your interpolation Intra Parcels</translation>
     </message>
     <message>
-        <location filename="Physiocap_intra_interpolation.py" line="565"/>
+        <location filename="Physiocap_intra_interpolation.py" line="566"/>
         <source>Le jeu de points choisi n&apos;est pas valide. </source>
         <translation>The set of data choosen is not valid. </translation>
     </message>
     <message>
-        <location filename="Physiocap_intra_interpolation.py" line="572"/>
+        <location filename="Physiocap_intra_interpolation.py" line="573"/>
         <source>Le contour choisi n&apos;est pas valide. </source>
         <translation>The limits layer choosen is not valid. </translation>
     </message>
     <message>
-        <location filename="Physiocap_intra_interpolation.py" line="765"/>
+        <location filename="Physiocap_intra_interpolation.py" line="766"/>
         <source>=~= Vignette absente : pas d&apos;interpolation</source>
         <translation>=~= Layer of points not found : no interpolation</translation>
     </message>
     <message>
-        <location filename="Physiocap_intra_interpolation.py" line="768"/>
+        <location filename="Physiocap_intra_interpolation.py" line="769"/>
         <source>=~= Points absents : pas d&apos;interpolation</source>
         <translation>=~= Layer of points not found : no interpolation</translation>
     </message>
     <message>
-        <location filename="Physiocap_intra_interpolation.py" line="851"/>
+        <location filename="Physiocap_intra_interpolation.py" line="852"/>
         <source>=~= Aucune point dans votre contour. </source>
         <translation>=~= No point inside yours limis.</translation>
     </message>
     <message>
-        <location filename="Physiocap_intra_interpolation.py" line="852"/>
+        <location filename="Physiocap_intra_interpolation.py" line="853"/>
         <source>Pas d&apos;interpolation intra parcellaire</source>
         <translation>No intra parcels interpolation</translation>
     </message>
     <message>
-        <location filename="Physiocap_intra_interpolation.py" line="858"/>
+        <location filename="Physiocap_intra_interpolation.py" line="859"/>
         <source>Fin de l&apos;interpolation intra-parcellaire</source>
         <translation>End of the interpolation Intra parcels</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_intra_interpolation.py" line="749"/>
+        <location filename="Physiocap_intra_interpolation.py" line="750"/>
         <source>=~= Début Interpolation de {0} &gt;&gt;&gt;&gt;</source>
         <translation>=~= Start of Interpolation for {0} &gt;&gt;&gt;&gt;</translation>
     </message>
     <message>
-        <location filename="Physiocap_intra_interpolation.py" line="844"/>
+        <location filename="Physiocap_intra_interpolation.py" line="845"/>
         <source>=~= Fin Interpolation de {0} &lt;&lt;&lt;&lt;</source>
         <translation>=~= End of Interpolation for {0} &lt;&lt;&lt;&lt;</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_intra_interpolation.py" line="547"/>
+        <location filename="Physiocap_intra_interpolation.py" line="548"/>
         <source>=~= {0} début de l&apos;interpolation des points de {1}</source>
         <translation>=~= {0} Start of interpolation of {1} points</translation>
     </message>
@@ -1577,7 +1587,7 @@ p, li { white-space: pre-wrap; }
         <translation>=~= Interpolation SAGA created : {0}</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_intra_interpolation.py" line="487"/>
+        <location filename="Physiocap_intra_interpolation.py" line="488"/>
         <source>=~= Problème bloquant durant {0} partie-{1}</source>
         <translation>=~= Severe problem in {0} part-{1}</translation>
     </message>
@@ -1619,51 +1629,51 @@ p, li { white-space: pre-wrap; }
         <translation>=xg= Clip options : {0}</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_intra_interpolation.py" line="454"/>
+        <location filename="Physiocap_intra_interpolation.py" line="455"/>
         <source>=xg= Raster clippé : cliprasterbymasklayer 
 {0}</source>
         <translation>=xg= Raster clipped : cliprasterbymasklayer 
 {0}</translation>
     </message>
     <message>
-        <location filename="Physiocap_intra_interpolation.py" line="480"/>
+        <location filename="Physiocap_intra_interpolation.py" line="481"/>
         <source>=xg= isoligne FINAL : contour 
 {0}</source>
         <translation>=xg= isoligne LAST : limits 
 {0}</translation>
     </message>
     <message>
-        <location filename="Physiocap_intra_interpolation.py" line="668"/>
+        <location filename="Physiocap_intra_interpolation.py" line="669"/>
         <source>=~=  Pas d&apos;interpolation, Vignette absente : {0}</source>
         <translation>=~=  No interpolation because limits layer {0} does not exist anymore</translation>
     </message>
     <message>
-        <location filename="Physiocap_intra_interpolation.py" line="671"/>
+        <location filename="Physiocap_intra_interpolation.py" line="672"/>
         <source>=~=  Pas d&apos;interpolation, Points absents : {0}</source>
         <translation>=~=  No interpolation because points layer {0} does not exist anymore</translation>
     </message>
     <message>
-        <location filename="Physiocap_intra_interpolation.py" line="678"/>
+        <location filename="Physiocap_intra_interpolation.py" line="679"/>
         <source>=~=  Le contour : {0}</source>
         <translation>=~= Limits : {0}</translation>
     </message>
     <message>
-        <location filename="Physiocap_intra_interpolation.py" line="799"/>
+        <location filename="Physiocap_intra_interpolation.py" line="800"/>
         <source>La valeur {0} a </source>
         <translation>String {0} has </translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_intra_interpolation.py" line="801"/>
+        <location filename="Physiocap_intra_interpolation.py" line="802"/>
         <source>des caractères (non ascii) incompatibles avec l&apos;interpolation SAGA.</source>
         <translation>no ascii characters, not compatible with SAGA interpolation.</translation>
     </message>
     <message>
-        <location filename="Physiocap_intra_interpolation.py" line="848"/>
+        <location filename="Physiocap_intra_interpolation.py" line="849"/>
         <source>=~= Fin des {0}/{1} interpolation(s) intra parcellaire</source>
         <translation>=~=End of interpolation {0}/{1} for intra parcels</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_intra_interpolation.py" line="802"/>
+        <location filename="Physiocap_intra_interpolation.py" line="803"/>
         <source>Erreur bloquante sous Windows qui empêche de traiter cette interpolation.</source>
         <translation>Severe error does not authorize to interpolate under Windows.</translation>
     </message>
@@ -1673,27 +1683,27 @@ p, li { white-space: pre-wrap; }
         <translation></translation>
     </message>
     <message>
-        <location filename="Physiocap_intra_interpolation.py" line="434"/>
+        <location filename="Physiocap_intra_interpolation.py" line="435"/>
         <source>= Version GDAL %s =&gt; 16 arguments</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_intra_interpolation.py" line="512"/>
+        <location filename="Physiocap_intra_interpolation.py" line="513"/>
         <source>Pas de répertoire de données brtutes spécifié</source>
         <translation>No folder choosen for your raw data (MID)</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_intra_interpolation.py" line="517"/>
+        <location filename="Physiocap_intra_interpolation.py" line="518"/>
         <source>Pas de répertoire de données cibles spécifié</source>
         <translation>No folder choosen for your target data</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_intra_interpolation.py" line="539"/>
+        <location filename="Physiocap_intra_interpolation.py" line="540"/>
         <source>Lancez le traitement initial - bouton Filtrer les données brutes puis Inter - </source>
         <translation>Run again the main traitment - push-button Filter raw data then Average Inter Parcels - </translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_intra_interpolation.py" line="573"/>
+        <location filename="Physiocap_intra_interpolation.py" line="574"/>
         <source>Créer une nouvelle instance de projet - bouton Filtrer les données brutes puis Inter - </source>
         <translation>Create a new version of Physiocap project - push-button Filter raw data then Average Inter Parcels  - </translation>
     </message>

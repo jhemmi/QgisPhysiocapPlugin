@@ -430,7 +430,8 @@ class PhysiocapIntra( QtGui.QDialog):
                 # Tester la version de GDAL ou de processing
                 unite, dixieme, millieme = versionGDAL.split( ".")
                 versionNum = float(unite) + float(dixieme)/10 + float(millieme)/100
-                if ( versionNum >= 2.1):
+                # 2.1 tester sous ubuntu et 2.02 sous Fedora 23
+                if ( versionNum >= 2.02):
                     physiocap_log ( self.trUtf8( "= Version GDAL %s => 16 arguments" % ( str( versionGDAL))))
                     raster_dans_poly = processing.runalg("gdalogr:cliprasterbymasklayer",
                     nom_raster_temp,
