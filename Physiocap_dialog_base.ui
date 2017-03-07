@@ -927,8 +927,9 @@
      <property name="font">
       <font>
        <pointsize>11</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
+       <weight>50</weight>
+       <italic>true</italic>
+       <bold>false</bold>
       </font>
      </property>
      <property name="toolTip">
@@ -1418,8 +1419,8 @@
      <property name="font">
       <font>
        <pointsize>11</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
+       <weight>50</weight>
+       <bold>false</bold>
       </font>
      </property>
      <property name="toolTip">
@@ -2117,7 +2118,7 @@
       <rect>
        <x>300</x>
        <y>33</y>
-       <width>201</width>
+       <width>221</width>
        <height>26</height>
       </rect>
      </property>
@@ -2422,8 +2423,8 @@
       <property name="font">
        <font>
         <pointsize>11</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
+        <weight>50</weight>
+        <bold>false</bold>
        </font>
       </property>
       <property name="text">
@@ -3072,8 +3073,8 @@
      <property name="font">
       <font>
        <pointsize>11</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
+       <weight>50</weight>
+       <bold>false</bold>
       </font>
      </property>
      <property name="text">
@@ -3127,7 +3128,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>20</y>
+        <y>25</y>
         <width>451</width>
         <height>24</height>
        </rect>
@@ -3150,13 +3151,13 @@
        <rect>
         <x>10</x>
         <y>73</y>
-        <width>461</width>
+        <width>481</width>
         <height>21</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <pointsize>11</pointsize>
+        <pointsize>9</pointsize>
        </font>
       </property>
       <property name="text">
@@ -3171,13 +3172,13 @@
        <rect>
         <x>10</x>
         <y>54</y>
-        <width>471</width>
+        <width>481</width>
         <height>21</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <pointsize>11</pointsize>
+        <pointsize>9</pointsize>
         <italic>false</italic>
         <kerning>true</kerning>
        </font>
@@ -3216,8 +3217,8 @@
       </property>
       <property name="font">
        <font>
-        <weight>75</weight>
-        <bold>true</bold>
+        <weight>50</weight>
+        <bold>false</bold>
        </font>
       </property>
       <property name="text">
@@ -3448,8 +3449,8 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>340</x>
-        <y>5</y>
+        <x>280</x>
+        <y>9</y>
         <width>171</width>
         <height>20</height>
        </rect>
@@ -3460,7 +3461,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Version 1.6.3 B  CONSOLIDATION</string>
+       <string>Version 1.7  CONSOLIDATION</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_100">
