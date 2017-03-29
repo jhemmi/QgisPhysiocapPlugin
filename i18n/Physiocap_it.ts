@@ -1198,8 +1198,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="Physiocap_dialog_base.ui" line="3464"/>
-        <source>Version 1.7.1 Beta</source>
-        <translation>Version 1.7.1 Beta</translation>
+        <source>Version 1.8 B Ecarts</source>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -1288,124 +1288,129 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>PhysiocapInter</name>
     <message utf8="true">
-        <location filename="Physiocap_inter.py" line="342"/>
+        <location filename="Physiocap_inter.py" line="406"/>
         <source>== Début du calcul des moyennes à partir de vos contours</source>
         <translation>== Inizio del calcolo delle media a partire dai contorni</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_inter.py" line="348"/>
+        <location filename="Physiocap_inter.py" line="412"/>
         <source>Pas de répertoire de données brutes spécifié</source>
         <translation>Non è stata indicata la cartella dei dati grezzi</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_inter.py" line="354"/>
+        <location filename="Physiocap_inter.py" line="418"/>
         <source>Pas de répertoire de données cibles spécifié</source>
         <translation>Non è stata indicata la cartella dei dati target</translation>
     </message>
     <message>
-        <location filename="Physiocap_inter.py" line="378"/>
+        <location filename="Physiocap_inter.py" line="442"/>
         <source>Le polygone de contour n&apos;est pas choisi.</source>
         <translation>Non è stato scelto il poligono di contorno.</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_inter.py" line="380"/>
+        <location filename="Physiocap_inter.py" line="444"/>
         <source>Avez-vous créer votre shapefile de contour ?</source>
         <translation>Avete creato lo shapefile di contorno?</translation>
     </message>
     <message>
-        <location filename="Physiocap_inter.py" line="391"/>
+        <location filename="Physiocap_inter.py" line="455"/>
         <source>Le shape de points n&apos;est pas choisi. </source>
         <translation>Lo shape dei punti non è stato scelto. </translation>
     </message>
     <message>
-        <location filename="Physiocap_inter.py" line="425"/>
+        <location filename="Physiocap_inter.py" line="489"/>
         <source>avant de faire votre calcul de Moyenne Inter Parcellaire</source>
         <translation>prima calcolare la Media Inter Parcellare</translation>
     </message>
     <message>
-        <location filename="Physiocap_inter.py" line="404"/>
+        <location filename="Physiocap_inter.py" line="468"/>
         <source>Le projet {0} n&apos;existe pas. </source>
         <translation>Il progetto {0} non esiste.</translation>
     </message>
     <message>
-        <location filename="Physiocap_inter.py" line="409"/>
+        <location filename="Physiocap_inter.py" line="473"/>
         <source>Cas de consolidation : le groupe {0} doit exister. </source>
         <translation>Caso di consolidazione : il gruppo {0} deve esserci.</translation>
     </message>
     <message>
-        <location filename="Physiocap_inter.py" line="416"/>
+        <location filename="Physiocap_inter.py" line="480"/>
         <source>Le jeu de points choisi n&apos;est pas valide. </source>
         <translation>Il set di punti scelti non è valido.</translation>
     </message>
     <message>
-        <location filename="Physiocap_inter.py" line="423"/>
+        <location filename="Physiocap_inter.py" line="487"/>
         <source>Le contour choisi n&apos;est pas valide. </source>
         <translation>Il contorno scelto non è valido. </translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_inter.py" line="433"/>
+        <location filename="Physiocap_inter.py" line="497"/>
         <source>Les projections (CRS) des coutours ({0}) et mesures brutes ({1}) sont différentes !</source>
         <translation>il sistema di riferimento delle coordinate ({0}) è differente da quello dei dati grezzi ({1}) !</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_inter.py" line="485"/>
+        <location filename="Physiocap_inter.py" line="553"/>
         <source>== Début Inter pour {0} &gt;&gt;&gt;&gt; </source>
         <translation>== Inizio di Inter per {0} &gt;&gt;&gt;&gt;</translation>
     </message>
     <message>
-        <location filename="Physiocap_inter.py" line="495"/>
+        <location filename="Physiocap_inter.py" line="563"/>
         <source>== Layer (Polygone) simple: {0} </source>
         <translation>== Layer (Poligono) semplice: {0}</translation>
     </message>
     <message>
-        <location filename="Physiocap_inter.py" line="498"/>
+        <location filename="Physiocap_inter.py" line="566"/>
         <source>== Layer (Polygone) multiple:{0} </source>
         <translation>== Layer (Poligono) multiplo:{0}</translation>
     </message>
     <message>
-        <location filename="Physiocap_inter.py" line="501"/>
+        <location filename="Physiocap_inter.py" line="569"/>
         <source>== Cette forme n&apos;est pas un polygone : {0}</source>
         <translation>== Questa forma non è un poligono : {0}</translation>
     </message>
     <message>
-        <location filename="Physiocap_inter.py" line="579"/>
+        <location filename="Physiocap_inter.py" line="661"/>
         <source>== Date : {0}</source>
         <translation>== Data : {0}</translation>
     </message>
     <message>
-        <location filename="Physiocap_inter.py" line="581"/>
-        <source>== Moyenne des sarments : {:6.2f}</source>
-        <translation>== Media dei sarmenti : {:6.2f}</translation>
-    </message>
-    <message utf8="true">
-        <location filename="Physiocap_inter.py" line="583"/>
-        <source>== Moyenne des diamètres : {:5.2f}</source>
-        <translation>== Media dei diametri : {:5.2f}</translation>
-    </message>
-    <message>
-        <location filename="Physiocap_inter.py" line="585"/>
+        <location filename="Physiocap_inter.py" line="669"/>
         <source>== Fin Inter pour {0} &lt;&lt;&lt;&lt; </source>
         <translation>== Fine di Inter per {0} &lt;&lt;&lt;&lt;</translation>
     </message>
     <message>
-        <location filename="Physiocap_inter.py" line="706"/>
+        <location filename="Physiocap_inter.py" line="784"/>
         <source>== Aucune point dans {0}. Pas de comparaison inter parcellaire</source>
         <translation>== Nessun punto nel {0}. Nessuna comparazione Inter parcellare</translation>
     </message>
     <message>
-        <location filename="Physiocap_inter.py" line="706"/>
+        <location filename="Physiocap_inter.py" line="784"/>
         <source>vos contours</source>
         <translation>I vostri contorni</translation>
     </message>
     <message>
-        <location filename="Physiocap_inter.py" line="769"/>
+        <location filename="Physiocap_inter.py" line="847"/>
         <source>== Fin des traitements inter-parcellaires</source>
         <translation>== Fine delle elaborazione Inter parcellari</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_inter.py" line="424"/>
+        <location filename="Physiocap_inter.py" line="488"/>
         <source>Créer une nouvelle instance de projet - bouton Filtrer les données brutes - </source>
         <translation>Creare una nuova versione di progetto Physiocap - pulsante Filtrate i dati grezzi - </translation>
+    </message>
+    <message>
+        <location filename="Physiocap_inter.py" line="663"/>
+        <source>== Moyenne des sarments : {:6.2f} </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_inter.py" line="665"/>
+        <source>== Moyenne des diamètres : {:5.2f} </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_inter.py" line="667"/>
+        <source>== Ecart des diamètres : {:5.2f}</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
