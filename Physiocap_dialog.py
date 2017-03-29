@@ -584,6 +584,8 @@ class PhysiocapAnalyseurDialog( QtGui.QDialog, FORM_CLASS):
             "Logo_IFV.png"))) 
         self.label_MHCS.setPixmap( QPixmap( os.path.join( REPERTOIRE_HELP, 
             "Logo_MHCS.png"))) 
+        self.label_VCP.setPixmap( QPixmap( os.path.join( REPERTOIRE_HELP, 
+            "Logo_VCP.png"))) 
         
         # Init fin 
         return

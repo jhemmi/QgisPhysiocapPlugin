@@ -77,7 +77,7 @@
     <message>
         <location filename="Physiocap_dialog.py" line="430"/>
         <source>Physiocap : Votre installation QGIS ne permet pas du visualisation des histogrammes</source>
-        <translation>Physiocap : la vostra istallazione di QGIS non permette la visualizzazione degli istogrammi</translation>
+        <translation>Physiocap : la vostra configurazione di QGIS non permette la visualizzazione degli istogrammi</translation>
     </message>
     <message utf8="true">
         <location filename="Physiocap_dialog.py" line="553"/>
@@ -85,361 +85,361 @@
         <translation>La lista degli attributi per Intra non è definita</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="614"/>
+        <location filename="Physiocap_dialog.py" line="616"/>
         <source>L&apos;attribut {0} n&apos;existe pas dans les données à disposition.</source>
         <translation>Il campo {0} non esiste nei dati a disposizione.</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="617"/>
+        <location filename="Physiocap_dialog.py" line="619"/>
         <source>L&apos;interpolation n&apos;est pas possible. Recréer un nouveau projet Physiocap.</source>
         <translation>L&apos;interpolazione non è possibile. Create una nuova versione del vostro progetto Physiocap.</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="738"/>
+        <location filename="Physiocap_dialog.py" line="740"/>
         <source>Choisir le répertoire de vos données Physiocap brutes (MID)</source>
         <translation>Selezionare la cartella dei vostri dati grezzi Physiocap (MID)</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="756"/>
+        <location filename="Physiocap_dialog.py" line="758"/>
         <source>Choisir le répertoire qui contiendra les résultats les données filtrées par Physiocap</source>
-        <translation>Selezionare la cartella per i dati filtrati da Physiocap</translation>
+        <translation>Selezionare la cartella che conterrà i dati in output processati da Physiocap</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="793"/>
+        <location filename="Physiocap_dialog.py" line="795"/>
         <source>{0} vous rapelle que ce logiciel ouvert et libre n&apos;est pas exempt de besoins. </source>
         <translation>{0} ricordiamo che questo software open source e gratuito non sarebbe possibile senza contributi.</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="795"/>
+        <location filename="Physiocap_dialog.py" line="797"/>
         <source>L&apos;extension est diffusée gratuitement par le biais de la distribution </source>
         <translation>Il plugin è disponibile gratuitamente attraverso </translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="796"/>
+        <location filename="Physiocap_dialog.py" line="798"/>
         <source>QGIS pour vous faciliter son utilisation. Ce choix est lié à la grande importance </source>
         <translation>QGIS per facilitarvi il suo utilizzo. Questa scelta è legata alla grande importanza </translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="797"/>
+        <location filename="Physiocap_dialog.py" line="799"/>
         <source>de rester maître de ses données. L&apos;extension a besoin de votre aide. </source>
         <translation>di poter gestire i propri dati. Il plugin ha bisogno del vostro aiuto. </translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="798"/>
+        <location filename="Physiocap_dialog.py" line="800"/>
         <source>Contribuez simplement à la hauteur du service rendu. </source>
         <translation>Contribuite semplicemente in modo proporzionale al servizio che il plugin vi ha reso.</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="799"/>
+        <location filename="Physiocap_dialog.py" line="801"/>
         <source>Trois clics : Onglet &quot;A Propos&quot; puis bouton &quot;Contribuer&quot; et passez par votre navigateur</source>
         <translation>Solo tre click : Scheda &quot;A proposito&quot; poi il tasto &quot;Contribuisci&quot; e vai al browser</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="814"/>
+        <location filename="Physiocap_dialog.py" line="816"/>
         <source>{0} ne conseille le choix GPS si vous souhaitez réaliser</source>
         <translation>{0} non si raccomanda la scelta GPS se si vuole operare</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="816"/>
+        <location filename="Physiocap_dialog.py" line="818"/>
         <source>une interpolatioin INTRA parcellaire. </source>
         <translation>una interpolazione INTRA parcellare.</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="817"/>
+        <location filename="Physiocap_dialog.py" line="819"/>
         <source>Il n&apos;est pas conseillé d&apos;interpoler dans un systeme non plan. </source>
         <translation>Non è consigliabile interpolare in un sistema di riferimento non piano.</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="818"/>
+        <location filename="Physiocap_dialog.py" line="820"/>
         <source>En effet, selon votre lattitude, l&apos;unite des coordonnées X et Y </source>
         <translation>In effetti, secondo la vostra latitudine, il valore delle coordinate X e Y </translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="819"/>
+        <location filename="Physiocap_dialog.py" line="821"/>
         <source>peuvent varier. L&apos;interpolation basée sur l&apos;inverse des distances </source>
         <translation>possono variare. L&apos;interpolazione basata sull&apos;inverso delle distanze </translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="820"/>
+        <location filename="Physiocap_dialog.py" line="822"/>
         <source>pourra donc être déformée par rapport à un calcul dans un systeme </source>
         <translation>potrà essere dunque deformata rispetto al calcolo in un sistema </translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="821"/>
+        <location filename="Physiocap_dialog.py" line="823"/>
         <source>plan (comme L93).</source>
         <translation>piano (come L93).</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="841"/>
+        <location filename="Physiocap_dialog.py" line="843"/>
         <source>{0} conseille un rayon d&apos;interpolation entre 5 et 15</source>
         <translation>{0} si consiglia un raggio di interpolazione tra 5 e 15</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="845"/>
+        <location filename="Physiocap_dialog.py" line="847"/>
         <source>{0} conseille un rayon d&apos;interpolation proche de 0.000085 (8.85E-5)</source>
         <translation>{0} si consiglia un raggio di interpolazione prossimo a 0.000085 (8.85E-5)</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="853"/>
+        <location filename="Physiocap_dialog.py" line="855"/>
         <source>{0} conseille un rayon d&apos;interpolation proche de 5</source>
         <translation>{0} si consiglia un raggio di interpolazione prossimo a 5</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="858"/>
+        <location filename="Physiocap_dialog.py" line="860"/>
         <source>{0} conseille un rayon d&apos;interpolation proche de 0.00015 (1.5E-4)</source>
         <translation>{0} si consiglia un raggio di interpolazione prossimo a 0.00015 (1.5E-4)</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="887"/>
+        <location filename="Physiocap_dialog.py" line="889"/>
         <source>Votre minimum ne doit pas être plus grand que votre maximum</source>
         <translation>Il vostro valore minimo non deve essere più grande del vostro massimo</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="1173"/>
+        <location filename="Physiocap_dialog.py" line="1175"/>
         <source>Le shape de points n&apos;est pas choisi. </source>
         <translation>Lo shapefile dei punti non è stato scelto. </translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="1061"/>
+        <location filename="Physiocap_dialog.py" line="1063"/>
         <source>avant de faire votre calcul de Moyenne Inter puis Intra Parcellaire</source>
         <translation>prima di calcolare la Media Inter e poi Intra Parcellare</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1351"/>
+        <location filename="Physiocap_dialog.py" line="1353"/>
         <source>Erreur bloquante lors de la création du répertoire : {0}</source>
         <translation>Errore grave quando si crea una cartella : {0}</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1082"/>
+        <location filename="Physiocap_dialog.py" line="1084"/>
         <source>Les moyennes IntraParcellaires dans {0} existent déjà. </source>
         <translation>Le medie Intra Parcellari in {0} esistono già.</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="1084"/>
+        <location filename="Physiocap_dialog.py" line="1086"/>
         <source>Vous ne pouvez pas redemander ce calcul :
 </source>
-        <translation>Non potete chiedere ancora questo calcolo :</translation>
+        <translation>Non potete chiedere ancora questa elaborazione :</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1085"/>
+        <location filename="Physiocap_dialog.py" line="1087"/>
         <source>- Vous pouvez détruire le groupe dans le panneau des couches
 - ou </source>
         <translation>- potete cancellare il gruppo nel Pannello dei Layers
 - o </translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1139"/>
+        <location filename="Physiocap_dialog.py" line="1141"/>
         <source>créer une nouvelle instance de projet Physiocap</source>
         <translation>creare una nuova versione di progetto Physiocap</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1099"/>
+        <location filename="Physiocap_dialog.py" line="1101"/>
         <source>L&apos;interpolation de : {0} n&apos;a pu s&apos;exécuter entièrement. </source>
         <translation>L&apos;interpolazione di : {0} non ha potuto svolgersi in modo completo. </translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="1101"/>
+        <location filename="Physiocap_dialog.py" line="1103"/>
         <source>
  - Si la librairie d&apos;interpolation (SAGA ou GDAL) </source>
         <translation> - Se la libreria d&apos;interpolazione (SAGA o GDAL)</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1102"/>
+        <location filename="Physiocap_dialog.py" line="1104"/>
         <source>est bien installée et activée dans {0}. </source>
         <translation>è istallata correttamente ed attivata nel {0}.</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="1116"/>
+        <location filename="Physiocap_dialog.py" line="1118"/>
         <source>Traitement</source>
         <translation>Processamento</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="1104"/>
+        <location filename="Physiocap_dialog.py" line="1106"/>
         <source>
  - Si vous n&apos;avez pas des contours bizarres.</source>
         <translation> - Se non ci sono dei contorni particolari.</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1105"/>
+        <location filename="Physiocap_dialog.py" line="1107"/>
         <source>
  - Si vous n&apos;avez pas détruit de couches récemment...</source>
         <translation> - Se non sono stati rimossi layer recentemente...</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1106"/>
+        <location filename="Physiocap_dialog.py" line="1108"/>
         <source>
  - Si vous n&apos;avez pas modifié de contexte L93/GPS.</source>
         <translation> - Se non è stato modificato il contesto L93/GPS.</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1107"/>
+        <location filename="Physiocap_dialog.py" line="1109"/>
         <source>
 Alors vous pouvez contacter le support avec vos traces et données brutes</source>
         <translation>Allora potete conttattare il supporto con le vostre tracce ed i vostri dati grezzi</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="1112"/>
+        <location filename="Physiocap_dialog.py" line="1114"/>
         <source>L&apos;extension {0} n&apos;est pas accessible. </source>
         <translation>Il plugin {0} non è disponibile. </translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1122"/>
+        <location filename="Physiocap_dialog.py" line="1124"/>
         <source>Pour réaliser l&apos;interpolation intra parcellaire, vous devez</source>
         <translation>Per realizzare l&apos;interpolazione intra parcellare, dovete</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="1115"/>
+        <location filename="Physiocap_dialog.py" line="1117"/>
         <source> installer l&apos;extension {0} (menu Extension =&gt; Installer une extension)</source>
         <translation> installare il plugin {0} (menu Plugin =&gt; Gestione ed installazione plugin...)</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="1121"/>
+        <location filename="Physiocap_dialog.py" line="1123"/>
         <source>SAGA n&apos;est pas accessible. </source>
         <translation>SAGA non è disponibile.</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="1123"/>
+        <location filename="Physiocap_dialog.py" line="1125"/>
         <source> installer SAGA</source>
         <translation> installare SAGA</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1128"/>
+        <location filename="Physiocap_dialog.py" line="1130"/>
         <source>Le polygone de contour {0} n&apos;est pas retrouvé. </source>
         <translation>Il poligono di contorno {0} non è stato trovato. </translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1138"/>
+        <location filename="Physiocap_dialog.py" line="1140"/>
         <source>Une incohérence entre le projet Physiocap et ses données vous oblige à </source>
         <translation>Una incoerenza tra il progetto Physiocap ed i suoi dati vi richiede di  </translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1136"/>
+        <location filename="Physiocap_dialog.py" line="1138"/>
         <source>La couche de point {0} n&apos;est pas retrouvé. </source>
         <translation>Il layer dei punti {0} non è stato trovato. </translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="1144"/>
+        <location filename="Physiocap_dialog.py" line="1146"/>
         <source>Le projet, le champ ou une valeur de champ {0} ont </source>
         <translation>Il progetto, il campo o un valore del campo {0} hanno </translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1146"/>
+        <location filename="Physiocap_dialog.py" line="1148"/>
         <source>des caractères (non ascii) incompatibles avec l&apos;interpolation SAGA.</source>
         <translation>dei caratteri (non ascii) incompatibili con l&apos;interpolazione SAGA.</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1147"/>
+        <location filename="Physiocap_dialog.py" line="1149"/>
         <source>
 Erreur bloquante sous Windows qui nécessite de créer une nouvelle instance du projet </source>
         <translation>Errore grave in Windows che vi obbliga a creare un nuovo progetto </translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1148"/>
+        <location filename="Physiocap_dialog.py" line="1150"/>
         <source> et du contour avec seulement des caractères ascii (non accentuées).</source>
         <translation> e del contorno con solo dei caratteri ascii (non accentati).</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1164"/>
+        <location filename="Physiocap_dialog.py" line="1166"/>
         <source>=~= {0} a terminé les interpolations intra parcelaire.</source>
         <translation>=~= {0} ha terminato le interpolazioni intra parcellari.</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="1175"/>
+        <location filename="Physiocap_dialog.py" line="1177"/>
         <source>avant de faire votre calcul de Moyenne Inter Parcellaire</source>
         <translation>prima di calcolare la media Inter Parcellare</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1196"/>
+        <location filename="Physiocap_dialog.py" line="1198"/>
         <source>Les moyennes InterParcellaires dans {0} existent déjà. </source>
         <translation>Le medie interParcellari del progetto {0} già esistono.</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1200"/>
+        <location filename="Physiocap_dialog.py" line="1202"/>
         <source>Vous ne pouvez pas redemander ce calcul : vous devez détruire le groupe </source>
         <translation>Non potete chiedere ancora questo calcolo : voi dovete cancellare il gruppo </translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1201"/>
+        <location filename="Physiocap_dialog.py" line="1203"/>
         <source>ou mieux créer un nouveau projet Physiocap</source>
         <translation>o meglio creare un nuovo progetto Physiocap</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="1210"/>
+        <location filename="Physiocap_dialog.py" line="1212"/>
         <source>calcul de Moyenne Inter Parcellaire</source>
         <translation>calcolo della Media Inter Parcellare</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1221"/>
+        <location filename="Physiocap_dialog.py" line="1223"/>
         <source>== {0} a terminé les moyennes inter parcelaire.</source>
         <translation>==  {0} ha terminato le medie Inter parcellari.</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1271"/>
+        <location filename="Physiocap_dialog.py" line="1273"/>
         <source>Pas de répertoire de données brutes spécifié</source>
         <translation>Non è stata specificata la cartella dei dati grezzi</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1276"/>
+        <location filename="Physiocap_dialog.py" line="1278"/>
         <source>Pas de répertoire de données cibles spécifié</source>
         <translation>Non è stata specificata la cartella dei dati target</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1280"/>
+        <location filename="Physiocap_dialog.py" line="1282"/>
         <source>Pas de nom de projet spécifié</source>
         <translation>Non è stato specificato il nome di progetto</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1298"/>
+        <location filename="Physiocap_dialog.py" line="1300"/>
         <source>La recherche des MID fouille l&apos;arbre de données</source>
         <translation>La ricerca dei MID lungo l&apos;albero dei dati</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1309"/>
+        <location filename="Physiocap_dialog.py" line="1311"/>
         <source>Projection des shapefiles demandée en {0}</source>
         <translation>Proiezione degli shapefile richiesta in  {0}</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1321"/>
+        <location filename="Physiocap_dialog.py" line="1323"/>
         <source>Les détails du vignoble sont précisées</source>
         <translation>I particolari del vigneto sono definiti </translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="1335"/>
+        <location filename="Physiocap_dialog.py" line="1337"/>
         <source>Les histogrammes sont attendus</source>
         <translation>Gli istogrammi sono attesi</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1358"/>
+        <location filename="Physiocap_dialog.py" line="1360"/>
         <source>Trop d&apos;erreurs {0} dans les données brutes</source>
         <translation>Troppi errori {0} nei dati grezzi</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1365"/>
+        <location filename="Physiocap_dialog.py" line="1367"/>
         <source>Erreur bloquante lors de la création du fichier : {0}</source>
         <translation>Errore grave al momento della creazione del file : {0}</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1372"/>
+        <location filename="Physiocap_dialog.py" line="1374"/>
         <source>Erreur bloquante lors de la création du fichier csv : {0}</source>
         <translation>Errore grave al momento della creazione del file csv: {0}</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="1379"/>
+        <location filename="Physiocap_dialog.py" line="1381"/>
         <source>Erreur bloquante lors de la copie du fichier MID : {0}</source>
         <translation>Errore grave al momento della copia del file MID: {0}</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1386"/>
+        <location filename="Physiocap_dialog.py" line="1388"/>
         <source>Erreur bloquante : aucun fichier MID à traiter</source>
         <translation>Errore grave: nessun file MID da trattare</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1391"/>
+        <location filename="Physiocap_dialog.py" line="1393"/>
         <source>Arrêt de {0} à la demande de l&apos;utilisateur</source>
         <translation>Arresto del {0} richiesto dall&apos;utilizzatore</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1401"/>
+        <location filename="Physiocap_dialog.py" line="1403"/>
         <source>** {0} est prêt pour calcul Inter parcellaire - Onglet Parcelles</source>
         <translation>** {0} è pronto per il calcolo Inter Parcellare - Scheda Parcelle</translation>
     </message>
@@ -451,30 +451,30 @@ Erreur bloquante sous Windows qui nécessite de créer une nouvelle instance du 
     <message utf8="true">
         <location filename="Physiocap_dialog.py" line="271"/>
         <source>Sarments filtrés</source>
-        <translation type="unfinished"></translation>
+        <translation>Sarmenti filtrati</translation>
     </message>
     <message>
         <location filename="Physiocap_dialog.py" line="272"/>
         <source>Points sans sarment</source>
-        <translation type="unfinished"></translation>
+        <translation>Punti senza sarmenti</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1174"/>
+        <location filename="Physiocap_dialog.py" line="1176"/>
         <source>Créer une nouvelle instance de projet - bouton Filtrer les données brutes - </source>
         <translation>Create una nuova versione di progetto - tasto Filtrate i dati grezzi -</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="1091"/>
+        <location filename="Physiocap_dialog.py" line="1093"/>
         <source>Le fichier de points du projet (champ{0}) ne contient pas les attributs attendus</source>
         <translation>La cartella dei punti del progetto {attributi 0} non contiene gli attributi richiesti</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog.py" line="1207"/>
+        <location filename="Physiocap_dialog.py" line="1209"/>
         <source>Le fichier de points du projet {0} ne contient pas les attributs attendus. </source>
         <translation>La cartella dei punti del progetto {0} non contiene gli attributi richiesti. </translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog.py" line="1209"/>
+        <location filename="Physiocap_dialog.py" line="1211"/>
         <source>Lancez le traitement initial - bouton Filtrer les données brutes - avant de faire votre </source>
         <translation>Lanciate il processamento iniziale  - premete Filtrate i dati grezzi - prima di fare il vostro </translation>
     </message>
@@ -487,622 +487,608 @@ Erreur bloquante sous Windows qui nécessite de créer une nouvelle instance du 
         <translation>Physiocap</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="40"/>
+        <location filename="Physiocap_dialog_base.ui" line="46"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Le bouton &lt;/span&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Fermer&lt;/span&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt; souhaite vous revoir bientôt.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Le bouton &lt;/span&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Aide&lt;/span&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt; permet d&apos;accéder aux documentations, à la license et au suivi des évolutions sous le Wiki de l&apos;extension. N&apos;hésitez pas à y poster vos questions, proposition d&apos;évolutions et retour de bugs.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Pulsante &lt;/span&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Chiudere&lt;/span&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt; a presto !&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Pulsante &lt;/span&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Aiuto&lt;/span&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt; permette di accedere alla documentazione, brevetto e gestione degli aggiornamenti del plugin in Wiki. Non esitate a porci domande, a fare proposte di miglioramento e segnalazione di errori.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Il pulsante &lt;/span&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Chiudere&lt;/span&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt; a presto !&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Pulsante &lt;/span&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Aiuto&lt;/span&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt; permette di accedere alla documentazione, brevetto ed agli aggiornamenti del plugin in Wiki. Non esitate a porci domande, a fare proposte di miglioramento e segnalazione di errori.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="73"/>
+        <location filename="Physiocap_dialog_base.ui" line="87"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Usage des onglets de l&apos;extension Physiocap :&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;- ϕ Params pour les paramètres initaux de l&apos;extension&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;- Synthèse donne une lecture synthétiques de l&apos;analyse de vos données brutes&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;- Histos permet de valider vos filtres&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;- Parcelles pour des calculs de moyennes INTER parcellaires puis une interpolation INTRA&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;- Affichages permet de choisir les couches affichées et leurs thématiques (coloriage, légende...)&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;- A Propos donne les liens pour plus d&apos;informations&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Uso delle schede del plugin Physiocap :&lt;
-&gt;- Parametro per i parametri iniziali del plugin&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;- Sintesi da una lettura sintetica dell&apos;analisi dei dati grezzi&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;- L&apos;istogramma permette di validare i filtri&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;- Parcelle per dei calcoli di medie INTER parcellari e poi una interpolazione INTRA&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;- Visualizzazioni permette di scegliere i layer visualizzati ed i loro tematismi (colori, legenda...)&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;- A Proposito da collegamenti per ulteriori informazioni&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Uso delle schede del plugin Physiocap :&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;- ϕ Parametri per i parametri iniziali del plugin&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;- Sintesi da una lettura di sintesi dell&apos;analisi dei dati grezzi&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;- Histogramma permette di validate i dati elaborati&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;- Parcelle per le elaborazioni delle medie INTER parcellari poi una interpolazione INTRA&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;- Visualizzazione permette di scegliere i layer visualizzati ed i loro tematismi (colorazione, legenda..)&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;- A Proposito fornisce i collegamenti per ulteriori informazioni&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="107"/>
+        <location filename="Physiocap_dialog_base.ui" line="127"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Les informations détaillées du vignoble sont nécessaires pous accéder aux unités détaillées des indicateurs Physiocap :&lt;br/&gt;- nombre de sarments par m2 : &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;NBSARMM2&lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- nombre de sarments par cep : &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;NBSARCEP&lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- indicateur de surface de bois en mm²/m² : &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;BIOMM2&lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- biomasse en g par m² : &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;BIOMGM2&lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- biomasse par pieds : &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;BIOMGCEP&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Sans ces informations de détails, l&apos;extension ne calcule que 3 indicateurs :&lt;br/&gt;- nombre de sarment par metre lineaire : &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;SARM&lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- section moyenne en mm : &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;DIAM&lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- biomasse de la vigne mesurée en mm²/m linéaire : &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;BIOM&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Pour en savoir plus, par le bouton, retrouvez le Wiki de l&apos;extension et comprenez tous les indicateurs Physiocap.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&gt;Le informazioni dettagliate del vigneto sono necessarie per accedere alle unità dettagliate degli indicatori Physiocap :&lt;
-&gt;numero di sarmenti per metro quadrato : &lt;
-&gt;numero di sarmenti per ceppo : &lt;
-&gt;biomassa in g per metro quadrato : &lt;
-&gt;biomassa  per ceppo : &lt;
-&gt;Senza queste informazioni di dettaglio, il plugin non calcola che 3 indicatori :&lt;
-&gt;- numero di sarmenti per metro lineare : &lt;
-&gt;- sezione media in mm : &lt;
-&gt;- biomassa del vigneto misurata in mm2/m lineare : &lt;
-&gt;- per saperne di più, con il pulsante, troverete il Wiki del plugin e comprenderete tutti gli indicatori Physiocap.&lt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Le informazioni dettagliate del vigneto sono necessarie per utilizzare gli indiocatori Physiocap più specifici:&lt;br/&gt;- numero di sarmenti per m² : &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;NBSARMM2&lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- numero di sarmenti per ceppo : &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;NBSARCEP&lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- indicatore di superficie del legno in mm²/m² : &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;BIOMM2&lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- biomassa in g per m² : &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;BIOMGM2&lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- biomassa per ceppo : &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;BIOMGCEP&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Senza queste indicazioni di dettaglio, il plugin elabora solo 3 indicatori :&lt;br/&gt;- numero di sarmenti per metro lineare : &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;SARM&lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- sezione media in mm : &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;DIAM&lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- biomasse del vigneto misurata in mm²/m lineare : &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;BIOM&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Per saperne di più, tramite il pulsante, trovate le Wiki del plugin per una descrizione degli indicatori Physiocap.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="125"/>
+        <location filename="Physiocap_dialog_base.ui" line="151"/>
         <source>Interrang (cm) - Ecartement entre rangs</source>
         <translation>Interfila (cm)</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="160"/>
+        <location filename="Physiocap_dialog_base.ui" line="192"/>
         <source>Intercep (cm) - Ecartement entre ceps</source>
         <translation>Interceppo (cm)</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="195"/>
+        <location filename="Physiocap_dialog_base.ui" line="233"/>
         <source>Hauteur végétative (cm) - Haie folaire</source>
-        <translation>Altezza della parete (cm)</translation>
+        <translation>Altezza della parete fogliare(cm)</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="230"/>
+        <location filename="Physiocap_dialog_base.ui" line="274"/>
         <source>Densité moyenne des sarments</source>
         <translation>Densità media dei sarmenti</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="243"/>
+        <location filename="Physiocap_dialog_base.ui" line="287"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Cette densité est utilisée dans le calcul de Biomasse en kg. La valeur 0,9 est une mesure moyenne dans la région Champagne. Mais la densité de vos bois dépend du cépage et des conditions météo.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;Astuce : cette densité est un réel biais si vous comparez l&apos;indice de biomasse à des pesées de bois de taille. Dans ce cas, prenez le temps de faire une mesure réelle de la densité de vos sarments, avant de préciser votre densité moyenne des sarments.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Questa densità è utilizzata nel calcolo della biomassa in Kg. Il valore 0,9 è una misura media nella regione dello Champagne. Ma la densità dei sarmenti dipende dal vitigno e dalle condizioni meteorologiche.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;Suggerimento : questa densità se comparate l&apos;indice di biomassa a delle pesate dei sarmenti. In questo caso, prendetevi il tempo di fare una misura reale della densità dei vostri sarmenti, prima di definire la densità media dei sarmenti.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Questa densità è utilizzata nel calcolo della biomassa in Kg. Il valore 0,9 è una misura media nella regione dello Champagne. Ma la densità dei sarmenti dipende dal vitigno e dalle condizioni meteorologiche.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;Suggerimento : questa densità è un parametro reale se comparate l&apos;indice di biomassa a delle pesate dei sarmenti. In questo caso, prendetevi il tempo di fare una misura reale della densità dei vostri sarmenti, prima di definire la densità media dei sarmenti.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="271"/>
+        <location filename="Physiocap_dialog_base.ui" line="321"/>
         <source>Cépage</source>
         <translation>Varietà</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="284"/>
+        <location filename="Physiocap_dialog_base.ui" line="334"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Liste presque exhaustive.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;Astuce : Taper la première lettre de votre cépage pour accéder à une liste limitée.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;lista pressoché esaustiva.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;Suggerimento : Digitate la prima lettera del vostro vitigno per accedere ad una lista limitata.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Lista completa.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;Suggerimento : Digitate la prima lettera del vitigno per accedere ad una lista limitata.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="307"/>
+        <location filename="Physiocap_dialog_base.ui" line="363"/>
         <source>Mode de taille</source>
         <translation>Sistema di potatura</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="320"/>
+        <location filename="Physiocap_dialog_base.ui" line="376"/>
         <source>Densité :</source>
         <translation>Densità :</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="355"/>
+        <location filename="Physiocap_dialog_base.ui" line="411"/>
         <source>en pied/ha</source>
         <translation>in ceppi/ha</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="372"/>
+        <location filename="Physiocap_dialog_base.ui" line="434"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Pour un paramétrage minimal de l&apos;extension, 3 actions :&lt;br/&gt;- Sélectionnez le répertoire des données brutes&lt;br/&gt;- Donnez votre nom de projet Physiocap&lt;br/&gt;- Cliquez sur OK : une itération de calcul est en route. Consultez la barre d&apos;avancement bleu en bas à droite. Retrouvez vos résultats dans les onglets &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;Synthèse&lt;/span&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt; et &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;Histos&lt;/span&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;. &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Quand votre paramétrage vous convient, passez à l&apos;onglet &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;Parcelles &lt;/span&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;pour des calculs de moyennes inter parcellaires ou des interpolations intra parcellaire. Sinon modifiez vos paramètres et relancez une nouvelle itération.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Per un parametraggio minimale dell&apos;estensione, 3 azioni :&lt;br/&gt;- Selezionate la cartella dei dati grezzi&lt;br/&gt;Date il vostro nome di progetto Physiocap&lt;br/&gt;Cliccate su OK : una iterazione di calcolo viene avviata. Consultate la barra di avanzamento blu in basso a destra. Troverete i vostri risultati nelle schede &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;Sintesi&lt;/span&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Quando la vostra configurazione vi soddisfa, passate alla scheda &lt;/span&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;per dei calcoli di medie inter parcellari o di interpolazioni intra parcellari. altrimenti modificate i vostri parametri e rilanciate una nuova iterazione.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Per una configurazione minima del plugin, 3 azioni :&lt;br/&gt;- Selezionate la cartella dei dati grezzi&lt;br/&gt;- Date un nome al progetto Physiocap&lt;br/&gt;- Cliccate su OK : viene lanciata l&apos;elaborazione. Consultate la barra d&apos;avanzamento blu in basso a destra. I risultati sono nella scheda &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;Sintesi&lt;/span&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt; et &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;Istogrammi&lt;/span&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;. &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Quando la configurazione è ultimata, passate alla scheda&lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;Parcelle &lt;/span&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;per le elaborazioni delle medie interparcellari o delle interpolazioni intra parcellari. Altrimenti modificate la configuraziones e rilanciate una nuova elaborazione.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="393"/>
+        <location filename="Physiocap_dialog_base.ui" line="461"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Il s&apos;agit du système de coordonnées qui est utilisé lors de la création de vos résultats d&apos;analyse Physiocap.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Nous conseillons fortement d&apos;utiliser le même systeme de coordonnées pour votre projet QGIS.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Les données créées par l&apos;extension sont suffixées L93 ou GPS.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;Astuce 1 : si vous hésitez, choisissez L93.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Si tratta di un sistema di coordinate che è utilizzato al momento della creazione dei vostri risultati di analisi Physiocap.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Noi consigliamo fortemente di utilizzare lo stesso sistema di coordinate per il vostro progetto QGIS.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;I dati dreati dal plugin hanno il suffisso L93 o GPS.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;
-&gt;Suggerimento 1 : se voi esitate, scegliete L93.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;E&apos; un sistema di coordinate utilizzato nel in fase di creazione dei risultati di analisi Physiocap.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Raccomandiamo di utilizzare lo stesso sistema di coordinate per il vostra progetto QGIS.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;I dati creati dal plugin hanno un suffisso L93 o GPS.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;Suggerimento 1 : nel dubbio, scegliete L93.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="396"/>
+        <location filename="Physiocap_dialog_base.ui" line="464"/>
         <source>Préférence de système de coordonées</source>
-        <translation>SR delle coordinate preferito</translation>
+        <translation>Preferenza del sistema di coordinate</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="417"/>
+        <location filename="Physiocap_dialog_base.ui" line="485"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;L93 (ou Lambert 93) est un systeme de coordonées plan qui convient très bien à une analyse complète de vos données.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Votre contour de parcelle devra être fournir en L93.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;L93 (o Lambert 93) è un sistema di coordinate piano che si adatta molto bene ad un&apos;analisi completa dei vostri dati.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Il vostro contorno di parcella dovrà essere fornito in L93.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="420"/>
+        <location filename="Physiocap_dialog_base.ui" line="488"/>
         <source>L93  - EPSG 2154</source>
-        <translation></translation>
+        <translation>L93  - EPSG 2154</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="436"/>
+        <location filename="Physiocap_dialog_base.ui" line="504"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;GPS ou WGS84 est une projection non plane. Sauf cas particulier, nous déconseillons cette projection sauf vous vous arrêtez à l&apos;étape de moyenne Inter Parcellaire.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; font-style:italic; color:#00aa00;&quot;&gt;Attention, en choisissant GPS vous démarrez une session qui se terminera peut-être par une interpolation. Il n&apos;est pas conseillé d&apos;interpoler dans un systeme non plan. En effet, selon la lattitude, l&apos;unite des coordonnées X et Y peuvent varier. L&apos;interpolation basée sur l&apos;inverse des distances pourra donc être déformée par rapport à un calcul d&apos;interpolation dans un systeme plan (comme L93). &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Votre contour de parcelles devra être fourni en WGS84.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;GPS o WGS84 è una proiezione non piana. Salvo casi particolari, noi sconsigliamo questa proiezione a meno che vi arrestiate alla fase della media Inter Parcellare.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; font-style:italic; color:#00aa00;&quot;&gt;Attenzione, scegliendo GPS comincerete una sessione che se terminerà può essere per una interpolazione. Non è consigliabile interpolare in un sistema non piano. In effetti, a seconda della latitudine, l&apos;unità delle coordinate X e Y possono variare. L&apos;interpolazione basata sull&apos;inverso della distanza potrà dunque essere deformata in riferimento ad un calcolo di interpolazione in un sistema piano (come L93) &lt;
-&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;il vostro contorno delle parcelle dovrà essere fornito in WGS84.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;GPS o WGS84 è una proiezione non piana. Salvo casi particolari, noi sconsigliamo questa proiezione a meno che vi arrestiate alla media Inter Parcellare.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; font-style:italic; color:#00aa00;&quot;&gt;Attenzione, scegliendo GPS comincerete una sessione che se terminerà può essere per una interpolazione. Non è consigliabile interpolare in un sistema non piano. In effetti, a seconda della latitudine, l&apos;unità delle coordinate X e Y possono variare. L&apos;interpolazione basata sull&apos;inverso della distanza potrà dunque essere deformata in riferimento ad una interpolazione in un sistema piano (come L93). &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Il contorno delle parcelle dovrà essere fornito in WGS84.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="442"/>
+        <location filename="Physiocap_dialog_base.ui" line="510"/>
         <source>GPS - WGS84 - EPSG 4326</source>
-        <translation></translation>
+        <translation>GPS - WGS84 - EPSG 4326</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="467"/>
+        <location filename="Physiocap_dialog_base.ui" line="535"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Ouvrir la liste de vos répertoires avec le bouton &amp;quot;...&amp;quot;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Vous devez sélectionner le répertoire où se trouvent les mesures brutes de votre capture Physiocap (répertoire qui contient les fichiers MID issus de votre clé USB).&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;L&apos;extension crée des entités dans des sous répertoires et n&apos;altèrent jamais vos données brutes.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Aprire la lista delle vostre cartelle con il pulsante &amp;quot;...&amp;quot;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Dovete selezionare la cartella dove si trovano le misure grezze del vostro sensore Physiocap (cartella che contiene i file MID derivati dalla vostra chiavetta USB).&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;
-&gt;L&apos;estensione creata entità in delle sotto cartelle e non alterano mai i vostri dati grezzi.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Aprire la lista delle vostre cartelle con il pulsante &amp;quot;...&amp;quot;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Selezionare la cartella dove si trovano le misure grezze del vostro sensore Physiocap (cartella che contiene i file MID derivati dalla vostra chiavetta USB).&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;Il plugin crea entità in delle sotto cartelle e non alterano mai i vostri dati grezzi.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="527"/>
+        <location filename="Physiocap_dialog_base.ui" line="607"/>
         <source>...</source>
-        <translation></translation>
+        <translation>...</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="511"/>
+        <location filename="Physiocap_dialog_base.ui" line="591"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Si vous souhaitez regrouper des données MID de plusieurs sous répertoires, cochez la case &amp;quot;Recherche des MIDs dans les sous répertoires&amp;quot;.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;Astuce : vous pouvez regrouper toutes les données brutes d&apos;une campagne, d&apos;un cépage ou d&apos;un secteur dans un même arbre de données. Choisissez un nom de projet Physiocap explicitant le regroupement. L&apos;extension Physiocap les traitera avec un même paramétrage.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Se voi vorreste raggruppare i dati MID di più sottocartelle, selezionate &amp;quot; Ricerca dei MID nelle sottocartelle&amp;quot;.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;Suggerimento : potete raggruppare tutti i dati grezzi di una campagna, di una varietà o di un settore nello stesso albero di dati. Scegliete un nome di progetto Physiocap esplicitando il raggruppamento. Il plugin Physiocap li gestirà con la stessa configurazione.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Se voi vorreste raggruppare i dati MID di più sottocartelle, selezionate &amp;quot; Ricerca dei MID nelle sottocartelle&amp;quot;.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;Suggerimento : potete raggruppare tutti i dati grezzi di una campagna, di una varietà o di un settore nello stesso albero di dati. Scegliete un nome di progetto Physiocap esplicitando il raggruppamento. Il plugin Physiocap li gestirà con una stessa configurazione.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="514"/>
+        <location filename="Physiocap_dialog_base.ui" line="594"/>
         <source>Recherche des MIDs dans les sous-répertoires</source>
         <translation>Ricerca dei MID nelle sottocartelle</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="540"/>
+        <location filename="Physiocap_dialog_base.ui" line="620"/>
         <source>Sélectionnez le répertoire cible des données filtrées par Physiocap</source>
-        <translation>Selezionate la cartella target per ricevere i dati filtrati Physiocap</translation>
-    </message>
-    <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="553"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Ouvrir la liste de vos répertoires cibles avec le bouton &amp;quot;...&amp;quot;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Vous pouvez sélectionner le répertoire où se trouveront les données après filtratage par l&apos;Extension Physiocap.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;Par défaut, il s&apos;agit du répertoire qui contient les fichiers MID.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;L&apos;extension crée des entités dans des sous répertoires et n&apos;altèrent jamais vos données brutes.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Aprire la lista delle vostre cartelle target &amp;quot;...&amp;quot;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Voi potete selezionare la cartella dove si trovano i dati dopo il filtraggio del plugin Physiocap.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;Per default, si tratta della cartella che contiene i file MID.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;Il plugin crea delle entità in sotto cartelle e non alteramo mai i vostri dati grezzi.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="569"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Il s&apos;agit du nom qui identifie votre session de travail. Ce nom sert de répertoire de base pour les données produites par l&apos;extension Physiocap. Il sert aussi de préfixe pour les données créées.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;Astuce : Choisir un nom court, décrivant clairement votre jeu de données.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Si vous lancez plusieurs itérations (bouton OK), ce nom se completera du suffixe (1) puis (2) jusqu&apos;à (n). Le plus grand numéro correspond à la dernière itération.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Si tratta del nome che identifica la vostra sessione di lavoro. Questo nome serve da cartella di base per i dati prodotti dal plugin Physiocap. Serve anche da prefisso per i dati creati.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;Suggerimento: Scegliete un nome corto, che descriva chiaramente il vostro det di dati.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;
-&gt;Se voi lanciate più iterazioni (pulsante OK), questo nome si completerà del suffisso (1) poi (2) fino a (n). Il numero più grande corrisponde all&apos;ultima iterazione.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>Percorso della cartella che conterrà i dati processati da Physiocap</translation>
     </message>
     <message utf8="true">
         <location filename="Physiocap_dialog_base.ui" line="633"/>
-        <source>Filtres permettant de nettoyer les données brutes</source>
-        <translation>Filtri per pulire i dati grezzi</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Ouvrir la liste de vos répertoires cibles avec le bouton &amp;quot;...&amp;quot;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Vous pouvez sélectionner le répertoire où se trouveront les données après filtratage par l&apos;Extension Physiocap.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;Par défaut, il s&apos;agit du répertoire qui contient les fichiers MID.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;L&apos;extension crée des entités dans des sous répertoires et n&apos;altèrent jamais vos données brutes.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Aprire la lista delle vostre cartelle target &amp;quot;...&amp;quot;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Potete selezionare la cartella dove si trovano i dati dopo il filtraggio di Physiocap.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;Per default, si tratta della cartella che contiene i file MID.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;Il plugin crea delle entità in sotto cartelle e non alteramo mai i vostri dati grezzi.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="646"/>
+        <location filename="Physiocap_dialog_base.ui" line="649"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Il s&apos;agit du nom qui identifie votre session de travail. Ce nom sert de répertoire de base pour les données produites par l&apos;extension Physiocap. Il sert aussi de préfixe pour les données créées.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;Astuce : Choisir un nom court, décrivant clairement votre jeu de données.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Si vous lancez plusieurs itérations (bouton OK), ce nom se completera du suffixe (1) puis (2) jusqu&apos;à (n). Le plus grand numéro correspond à la dernière itération.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Si tratta del nome che identifica la vostra sessione di lavoro. Questo nome serve da cartella di base per i dati prodotti da Physiocap. Serve anche da prefisso per i dati creati.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;Suggerimento: Scegliete un nome corto, che descriva chiaramente il vostro det di dati.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Se voi lanciate più iterazioni (pulsante OK), questo nome si completerà del suffisso (1) poi (2) fino a (n). Il numero più grande corrisponde all&apos;ultima iterazione.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog_base.ui" line="725"/>
+        <source>Filtres permettant de nettoyer les données brutes</source>
+        <translation>Filtri per la &quot;pulizia&quot; dei dati grezzi</translation>
+    </message>
+    <message utf8="true">
+        <location filename="Physiocap_dialog_base.ui" line="744"/>
         <source>Nombre maximal de sarments au mètre</source>
-        <translation>Numero massimo di sarmenti per metro</translation>
+        <translation>Numero max di sarmenti per metro</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="706"/>
+        <location filename="Physiocap_dialog_base.ui" line="810"/>
         <source>Tailles d&apos;exclusion des mesures  de sarments (en mm)</source>
-        <translation>Dimensione di sezione minima per includere i sarmenti (in mm)</translation>
+        <translation>Intervallo di accettazione del diametro dei sarmenti (in mm)</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="719"/>
+        <location filename="Physiocap_dialog_base.ui" line="829"/>
         <source>&lt;=Diamètre de sarments retenus &lt; </source>
-        <translation>&lt;=Diametro dei sarmenti considerati &lt;</translation>
+        <translation>&lt;=Diametro sezione dei sarmenti&lt;</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="732"/>
+        <location filename="Physiocap_dialog_base.ui" line="842"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Ce filtre peut permettre d&apos;exclure des &amp;quot;mesures&amp;quot; qui pourraient être des piquets et non des sarments. &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Questo filtro esclude &amp;quot;misure&amp;quot; che non possono essere dei sarmenti. &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Questo filtro esclude &amp;quot;misure&amp;quot; che potrebbero essere dei pali e non dei sarmenti. &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="761"/>
+        <location filename="Physiocap_dialog_base.ui" line="877"/>
         <source>Format des couches générées</source>
         <translation>Formato dei layers generati</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="777"/>
+        <location filename="Physiocap_dialog_base.ui" line="893"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Cette version de l&apos;extension ne propose que le format ESRI Shapefile.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Questa versione del plugin permette di utilizzare solo il formato Shapefile ESRI.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="813"/>
+        <location filename="Physiocap_dialog_base.ui" line="936"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Ce choix vous permet de préciser les détails de votre vignoble. Il est nécessaire pous accéder aux unités avancées de Physiocap.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Questa scelta vi permette di precisare i dettagli del vostro vigneto. Questo è necessario per accedere alle unità avanzate di Physiocap.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="822"/>
+        <location filename="Physiocap_dialog_base.ui" line="945"/>
         <source>Calculs détaillés :  précisez les informations du vignoble    </source>
-        <translation>Parametri di calcolo : precisate le caratteristiche del vigneto </translation>
+        <translation>Elaborazioni di dettaglio : caratteristiche del vigneto </translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="847"/>
+        <location filename="Physiocap_dialog_base.ui" line="970"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Vous lancez un traitement des données brutes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Cominciate un processamento dei dati grezzi.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="853"/>
+        <location filename="Physiocap_dialog_base.ui" line="976"/>
         <source>Filtrer les données brutes</source>
         <translation>Filtrate i dati grezzi</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="866"/>
+        <location filename="Physiocap_dialog_base.ui" line="989"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Etat d&apos;avancement du dernier calcul et filtrage des données brutes&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Stato d&apos;avanzamento dell&apos;ultimo calcolo e filtraggio dei dati grezzi&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Stato d&apos;avanzamento dell&apos;ultima elaborazione e filtraggio dei dati grezzi&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="875"/>
+        <location filename="Physiocap_dialog_base.ui" line="998"/>
         <source>Synthèse</source>
         <translation>Sintesi</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="903"/>
+        <location filename="Physiocap_dialog_base.ui" line="1026"/>
         <source>Dernier calcul Physiocap</source>
-        <translation>Ultimo calcolo Physiocap</translation>
+        <translation>Ultimo progetto Physiocap</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="919"/>
+        <location filename="Physiocap_dialog_base.ui" line="1042"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Nom du dernier projet Physiocap. Répertoire contenant ce fichier de synthèse ainsi que tous les entités créées par l&apos;extension.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Nome dell&apos;ultimo progetto Physiocap. Cartella contenente questo file di sintesi così come tutti gli elementi creati dal plugin.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="928"/>
+        <location filename="Physiocap_dialog_base.ui" line="1051"/>
         <source>Histos</source>
         <translation>Istogramma</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="940"/>
+        <location filename="Physiocap_dialog_base.ui" line="1063"/>
         <source>Histo sarment</source>
         <translation>Istogramma dei sarmenti</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="956"/>
+        <location filename="Physiocap_dialog_base.ui" line="1079"/>
         <source>Histo diamètre</source>
         <translation>Istogramma del diametro</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="972"/>
+        <location filename="Physiocap_dialog_base.ui" line="1095"/>
         <source>Histo Diamètre filtré</source>
         <translation>Istogramma dei diametri filtrati</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="988"/>
+        <location filename="Physiocap_dialog_base.ui" line="1111"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Astuce : Si vous confiant dans votre paramétrage, vous pouvez décocher la création des histogrammes lors de traitement de grande masse de données.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Suggerimento: se siete sicuri della vostra configurazione, potete generare la creazione degli istogrammi sin dal trattamento di un una grande massa di dati.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="991"/>
+        <location filename="Physiocap_dialog_base.ui" line="1114"/>
         <source>Création des histogrammes</source>
         <translation>Creazione degli istogrammi</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="997"/>
+        <location filename="Physiocap_dialog_base.ui" line="1120"/>
         <source>Parcelles</source>
         <translation>Parcelle</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="1012"/>
+        <location filename="Physiocap_dialog_base.ui" line="1141"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Vous devez ouvrir une couche des contours de parcelles (menu Couche puis Ajouter un vecteur&amp;quot;). Puis, activez le bouton rafraichir les listes.&lt;br/&gt;Choississez le polygone Contour puis le jeu de mesures (projet~~DIAM*) dont vous souhaitez visualiser les moyennes inter parcellaires.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;Astuce 1 : vous possédez un contour dont la qualité est certaine : vous pouvez valider visuellement la qualité de la capture de l&apos;information GPS en superposant la couche Vitesse à ce contour.&lt;br/&gt;Astuce 2 : si vous n&apos;avez pas de couche de contours, vous pouvez utiliser la couche Vitesse qui identifie le contour des parcelles où la capture a eu lieu. QGIS vous permet de créer vos contours.&lt;br/&gt;Astuce 3 : demandez de l&apos;aide si la notion de contour n&apos;est pas claire pour vous.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Dovete aprire un layer di contorno delle parcelle (menu Layer poi Aggiungi un vettore&amp;quot;). Poi, attivate il pulsante riaggiorna le liste.&lt;br/&gt;Scegliete il poligono Contorno poi il set di misure (progetto DIAM*) di cui voi volete visualizzare la media inter parcellare.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;Suggerimento 1 : avete un contorno ben fatto : potete validare visivamente la qualità del rilievo GPS sovrapponendo il layer velocità a questo contorno.&lt;br/&gt;Suggerimento 2 : se non avete un layer per il contorno. potete utilizzare il layer della Velocità che identifica il contorno delle parcelle in cui il rilievo ha avuto luogo. QGIS vi permette di creare il vostro contorno.&lt;br/&gt;Suggerimento 3 : chiedete aiuto se il concetto di contorno non vi è chiaro.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="1061"/>
+        <location filename="Physiocap_dialog_base.ui" line="1196"/>
         <source>Polygones décrivant vos contours</source>
-        <translation>Poligoni che descrivono i vostri contorni</translation>
+        <translation>Poligoni che descrivono i contorni</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="1077"/>
+        <location filename="Physiocap_dialog_base.ui" line="1218"/>
         <source>Choisir le jeu de mesures</source>
         <translation>Scegliere il set di misure</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="1093"/>
+        <location filename="Physiocap_dialog_base.ui" line="1234"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Il s&apos;agit du champ de votre contour qui identifie chacune de vos parcelles. &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Attention : Les champs possibles doivent avec une valeur différente pour chaque parcelle.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;si tratta del campo del vostro contorno che identifica ognuna delle parcelle.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Attenzione : I campi possibili devono avere un valore differente per ogni parcella.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="1115"/>
+        <location filename="Physiocap_dialog_base.ui" line="1256"/>
         <source>Dans la Moyenne Inter Parcellaire, </source>
         <translation>Nella Media Inter Parcellare, </translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="1161"/>
+        <location filename="Physiocap_dialog_base.ui" line="1308"/>
         <source>ce champ se nomme NOM_PHY</source>
         <translation>questo campo si chiama NOM_PHY</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="1217"/>
+        <location filename="Physiocap_dialog_base.ui" line="1364"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Déclenchez le calcul de moyenne Inter parcellaire pour le contour et le jeu de données choisis.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Iniziate il calcolo della media inter parcellare per il contorno ed il set di dati scelto.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="1223"/>
+        <location filename="Physiocap_dialog_base.ui" line="1370"/>
         <source>Moyennes Inter Parcellaire</source>
         <translation>Media Inter Parcellare</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="1268"/>
+        <location filename="Physiocap_dialog_base.ui" line="1427"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Si vous hésitez, rafraîchissez ces listes&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Se esitate, riaggiornate le liste&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Se avete dubbi, riaggiornate le liste&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="1271"/>
+        <location filename="Physiocap_dialog_base.ui" line="1430"/>
         <source>Rafraîchir les listes de vecteurs</source>
         <translation>Riaggiornare le liste dei vettori</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="1293"/>
+        <location filename="Physiocap_dialog_base.ui" line="1458"/>
         <source>Si besoin, chargez vos contours par le menu &quot;Couche&quot; puis &quot;Ajouter vecteur&quot;</source>
-        <translation>In caso di necessità, cambiate il contorno attraverso il menu &quot;Layer&quot; poi &quot;Aggiungere vettore&quot;</translation>
+        <translation>In caso di necessità, cambiate il contorno attraverso il menu &quot;Layer&quot; poi &quot;Aggiungi vettore&quot;</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="1312"/>
+        <location filename="Physiocap_dialog_base.ui" line="1483"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Une interpolation nécessite de comprendre la portée de ses choix.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Si vous hésitez, trouvez du conseil. &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Una interpolazione necessita che siano ben comprese le scelte.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Se esitate, trovate aiuto. &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Una interpolazione necessita che siano ben comprese le scelte.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Nel dubbio, cercate aiuto. &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="1339"/>
+        <location filename="Physiocap_dialog_base.ui" line="1516"/>
         <source>Paramètres de l&apos;interpolation </source>
         <translation>Parametri di interpolazione</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="1355"/>
+        <location filename="Physiocap_dialog_base.ui" line="1538"/>
         <source>Taille du pixel (en unité de carte)</source>
         <translation>Dimensione del pixel (in unità di carta)</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="1368"/>
+        <location filename="Physiocap_dialog_base.ui" line="1557"/>
         <source>Valeur maximale</source>
         <translation>Valore massimale</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="1387"/>
+        <location filename="Physiocap_dialog_base.ui" line="1582"/>
         <source>Paramètres des isolignes </source>
         <translation>Parametri delle isolinee </translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="1422"/>
+        <location filename="Physiocap_dialog_base.ui" line="1623"/>
         <source>Distance entre isolignes</source>
         <translation>Distanza tra le isolinee</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="1444"/>
+        <location filename="Physiocap_dialog_base.ui" line="1653"/>
         <source>Choisir le champ à interpoler pour l&apos;analyse Intra parcellaire</source>
         <translation>Scegliere il campo da interpolare per l&apos;analisi Intra parcellare</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="1460"/>
+        <location filename="Physiocap_dialog_base.ui" line="1675"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Il s&apos;agit des différents indicateurs calculés lors du traitement initial. &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;si tratta di indicatori differenti calcolati con il trattamento iniziale. &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;si tratta di indicatori differenti calcolati con l&apos;elaborazione iniziale. &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="1473"/>
+        <location filename="Physiocap_dialog_base.ui" line="1688"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Saga n&apos;est accessible que sous Windows&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Saga è accessibile solo sotto Windows&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Saga è accessibile solo con Windows&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="1476"/>
+        <location filename="Physiocap_dialog_base.ui" line="1691"/>
         <source>SAGA</source>
         <translation>SAGA</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="1492"/>
+        <location filename="Physiocap_dialog_base.ui" line="1707"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Gdal n&apos;est utile que sous linux&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Gdal è utile solo sotto Linux&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Gdal è utile solo con Linux&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="1495"/>
+        <location filename="Physiocap_dialog_base.ui" line="1710"/>
         <source>GDAL</source>
-        <translation></translation>
+        <translation>GDAL</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="1508"/>
+        <location filename="Physiocap_dialog_base.ui" line="1729"/>
         <source>Choisir votre méthode d&apos;interpolation</source>
         <translation>Scegliere il vostro metodo di interpolazione</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="1549"/>
+        <location filename="Physiocap_dialog_base.ui" line="1776"/>
         <source>Valeur minimale</source>
         <translation>Valore minimo</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="1584"/>
+        <location filename="Physiocap_dialog_base.ui" line="1817"/>
         <source>Nombre d&apos;isolignes</source>
         <translation>Numero di isolinee</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="1628"/>
+        <location filename="Physiocap_dialog_base.ui" line="1867"/>
         <source>Correspondance à 1 mètre, 0,5 en L93 et  0.000009 en WGS84</source>
-        <translation>corrispondenza ad 1 metro, 0,5 in L93 e 0.000009 in WGS84</translation>
+        <translation>Corrispondenza ad 1 metro, 0,5 in L93 e 0.000009 in WGS84</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="1641"/>
+        <location filename="Physiocap_dialog_base.ui" line="1886"/>
         <source>Rayon d&apos;interpolation (unite de carte)</source>
         <translation>Raggio di interpolazione (unità di carta)</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="2723"/>
+        <location filename="Physiocap_dialog_base.ui" line="3010"/>
         <source>Méthode d&apos;aide au calcul des isolignes</source>
         <translation>Metodo per il calcolo delle isolinee</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="1769"/>
+        <location filename="Physiocap_dialog_base.ui" line="2038"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Etat d&apos;avancement du dernier calcul Inter ou Intra&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Stato d&apos;avanzamento dell&apos;ultimo calcolo Inter o Intra&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Stato d&apos;avanzamento dell&apos;ultima elaborazione Inter o Intra&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="1831"/>
+        <location filename="Physiocap_dialog_base.ui" line="2106"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Déclenchez le calcul d&apos;interpolation Intra parcellaire pour le champ à interpoler choisi.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Iniziate l&apos;interpolazione Intra parcellare per il campo da interpolare scelto.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="1837"/>
+        <location filename="Physiocap_dialog_base.ui" line="2112"/>
         <source>Images Intra Parcellaire</source>
         <translation>Immagine Intra Parcellare</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="1856"/>
+        <location filename="Physiocap_dialog_base.ui" line="2131"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Si vous souhaitez faire des modifications dans les Shapefiles, vous pouvez choisir cette option pour réaliser les traitements Inter et Intra sur cette seule donnée consolidée.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Sans cette optioni vous trouvez comme shapefile de Points uniquement les &amp;quot;Diamètre en mm&amp;quot; de vos différents projet Physiocap.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;Astuce : La modification pour Consolidation est à faire avec des actions QGIS standard. Avant de cocher cette option, lire la documentation de Consolidation dans le &lt;/span&gt;&lt;a href=&quot;https://github.com/jhemmi/QgisPhysiocapPlugin/wiki/Utilisation-de-la-consolidation-de-plusieurs-shapefiles&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Wiki de l&apos;extension Physiocap dans Github&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Se dovete fare delle modifiche agli Shapefiles, potete scegliere questa opzione per calcolare Inter &amp; Intra con questi nuovi dati consolidati.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Senza questa opzione, troverete come shapefile di punti unicamente i &amp;quot;Diametro in mm&amp;quot; dai tuoi differente progetti Physiocap.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;Suggerimento : La modifica per il Consolidamento deve essere fatta secondo gli standard QGIS . Prima di scegliere questa opzione, leggi La Documentazione di Consolidamento nel &lt;/span&gt;&lt;a href=&quot;https://github.com/jhemmi/QgisPhysiocapPlugin/wiki/Utilisation-de-la-consolidation-de-plusieurs-shapefiles&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Wiki del plugin Physiocap nel Github&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Se dovete fare delle modifiche agli Shapefiles, potete scegliere questa opzione per calcolare Inter &amp; Intra su questi dati consolidati.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Senza questa opzione, troverete come shapefile di punti unicamente i &amp;quot;Diametro in mm&amp;quot; dai differente progetti Physiocap.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;Suggerimento : La modifica per Consolidamento deve essere fatta secondo gli standard QGIS . Prima di scegliere questa opzione, leggi La documentazione di Consolidamento nel &lt;/span&gt;&lt;a href=&quot;https://github.com/jhemmi/QgisPhysiocapPlugin/wiki/Utilisation-de-la-consolidation-de-plusieurs-shapefiles&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Wiki del plugin Physiocap in Github&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:10pt; font-style:italic; color:#00aa00;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="1859"/>
+        <location filename="Physiocap_dialog_base.ui" line="2134"/>
         <source>Uniquement CONSOLIDATION</source>
         <translation>Unicamente CONSOLIDAMENTO</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="1865"/>
+        <location filename="Physiocap_dialog_base.ui" line="2140"/>
         <source>Affichages</source>
         <translation>Visualizzazione</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="1877"/>
+        <location filename="Physiocap_dialog_base.ui" line="2152"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Cochez pour choisir les couches affichées après chacune des étapes de calcul.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Selezionate il box per scegliere quale layer visualizzare ad ogni step di calcolo.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Selezionate per scegliere i layer visualizzati dopo ogni step di calcolo.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="2015"/>
+        <location filename="Physiocap_dialog_base.ui" line="2296"/>
         <source>Diamètre</source>
         <translation>Diametro</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="1918"/>
+        <location filename="Physiocap_dialog_base.ui" line="2199"/>
         <source>Filtrage</source>
         <translation>Filtraggio</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="2285"/>
+        <location filename="Physiocap_dialog_base.ui" line="2572"/>
         <source>Sarment</source>
         <translation>Sarmento</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="1960"/>
+        <location filename="Physiocap_dialog_base.ui" line="2241"/>
         <source>Biomasse</source>
         <translation>Biomassa</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="1976"/>
+        <location filename="Physiocap_dialog_base.ui" line="2257"/>
         <source>Etiquettes de toutes les moyennes</source>
         <translation>Etichette di tutte le medie</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="1999"/>
+        <location filename="Physiocap_dialog_base.ui" line="2280"/>
         <source>Moyennes Inter parcellaire</source>
         <translation>Media Inter parcellare</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="2034"/>
+        <location filename="Physiocap_dialog_base.ui" line="2315"/>
         <source>Etiquettes pour  chacune des moyennes </source>
         <translation>Etichette per ognuna delle medie</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="2053"/>
+        <location filename="Physiocap_dialog_base.ui" line="2334"/>
         <source>Points de chaque parcelle</source>
         <translation>Punti di ogni parcella</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="2069"/>
+        <location filename="Physiocap_dialog_base.ui" line="2350"/>
         <source>Images de chaque parcelle</source>
         <translation>Immagini di ogni parcella</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="2092"/>
+        <location filename="Physiocap_dialog_base.ui" line="2373"/>
         <source>Intra parcellaire</source>
         <translation>Intra parcellare</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="2105"/>
+        <location filename="Physiocap_dialog_base.ui" line="2386"/>
         <source>Isolignes de chaque parcelle</source>
         <translation>Isolinee di ogni parcella</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="2121"/>
+        <location filename="Physiocap_dialog_base.ui" line="2402"/>
         <source>Une seule isoligne et image</source>
         <translation>Una sola isolinea ed immagine</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="2241"/>
+        <location filename="Physiocap_dialog_base.ui" line="2528"/>
         <source>Vitesse</source>
         <translation>Velocità</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="2308"/>
+        <location filename="Physiocap_dialog_base.ui" line="2595"/>
         <source>Détail Inter parcellaire</source>
         <translation>Dettaglio Inter parcellare</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="2701"/>
+        <location filename="Physiocap_dialog_base.ui" line="2988"/>
         <source>Aucun thème</source>
         <translation>Nessun modello</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="2677"/>
+        <location filename="Physiocap_dialog_base.ui" line="2964"/>
         <source>*</source>
-        <translation></translation>
+        <translation>*</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="2745"/>
+        <location filename="Physiocap_dialog_base.ui" line="3032"/>
         <source>l&apos;entité interpolée (DIAM, SARM, BIOM,...)</source>
         <translation>l&apos;entità interpolata (DIAM, SARM, BIOM,...)</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="2767"/>
+        <location filename="Physiocap_dialog_base.ui" line="3054"/>
         <source>* ces thématiques seront suffixées par </source>
         <translation>* questi modelli hanno un suffisso pari a </translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="2788"/>
+        <location filename="Physiocap_dialog_base.ui" line="3081"/>
         <source>Thématiques (.qml)</source>
         <translation>Tematismi (.qml) </translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="2804"/>
+        <location filename="Physiocap_dialog_base.ui" line="3097"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Les thématiques proposées par l&apos;extension sont adaptées à un cas général. Il est possible de les modifier avec vos propres choix.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;Ne modifier ce répertoire que si vous connaissez bien l&apos;utilisation des modèles dans QGIS.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Vous pourrez ensuite paramétrer vos modèles pour créer des constrastes de couleur plus marqués ou adapter les bornes min et max à vos valeurs ... &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;I modelli proposti dal plugin sono adattati ad un caso generale. E&apos; possibile modificarli con le vostre scelte.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;Non modificare questa cartella che se voi conoscete bene l&apos;utilizzazione dei modelli in QGIS&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;
-&gt;Voi potreste in seguito parametrizzare i vostri modelli per creare dei contrasti di colore più marcati o adattare i terminali min e max ai vostri valori ... &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;I tematismi proposti dal plugin sono adattati ad un caso generale. E&apos; possibile modificarli con le vostre scelte.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;Non modificare questa cartella che se voi conoscete bene l&apos;utilizzazione dei modelli in QGIS&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;
+&gt;Voi potreste in seguito configurare i vostri modelli per creare dei contrasti di colore più marcati o adattare i terminali min e max ai vostri valori ... &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="2828"/>
+        <location filename="Physiocap_dialog_base.ui" line="3121"/>
         <source>Sélectionez votre répertoire des thématiques</source>
         <translation>Selezionate la vostra cartella dei tematismi</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="2871"/>
+        <location filename="Physiocap_dialog_base.ui" line="3164"/>
         <source>Si vous choississez le répertoire des modèles de QGIS, vous</source>
-        <translation>Se voi sceglierete la cartella dei modelli di QGIS, </translation>
+        <translation>Se voi scegliete la cartella dei modelli di QGIS, </translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="2894"/>
+        <location filename="Physiocap_dialog_base.ui" line="3187"/>
         <source>Par défaut, le répertoire des thématiques est celui du plugin.</source>
         <translation>Per default, la cartella dei tematismi è quella del plugin.</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="2976"/>
+        <location filename="Physiocap_dialog_base.ui" line="3269"/>
         <source>Pour revenir en arrière (vous perdrez vos nommages spécifiques),</source>
         <translation>Per tornare indietro (perderete i nomi specificati),</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="3005"/>
+        <location filename="Physiocap_dialog_base.ui" line="3298"/>
         <source>A propos</source>
-        <translation>Informazioni</translation>
+        <translation>A proposito</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="3049"/>
+        <location filename="Physiocap_dialog_base.ui" line="3348"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;L&apos;extension Physiocap pour QGIS est Open Source, sous licence GNU et en Common Creative.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Ce choix est lié à la grande importance de rester maître de ses données. Le capteur Physiocap vous permet de maîtriser vos mesures. Le Comité Champagne a fait le choix de l&apos;ouverture en publiant en Common Creative l&apos;ensemble des publications et outils traitant de Physiocap. jhemmi.eu s&apos;engage dans cette même voie pour permettre une diffusion simple et efficace d&apos;un outil de traitement des données brutes de Physiocap sous QGIS.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Mais Open Source et diffusé gratuitement par le biais de la distribution QGIS ne signifie pas &amp;quot;exempt de besoins&amp;quot;. &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;L&apos;extension a besoin de votre aide&lt;/span&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;. Contribuez simplement à la hauteur du service rendu.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Il plugin Physiocap per QGIS è Open Source, sotto la licenza GNU e in Common Creative.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Questa scelta è legata a la grande importanza di restare padroni dei propri dati. Il sensore Physiocap vi permette di controllare le vostre misure. Il Comitato Champagne ha fatto la scelta dell&apos;apertura al pubblico in Common Creative l&apos;insieme delle pubblicazioni e degli strumenti che si riferiscono a Physiocap. jhemmi.eu si occupa in questa stessa ottica per permettere una diffusione semplice ed efficace di uno strumento per il trattamento dei dati grezzi di Physiocap con QGIS.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Ma Open Source è diffuso gratuitamente grazie a QGIS non significa che &amp;quot;sia privo della necessità di bisogni&amp;quot;.&lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;Il plugin ha bisogno del vostro aiuto&lt;/span&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Contribuite semplicemente in modo proporzionale a ciò che il plugin vi ha dato&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Il plugin Physiocap per QGIS è Open Source, sotto la licenza GNU e in Common Creative.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Questa scelta è legata a la grande importanza di restare padroni dei propri dati. Il sensore Physiocap vi permette di controllare le vostre misure. Il Comitato Champagne ha fatto la scelta dell&apos;apertura al pubblico in Common Creative l&apos;insieme delle pubblicazioni e degli strumenti che si riferiscono a Physiocap. jhemmi.eu si occupa in questa stessa ottica per permettere una diffusione semplice ed efficace di uno strumento per il trattamento dei dati grezzi di Physiocap con QGIS.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Ma Open Source è diffuso gratuitamente grazie a QGIS non significa che &amp;quot;sia privo di bisogni&amp;quot;.&lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;Il plugin ha bisogno del vostro aiuto&lt;/span&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Contribuite semplicemente in modo proporzionale a ciò che il plugin vi ha dato&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="3071"/>
+        <location filename="Physiocap_dialog_base.ui" line="3370"/>
         <source>L&apos;extension Physiocap pour Qgis est utile pour vous ?</source>
         <translation>Il plugin Physiocap per Qgis vi è utile?</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="3087"/>
+        <location filename="Physiocap_dialog_base.ui" line="3386"/>
         <source>Contribuez maintenant pour jhemmi.eu !</source>
         <translation>Contribuite ora per jhemmi.eu !</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="3106"/>
+        <location filename="Physiocap_dialog_base.ui" line="3405"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Vous aussi contribuez à l&apos;extension qui vous garantit de garder la maîtrise de vos mesures Physiocap. Le capteur vous permet de prendre possession de vos mesures. L&apos;extension vous autorise à rester maître de leurs utilisations.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Anche voi contribuite al plugin che vi garantisce di tenere il controllo delle vostre rilevazioni con Physiocap. Il sensore vi permette di avere il controllo delle vostre misure. Il plugin vi autorizza a gestire le loro utilizzazioni &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Anche voi contribuite al plugin che vi garantisce di tenere il controllo delle vostre rilevazioni con Physiocap. Il sensore vi permette di avere il controllo delle vostre misure. Il plugin vi permette la gestire degli utilizzi &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="3109"/>
+        <location filename="Physiocap_dialog_base.ui" line="3408"/>
         <source>Contributeurs : </source>
         <translation>Hanno contribuito : </translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="3122"/>
+        <location filename="Physiocap_dialog_base.ui" line="3421"/>
         <source>CIVC</source>
         <translation>CIVC</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="3144"/>
+        <location filename="Physiocap_dialog_base.ui" line="3443"/>
         <source>Auteurs :</source>
         <translation>Autori :</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="3178"/>
+        <location filename="Physiocap_dialog_base.ui" line="3477"/>
         <source>Extension Physiocap pour Qgis</source>
         <translation>Plugin Physiocap per QGIS</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="3194"/>
+        <location filename="Physiocap_dialog_base.ui" line="3493"/>
         <source>jhemmi.eu</source>
-        <translation></translation>
+        <translation>jhemmi.eu</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="3210"/>
+        <location filename="Physiocap_dialog_base.ui" line="3509"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;A. Davy a contribué aux précisions sur les métriques Physiocap.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;M. Raynal a corrigé la traduction anglaise de la version 1.3.3.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;A. Davy ha contribuito all&apos;accuratezza delle misure Physiocap.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;M.Raynal ha corretto la traduzione inglese della versione 1.3.3.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="3213"/>
+        <location filename="Physiocap_dialog_base.ui" line="3512"/>
         <source>IFVV</source>
         <translation>IFVV</translation>
     </message>
@@ -1112,103 +1098,108 @@ Erreur bloquante sous Windows qui nécessite de créer une nouvelle instance du 
         <translation>Analizzatore Physiocap</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="89"/>
+        <location filename="Physiocap_dialog_base.ui" line="103"/>
         <source>Params</source>
         <translation>Parametri</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="480"/>
+        <location filename="Physiocap_dialog_base.ui" line="554"/>
         <source>Sélectionnez le répertoire des données brutes de Physiocap (MID)</source>
-        <translation>Selezionate la cartella che contiene i vostri dati grezzi (MID)</translation>
+        <translation>Percorso della cartella che contiene i vostri dati grezzi (MID)</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="594"/>
+        <location filename="Physiocap_dialog_base.ui" line="680"/>
         <source>Projet Physiocap (suffixe du répertoire et préfixes des fichiers générés)</source>
-        <translation type="unfinished"></translation>
+        <translation>Progetto Physiocap (nome della cartella e prefisso dei file generati)</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="1136"/>
+        <location filename="Physiocap_dialog_base.ui" line="1283"/>
         <source>Choisir le champ identifiant</source>
-        <translation>Scegliere il campo che </translation>
+        <translation>Scegliere il campo che identifica </translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="1244"/>
+        <location filename="Physiocap_dialog_base.ui" line="1397"/>
         <source>vos contours</source>
-        <translation>identifica i vostri contorni</translation>
+        <translation>i vostri contorni</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="2144"/>
+        <location filename="Physiocap_dialog_base.ui" line="2431"/>
         <source>Choix des points affichés</source>
-        <translation type="unfinished"></translation>
+        <translation>Scegli i punti visualizzati</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="2160"/>
+        <location filename="Physiocap_dialog_base.ui" line="2447"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Pour la thématique &amp;quot;Diamètre&amp;quot;, l&apos;affichage en fin de filtrage contiendra uniquement les points qui ont des sarments filtrés.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Per il tematismo &amp;quot;Diametro&amp;quot;, la visualizzazione di filtraggio conterrà unicamente i punti che hanno dei sarmenti filtrati.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="2216"/>
+        <location filename="Physiocap_dialog_base.ui" line="2503"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Vous pouvez choisir d&apos;afficher en fin de filtrage : &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;les points avec uniquement les sarments filtrés &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;ou&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;les points avec les sarments filtrés et les points sans sarments mesurés.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Potete scegliere di definire alla fine del filtraggio.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Potete scegliere di visualizzare alla fine del filtraggio : &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;i punti con unicamente i sarmenti filtrati &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;o&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;i punti con i sarmenti filtrati e i punti con i sarmenti misurati.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="2260"/>
+        <location filename="Physiocap_dialog_base.ui" line="2547"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Vous pouvez choisir d&apos;afficher en fin de filtrage : &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;les points avec uniquement les sarments filtrés &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;ou&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;les points avec les sarments filtrés et les points sans sarments mesurés. Ce choix est adapté pour visualiser toutes les arrêts (vitesses nulles).&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Potete scegliere di definire alla fine del filtraggio.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Potete scegliere di visualizzare alla fine del filtraggio : &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;i punti con unicamente i sarmenti filtrati &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; color:#00aa00;&quot;&gt;o&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;I punti con i sarmenti filtrati e i punti con i sarmenti misurati. Questa scelta è adattata per visualizzare tutte le fermate (velocità nulle).&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="2910"/>
+        <location filename="Physiocap_dialog_base.ui" line="3203"/>
         <source>- pourrez modifier ces modèles puis changer leurs noms</source>
         <translation>- potreste modificare questi modelli poi cambiare i loro nomi</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="2932"/>
+        <location filename="Physiocap_dialog_base.ui" line="3225"/>
         <source>- devez Fermer l&apos;extension Physiocap puis QGIS. </source>
-        <translation>- dovete Chiudere Plugin Physiocap poi QGIS. </translation>
+        <translation>- dovete Chiudere  il plugin Physiocap poi QGIS. </translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="2954"/>
+        <location filename="Physiocap_dialog_base.ui" line="3247"/>
         <source>choisir à nouveau le répertoire des thématiques du plugin</source>
         <translation>scegliere una nuova cartella dei tematismi del plugin</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="2998"/>
+        <location filename="Physiocap_dialog_base.ui" line="3291"/>
         <source>- copiez les modèles vers ce répertoire</source>
         <translation>- copiare i modelli in questa cartella</translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="3229"/>
+        <location filename="Physiocap_dialog_base.ui" line="3566"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;MHCS a demandé la possibilité de Consolidation des données avant traitement Inter et Intra. Afin d&apos;améliorer l&apos;extension pour traiter de nombreuses captures Physiocap, les possibilités suivantes ont été ajoutées : &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- choix du répertoire des données cibles produites,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- amélioration des possibilités de choix d&apos;affichage et possibilité de préciser les noms de fichiers qml&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- choix du mode d&apos;aide pour le calcul des isolignes&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Ces modifications ont été développé avec la contribution de MHCS et sont incluses dans la version 1.6.3.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;MHCS ha chiesto la possibilità del Consolidamento dei dati prima del processamento Inter e Intra. Al fine di migliorare il plugin nel caso di processamento di grandi volumi di dati, sono state aggiunte le possibilità seguenti : &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- scelta della cartella dei dati target prodotti,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- miglioramento delle possibilità di scelta del layout e possibilità di precisare i nomi dei file qml&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- scelta della modalità di aiuto per il calcolo delle isolinee&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Queste modifiche sono state sviluppate con il contributo di MHCS e sono incluse nella versione 1.6.0.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="3232"/>
+        <location filename="Physiocap_dialog_base.ui" line="3531"/>
         <source>MHCS</source>
+        <translation>MHCS</translation>
+    </message>
+    <message>
+        <location filename="Physiocap_dialog_base.ui" line="3547"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Maurizio a traduit en Italien&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Maurizio ha curato la traduzione in italiano&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="Physiocap_dialog_base.ui" line="3550"/>
+        <source>Maurizio Eramo - Agronome</source>
+        <translation>Maurizio Eramo - Agronomo</translation>
+    </message>
+    <message>
+        <location filename="Physiocap_dialog_base.ui" line="3569"/>
+        <source>VCP</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="Physiocap_dialog_base.ui" line="3296"/>
+        <location filename="Physiocap_dialog_base.ui" line="3620"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Cantarell&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Utilisez le bouton &lt;span style=&quot; font-weight:600;&quot;&gt;Aide&lt;/span&gt; pour accéder aux documentations, à la license et au suivi des évolutions sous le Wiki de l&apos;extension. N&apos;hésitez pas à y poster vos questions, proposition d&apos;évolutions et retour de bugs.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Physiocap_dialog_base.ui" line="3165"/>
-        <source>Version 1.6.3 B  CONSOLIDATION</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Physiocap_dialog_base.ui" line="3248"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Maurizio a traduit en Italien&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Cantarell&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Utilisez le bouton &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Aide&lt;/span&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt; pour accéder aux documentations, à la license et au suivi des évolutions sous le Wiki de l&apos;extension. N&apos;hésitez pas à y poster vos questions, proposition d&apos;évolutions et retour de bugs.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="Physiocap_dialog_base.ui" line="3251"/>
-        <source>Maurizio Eramo - Agronome</source>
-        <translation>Maurizio Eramo - Agronomo</translation>
+        <location filename="Physiocap_dialog_base.ui" line="3464"/>
+        <source>Version 1.7.1 Beta</source>
+        <translation>Version 1.7.1 Beta</translation>
     </message>
 </context>
 <context>
@@ -1226,7 +1217,7 @@ p, li { white-space: pre-wrap; }
     <message utf8="true">
         <location filename="Physiocap_creer_arbre.py" line="160"/>
         <source>Plus de 15 fichier MIDs sont à analyser. Temps de traitement &gt; à 1 minute. Voulez-vous continuer ?</source>
-        <translation>Più di 15 file MID devono essere analizzati. Tempi del processamento &gt; a 1 minuto. Volete continuare ?</translation>
+        <translation>Più di 15 file MID devono essere elaborati. Tempi del processamento &gt; a 1 minuto. Volete continuare ?</translation>
     </message>
     <message>
         <location filename="Physiocap_creer_arbre.py" line="260"/>
@@ -1251,7 +1242,7 @@ p, li { white-space: pre-wrap; }
     <message utf8="true">
         <location filename="Physiocap_creer_arbre.py" line="351"/>
         <source>Erreur bloquante : problème lors du filtrage des données de {0}</source>
-        <translation>Errore grave : problema nel momento della filtrazione dei dati {0}</translation>
+        <translation>Errore grave : problema nel momento della filtrazione dei dati di {0}</translation>
     </message>
     <message utf8="true">
         <location filename="Physiocap_creer_arbre.py" line="367"/>
@@ -1364,12 +1355,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="Physiocap_inter.py" line="495"/>
         <source>== Layer (Polygone) simple: {0} </source>
-        <translation></translation>
+        <translation>== Layer (Poligono) semplice: {0}</translation>
     </message>
     <message>
         <location filename="Physiocap_inter.py" line="498"/>
         <source>== Layer (Polygone) multiple:{0} </source>
-        <translation></translation>
+        <translation>== Layer (Poligono) multiplo:{0}</translation>
     </message>
     <message>
         <location filename="Physiocap_inter.py" line="501"/>
@@ -1379,7 +1370,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="Physiocap_inter.py" line="579"/>
         <source>== Date : {0}</source>
-        <translation></translation>
+        <translation>== Data : {0}</translation>
     </message>
     <message>
         <location filename="Physiocap_inter.py" line="581"/>
@@ -1409,7 +1400,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="Physiocap_inter.py" line="769"/>
         <source>== Fin des traitements inter-parcellaires</source>
-        <translation>== Fine dei calcoli Inter parcellari</translation>
+        <translation>== Fine delle elaborazione Inter parcellari</translation>
     </message>
     <message utf8="true">
         <location filename="Physiocap_inter.py" line="424"/>
@@ -1437,7 +1428,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="Physiocap_intra_interpolation.py" line="128"/>
         <source>= Version GDAL = %s</source>
-        <translation></translation>
+        <translation>= Versione GDAL = %s</translation>
     </message>
     <message>
         <location filename="Physiocap_intra_interpolation.py" line="136"/>
@@ -1478,13 +1469,14 @@ p, li { white-space: pre-wrap; }
         <location filename="Physiocap_intra_interpolation.py" line="175"/>
         <source>Vignette (moyenne Inter) {0} et chemin à la vignette 
 {1}</source>
-        <translation></translation>
+        <translation>Vignette (media Inter) {0} e percorso alla vignette 
+{1}</translation>
     </message>
     <message>
         <location filename="Physiocap_intra_interpolation.py" line="177"/>
         <source>Point {0} et chemin aux points 
 {1}</source>
-        <translation>Punto {0} e cammino ai punti {1}</translation>
+        <translation>Punto {0} e percorso ai punti {1}</translation>
     </message>
     <message>
         <location filename="Physiocap_intra_interpolation.py" line="179"/>
@@ -1505,12 +1497,12 @@ p, li { white-space: pre-wrap; }
         <location filename="Physiocap_intra_interpolation.py" line="210"/>
         <source>isoligne {0} et chemin vers isoligne
 {1}</source>
-        <translation>isolinea {0} e tragitto verso isolinea {1}</translation>
+        <translation>isolinea {0} e percorso verso isolinea {1}</translation>
     </message>
     <message utf8="true">
         <location filename="Physiocap_intra_interpolation.py" line="231"/>
         <source>{0} ne peut pas dialoguer avec Saga et des caractères non ascii</source>
-        <translation>{0} non può dialogare con SAGA quando i caratteri non sono ascii</translation>
+        <translation>{0} non può dialogare con SAGA e dei caratteri non ascii</translation>
     </message>
     <message>
         <location filename="Physiocap_intra_interpolation.py" line="257"/>
@@ -1547,12 +1539,13 @@ p, li { white-space: pre-wrap; }
         <location filename="Physiocap_intra_interpolation.py" line="371"/>
         <source>=~= Iso final : fieldcalculator
 {0}</source>
-        <translation></translation>
+        <translation>=~= Iso finale : fieldcalculator
+{0}</translation>
     </message>
     <message>
         <location filename="Physiocap_intra_interpolation.py" line="385"/>
         <source>=~= Interpolation SAGA - Fin iso - {0}</source>
-        <translation>=~= Interpolazione SAGA - End of iso - {0}</translation>
+        <translation>=~= Interpolazione SAGA - fine di iso - {0}</translation>
     </message>
     <message>
         <location filename="Physiocap_intra_interpolation.py" line="428"/>
@@ -1562,7 +1555,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="Physiocap_intra_interpolation.py" line="435"/>
         <source>= Version GDAL %s =&gt; 16 arguments</source>
-        <translation></translation>
+        <translation>= Versione GDAL %s =&gt; 16 arguments</translation>
     </message>
     <message utf8="true">
         <location filename="Physiocap_intra_interpolation.py" line="455"/>
@@ -1701,7 +1694,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="Physiocap_intra_interpolation.py" line="859"/>
         <source>Fin de l&apos;interpolation intra-parcellaire</source>
-        <translation>Fine dell&apos;interpolazione Itra parcellare</translation>
+        <translation>Fine dell&apos;interpolazione Intra parcellare</translation>
     </message>
     <message utf8="true">
         <location filename="Physiocap_intra_interpolation.py" line="540"/>
@@ -1711,7 +1704,7 @@ p, li { white-space: pre-wrap; }
     <message utf8="true">
         <location filename="Physiocap_intra_interpolation.py" line="574"/>
         <source>Créer une nouvelle instance de projet - bouton Filtrer les données brutes puis Inter - </source>
-        <translation>Create una nuova versione di progetto - pulsante Filtrer les données brutes poi Inter  -</translation>
+        <translation>Create una nuova versione di progetto - pulsante Filtrare i dati grezzi poi Inter  -</translation>
     </message>
 </context>
 <context>
@@ -1719,7 +1712,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="Physiocap_tools.py" line="361"/>
         <source>{0} n&apos;a pas correctement fini son analyse</source>
-        <translation>{0} non ha finito correttamente l&apos;analisi</translation>
+        <translation>{0} non ha finito correttamente l&apos;elaborazione</translation>
     </message>
     <message>
         <location filename="Physiocap_tools.py" line="363"/>

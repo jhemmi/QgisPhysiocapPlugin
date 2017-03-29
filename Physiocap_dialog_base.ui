@@ -3332,8 +3332,8 @@
     <widget class="QGroupBox" name="groupBox">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>12</y>
+       <x>20</x>
+       <y>17</y>
        <width>511</width>
        <height>467</height>
       </rect>
@@ -3461,7 +3461,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Version 1.7  CONSOLIDATION</string>
+       <string>Version 1.7.1 Beta</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_100">
@@ -3499,8 +3499,8 @@
      <widget class="QLabel" name="label_IFVV">
       <property name="geometry">
        <rect>
-        <x>190</x>
-        <y>308</y>
+        <x>290</x>
+        <y>311</y>
         <width>101</width>
         <height>76</height>
        </rect>
@@ -3519,7 +3519,7 @@
       <property name="geometry">
        <rect>
         <x>50</x>
-        <y>307</y>
+        <y>310</y>
         <width>101</width>
         <height>76</height>
        </rect>
@@ -3548,6 +3548,25 @@
       </property>
       <property name="text">
        <string>Maurizio Eramo - Agronome</string>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_VCP">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>309</y>
+        <width>101</width>
+        <height>76</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;MHCS a demandé la possibilité de Consolidation des données avant traitement Inter et Intra. Afin d'améliorer l'extension pour traiter de nombreuses captures Physiocap, les possibilités suivantes ont été ajoutées : &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- choix du répertoire des données cibles produites,&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- amélioration des possibilités de choix d'affichage et possibilité de préciser les noms de fichiers qml&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;- choix du mode d'aide pour le calcul des isolignes&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; color:#00aa00;&quot;&gt;Ces modifications ont été développé avec la contribution de MHCS et sont incluses dans la version 1.6.3.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="text">
+       <string>VCP</string>
       </property>
       <property name="scaledContents">
        <bool>true</bool>

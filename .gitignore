@@ -48,8 +48,8 @@ data/test*
 data/TEST*
 data/Exempl*
 data/Doc*
-
 data/Mo*
+help/help*
 testdata/
 modeleQgis/*.txt
 i18n/bak*
