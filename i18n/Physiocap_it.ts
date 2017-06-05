@@ -6,7 +6,7 @@
     <message>
         <location filename="Physiocap_tools.py" line="70"/>
         <source>{0} Physiocap</source>
-        <translation>Physiocap</translation>
+        <translation>{0} Physiocap</translation>
     </message>
     <message utf8="true">
         <location filename="Physiocap_CIVC.py" line="464"/>
