@@ -93,7 +93,7 @@
     <enum>QTabWidget::North</enum>
    </property>
    <property name="currentIndex">
-    <number>3</number>
+    <number>0</number>
    </property>
    <property name="movable">
     <bool>true</bool>
@@ -164,7 +164,7 @@
        <number>70</number>
       </property>
       <property name="maximum">
-       <number>350</number>
+       <number>450</number>
       </property>
       <property name="singleStep">
        <number>5</number>
@@ -202,10 +202,10 @@
        </rect>
       </property>
       <property name="minimum">
-       <number>70</number>
+       <number>50</number>
       </property>
       <property name="maximum">
-       <number>150</number>
+       <number>190</number>
       </property>
       <property name="singleStep">
        <number>5</number>
@@ -3461,7 +3461,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Version 1.8 B Ecarts</string>
+       <string>Version 1.8.2 ECARTS</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_100">
