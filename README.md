@@ -21,6 +21,8 @@ La version 1.3.2 de l'extension apporte la trduction anglaise et une meilleures 
 
 Avec la version 1.4.0, apparition de TIPS contextuels et amélioration de la version anglaise.
 
+La version 1.7.0 CONSOLIDATION permet de regrouper plusieurs jeux de données pour les traiter ensemble.
+
 *"Physiocap" est déposé par le CIVC.*
 
 L'extension QgisPysiocapPlugin intègre le code de calcul du CIVC (PHYSIOCAP_V8). QgisPysiocapPlugin est donc sous licence Common Creative CC-BY-NC-SA V4. S'appuyant sur QGIS elle est aussi sous licence GNU/GPL (voir les détails sous https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/LICENSE). QgisPysiocapPlugin est un logiciel libre qui cherche :
