@@ -21,6 +21,10 @@ La version 1.3.2 de l'extension apporte la trduction anglaise et une meilleures 
 
 Avec la version 1.4.0, apparition de TIPS contextuels et amélioration de la version anglaise.
 
+La version 1.7.0 CONSOLIDATION permet de regrouper plusieurs jeux de données pour les traiter ensemble.
+
+La version 1.8.2 apporte une traduction italienne. Elle précise dans le traitement Intra les ecarts type et les médiane. Plus anecdotique, elle permet les saisies d'écartements inter rang et inter pied compatible ave l'hémispère Sud.
+
 *"Physiocap" est déposé par le CIVC.*
 
 L'extension QgisPysiocapPlugin intègre le code de calcul du CIVC (PHYSIOCAP_V8). QgisPysiocapPlugin est donc sous licence Common Creative CC-BY-NC-SA V4. S'appuyant sur QGIS elle est aussi sous licence GNU/GPL (voir les détails sous https://github.com/jhemmi/QgisPhysiocapPlugin/blob/master/LICENSE). QgisPysiocapPlugin est un logiciel libre qui cherche :
@@ -31,8 +35,8 @@ L'extension QgisPysiocapPlugin intègre le code de calcul du CIVC (PHYSIOCAP_V8)
 La documentation se trouve dans le Wiki
 https://github.com/jhemmi/QgisPhysiocapPlugin/wiki/Qgis-Physiocap-Plugin-usage-&-installation
 
-La 1.4.0 est publiée dans le dépot standard de Qgis et donc accessible directement dans Qgis depuis le Menu "Extension".
+La 1.7.0 est publiée dans le dépot standard de Qgis et donc accessible directement dans Qgis depuis le Menu "Extension". La 1.8.2 est porposé au dépot QGIS standard le 17 aout 2017.
 
-**Attention, ce dépot GitHub contient la version 1.6 Beta (la 1.4.0 est version stable Avril 2016 https://github.com/jhemmi/QgisPhysiocapPlugin/releases) **
+**Attention, ce dépot GitHub contient la version 1.8.2 (la 1.7.0 est version stable Mars 2017 https://github.com/jhemmi/QgisPhysiocapPlugin/releases) **
 
-**Warning, this GitHub repo is version  1.6 Beta ( 1.4.0 version ist stable one April 2016 https://github.com/jhemmi/QgisPhysiocapPlugin/releases) **
+**Warning, this GitHub repo is version  1.8.2 ( 1.7.0 version ist stable one March 2017 https://github.com/jhemmi/QgisPhysiocapPlugin/releases) **
