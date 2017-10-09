@@ -29,7 +29,7 @@ about= Physiocap est un capteur qui géolocalise des mesures de
   Pour l'interprétation agronomique des résultats. Nous conseillons 
   l'appui d'un agronome ou d'un technicien vigne averti.
   Physiocap est breveté par le CIVC.
-version=1.8.1
+version=1.8.2
 author=jhemmi.eu
 email=jean@jhemmi.eu
 
