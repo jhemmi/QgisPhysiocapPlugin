@@ -3461,7 +3461,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Version 1.8.2 ECARTS</string>
+       <string>Version 1.8.3 ECARTS</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_100">
