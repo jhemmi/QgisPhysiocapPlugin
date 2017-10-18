@@ -23,7 +23,7 @@ Avec la version 1.4.0, apparition de TIPS contextuels et amélioration de la ver
 
 La version 1.7.0 CONSOLIDATION permet de regrouper plusieurs jeux de données pour les traiter ensemble.
 
-La version 1.8.2 apporte une traduction italienne. Elle précise dans le traitement Intra les ecarts type et les médiane. Plus anecdotique, elle permet les saisies d'écartements inter rang et inter pied compatible ave l'hémispère Sud.
+La version 1.8.3 apporte une traduction italienne. Elle précise dans le traitement Intra les ecarts type et les médianes. Plus anecdotique, elle permet les saisies d'écartements inter rang et inter pied compatible ave l'hémispère Sud.
 
 *"Physiocap" est déposé par le CIVC.*
 
@@ -35,8 +35,8 @@ L'extension QgisPysiocapPlugin intègre le code de calcul du CIVC (PHYSIOCAP_V8)
 La documentation se trouve dans le Wiki
 https://github.com/jhemmi/QgisPhysiocapPlugin/wiki/Qgis-Physiocap-Plugin-usage-&-installation
 
-La 1.7.0 est publiée dans le dépot standard de Qgis et donc accessible directement dans Qgis depuis le Menu "Extension". La 1.8.2 est porposé au dépot QGIS standard le 17 aout 2017.
+La 1.8.3 est publiée dans le dépot standard de Qgis et donc accessible directement dans Qgis depuis le Menu "Extension".
+- 
+**Attention, ce dépot GitHub contient la version en cours d'évolution (la 1.8.3 est version stable - Octobre 2017 https://github.com/jhemmi/QgisPhysiocapPlugin/releases) **
 
-**Attention, ce dépot GitHub contient la version 1.8.2 (la 1.7.0 est version stable Mars 2017 https://github.com/jhemmi/QgisPhysiocapPlugin/releases) **
-
-**Warning, this GitHub repo is version  1.8.2 ( 1.7.0 version ist stable one March 2017 https://github.com/jhemmi/QgisPhysiocapPlugin/releases) **
+**Warning, this GitHub repo contains last evolution version ( 1.8.3 version is the stable one - October 2017 https://github.com/jhemmi/QgisPhysiocapPlugin/releases) **
