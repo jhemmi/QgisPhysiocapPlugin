@@ -276,7 +276,7 @@ class PhysiocapIntra( QtGui.QDialog):
                 1, 0,rayonDoubleIntra, 0, 1, 10,
                 0, 0, 10, 
                 info_extent, pixelIntra, 
-                0, 0, None, 3,
+                0, 0, None,
                 None)
                 NOM_RETOUR_SAGA = "TARGET_OUT_GRID"
             else:  # Acienne version 2.10 - 2.12
