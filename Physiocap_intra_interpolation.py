@@ -270,15 +270,16 @@ class PhysiocapIntra( QtGui.QDialog):
             # cellsize ou taille du pixel (unité de la carte)
             
             # differenciation version SAGA pour IDW
+            # Versioni 2.3.2
             if ( versionNum == 2.32):
                 premier_raster = processing.runalg("saga:inversedistanceweighted",
                 nom_point, le_champ_choisi, 1, 2, False, 
                 1, 0,rayonDoubleIntra, 1, -1, 10,
                 0, 1, 100, 
                 info_extent, pixelIntra, 
-                1, 1, None,0, None)
+                1, 1, None,0, None) # Tester avec et sans les 2 dernier parametres
                 NOM_RETOUR_SAGA = "TARGET_OUT_GRID"
-            else:  # Acienne version 2.10 - 2.12
+            else:  # Ancienne version 2.10 - 2.12
                 premier_raster = processing.runalg("saga:inversedistanceweighted",
                 nom_point, le_champ_choisi, 1, 2, 1, 0,rayonDoubleIntra, 0, 1,
                 10, info_extent, pixelIntra,
