@@ -733,117 +733,121 @@ class PhysiocapIntra( QtGui.QDialog):
         positionBar = positionBar + stepBar     
         dialogue.progressBarIntra.setValue( positionBar)
         positionBarInit = positionBar
+
+        #Eviter de tourner en Intra sur chaque parcelle
+        if (( dialogue.checkBoxIntraIsos.isChecked()) or 
+                    ( dialogue.checkBoxIntraImages.isChecked())):        
      
-        # On tourne sur les contours qui ont été crée par Inter
-        # On passe sur les differents contours de chaque parcelle
-        id_contour = 0
-        for un_contour in vecteur_poly.getFeatures(): #iterate poly features
-            id_contour = id_contour + 1
-            contours_possibles = contours_possibles + 1
-            try:
-                un_nom = str( un_contour[ leChampPoly]) #get attribute of poly layer
-                #un_nom = un_contour[ leChampPoly] #get attribute of poly layer
-            except:
-                un_nom = "PHY_ID_" + str(id_contour)
-                pass
+            # On tourne sur les contours qui ont été crée par Inter
+            # On passe sur les differents contours de chaque parcelle
+            id_contour = 0
+            for un_contour in vecteur_poly.getFeatures(): #iterate poly features
+                id_contour = id_contour + 1
+                contours_possibles = contours_possibles + 1
+                try:
+                    un_nom = str( un_contour[ leChampPoly]) #get attribute of poly layer
+                    #un_nom = un_contour[ leChampPoly] #get attribute of poly layer
+                except:
+                    un_nom = "PHY_ID_" + str(id_contour)
+                    pass
 
-            physiocap_log ( self.trUtf8( "=~= Début Interpolation de {0} >>>>").\
-                format( un_nom))
-
-            # Nom du Shape moyenne 
-            nom_court_vignette = nom_noeud_arbre + NOM_MOYENNE + un_nom +  EXT_CRS_SHP     
-            # Attention j'ai enleve physiocap_rename_existing_file(
-            nom_vignette = os.path.join( chemin_vignettes, nom_court_vignette)        
-                                                   
-            # Nom point 
-            nom_court_point = nom_noeud_arbre + NOM_POINTS + SEPARATEUR_ + un_nom + EXT_CRS_SHP     
-            # JHJHJH Attention j'ai enleve physiocap_rename_existing_file(
-            nom_point = os.path.join( chemin_vignettes, nom_court_point)                    
-            #physiocap_log( u"=~= Vignette court : " + str( nom_court_vignette) )       
-
-            # Verifier si le point et la vignette existent
-            if not (os.path.exists( nom_vignette)):
-                physiocap_log( self.trUtf8( "=~= Vignette absente : pas d'interpolation"))
-                continue
-            if not (os.path.exists( nom_point)):
-                physiocap_log( self.trUtf8( "=~= Points absents : pas d'interpolation"))
-                continue
-            else:
-                contour_avec_point = contour_avec_point + 1
-                #physiocap_log( u"=~= Points - nom court : " + str( nom_court_point) )
-                #physiocap_log( u"=~= Points - nom  : " + str( nom_point) )
-
-            # ###################
-            # CRÉATION groupe INTRA
-            # ###################
-            if ( contour_avec_point == 1):
-                if un_groupe != None:
-                    vignette_projet = nom_noeud_arbre + SEPARATEUR_ + le_champ_choisi + SEPARATEUR_ + VIGNETTES_INTRA 
-                    vignette_existante = un_groupe.findGroup( vignette_projet)
-                    if ( vignette_existante == None ):
-                        vignette_group_intra = un_groupe.addGroup( vignette_projet)
-                    else:
-                        # Si vignette preexiste, on ne recommence pas
-                        raise physiocap_exception_vignette_exists( vignette_projet) 
-     
-            try:
-                # ###############
-                # Calcul raster et iso
-                # ###############
-##            physiocap_log( u"=~= Points CHAQUE - nom court : " + str( nom_court_point) )
-##            physiocap_log( u"=~= Points CHAQUE - nom  : " + str( nom_point) )
-                nom_raster_final, nom_court_raster, nom_iso_final, nom_court_isoligne = \
-                    self.physiocap_creer_raster_iso( dialogue, nom_noeud_arbre, chemin_raster, 
-                    nom_court_vignette, nom_vignette, nom_court_point, nom_point,
-                    le_champ_choisi, un_nom)
-            except physiocap_exception_windows_value_ascii as e:
-                aText = self.trUtf8( "La valeur {0} a ").\
-                    format( e)
-                aText = aText + self.trUtf8( "des caractères (non ascii) incompatibles avec l'interpolation SAGA.")
-                aText = aText + self.trUtf8( "Erreur bloquante sous Windows qui empêche de traiter cette interpolation.")
-                physiocap_error( self, aText, "CRITICAL")        
-                continue    
-            except:
-                raise
-            finally:
-                pass
-            # Fin de capture des err        
-            
-            
-            # Progress BAR + un stepBar%
-            positionBar = positionBarInit + ( stepBar * id_contour)    
-            dialogue.progressBarIntra.setValue( positionBar)
-            #physiocap_log( u"=~= Barre " + str( positionBar) )                      
-               
-            if ( id_contour >  0 ):                                            
-                # Affichage dans panneau Qgis                           
-                if (( dialogue.checkBoxIntraIsos.isChecked()) or 
-                    ( dialogue.checkBoxIntraImages.isChecked())):
-
-                    if (consolidation == "YES"):
-                        # modifier les noms courts raster et iso
-                        longueur_nom_arbre = len(nom_noeud_arbre)
-                        nom_court_raster_ori = nom_court_raster
-                        # nom_court_raster = nom_court_raster_ori[0:longueur_nom_arbre +1] + \
-                        nom_court_raster = shape_point_sans_extension + \
-                            nom_court_raster_ori[longueur_nom_arbre:]
-                        nom_court_isoligne_ori = nom_court_isoligne
-                        # nom_court_isoligne = nom_court_isoligne_ori[0:longueur_nom_arbre +1] + \
-                        nom_court_isoligne = shape_point_sans_extension + \
-                            nom_court_isoligne_ori[longueur_nom_arbre:]
-
-                    afficheIso = "NO"
-                    if ( dialogue.checkBoxIntraIsos.isChecked()):
-                        afficheIso = "YES"                
-                    afficheRaster = "NO"
-                    if ( dialogue.checkBoxIntraImages.isChecked()):
-                        afficheRaster = "YES"
-                    physiocap_affiche_raster_iso( \
-                        nom_raster_final, nom_court_raster, le_template_raster, afficheRaster,
-                        nom_iso_final, nom_court_isoligne, le_template_isolignes, afficheIso,
-                        vignette_group_intra)
-                physiocap_log ( self.trUtf8( "=~= Fin Interpolation de {0} <<<<").\
+                physiocap_log ( self.trUtf8( "=~= Début Interpolation de {0} >>>>").\
                     format( un_nom))
+
+                # Nom du Shape moyenne 
+                nom_court_vignette = nom_noeud_arbre + NOM_MOYENNE + un_nom +  EXT_CRS_SHP     
+                # Attention j'ai enleve physiocap_rename_existing_file(
+                nom_vignette = os.path.join( chemin_vignettes, nom_court_vignette)        
+                                                       
+                # Nom point 
+                nom_court_point = nom_noeud_arbre + NOM_POINTS + SEPARATEUR_ + un_nom + EXT_CRS_SHP     
+                # JHJHJH Attention j'ai enleve physiocap_rename_existing_file(
+                nom_point = os.path.join( chemin_vignettes, nom_court_point)                    
+                #physiocap_log( u"=~= Vignette court : " + str( nom_court_vignette) )       
+
+                # Verifier si le point et la vignette existent
+                if not (os.path.exists( nom_vignette)):
+                    physiocap_log( self.trUtf8( "=~= Vignette absente : pas d'interpolation"))
+                    continue
+                if not (os.path.exists( nom_point)):
+                    physiocap_log( self.trUtf8( "=~= Points absents : pas d'interpolation"))
+                    continue
+                else:
+                    contour_avec_point = contour_avec_point + 1
+                    #physiocap_log( u"=~= Points - nom court : " + str( nom_court_point) )
+                    #physiocap_log( u"=~= Points - nom  : " + str( nom_point) )
+
+                # ###################
+                # CRÉATION groupe INTRA
+                # ###################
+                if ( contour_avec_point == 1):
+                    if un_groupe != None:
+                        vignette_projet = nom_noeud_arbre + SEPARATEUR_ + le_champ_choisi + SEPARATEUR_ + VIGNETTES_INTRA 
+                        vignette_existante = un_groupe.findGroup( vignette_projet)
+                        if ( vignette_existante == None ):
+                            vignette_group_intra = un_groupe.addGroup( vignette_projet)
+                        else:
+                            # Si vignette preexiste, on ne recommence pas
+                            raise physiocap_exception_vignette_exists( vignette_projet) 
+         
+                try:
+                    # ###############
+                    # Calcul raster et iso
+                    # ###############
+    ##            physiocap_log( u"=~= Points CHAQUE - nom court : " + str( nom_court_point) )
+    ##            physiocap_log( u"=~= Points CHAQUE - nom  : " + str( nom_point) )
+                    nom_raster_final, nom_court_raster, nom_iso_final, nom_court_isoligne = \
+                        self.physiocap_creer_raster_iso( dialogue, nom_noeud_arbre, chemin_raster, 
+                        nom_court_vignette, nom_vignette, nom_court_point, nom_point,
+                        le_champ_choisi, un_nom)
+                except physiocap_exception_windows_value_ascii as e:
+                    aText = self.trUtf8( "La valeur {0} a ").\
+                        format( e)
+                    aText = aText + self.trUtf8( "des caractères (non ascii) incompatibles avec l'interpolation SAGA.")
+                    aText = aText + self.trUtf8( "Erreur bloquante sous Windows qui empêche de traiter cette interpolation.")
+                    physiocap_error( self, aText, "CRITICAL")        
+                    continue    
+                except:
+                    raise
+                finally:
+                    pass
+                # Fin de capture des err        
+                
+                
+                # Progress BAR + un stepBar%
+                positionBar = positionBarInit + ( stepBar * id_contour)    
+                dialogue.progressBarIntra.setValue( positionBar)
+                #physiocap_log( u"=~= Barre " + str( positionBar) )                      
+                   
+                if ( id_contour >  0 ):                                            
+                    # Affichage dans panneau Qgis                           
+                    if (( dialogue.checkBoxIntraIsos.isChecked()) or 
+                        ( dialogue.checkBoxIntraImages.isChecked())):
+
+                        if (consolidation == "YES"):
+                            # modifier les noms courts raster et iso
+                            longueur_nom_arbre = len(nom_noeud_arbre)
+                            nom_court_raster_ori = nom_court_raster
+                            # nom_court_raster = nom_court_raster_ori[0:longueur_nom_arbre +1] + \
+                            nom_court_raster = shape_point_sans_extension + \
+                                nom_court_raster_ori[longueur_nom_arbre:]
+                            nom_court_isoligne_ori = nom_court_isoligne
+                            # nom_court_isoligne = nom_court_isoligne_ori[0:longueur_nom_arbre +1] + \
+                            nom_court_isoligne = shape_point_sans_extension + \
+                                nom_court_isoligne_ori[longueur_nom_arbre:]
+
+                        afficheIso = "NO"
+                        if ( dialogue.checkBoxIntraIsos.isChecked()):
+                            afficheIso = "YES"                
+                        afficheRaster = "NO"
+                        if ( dialogue.checkBoxIntraImages.isChecked()):
+                            afficheRaster = "YES"
+                        physiocap_affiche_raster_iso( \
+                            nom_raster_final, nom_court_raster, le_template_raster, afficheRaster,
+                            nom_iso_final, nom_court_isoligne, le_template_isolignes, afficheIso,
+                            vignette_group_intra)
+                    physiocap_log ( self.trUtf8( "=~= Fin Interpolation de {0} <<<<").\
+                        format( un_nom))
 
         if ( contour_avec_point >  0 ):                                            
             physiocap_log( self.trUtf8( "=~= Fin des {0}/{1} interpolation(s) intra parcellaire").\
