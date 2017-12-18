@@ -251,7 +251,7 @@ class PhysiocapIntra( QtGui.QDialog):
         ex = vignette_vector.extent()
         xmin, xmax, ymin, ymax = ex.xMinimum(),ex.xMaximum(), ex.yMinimum(), ex.yMaximum()
         info_extent = str(xmin) + "," + str(xmax) + "," + str(ymin) + "," + str(ymax)
-        #physiocap_log( u"=~= Extent layer >>> " + info_extent + " <<<")  
+        physiocap_log( u"=~= Extent layer >>> " + info_extent + " <<<")  
         
         if dialogue.radioButtonSAGA.isChecked():
             # Appel SAGA power à 2 fixe
@@ -273,11 +273,10 @@ class PhysiocapIntra( QtGui.QDialog):
             if ( versionNum == 2.32):
                 premier_raster = processing.runalg("saga:inversedistanceweighted",
                 nom_point, le_champ_choisi, 1, 2, False, 
-                1, 0,rayonDoubleIntra, 0, 1, 10,
-                0, 0, 10, 
+                1, 0,rayonDoubleIntra, 1, -1, 10,
+                0, 1, 100, 
                 info_extent, pixelIntra, 
-                0, 0, None,
-                None)
+                1, 1, None,0, None)
                 NOM_RETOUR_SAGA = "TARGET_OUT_GRID"
             else:  # Acienne version 2.10 - 2.12
                 premier_raster = processing.runalg("saga:inversedistanceweighted",
@@ -287,12 +286,12 @@ class PhysiocapIntra( QtGui.QDialog):
                 NOM_RETOUR_SAGA = "USER_GRID"
 
 
-##            if ( premier_raster == None):
-##                physiocap_error( self, self.trUtf8( "=~= Problème pas de retour {0} partie-{1}").\
-##                    format("inversedistanceweighted","A.1"))
-##            else:
-##                physiocap_error( self, self.trUtf8( "=~= trace {0}").\
-##                    format( str( list( premier_raster))))
+            if ( premier_raster == None):
+                physiocap_error( self, self.trUtf8( "=~= Problème pas de retour {0} partie-{1}").\
+                    format("inversedistanceweighted","A.1"))
+            else:
+                physiocap_error( self, self.trUtf8( "=~= trace {0}").\
+                    format( str( list( premier_raster))))
                                                        
             if (( premier_raster != None) and ( str( list( premier_raster)).find( NOM_RETOUR_SAGA) != -1)):
                 if premier_raster[ NOM_RETOUR_SAGA] != None:
