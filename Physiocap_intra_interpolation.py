@@ -295,7 +295,7 @@ class PhysiocapIntra( QtGui.QDialog):
 ##                    format( str( list( premier_raster))))
                                                        
             if (( premier_raster != None) and ( str( list( premier_raster)).find( NOM_RETOUR_SAGA) != -1)):
-                if premier_raster[ 'USER_GRID'] != None:
+                if premier_raster[ NOM_RETOUR_SAGA] != None:
                     nom_raster_temp = premier_raster[ NOM_RETOUR_SAGA]
                     physiocap_log( "=~= Premier raster : inversedistanceweighted \n{0}".\
                         format( nom_raster_temp), "INTRA")
