@@ -93,7 +93,7 @@
     <enum>QTabWidget::North</enum>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>3</number>
    </property>
    <property name="movable">
     <bool>true</bool>
@@ -3461,7 +3461,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Version 1.8.2 ECARTS</string>
+       <string>Version 1.8.4 B 1</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_100">

@@ -125,18 +125,19 @@ class PhysiocapIntra( QtGui.QDialog):
             raise physiocap_exception_no_saga
 
         #physiocap_log ( self.trUtf8( "= Version SAGA = %s" % ( str( versionSAGA))))
-        physiocap_log ( self.trUtf8( "= Version GDAL = %s" % ( str( versionGDAL))))
+        #physiocap_log ( self.trUtf8( "= Version GDAL = %s" % ( str( versionGDAL))))
         
         # Test SAGA version, sinon annonce de l'utilisation de GDAL
         if dialogue.radioButtonSAGA.isChecked():
             #physiocap_log ( self.trUtf8( "= Version SAGA = %s" % ( str( versionSAGA))))
             unite, dixieme, millieme = versionSAGA.split( ".")
-            versionNum = float(unite) + float(dixieme)/10 + float(millieme)/100
-            if ( versionNum >= 2.10) and ( versionNum <= 2.12):
+            versionNum = round( float(unite) + float(dixieme)/10 + float(millieme)/100, 2)
+            if (( versionNum >= 2.10) and ( versionNum <= 2.12)) or \
+                ( versionNum == 2.32):
                 physiocap_log ( self.trUtf8( "= Version SAGA OK : %s" % ( str( versionSAGA))), "INTRA")
             else:
-                physiocap_log ( self.trUtf8( "= Version SAGA %s est inférieure à 2.1.0 " % ( str( versionSAGA))))
-                physiocap_log ( self.trUtf8( "= ou supérieure à 2.1.2"))
+                physiocap_log ( self.trUtf8( "= Version SAGA %s est parmi à 2.1.0-2 " % ( str( versionSAGA))))
+                physiocap_log ( self.trUtf8( "= ou égale à 2.3.2"))
                 physiocap_log ( self.trUtf8( "= On force l'utilisation de Gdal : "))
                 dialogue.radioButtonSAGA.setEnabled( False)
                 dialogue.radioButtonGDAL.setChecked(  Qt.Checked)
@@ -254,8 +255,8 @@ class PhysiocapIntra( QtGui.QDialog):
         
         if dialogue.radioButtonSAGA.isChecked():
             # Appel SAGA power à 2 fixe
-            physiocap_log( self.trUtf8( "=~= Interpolation SAGA dans {0}").\
-                format(  nom_court_raster))
+            physiocap_log( self.trUtf8( "=~= Interpolation SAGA {0} dans {1}").\
+                format(  versionNum, nom_court_raster))
             # Les parametres proviennent du modele d'interpolation Physiocap du CIVC
             # apres le champ, 1 veut dire Linearly discreasing with search radius
             # 2 est power
@@ -267,14 +268,35 @@ class PhysiocapIntra( QtGui.QDialog):
             # 10 nombre de point max
             # extent calculé precedemment
             # cellsize ou taille du pixel (unité de la carte)
-            premier_raster = processing.runalg("saga:inversedistanceweighted",
+            
+            # differenciation version SAGA pour IDW
+            if ( versionNum == 2.32):
+                premier_raster = processing.runalg("saga:inversedistanceweighted",
+                nom_point, le_champ_choisi, 1, 2, False, 
+                1, 0,rayonDoubleIntra, 0, 1, 10,
+                0, 0, 10, 
+                info_extent, pixelIntra, 
+                0, 0, None, 3,
+                None)
+                NOM_RETOUR_SAGA = "TARGET_OUT_GRID"
+            else:  # Acienne version 2.10 - 2.12
+                premier_raster = processing.runalg("saga:inversedistanceweighted",
                 nom_point, le_champ_choisi, 1, 2, 1, 0,rayonDoubleIntra, 0, 1,
                 10, info_extent, pixelIntra,
                 None) 
-                                       
-            if (( premier_raster != None) and ( str( list( premier_raster)).find( "USER_GRID") != -1)):
+                NOM_RETOUR_SAGA = "USER_GRID"
+
+
+##            if ( premier_raster == None):
+##                physiocap_error( self, self.trUtf8( "=~= Problème pas de retour {0} partie-{1}").\
+##                    format("inversedistanceweighted","A.1"))
+##            else:
+##                physiocap_error( self, self.trUtf8( "=~= trace {0}").\
+##                    format( str( list( premier_raster))))
+                                                       
+            if (( premier_raster != None) and ( str( list( premier_raster)).find( NOM_RETOUR_SAGA) != -1)):
                 if premier_raster[ 'USER_GRID'] != None:
-                    nom_raster_temp = premier_raster[ 'USER_GRID']
+                    nom_raster_temp = premier_raster[ NOM_RETOUR_SAGA]
                     physiocap_log( "=~= Premier raster : inversedistanceweighted \n{0}".\
                         format( nom_raster_temp), "INTRA")
                 else:

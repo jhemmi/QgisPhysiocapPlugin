@@ -5,7 +5,7 @@ add i18n/Physiocap_en.qm,
 add *.py,
 add .gitignore,
 add help/version_1_5,tout le repertoire
-"commit -m""V1.3.2 TIPS »",Enterine un lot de modif et met un commentaire dans github
+commit -m"V1.3.2 TIPS",Enterine un lot de modif et met un commentaire dans github
 pull https://github.com/jhemmi/QgisPhysiocapPlugin,récupère les modifs de github non présente sur le repo local
 push https://github.com/jhemmi/QgisPhysiocapPlugin,dépose les modifs locales sous github (user et mdp)
 ,
